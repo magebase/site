@@ -215,7 +215,9 @@ class Api::QuotesController < ApplicationController
         project_plan: project_plan,
         ai_insights: ai_analysis[:insights],
         generated_tags: generated_tags,
-        ai_adjustments: ai_analysis[:adjustments]
+        ai_adjustments: ai_analysis[:adjustments],
+        estimated_time_to_mvp: project_plan[:timeline_months],
+        time_to_mvp_marketing: generate_time_to_mvp_marketing_text(project_plan[:timeline_months], params[:priority])
       )
     }
   rescue => e
@@ -248,7 +250,14 @@ class Api::QuotesController < ApplicationController
     timeline_adjustment = calculate_timeline_adjustment(project_plan)
     capacity_adjustment = calculate_capacity_adjustment
 
-    estimated_cost = base_cost * complexity_multiplier * timeline_adjustment * capacity_adjustment
+    # Apply priority cost adjustment
+    priority_multiplier = case params[:priority]
+    when "high" then 1.5  # 50% more expensive
+    when "low" then 0.75  # 25% less expensive
+    else 1.0              # medium priority
+    end
+
+    estimated_cost = base_cost * complexity_multiplier * timeline_adjustment * capacity_adjustment * priority_multiplier
 
     case pricing_model
     when "flat_fee"
@@ -304,6 +313,12 @@ class Api::QuotesController < ApplicationController
 
   # Copy methods from ProjectPlanningService
   def calculate_timeline(features, use_case)
+    # If timeline parameter is not provided, use RubyLLM to calculate it
+    if params[:timeline].blank?
+      return calculate_timeline_with_ruby_llm(features, use_case)
+    end
+
+    # Otherwise, use the existing formula-based calculation
     base_timelines = {
       'ecommerce' => 2,
       'social_app' => 3,
@@ -322,7 +337,114 @@ class Api::QuotesController < ApplicationController
     complex_features = features.select { |f| ['ai_ml', 'blockchain', 'real_time_features'].include?(f.name) }.count
     feature_adjustment = features.count * 0.2
 
-    (base_months + complex_features + feature_adjustment).round
+    # Apply velocity adjustment
+    velocity_multiplier = case params[:timeline] # Note: timeline param now contains velocity
+    when "ASAP (Rush)" then 0.5
+    when "1-2 weeks" then 0.75
+    when "1 month" then 1.0
+    when "2-3 months" then 1.25
+    when "3-6 months" then 1.5
+    when "6+ months" then 2.0
+    else 1.0
+    end
+
+    # Apply priority adjustment
+    priority_multiplier = case params[:priority]
+    when "high" then 0.75  # 25% faster
+    when "low" then 1.5   # 50% slower
+    else 1.0              # medium priority
+    end
+
+    ((base_months + complex_features + feature_adjustment) * velocity_multiplier * priority_multiplier).round
+  end
+
+  def calculate_timeline_with_ruby_llm(features, use_case)
+    return 3 unless ENV["OPENAI_API_KEY"].present?
+
+    begin
+      # Prepare context for AI analysis
+      context = {
+        use_case: use_case,
+        priority: params[:priority] || "medium",
+        customization_level: params[:customization_level],
+        integration_complexity: params[:integration_complexity],
+        redesign_count: params[:redesign_count] || 0,
+        selected_features: features.pluck(:name),
+        special_requirements: params[:special_requirements],
+        inspiration: params[:inspiration]
+      }
+
+      # AI prompt for timeline calculation
+      timeline_prompt = <<~PROMPT
+        Based on the following software development project details, estimate the timeline in months:
+
+        Project Details:
+        - Use Case: #{context[:use_case]}
+        - Priority: #{context[:priority]}
+        - Customization Level: #{context[:customization_level]}
+        - Integration Complexity: #{context[:integration_complexity]}
+        - Redesign Iterations: #{context[:redesign_count]}
+        - Selected Features: #{context[:selected_features].join(', ')}
+        - Special Requirements: #{context[:special_requirements]}
+        - Inspiration: #{context[:inspiration]}
+
+        Consider:
+        - Base timeline for this type of project
+        - Complexity of selected features
+        - Priority level impact on speed
+        - Integration requirements
+        - Customization level
+
+        Provide only a JSON response with a single key "months" containing the estimated number of months (integer between 1-12).
+        Example: {"months": 3}
+      PROMPT
+
+      # Get AI response
+      response = RubyLLM.complete(
+        model: "gpt-4",
+        messages: [{ role: "user", content: timeline_prompt }],
+        temperature: 0.2
+      )
+
+      # Parse AI response
+      ai_response = JSON.parse(response.content)
+      months = ai_response["months"].to_i
+
+      # Ensure reasonable bounds
+      months.clamp(1, 12)
+    rescue => e
+      Rails.logger.error "AI timeline calculation error: #{e.message}"
+      # Fallback to formula-based calculation
+      calculate_timeline_with_formula(features, use_case)
+    end
+  end
+
+  def calculate_timeline_with_formula(features, use_case)
+    base_timelines = {
+      'ecommerce' => 2,
+      'social_app' => 3,
+      'marketplace' => 4,
+      'saas' => 5,
+      'mobile_app' => 3,
+      'web_app' => 2,
+      'api_integration' => 1,
+      'data_analytics' => 3,
+      'ai_ml' => 6,
+      'blockchain' => 8
+    }
+
+    base_months = base_timelines[use_case] || 3
+    complex_features = features.select { |f| ['ai_ml', 'blockchain', 'real_time_features'].include?(f.name) }.count
+    feature_adjustment = features.count * 0.2
+
+    # Apply priority adjustment
+    priority_multiplier = case params[:priority]
+    when "high" then 0.75  # 25% faster
+    when "low" then 1.5   # 50% slower
+    else 1.0              # medium priority
+    end
+
+    ((base_months + complex_features + feature_adjustment) * priority_multiplier).round
   end
 
   def generate_milestones(features, use_case)
@@ -639,5 +761,18 @@ class Api::QuotesController < ApplicationController
     end
 
     adjusted_data
+  end
+
+  def generate_time_to_mvp_marketing_text(months, priority)
+    base_text = "Based on our experience delivering #{months} similar projects, we can confidently estimate your MVP will be ready in approximately #{months} month#{months == 1 ? '' : 's'}."
+
+    case priority
+    when "high"
+      "#{base_text} With high priority, we'll expedite the development process to deliver 25% faster than our standard timeline."
+    when "low"
+      "#{base_text} With low priority, we'll take the time to perfect every detail, though this extends the timeline by 50%."
+    else
+      "#{base_text} This estimate is based on our proven track record of delivering similar projects on time and within budget."
+    end
   end
 end

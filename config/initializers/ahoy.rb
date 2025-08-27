@@ -4,11 +4,7 @@ end
 # set to true for JavaScript tracking
 Ahoy.api = false
 
-# better user agent parsing
-Ahoy.user_agent_parser = :device_detector
-
-# GDPR compliance
-Ahoy.mask_ips = true
-
-# Track bot traffic
-Ahoy.track_bots = true
+# set to true for geocoding (and add the geocoder gem to your Gemfile)
+# we recommend configuring local geocoding as well
+# see https://github.com/ankane/ahoy#geocoding
+Ahoy.geocode = false

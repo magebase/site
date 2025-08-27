@@ -6,11 +6,10 @@ export function FeaturesSection() {
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Why choose Magebase?
+            Why Choose Magebase?
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Professional software development with reliable service you can
-            trust
+            AI-powered development with Wyoming jurisdiction, transparent pricing, and guaranteed delivery
           </p>
         </div>
 
@@ -20,11 +19,10 @@ export function FeaturesSection() {
               <Zap className="w-6 h-6 text-white" />
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-3">
-              Reliable code quality
+              AI-Powered Estimation
             </h3>
             <p className="text-gray-600">
-              Clean, maintainable code following industry best practices and
-              modern development standards.
+              RubyLLM analyzes your project requirements to provide accurate timelines and pricing with detailed project breakdowns.
             </p>
           </div>
 
@@ -33,11 +31,10 @@ export function FeaturesSection() {
               <Phone className="w-6 h-6 text-white" />
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-3">
-              24/7 technical support
+              Wyoming Jurisdiction
             </h3>
             <p className="text-gray-600">
-              Round-the-clock technical support and emergency assistance when
-              you need it most.
+              All contracts and legal agreements are governed by Wyoming law, providing clear and favorable terms for your business.
             </p>
           </div>
 
@@ -46,11 +43,10 @@ export function FeaturesSection() {
               <Truck className="w-6 h-6 text-white" />
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-3">
-              Fast development
+              Guaranteed Timelines
             </h3>
             <p className="text-gray-600">
-              Quick turnaround times and flexible delivery scheduling to meet
-              your project timelines.
+              AI-calculated delivery estimates with priority-based scheduling to ensure your project launches on time.
             </p>
           </div>
 
@@ -59,11 +55,10 @@ export function FeaturesSection() {
               <Shield className="w-6 h-6 text-white" />
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-3">
-              Secure & scalable
+              Secure Cloud Infrastructure
             </h3>
             <p className="text-gray-600">
-              Built with security best practices and designed to scale with your
-              business growth.
+              Deployed on secure, scalable cloud platforms with built-in security features and compliance with industry standards.
             </p>
           </div>
 
@@ -72,11 +67,10 @@ export function FeaturesSection() {
               <Wrench className="w-6 h-6 text-white" />
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-3">
-              Expert development
+              Ruby on Rails Expertise
             </h3>
             <p className="text-gray-600">
-              Professional development and deployment by experienced software
-              engineers.
+              Specialized development using Ruby on Rails with React frontends, delivering robust and maintainable web applications.
             </p>
           </div>
 
@@ -85,11 +79,10 @@ export function FeaturesSection() {
               <DollarSign className="w-6 h-6 text-white" />
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-3">
-              Competitive pricing
+              Transparent Milestone Billing
             </h3>
             <p className="text-gray-600">
-              Transparent pricing with no hidden fees and flexible payment
-              terms.
+              Clear pricing breakdown with milestone-based payments, no hidden fees, and detailed cost explanations.
             </p>
           </div>
         </div>

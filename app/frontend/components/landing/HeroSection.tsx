@@ -36,9 +36,8 @@ export function HeroSection({ onQuoteFormClick }: HeroSectionProps) {
           </h1>
 
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Professional web applications, mobile apps, and cloud solutions.
-            Fast development, reliable code, and exceptional service across all
-            platforms.
+            Custom software development with AI-powered project planning, transparent pricing, and guaranteed delivery timelines.
+            Wyoming-based development with expert Ruby on Rails and React expertise.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -63,15 +62,15 @@ export function HeroSection({ onQuoteFormClick }: HeroSectionProps) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="flex items-center gap-3">
               <CheckCircle className="w-5 h-5 text-green-600" />
-              <span className="text-gray-700">Agile development process</span>
+              <span className="text-gray-700">AI-powered project estimation</span>
             </div>
             <div className="flex items-center gap-3">
               <CheckCircle className="w-5 h-5 text-green-600" />
-              <span className="text-gray-700">Modern tech stack</span>
+              <span className="text-gray-700">Wyoming jurisdiction contracts</span>
             </div>
             <div className="flex items-center gap-3">
               <CheckCircle className="w-5 h-5 text-green-600" />
-              <span className="text-gray-700">24/7 technical support</span>
+              <span className="text-gray-700">Transparent milestone billing</span>
             </div>
           </div>
         </div>

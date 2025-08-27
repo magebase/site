@@ -4,10 +4,10 @@ export function HowItWorksSection() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            How it works
+            How Magebase Works
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Get your custom software solution in three simple steps
+            From concept to launch in just three streamlined steps
           </p>
         </div>
 
@@ -17,10 +17,10 @@ export function HowItWorksSection() {
               <span className="text-white font-bold text-xl">1</span>
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-3">
-              Project consultation
+              Discovery & Planning
             </h3>
             <p className="text-gray-600">
-              Discuss your requirements and goals with our technical team.
+              We analyze your business needs, review your requirements, and create a detailed project roadmap with AI-powered insights.
             </p>
           </div>
 
@@ -29,11 +29,10 @@ export function HowItWorksSection() {
               <span className="text-white font-bold text-xl">2</span>
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-3">
-              Development & delivery
+              Agile Development
             </h3>
             <p className="text-gray-600">
-              We build your solution using modern technologies and best
-              practices.
+              Our expert team builds your solution using modern technologies, with regular updates and transparent communication throughout.
             </p>
           </div>
 
@@ -42,11 +41,10 @@ export function HowItWorksSection() {
               <span className="text-white font-bold text-xl">3</span>
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-3">
-              Launch & support
+              Launch & Support
             </h3>
             <p className="text-gray-600">
-              Deploy your application and receive ongoing maintenance and
-              support.
+              We deploy your application, provide comprehensive testing, and offer ongoing support to ensure your success.
             </p>
           </div>
         </div>
