@@ -34,6 +34,30 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+# Analytics
+gem "ahoy_matey", "~> 5.0"
+
+# Authorization
+gem "pundit", "~> 2.3"
+
+# Authentication
+gem "devise", "~> 4.9"
+gem "omniauth", "~> 2.1"
+
+# AI Integration
+gem "ruby_llm", "~> 1.6"
+
+# Multi-tenancy
+gem "acts_as_tenant", "~> 1.0"
+
+# N+1 query optimization
+gem "goldiloader", "~> 5.2"
+
+# Testing gems
+gem "database_cleaner", "~> 2.0"
+gem "factory_bot_rails", "~> 6.4"
+gem "vcr", "~> 6.2"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -43,6 +67,9 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # Generate fake data
+  gem "faker", "~> 3.2"
 end
 
 group :development do
@@ -62,3 +89,6 @@ gem "vite_rails", "~> 3.0"
 
 # Admin interface
 gem "rails_admin", "~> 3.1"
+
+# State machine for models
+gem "aasm", "~> 5.5"

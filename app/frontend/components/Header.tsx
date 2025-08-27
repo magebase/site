@@ -20,10 +20,10 @@ const Header: React.FC = () => {
               </div>
               <div>
                 <h1 className="text-xl md:text-2xl font-bold text-white">
-                  Genfix
+                  Magebase
                 </h1>
                 <p className="text-xs text-gray-400 hidden sm:block">
-                  Powering Brisbane Since 2020
+                  Software Development Since 2024
                 </p>
               </div>
             </div>

@@ -6,19 +6,6 @@ This platform enables clients to request quotes for custom software development 
 
 ## Project Specifications
 
-### Functional Requirements
-
-#### FR-001: User Registration & Authentication
-
-- **Description**: Users must be able to create accounts and authenticate securely
-- **Priority**: High
-- **Acceptance Criteria**:
-  - Users can register with email and password
-  - Email verification required for account activation
-  - Password reset functionality available
-  - Secure login/logout process
-  - Session management with automatic timeout
-
 #### FR-002: Interactive Quote Form
 
 - **Description**: Dynamic form allowing clients to specify project requirements
@@ -368,7 +355,7 @@ Pre-configured templates for:
 - Casino/gaming applications
 - Sports betting platforms
 - Neo-banks/FinTech apps
-- Generator hire services
+- Software development services
 - Tradesperson service apps
 - Doctor's offices
 - Veterinary clinics

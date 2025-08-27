@@ -1,5 +1,5 @@
-service: genfix
-image: magebase/genfix
+service: magebase
+image: magebase/magebase
 
 servers:
   web:
@@ -13,10 +13,10 @@ servers:
 
 proxy:
   ssl: true
-  host: genfix.com
+  host: magebase.dev
 
 registry:
-  username: genfix
+  username: magebase
   password:
     - KAMAL_REGISTRY_PASSWORD
 
@@ -26,7 +26,7 @@ env:
     - POSTGRES_PASSWORD
   clear:
     SOLID_QUEUE_IN_PUMA: true
-    DB_HOST: genfix-db
+    DB_HOST: magebase-db
     INERTIA_SSR_URL: http://vite_ssr:13714
 
 aliases:
@@ -36,7 +36,7 @@ aliases:
   dbc: app exec --interactive --reuse "bin/rails dbconsole"
 
 volumes:
-  - genfix_storage:/rails/storage
+  - magebase_storage:/rails/storage
 
 asset_path: /rails/public/assets
 
@@ -52,8 +52,8 @@ accessories:
     port: "127.0.0.1:5432:5432" # expose to localhost only
     env:
       clear:
-        POSTGRES_USER: genfix
-        POSTGRES_DB: genfix_production
+        POSTGRES_USER: magebase
+        POSTGRES_DB: magebase_production
         INERTIA_SSR_URL: http://vite_ssr:13714
       secret:
         - POSTGRES_PASSWORD

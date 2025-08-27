@@ -36,7 +36,7 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ blogPosts }) => {
 
   return (
     <div className="font-sans text-gray-900 bg-white min-h-screen">
-      <Head title="Blog - Genfix Generator Rentals" />
+      <Head title="Blog - Magebase Software Development" />
 
       <Header />
 
@@ -48,15 +48,15 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ blogPosts }) => {
               className="text-4xl md:text-6xl font-bold mb-6"
               data-aos="fade-up"
             >
-              Generator Insights & Tips
+              Software Development Insights & Tips
             </h1>
             <p
               className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto"
               data-aos="fade-up"
               data-aos-delay="200"
             >
-              Stay informed with the latest generator rental tips, maintenance
-              advice, and industry insights from the Genfix team.
+              Stay informed with the latest software development tips,
+              technology trends, and industry insights from the Magebase team.
             </p>
           </div>
         </section>
@@ -118,7 +118,7 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ blogPosts }) => {
                   No blog posts yet
                 </h3>
                 <p className="text-gray-600">
-                  Check back soon for the latest generator rental tips and
+                  Check back soon for the latest software development tips and
                   insights!
                 </p>
               </div>

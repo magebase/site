@@ -12,16 +12,15 @@ export default function Footer() {
                 <Zap className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-white">Genfix</h3>
+                <h3 className="text-2xl font-bold text-white">Magebase</h3>
                 <p className="text-gray-400 text-sm">
-                  Powering Brisbane Since 2020
+                  Software Development Since 2024
                 </p>
               </div>
             </div>
             <p className="text-gray-400 mb-4">
-              Your trusted partner for commercial generator hire across
-              Brisbane. Fast delivery, reliable equipment, and exceptional
-              service.
+              Your trusted partner for custom software development. Modern web
+              applications, mobile apps, and cloud solutions.
             </p>
             <div className="flex space-x-4">
               <a
@@ -140,7 +139,7 @@ export default function Footer() {
                     d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                   />
                 </svg>
-                <span className="text-gray-200">hello@genfix.example</span>
+                <span className="text-gray-200">hello@magebase.dev</span>
               </div>
               <div className="flex items-center gap-2">
                 <svg
@@ -162,7 +161,7 @@ export default function Footer() {
                     d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                 </svg>
-                <span className="text-gray-200">Brisbane, QLD</span>
+                <span className="text-gray-200">Remote / Global</span>
               </div>
             </div>
           </div>
@@ -171,8 +170,8 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
-            © {new Date().getFullYear()} Genfix. All rights reserved. ⚡
-            Powering Your Projects
+            © {new Date().getFullYear()} Magebase. All rights reserved. ⚡ Fast
+            and Cheap Development
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a

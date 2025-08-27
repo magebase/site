@@ -8,7 +8,7 @@ one:
   rental_duration: MyString
   delivery_address: MyString
   special_requirements: MyText
-  status: MyString
+  aasm_state: draft
 
 two:
   name: MyString
@@ -18,4 +18,4 @@ two:
   rental_duration: MyString
   delivery_address: MyString
   special_requirements: MyText
-  status: MyString
+  aasm_state: draft

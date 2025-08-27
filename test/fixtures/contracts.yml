@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  quote_request: one
+  client: one
+  generated_clauses: MyText
+  jurisdiction: MyString
+  signed_at: 2025-08-27 18:17:41
+  signature_method: MyString
+  contract_data: 
+
+two:
+  quote_request: two
+  client: two
+  generated_clauses: MyText
+  jurisdiction: MyString
+  signed_at: 2025-08-27 18:17:41
+  signature_method: MyString
+  contract_data: 

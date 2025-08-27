@@ -35,7 +35,7 @@ export default function BlogShow({ blogPost }: BlogShowProps) {
 
   return (
     <div className="font-sans text-gray-900 bg-gray-50 min-h-screen">
-      <Head title={`${blogPost.title} - Genfix Blog`} />
+      <Head title={`${blogPost.title} - Magebase Blog`} />
       <Header />
 
       <main className="w-full px-4 sm:px-6 lg:px-8 pt-24 pb-16">
