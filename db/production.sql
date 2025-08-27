@@ -1,0 +1,3 @@
+CREATE DATABASE genfix_production_cache;
+CREATE DATABASE genfix_production_queue;
+CREATE DATABASE genfix_production_cable;

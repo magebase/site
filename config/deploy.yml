@@ -1,0 +1,63 @@
+service: genfix
+image: magebase/genfix
+
+servers:
+  web:
+    - deploy@91.99.119.221
+  vite:
+    hosts:
+      - deploy@91.99.119.221
+    cmd: bin/vite ssr
+    options:
+      network-alias: vite_ssr
+
+proxy:
+  ssl: true
+  host: genfix.com
+
+registry:
+  username: genfix
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+env:
+  secret:
+    - RAILS_MASTER_KEY
+    - POSTGRES_PASSWORD
+  clear:
+    SOLID_QUEUE_IN_PUMA: true
+    DB_HOST: genfix-db
+    INERTIA_SSR_URL: http://vite_ssr:13714
+
+aliases:
+  console: app exec --interactive --reuse "bin/rails console"
+  shell: app exec --interactive --reuse "bash"
+  logs: app logs -f
+  dbc: app exec --interactive --reuse "bin/rails dbconsole"
+
+volumes:
+  - genfix_storage:/rails/storage
+
+asset_path: /rails/public/assets
+
+builder:
+  arch:
+    - amd64
+    - arm64
+
+accessories:
+  db:
+    image: postgres:16
+    host: 91.99.119.221
+    port: "127.0.0.1:5432:5432" # expose to localhost only
+    env:
+      clear:
+        POSTGRES_USER: genfix
+        POSTGRES_DB: genfix_production
+        INERTIA_SSR_URL: http://vite_ssr:13714
+      secret:
+        - POSTGRES_PASSWORD
+    files:
+      - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
+    directories:
+      - data:/var/lib/postgresql/data
