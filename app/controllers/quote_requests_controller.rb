@@ -41,21 +41,27 @@ class QuoteRequestsController < ApplicationController
 
     @quote_request = QuoteRequest.new(quote_request_data)
 
-    if @quote_request.save
-      # Associate selected features
-      if params[:quote_request][:feature_ids].present?
-        feature_ids = params[:quote_request][:feature_ids].map(&:to_i)
-        features = Feature.where(id: feature_ids)
-        @quote_request.selected_features = features
-      end
+    # Associate selected features BEFORE saving to pass validation
+    if params[:quote_request][:feature_ids].present?
+      feature_ids = params[:quote_request][:feature_ids].map(&:to_i)
+      features = Feature.where(id: feature_ids)
+      @quote_request.selected_features = features
+    end
 
+    if @quote_request.save
       # Trigger AI pricing and project planning
       PricingService.new(@quote_request).calculate_price
       ProjectPlanningService.new(@quote_request).generate_plan
 
+      # Create tenant for client if they don't have one
+      create_or_find_client_tenant(client)
+
+      # Send quote ready email instead of direct PDF
+      send_quote_ready_email(@quote_request)
+
       render json: {
         success: true,
-        message: 'Quote request submitted successfully!',
+        message: 'Quote request submitted successfully! Check your email for login instructions.',
         quote_request: @quote_request.as_json(include: :selected_features)
       }, status: :created
     else
@@ -132,21 +138,53 @@ class QuoteRequestsController < ApplicationController
 
   private
 
-  def generate_pdf
-    @quote_request = QuoteRequest.find(params[:id])
+  def create_or_find_client_tenant(client)
+    return unless client&.email.present?
 
-    # Generate PDF
-    pdf_generator = QuotePdfGenerator.new(@quote_request)
-    pdf_data = pdf_generator.generate.render
+    # Create a tenant name from client company or contact name
+    tenant_name = client.company_name.presence || client.contact_name.presence || "Client Project"
+    subdomain = generate_unique_subdomain(tenant_name)
 
-    # Send email with PDF attachment (async)
-    QuoteEmailJob.perform_later(@quote_request.id, pdf_data)
+    # Find or create user account for client
+    user = User.find_or_create_by!(email: client.email) do |u|
+      u.name = client.contact_name || client.company_name
+      u.password = SecureRandom.hex(16) # Generate a random password
+      u.password_confirmation = u.password
+    end
 
-    # Return PDF for download
-    send_data pdf_data,
-              filename: "scope-document-#{@quote_request.id}.pdf",
-              type: 'application/pdf',
-              disposition: 'attachment'
+    # Create tenant if user doesn't have one
+    unless user.tenants.exists?
+      tenant = user.tenants.create!(
+        name: tenant_name,
+        subdomain: subdomain
+      )
+
+      # Associate the quote request with the tenant
+      @quote_request.update(tenant_id: tenant.id)
+    end
+  end
+
+  def generate_unique_subdomain(base_name)
+    # Clean the name and create a subdomain
+    subdomain = base_name.downcase.gsub(/[^a-z0-9]/, '')
+
+    # Ensure uniqueness
+    original_subdomain = subdomain
+    counter = 1
+    while Tenant.exists?(subdomain: subdomain)
+      subdomain = "#{original_subdomain}#{counter}"
+      counter += 1
+    end
+
+    subdomain
+  end
+
+  def send_quote_ready_email(quote_request)
+    return unless quote_request.client&.email.present?
+    return if Rails.env.test? # Skip email sending in test environment
+
+    # Send email asking client to sign in
+    QuoteReadyEmailService.send_quote_ready_email(quote_request)
   end
 
   def generate_timeline_csv(quote_request)

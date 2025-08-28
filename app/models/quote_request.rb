@@ -2,6 +2,7 @@ class QuoteRequest < ApplicationRecord
   include AASM
 
   belongs_to :client, optional: true
+  belongs_to :tenant, optional: true
   has_many :quote_request_features, dependent: :destroy
   has_many :selected_features, through: :quote_request_features, source: :feature
   has_many :project_milestones, dependent: :destroy
@@ -82,5 +83,17 @@ class QuoteRequest < ApplicationRecord
   def selected_social_providers_data
     return [] unless selected_social_providers.present?
     selected_social_providers.is_a?(Array) ? selected_social_providers : JSON.parse(selected_social_providers) rescue []
+  end
+
+  # Get use case data by converting display name to slug
+  def use_case_data
+    return nil unless use_case.present?
+    UseCaseDataService.find_by_name_or_slug(use_case)
+  end
+
+  # Get use case slug from display name
+  def use_case_slug
+    return nil unless use_case.present?
+    UseCaseDataService.display_name_to_slug(use_case)
   end
 end
