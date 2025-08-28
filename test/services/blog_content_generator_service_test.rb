@@ -28,4 +28,21 @@ class BlogContentGeneratorServiceTest < ActiveSupport::TestCase
     assert content.key?(:excerpt)
     assert content.key?(:content)
   end
+
+  test "#api_keys_configured? returns false when no keys are set" do
+    # Test that the service correctly detects missing API keys
+    original_openai = ENV["OPENAI_API_KEY"]
+    original_anthropic = ENV["ANTHROPIC_API_KEY"]
+
+    ENV["OPENAI_API_KEY"] = nil
+    ENV["ANTHROPIC_API_KEY"] = nil
+
+    # Create a new service instance to pick up the environment change
+    service_without_keys = BlogContentGeneratorService.new
+
+    refute service_without_keys.send(:api_keys_configured?)
+  ensure
+    ENV["OPENAI_API_KEY"] = original_openai
+    ENV["ANTHROPIC_API_KEY"] = original_anthropic
+  end
 end
