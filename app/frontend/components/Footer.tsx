@@ -30,11 +30,9 @@ export default function Footer() {
       { name: "Case Studies", href: "/case-studies" },
     ],
     resources: [
-      { name: "Documentation", href: "/documentation" },
       { name: "Help Center", href: "/help-center" },
       { name: "Community", href: "/community" },
       { name: "Webinars", href: "/webinars" },
-      { name: "Templates", href: "/templates" },
     ],
     legal: [
       { name: "Privacy Policy", href: "/privacy-policy" },
