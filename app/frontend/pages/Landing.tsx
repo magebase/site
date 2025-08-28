@@ -4,6 +4,7 @@ import { AnnouncementBar } from "../components/landing/AnnouncementBar";
 import { HeroSection } from "../components/landing/HeroSection";
 import { SocialProofSection } from "../components/landing/SocialProofSection";
 import { ValuePropositionSection } from "../components/landing/ValuePropositionSection";
+import { AppleCardsSection } from "../components/landing/AppleCardsSection";
 import QuoteFormSection from "../components/landing/QuoteFormSection";
 import { HowItWorksSection } from "../components/landing/HowItWorksSection";
 import { FeaturesSection } from "../components/landing/FeaturesSection";
@@ -42,6 +43,9 @@ export default function Landing({ user }: LandingProps) {
 
         {/* Value Proposition - BENEFITS */}
         <ValuePropositionSection />
+
+        {/* Apple Cards - EXPERTISE SHOWCASE */}
+        <AppleCardsSection />
 
         {/* Quote Form - CONVERSION */}
         <section className="relative px-4 sm:px-6 lg:px-8 pt-16 pb-24 overflow-hidden bg-gradient-to-br from-gray-50 to-blue-50">
