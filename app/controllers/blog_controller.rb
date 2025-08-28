@@ -63,8 +63,7 @@ class BlogController < ApplicationController
         use_case_slug: use_case_slug,
         author_name: "AI Content Generator",
         author_title: "Technical Writer & Developer",
-        published: true,
-        tags: content_data[:tags] || []
+        published: true
       )
 
       render json: {
