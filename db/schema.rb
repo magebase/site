@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_28_020313) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_28_025347) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -81,6 +81,52 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_020313) do
     t.string "author_name"
     t.string "author_title"
     t.string "author_profile_picture"
+  end
+
+  create_table "careers", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "slug", null: false
+    t.text "description", null: false
+    t.text "requirements", null: false
+    t.string "location", null: false
+    t.string "employment_type"
+    t.string "salary_range"
+    t.string "status", default: "open"
+    t.text "excerpt"
+    t.string "meta_title"
+    t.text "meta_description"
+    t.boolean "published", default: false
+    t.datetime "published_at"
+    t.integer "position", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location"], name: "index_careers_on_location"
+    t.index ["published"], name: "index_careers_on_published"
+    t.index ["slug"], name: "index_careers_on_slug", unique: true
+    t.index ["status"], name: "index_careers_on_status"
+  end
+
+  create_table "case_studies", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "slug", null: false
+    t.string "client_name", null: false
+    t.string "industry", null: false
+    t.text "challenge", null: false
+    t.text "solution", null: false
+    t.text "results", null: false
+    t.text "excerpt"
+    t.string "meta_title"
+    t.text "meta_description"
+    t.string "client_logo_url"
+    t.string "featured_image_url"
+    t.boolean "published", default: false
+    t.datetime "published_at"
+    t.integer "position", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["industry"], name: "index_case_studies_on_industry"
+    t.index ["published"], name: "index_case_studies_on_published"
+    t.index ["slug"], name: "index_case_studies_on_slug", unique: true
   end
 
   create_table "chats", force: :cascade do |t|
@@ -161,6 +207,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_020313) do
     t.index ["tool_call_id"], name: "index_messages_on_tool_call_id"
   end
 
+  create_table "pages", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "slug", null: false
+    t.text "content", null: false
+    t.text "excerpt"
+    t.string "meta_title"
+    t.text "meta_description"
+    t.boolean "published", default: false
+    t.datetime "published_at"
+    t.string "page_type"
+    t.integer "position", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["page_type"], name: "index_pages_on_page_type"
+    t.index ["published"], name: "index_pages_on_published"
+    t.index ["slug"], name: "index_pages_on_slug", unique: true
+  end
+
   create_table "payments", force: :cascade do |t|
     t.bigint "quote_request_id", null: false
     t.decimal "amount"
@@ -231,6 +295,26 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_020313) do
     t.index ["use_case"], name: "index_quote_requests_on_use_case"
   end
 
+  create_table "services", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "slug", null: false
+    t.text "description", null: false
+    t.text "content", null: false
+    t.text "excerpt"
+    t.string "meta_title"
+    t.text "meta_description"
+    t.string "icon"
+    t.string "category"
+    t.boolean "published", default: false
+    t.datetime "published_at"
+    t.integer "position", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category"], name: "index_services_on_category"
+    t.index ["published"], name: "index_services_on_published"
+    t.index ["slug"], name: "index_services_on_slug", unique: true
+  end
+
   create_table "team_capacities", force: :cascade do |t|
     t.integer "total_developers", null: false
     t.integer "available_developers", default: 0, null: false
@@ -239,6 +323,49 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_020313) do
     t.datetime "last_updated", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "team_members", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "position", null: false
+    t.text "bio", null: false
+    t.string "email"
+    t.string "phone"
+    t.string "linkedin_url"
+    t.string "twitter_url"
+    t.string "github_url"
+    t.string "profile_image_url"
+    t.boolean "active", default: true
+    t.integer "sort_order", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_team_members_on_active"
+    t.index ["sort_order"], name: "index_team_members_on_sort_order"
+  end
+
+  create_table "templates", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "slug", null: false
+    t.text "description", null: false
+    t.string "category", null: false
+    t.text "features"
+    t.string "preview_image_url", null: false
+    t.string "download_url"
+    t.string "demo_url"
+    t.decimal "price", precision: 10, scale: 2
+    t.boolean "is_free", default: false
+    t.text "excerpt"
+    t.string "meta_title"
+    t.text "meta_description"
+    t.boolean "published", default: false
+    t.datetime "published_at"
+    t.integer "position", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category"], name: "index_templates_on_category"
+    t.index ["is_free"], name: "index_templates_on_is_free"
+    t.index ["published"], name: "index_templates_on_published"
+    t.index ["slug"], name: "index_templates_on_slug", unique: true
   end
 
   create_table "tool_calls", force: :cascade do |t|
@@ -266,6 +393,31 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_020313) do
     t.string "avatar_url"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "webinars", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "slug", null: false
+    t.text "description", null: false
+    t.string "speaker_name", null: false
+    t.text "speaker_bio", null: false
+    t.datetime "scheduled_at", null: false
+    t.integer "duration_minutes"
+    t.string "registration_url"
+    t.string "video_url"
+    t.text "excerpt"
+    t.string "meta_title"
+    t.text "meta_description"
+    t.string "speaker_image_url"
+    t.string "thumbnail_url"
+    t.boolean "published", default: false
+    t.datetime "published_at"
+    t.integer "position", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["published"], name: "index_webinars_on_published"
+    t.index ["scheduled_at"], name: "index_webinars_on_scheduled_at"
+    t.index ["slug"], name: "index_webinars_on_slug", unique: true
   end
 
   add_foreign_key "contracts", "clients"

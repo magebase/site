@@ -19,8 +19,9 @@ export function AppleCardsSection() {
             </div>
           </div>
           <p className="text-gray-700">
-            Build scalable web applications with modern frameworks. From MVPs to enterprise solutions,
-            we deliver fast, responsive, and user-friendly applications.
+            Build scalable web applications with modern frameworks. From MVPs to
+            enterprise solutions, we deliver fast, responsive, and user-friendly
+            applications.
           </p>
           <div className="grid grid-cols-2 gap-2 text-sm">
             <div className="flex items-center gap-2">
@@ -54,13 +55,16 @@ export function AppleCardsSection() {
               <Smartphone className="w-6 h-6 text-purple-600" />
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900">Native Mobile Apps</h3>
+              <h3 className="font-semibold text-gray-900">
+                Native Mobile Apps
+              </h3>
               <p className="text-sm text-gray-600">React Native, Flutter</p>
             </div>
           </div>
           <p className="text-gray-700">
-            Create engaging mobile experiences that users love. We develop cross-platform apps
-            that work seamlessly on both iOS and Android devices.
+            Create engaging mobile experiences that users love. We develop
+            cross-platform apps that work seamlessly on both iOS and Android
+            devices.
           </p>
           <div className="grid grid-cols-2 gap-2 text-sm">
             <div className="flex items-center gap-2">
@@ -99,8 +103,9 @@ export function AppleCardsSection() {
             </div>
           </div>
           <p className="text-gray-700">
-            Build powerful APIs that scale. From RESTful services to real-time WebSocket connections,
-            we create backend solutions that your frontend can rely on.
+            Build powerful APIs that scale. From RESTful services to real-time
+            WebSocket connections, we create backend solutions that your
+            frontend can rely on.
           </p>
           <div className="grid grid-cols-2 gap-2 text-sm">
             <div className="flex items-center gap-2">
@@ -134,13 +139,16 @@ export function AppleCardsSection() {
               <Zap className="w-6 h-6 text-orange-600" />
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900">AI-Powered Features</h3>
+              <h3 className="font-semibold text-gray-900">
+                AI-Powered Features
+              </h3>
               <p className="text-sm text-gray-600">ChatGPT, Custom ML Models</p>
             </div>
           </div>
           <p className="text-gray-700">
-            Integrate cutting-edge AI capabilities into your applications. From chatbots to predictive analytics,
-            we help you leverage the power of artificial intelligence.
+            Integrate cutting-edge AI capabilities into your applications. From
+            chatbots to predictive analytics, we help you leverage the power of
+            artificial intelligence.
           </p>
           <div className="grid grid-cols-2 gap-2 text-sm">
             <div className="flex items-center gap-2">
@@ -179,8 +187,9 @@ export function AppleCardsSection() {
             </div>
           </div>
           <p className="text-gray-700">
-            Security-first development approach. We implement industry best practices and compliance
-            standards to protect your data and your users.
+            Security-first development approach. We implement industry best
+            practices and compliance standards to protect your data and your
+            users.
           </p>
           <div className="grid grid-cols-2 gap-2 text-sm">
             <div className="flex items-center gap-2">
@@ -215,12 +224,15 @@ export function AppleCardsSection() {
             </div>
             <div>
               <h3 className="font-semibold text-gray-900">Agile Methodology</h3>
-              <p className="text-sm text-gray-600">Scrum, Kanban, Daily Standups</p>
+              <p className="text-sm text-gray-600">
+                Scrum, Kanban, Daily Standups
+              </p>
             </div>
           </div>
           <p className="text-gray-700">
-            Transparent development process with regular updates and collaboration.
-            We keep you involved throughout the entire development lifecycle.
+            Transparent development process with regular updates and
+            collaboration. We keep you involved throughout the entire
+            development lifecycle.
           </p>
           <div className="grid grid-cols-2 gap-2 text-sm">
             <div className="flex items-center gap-2">
@@ -246,21 +258,52 @@ export function AppleCardsSection() {
   ];
 
   return (
-    <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
+    <section className="py-24 bg-gradient-to-br from-white via-gray-50 to-blue-50/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Our <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Expertise</span>
+        <div className="text-center mb-20">
+          <div
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-100 to-purple-100 text-slate-700 px-6 py-3 rounded-full text-sm font-medium mb-6 border border-blue-200/50 shadow-sm"
+            data-aos="fade-down"
+            data-aos-duration="600"
+          >
+            <Code
+              className="w-4 h-4 text-blue-600"
+              data-aos="fade-in"
+              data-aos-duration="600"
+              data-aos-delay="100"
+            />
+            <span>Technical Excellence</span>
+          </div>
+          <h2
+            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight tracking-tight"
+            data-aos="fade-up"
+            data-aos-duration="600"
+            data-aos-delay="200"
+          >
+            Our{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Expertise
+            </span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            We specialize in cutting-edge technologies and modern development practices
-            to build exceptional digital products.
+          <p
+            className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-light"
+            data-aos="fade-up"
+            data-aos-duration="600"
+            data-aos-delay="400"
+          >
+            We specialize in cutting-edge technologies and modern development
+            practices to build exceptional digital products that scale and
+            perform.
           </p>
         </div>
 
-        <Carousel items={cards.map((card, index) => (
-          <Card key={index} card={card} index={index} />
-        ))} />
+        <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="600">
+          <Carousel
+            items={cards.map((card, index) => (
+              <Card key={index} card={card} index={index} />
+            ))}
+          />
+        </div>
       </div>
     </section>
   );

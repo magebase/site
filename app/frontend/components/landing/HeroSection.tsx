@@ -11,12 +11,16 @@ interface HeroSectionProps {
 
 export function HeroSection({ onQuoteFormClick }: HeroSectionProps) {
   return (
-    <section className="relative px-4 sm:px-6 lg:px-8 pt-16 pb-24 overflow-hidden">
+    <section className="relative px-4 sm:px-6 lg:px-8 pt-20 pb-32 overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50">
       <BackgroundBeams className="absolute inset-0" />
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-gray-100 text-gray-800 px-4 py-2 rounded-full text-sm font-medium mb-8">
-            <Zap className="w-4 h-4" />
+        <div className="text-center mb-20">
+          <div
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-100 to-purple-100 text-slate-700 px-6 py-3 rounded-full text-sm font-medium mb-10 border border-blue-200/50 shadow-sm"
+            data-aos="fade-down"
+            data-aos-duration="600"
+          >
+            <Zap className="w-4 h-4 text-blue-600" />
             <span>
               Digital solutions for
               <FlipWords
@@ -31,7 +35,12 @@ export function HeroSection({ onQuoteFormClick }: HeroSectionProps) {
             </span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+          <h1
+            className="text-5xl md:text-7xl font-bold text-gray-900 mb-8 leading-tight tracking-tight"
+            data-aos="fade-up"
+            data-aos-duration="800"
+            data-aos-delay="200"
+          >
             <TypewriterEffect
               words={[
                 { text: "Custom" },
@@ -48,48 +57,78 @@ export function HeroSection({ onQuoteFormClick }: HeroSectionProps) {
             />
           </h1>
 
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p
+            className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed font-light"
+            data-aos="fade-up"
+            data-aos-duration="800"
+            data-aos-delay="400"
+          >
             Custom software development with{" "}
             <Highlight>AI-powered project planning</Highlight>, transparent
             pricing, and guaranteed delivery timelines. Wyoming-based
             development with expert Ruby on Rails and React expertise.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <div
+            className="flex flex-col sm:flex-row gap-6 justify-center mb-16"
+            data-aos="fade-up"
+            data-aos-duration="800"
+            data-aos-delay="600"
+          >
             <MovingBorder duration={3000}>
               <button
                 onClick={onQuoteFormClick}
-                className="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-lg font-semibold hover:bg-gray-800 transition-colors"
+                className="group inline-flex items-center gap-3 bg-gradient-to-r from-gray-900 to-gray-800 text-white px-10 py-5 rounded-xl font-semibold hover:from-gray-800 hover:to-gray-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 Start your project
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
             </MovingBorder>
             <a
               href="tel:+61412345678"
-              className="inline-flex items-center gap-2 bg-white text-gray-900 px-8 py-4 rounded-lg font-semibold border border-gray-300 hover:bg-gray-50 transition-colors"
+              className="inline-flex items-center gap-3 bg-white text-gray-900 px-10 py-5 rounded-xl font-semibold border-2 border-gray-200 hover:border-gray-300 hover:bg-gray-50 transition-all duration-300 shadow-md hover:shadow-lg"
             >
-              <Phone className="w-4 h-4" />
+              <Phone className="w-5 h-5" />
               Call now
             </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="flex items-center gap-3">
-              <CheckCircle className="w-5 h-5 text-green-600" />
-              <span className="text-gray-700">
+          <div
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto"
+            data-aos="fade-up"
+            data-aos-duration="800"
+            data-aos-delay="800"
+          >
+            <div
+              className="flex items-center gap-4 p-4 bg-white/60 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm"
+              data-aos="fade-right"
+              data-aos-duration="600"
+              data-aos-delay="900"
+            >
+              <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0" />
+              <span className="text-gray-700 font-medium">
                 AI-powered project estimation
               </span>
             </div>
-            <div className="flex items-center gap-3">
-              <CheckCircle className="w-5 h-5 text-green-600" />
-              <span className="text-gray-700">
+            <div
+              className="flex items-center gap-4 p-4 bg-white/60 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm"
+              data-aos="fade-up"
+              data-aos-duration="600"
+              data-aos-delay="1000"
+            >
+              <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0" />
+              <span className="text-gray-700 font-medium">
                 Wyoming jurisdiction contracts
               </span>
             </div>
-            <div className="flex items-center gap-3">
-              <CheckCircle className="w-5 h-5 text-green-600" />
-              <span className="text-gray-700">
+            <div
+              className="flex items-center gap-4 p-4 bg-white/60 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm"
+              data-aos="fade-left"
+              data-aos-duration="600"
+              data-aos-delay="1100"
+            >
+              <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0" />
+              <span className="text-gray-700 font-medium">
                 Transparent milestone billing
               </span>
             </div>

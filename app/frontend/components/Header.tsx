@@ -1,15 +1,7 @@
-import React, { useState } from "react";
-import { Zap, Calculator, LogIn, LogOut, User } from "lucide-react";
-import {
-  Navbar,
-  NavBody,
-  NavItems,
-  MobileNav,
-  MobileNavHeader,
-  MobileNavMenu,
-  MobileNavToggle,
-  NavbarButton,
-} from "./ui/resizable-navbar";
+import React, { useState, useEffect } from "react";
+import { Zap, Calculator, LogIn, LogOut, Menu, X } from "lucide-react";
+import { Link } from "@inertiajs/react";
+import { AnnouncementBar } from "./landing/AnnouncementBar";
 
 interface HeaderProps {
   user?: {
@@ -21,11 +13,23 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ user }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const navItems = [
+    { name: "Home", link: "/" },
     { name: "Features", link: "/#features" },
+    { name: "Services", link: "/#services" },
     { name: "Blog", link: "/blog" },
+    { name: "Contact", link: "/#contact" },
   ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -36,157 +40,211 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
     window.location.href = "/users/sign_out";
   };
 
+  const scrollToQuoteForm = () => {
+    const element = document.getElementById("quote-form");
+    element?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <Navbar className="top-0">
-      <NavBody>
-        {/* Logo */}
-        <div className="flex items-center gap-2 md:gap-4">
-          <div className="w-10 h-10 md:w-12 md:h-12 bg-gray-700 rounded-lg flex items-center justify-center">
-            <Zap className="w-5 h-5 md:w-6 md:h-6 text-white" />
-          </div>
-          <div>
-            <h1 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
-              Magebase
-            </h1>
-            <p className="text-xs text-gray-600 dark:text-gray-400 hidden sm:block">
-              Software Development Since 2024
-            </p>
-          </div>
+    <>
+      <header
+        className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled
+            ? "top-0 bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200/50"
+            : "top-0 bg-white/90 backdrop-blur-sm"
+        }`}
+      >
+        {/* Announcement Bar */}
+        <div
+          data-aos="fade-down"
+          data-aos-duration="600"
+          className={` fixed top-0 transition-all duration-600 ${
+            isScrolled ? "transform -translate-y-full" : "relative"
+          }`}
+        >
+          <AnnouncementBar />
         </div>
-
-        {/* Desktop Navigation */}
-        <NavItems
-          items={navItems}
-          onItemClick={() => setIsMobileMenuOpen(false)}
-        />
-
-        {/* CTA Buttons */}
-        <div className="flex items-center gap-2 md:gap-4">
-          {user ? (
-            <div className="flex items-center gap-3">
-              <div className="hidden md:flex items-center gap-2 text-gray-900 dark:text-white">
-                {user.avatar_url ? (
-                  <img
-                    src={user.avatar_url}
-                    alt={user.name}
-                    className="w-8 h-8 rounded-full"
-                  />
-                ) : (
-                  <User className="w-5 h-5" />
-                )}
-                <span className="font-medium">{user.name}</span>
-              </div>
-              <NavbarButton
-                onClick={handleSignOut}
-                variant="secondary"
-                className="inline-flex place-items-center"
-              >
-                <LogOut className="w-4 h-4 mr-2" />
-                Sign Out
-              </NavbarButton>
-            </div>
-          ) : (
-            <>
-              <NavbarButton
-                href="/signin"
-                variant="secondary"
-                className="inline-flex place-items-center"
-              >
-                <LogIn className="w-4 h-4 mr-2" />
-                Sign In
-              </NavbarButton>
-              <NavbarButton
-                href="/#quote"
-                variant="gradient"
-                className="inline-flex place-items-center"
-              >
-                <Calculator className="w-4 h-4 mr-2" />
-                Get Quote
-              </NavbarButton>
-            </>
-          )}
-        </div>
-      </NavBody>
-
-      {/* Mobile Navigation */}
-      <MobileNav>
-        <MobileNavHeader>
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gray-700 rounded-lg flex items-center justify-center">
-              <Zap className="w-4 h-4 text-white" />
-            </div>
-            <h1 className="text-lg font-bold text-black dark:text-white">
-              Magebase
-            </h1>
-          </div>
-          <MobileNavToggle
-            isOpen={isMobileMenuOpen}
-            onClick={toggleMobileMenu}
-          />
-        </MobileNavHeader>
-
-        <MobileNavMenu isOpen={isMobileMenuOpen}>
-          {navItems.map((item, idx) => (
-            <a
-              key={idx}
-              href={item.link}
-              className="block py-2 text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white transition-colors"
-              onClick={toggleMobileMenu}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 md:h-20">
+            {/* Logo */}
+            <Link
+              href="/"
+              className="flex items-center gap-2 md:gap-4 group cursor-pointer"
             >
-              {item.name}
-            </a>
-          ))}
-          <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
-            {user ? (
-              <div className="space-y-3">
-                <div className="flex items-center gap-2 text-neutral-600 dark:text-neutral-300">
-                  {user.avatar_url ? (
-                    <img
-                      src={user.avatar_url}
-                      alt={user.name}
-                      className="w-6 h-6 rounded-full"
-                    />
-                  ) : (
-                    <User className="w-4 h-4" />
-                  )}
-                  <span className="font-medium">{user.name}</span>
+              <div className="relative">
+                <div className="w-8 h-8 md:w-14 md:h-14 bg-gradient-to-br from-blue-600 via-purple-600 to-blue-700 rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
+                  <Zap className="w-4 h-4 md:w-7 md:h-7 text-white" />
                 </div>
-                <a
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleSignOut();
-                  }}
-                  className="block py-2 text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white transition-colors"
-                >
-                  <LogOut className="w-4 h-4 mr-2 inline" />
-                  Sign Out
-                </a>
+                <div className="absolute -top-1 -right-1 w-3 h-3 md:w-4 md:h-4 bg-gradient-to-r from-green-400 to-blue-400 rounded-full animate-pulse"></div>
               </div>
-            ) : (
-              <>
-                <a
-                  href="/signin"
-                  className="block py-2 text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white transition-colors"
-                  onClick={toggleMobileMenu}
+              <div>
+                <h1 className="text-lg md:text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-300">
+                  Magebase
+                </h1>
+                <p className="text-xs text-gray-600 dark:text-gray-400 hidden lg:block font-medium">
+                  Custom Software Development
+                </p>
+              </div>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center space-x-8">
+              {navItems.map((item, idx) => (
+                <Link
+                  key={idx}
+                  href={item.link}
+                  className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 relative group"
                 >
-                  <LogIn className="w-4 h-4 mr-2 inline" />
-                  Sign In
-                </a>
-                <a
-                  href="/#quote"
-                  className="block py-2 text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white transition-colors"
-                  onClick={toggleMobileMenu}
-                >
-                  <Calculator className="w-4 h-4 mr-2 inline" />
-                  Get Quote
-                </a>
-              </>
-            )}
+                  {item.name}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
+                </Link>
+              ))}
+            </nav>
+
+            {/* CTA Buttons */}
+            <div className="hidden md:flex items-center gap-3 md:gap-4">
+              {user ? (
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 text-gray-900">
+                    {user.avatar_url ? (
+                      <img
+                        src={user.avatar_url}
+                        alt={user.name}
+                        className="w-10 h-10 rounded-full border-2 border-gray-200 hover:border-blue-300 transition-colors duration-300"
+                      />
+                    ) : (
+                      <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+                        {user.name.charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                    <div className="text-left">
+                      <span className="font-semibold text-sm block">
+                        {user.name}
+                      </span>
+                      <span className="text-xs text-gray-500">
+                        Welcome back!
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={handleSignOut}
+                    className="inline-flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-300 rounded-lg font-medium transition-all duration-200"
+                  >
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sign Out
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <Link
+                    href="/signin"
+                    className="inline-flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-300 rounded-lg font-medium transition-all duration-200"
+                  >
+                    <LogIn className="w-4 h-4 mr-2" />
+                    Sign In
+                  </Link>
+                  <button
+                    onClick={scrollToQuoteForm}
+                    className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                  >
+                    <Calculator className="w-4 h-4 mr-2" />
+                    Get Free Quote
+                  </button>
+                </>
+              )}
+            </div>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={toggleMobileMenu}
+              className="md:hidden p-3 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-100 transition-colors duration-200"
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-7 h-7" />
+              ) : (
+                <Menu className="w-7 h-7" />
+              )}
+            </button>
           </div>
-        </MobileNavMenu>
-      </MobileNav>
-    </Navbar>
+        </div>
+
+        {/* Mobile Navigation Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-white border-t border-gray-200 shadow-lg">
+            <div className="px-4 py-4 space-y-2">
+              {navItems.map((item, idx) => (
+                <Link
+                  key={idx}
+                  href={item.link}
+                  className="block py-3 px-4 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-200 font-medium"
+                  onClick={toggleMobileMenu}
+                >
+                  {item.name}
+                </Link>
+              ))}
+
+              <div className="border-t border-gray-200 pt-3 mt-3 space-y-3">
+                {user ? (
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3 py-2 px-4 bg-gray-50 rounded-xl">
+                      {user.avatar_url ? (
+                        <img
+                          src={user.avatar_url}
+                          alt={user.name}
+                          className="w-8 h-8 rounded-full border-2 border-gray-200"
+                        />
+                      ) : (
+                        <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                          {user.name.charAt(0).toUpperCase()}
+                        </div>
+                      )}
+                      <div>
+                        <span className="font-semibold text-sm block text-gray-900">
+                          {user.name}
+                        </span>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => {
+                        handleSignOut();
+                        toggleMobileMenu();
+                      }}
+                      className="flex items-center gap-3 py-3 px-4 text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 w-full text-left"
+                    >
+                      <LogOut className="w-5 h-5" />
+                      Sign Out
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => {
+                        window.location.href = "/signin";
+                        toggleMobileMenu();
+                      }}
+                      className="flex items-center gap-3 py-3 px-4 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-200 w-full text-left"
+                    >
+                      <LogIn className="w-5 h-5" />
+                      Sign In
+                    </button>
+                    <button
+                      onClick={() => {
+                        scrollToQuoteForm();
+                        toggleMobileMenu();
+                      }}
+                      className="flex items-center gap-3 py-3 px-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 w-full"
+                    >
+                      <Calculator className="w-5 h-5" />
+                      Get Free Quote
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+      </header>
+    </>
   );
 };
 

@@ -2,12 +2,18 @@ import { useState, useEffect } from "react";
 import {
   ArrowRight,
   CheckCircle,
-  FileText,
   User,
   Mail,
   Phone,
   MapPin,
   Info,
+  Shield,
+  Clock,
+  Star,
+  Users,
+  Award,
+  Zap,
+  Quote,
 } from "lucide-react";
 import { Checkbox } from "../ui/checkbox";
 import {
@@ -161,7 +167,7 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
     "Job Board Platform",
     "Review & Rating Platform",
     "Subscription Box Service",
-    "Community Forum Platform"
+    "Community Forum Platform",
   ];
 
   const timelineOptions = [
@@ -231,7 +237,10 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
   }
 
   function getWordCount(text: string): number {
-    return text.trim().split(/\s+/).filter(word => word.length > 0).length;
+    return text
+      .trim()
+      .split(/\s+/)
+      .filter((word) => word.length > 0).length;
   }
 
   function isValidWordCount(text: string): boolean {
@@ -261,7 +270,9 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
 
     // Check word count validation
     if (!isValidWordCount(formState.specialRequirements)) {
-      alert("Please provide at least 25 words in the project requirements field.");
+      alert(
+        "Please provide at least 25 words in the project requirements field."
+      );
       return;
     }
 
@@ -341,16 +352,64 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
   if (submitted) {
     return (
       <div className="text-center py-12">
-        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <CheckCircle className="w-8 h-8 text-green-600" />
+        <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
+          <CheckCircle className="w-10 h-10 text-white" />
         </div>
-        <h3 className="text-xl font-semibold text-gray-900 mb-2">
-          Project inquiry submitted
+        <h3 className="text-3xl font-bold text-gray-900 mb-4">
+          🎉 Project Request Submitted Successfully!
         </h3>
-        <p className="text-gray-600">
-          We'll follow up within one business hour with your personalized
-          project proposal.
+        <p className="text-gray-600 text-lg mb-6">
+          Thank you for choosing us! Our team will review your requirements and
+          get back to you within 1 hour.
         </p>
+
+        <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-6 mb-6">
+          <h4 className="font-semibold text-gray-900 mb-3">
+            What happens next?
+          </h4>
+          <div className="space-y-2 text-left">
+            <div className="flex items-center gap-3">
+              <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                <span className="text-white text-xs font-bold">1</span>
+              </div>
+              <span className="text-gray-700">
+                Our team reviews your project details
+              </span>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                <span className="text-white text-xs font-bold">2</span>
+              </div>
+              <span className="text-gray-700">
+                We send you a detailed project proposal
+              </span>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                <span className="text-white text-xs font-bold">3</span>
+              </div>
+              <span className="text-gray-700">
+                Schedule a call to discuss next steps
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <Button
+            onClick={() => window.location.reload()}
+            variant="outline"
+            className="border-2"
+          >
+            Submit Another Project
+          </Button>
+          <Button
+            onClick={() => window.open("mailto:hello@magebase.com", "_blank")}
+            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+          >
+            Contact Support
+          </Button>
+        </div>
       </div>
     );
   }
@@ -359,34 +418,161 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
     <TooltipProvider>
       <div id={id} className="max-w-4xl mx-auto">
         <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-8 md:p-12">
+          {/* Trust Signals Header */}
           <div className="text-center mb-8">
-            <div className="w-12 h-12 bg-gray-900 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <FileText className="w-6 h-6 text-white" />
+            <div className="flex items-center justify-center gap-6 mb-4 text-sm text-gray-600">
+              <div className="flex items-center gap-1">
+                <Shield className="w-4 h-4 text-green-600" />
+                <span>100% Secure</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Clock className="w-4 h-4 text-blue-600" />
+                <span>Response in 1 hour</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Users className="w-4 h-4 text-purple-600" />
+                <span>500+ Projects</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Star className="w-4 h-4 text-yellow-500" />
+                <span>4.9/5 Rating</span>
+              </div>
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
-              Start your project
+
+            <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <Zap className="w-6 h-6 text-white" />
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">
+              Get Your Custom Quote in 60 Seconds
             </h2>
-            <p className="text-gray-600">
-              Tell us about your project and we'll get back to you within 1 hour
+            <p className="text-gray-600 text-lg mb-4">
+              Join 500+ businesses who've transformed their operations with our
+              solutions
             </p>
+
+            {/* Urgency Element */}
+            <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-lg p-4 mb-6">
+              <div className="flex items-center justify-center gap-2 text-amber-800">
+                <Award className="w-5 h-5" />
+                <span className="font-semibold">
+                  Limited Time: Free Strategy Session Worth $500
+                </span>
+              </div>
+              <p className="text-amber-700 text-sm mt-1">
+                First 10 inquiries today get a complimentary 30-minute strategy
+                call with our CTO
+              </p>
+            </div>
+          </div>
+
+          {/* Social Proof Testimonials */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg p-4">
+              <div className="flex items-center gap-1 mb-2">
+                <Quote className="w-4 h-4 text-green-600" />
+                <div className="flex text-yellow-400">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-3 h-3 fill-current" />
+                  ))}
+                </div>
+              </div>
+              <p className="text-green-800 text-sm font-medium mb-1">
+                "Exceeded expectations!"
+              </p>
+              <p className="text-green-700 text-xs">
+                - Sarah M., CEO TechStart
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4">
+              <div className="flex items-center gap-1 mb-2">
+                <Quote className="w-4 h-4 text-blue-600" />
+                <div className="flex text-yellow-400">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-3 h-3 fill-current" />
+                  ))}
+                </div>
+              </div>
+              <p className="text-blue-800 text-sm font-medium mb-1">
+                "Delivered on time & budget"
+              </p>
+              <p className="text-blue-700 text-xs">
+                - Mike R., Founder HealthTech
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-r from-purple-50 to-violet-50 border border-purple-200 rounded-lg p-4">
+              <div className="flex items-center gap-1 mb-2">
+                <Quote className="w-4 h-4 text-purple-600" />
+                <div className="flex text-yellow-400">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-3 h-3 fill-current" />
+                  ))}
+                </div>
+              </div>
+              <p className="text-purple-800 text-sm font-medium mb-1">
+                "Outstanding quality & support"
+              </p>
+              <p className="text-purple-700 text-xs">
+                - Jennifer L., CTO FinanceFlow
+              </p>
+            </div>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-8">
-            {/* Progress indicator */}
+            {/* Enhanced Progress indicator */}
             <div className="mb-8">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-gray-700">
-                  Form progress
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-sm font-semibold text-gray-700">
+                  Project Setup Progress
                 </span>
-                <span className="text-sm text-gray-500">
-                  {getCompletedFieldsCount()}/7 fields completed
+                <span className="text-sm font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-full">
+                  {getCompletedFieldsCount()}/7 completed
                 </span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className="w-full bg-gray-200 rounded-full h-3 mb-2">
                 <div
-                  className="bg-gray-900 h-2 rounded-full transition-all duration-300"
+                  className="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full transition-all duration-500 ease-out"
                   style={{ width: `${(getCompletedFieldsCount() / 7) * 100}%` }}
                 />
+              </div>
+              <div className="flex justify-between text-xs text-gray-500">
+                <span
+                  className={
+                    getCompletedFieldsCount() >= 1
+                      ? "text-blue-600 font-medium"
+                      : ""
+                  }
+                >
+                  Contact
+                </span>
+                <span
+                  className={
+                    getCompletedFieldsCount() >= 3
+                      ? "text-blue-600 font-medium"
+                      : ""
+                  }
+                >
+                  Project
+                </span>
+                <span
+                  className={
+                    getCompletedFieldsCount() >= 5
+                      ? "text-blue-600 font-medium"
+                      : ""
+                  }
+                >
+                  Details
+                </span>
+                <span
+                  className={
+                    getCompletedFieldsCount() >= 7
+                      ? "text-blue-600 font-medium"
+                      : ""
+                  }
+                >
+                  Complete
+                </span>
               </div>
             </div>
 
@@ -409,15 +595,15 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
                     </TooltipContent>
                   </Tooltip>
                 </div>
-                <div className="relative">
-                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <div className="relative group">
+                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
                   <Input
                     id="name"
                     name="name"
                     value={formState.name}
                     onChange={handleChange}
                     required
-                    className="pl-10"
+                    className="pl-10 border-2 border-gray-200 focus:border-blue-500 transition-colors"
                     placeholder="Your full name"
                   />
                 </div>
@@ -440,8 +626,8 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
                     </TooltipContent>
                   </Tooltip>
                 </div>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <div className="relative group">
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
                   <Input
                     id="email"
                     name="email"
@@ -449,7 +635,7 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
                     value={formState.email}
                     onChange={handleChange}
                     required
-                    className="pl-10"
+                    className="pl-10 border-2 border-gray-200 focus:border-blue-500 transition-colors"
                     placeholder="your@email.com"
                   />
                 </div>
@@ -472,8 +658,8 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
                     </TooltipContent>
                   </Tooltip>
                 </div>
-                <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <div className="relative group">
+                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
                   <Input
                     id="phone"
                     name="phone"
@@ -481,7 +667,7 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
                     value={formState.phone}
                     onChange={handleChange}
                     required
-                    className="pl-10"
+                    className="pl-10 border-2 border-gray-200 focus:border-blue-500 transition-colors"
                     placeholder="+61 XXX XXX XXX"
                   />
                 </div>
@@ -586,7 +772,9 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
                 </div>
                 <Select
                   value={formState.useCase}
-                  onValueChange={(value) => handleSelectChange("useCase", value)}
+                  onValueChange={(value) =>
+                    handleSelectChange("useCase", value)
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select project type" />
@@ -617,7 +805,9 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
                 </div>
                 <Select
                   value={formState.timeline}
-                  onValueChange={(value) => handleSelectChange("timeline", value)}
+                  onValueChange={(value) =>
+                    handleSelectChange("timeline", value)
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select timeline" />
@@ -642,7 +832,10 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
                       <Info className="w-4 h-4 text-gray-400 cursor-help" />
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>How much customization do you need from our base templates?</p>
+                      <p>
+                        How much customization do you need from our base
+                        templates?
+                      </p>
                     </TooltipContent>
                   </Tooltip>
                 </div>
@@ -709,18 +902,20 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
                     <Info className="w-4 h-4 text-gray-400 cursor-help" />
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>City, state, and country for legal and timezone purposes</p>
+                    <p>
+                      City, state, and country for legal and timezone purposes
+                    </p>
                   </TooltipContent>
                 </Tooltip>
               </div>
-              <div className="relative">
-                <MapPin className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+              <div className="relative group">
+                <MapPin className="absolute left-3 top-3 w-4 h-4 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
                 <Input
                   name="deliveryAddress"
                   value={formState.deliveryAddress}
                   onChange={handleChange}
                   required
-                  className="pl-10"
+                  className="pl-10 border-2 border-gray-200 focus:border-blue-500 transition-colors"
                   placeholder="City, State/Country or 'Remote'"
                 />
               </div>
@@ -740,7 +935,10 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
                     <Info className="w-4 h-4 text-gray-400 cursor-help" />
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Share websites or apps you like. Include URLs for reference.</p>
+                    <p>
+                      Share websites or apps you like. Include URLs for
+                      reference.
+                    </p>
                   </TooltipContent>
                 </Tooltip>
               </div>
@@ -815,9 +1013,10 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
                           } else {
                             setFormState({
                               ...formState,
-                              selectedLanguages: formState.selectedLanguages.filter(
-                                (lang) => lang !== language
-                              ),
+                              selectedLanguages:
+                                formState.selectedLanguages.filter(
+                                  (lang) => lang !== language
+                                ),
                             });
                           }
                         }}
@@ -986,7 +1185,10 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
                     <Info className="w-4 h-4 text-gray-400 cursor-help" />
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Describe your project in detail (minimum 25 words required)</p>
+                    <p>
+                      Describe your project in detail (minimum 25 words
+                      required)
+                    </p>
                   </TooltipContent>
                 </Tooltip>
               </div>
@@ -997,127 +1199,107 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
                 onChange={handleChange}
                 rows={4}
                 placeholder="Describe your project requirements, features, technologies you prefer, or any specific needs..."
-                className={getWordCount(formState.specialRequirements) > 0 && !isValidWordCount(formState.specialRequirements) ? "border-red-300 focus:border-red-500" : ""}
+                className={
+                  getWordCount(formState.specialRequirements) > 0 &&
+                  !isValidWordCount(formState.specialRequirements)
+                    ? "border-red-300 focus:border-red-500"
+                    : ""
+                }
               />
               {getWordCount(formState.specialRequirements) > 0 && (
                 <div className="mt-1 text-sm">
-                  <span className={isValidWordCount(formState.specialRequirements) ? "text-green-600" : "text-red-600"}>
+                  <span
+                    className={
+                      isValidWordCount(formState.specialRequirements)
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }
+                  >
                     {getWordCount(formState.specialRequirements)} words
-                    {!isValidWordCount(formState.specialRequirements) && " (minimum 25 words required)"}
+                    {!isValidWordCount(formState.specialRequirements) &&
+                      " (minimum 25 words required)"}
                   </span>
                 </div>
               )}
             </div>
 
-            {/* Cost Estimate */}
+            {/* Enhanced Cost Estimate */}
             {formState.selectedFeatures.length > 0 && (
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-gray-900 mb-2">
-                  Estimated Cost
-                </h3>
+              <div className="bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200 rounded-xl p-6 shadow-sm">
+                <div className="text-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <Award className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    Your Custom Project Quote
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    AI-powered estimation based on your requirements
+                  </p>
+                </div>
+
                 {estimatedQuote ? (
-                  <div className="space-y-2">
-                    {formState.pricingModel === "flat_fee" ? (
-                      <>
-                        <p className="text-2xl font-bold text-gray-900">
-                          $
-                          {estimatedQuote.estimated_cost?.toLocaleString() || "0"}
+                  <div className="space-y-4">
+                    <div className="text-center">
+                      <p className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-2">
+                        $
+                        {estimatedQuote.estimated_cost?.toLocaleString() || "0"}
+                      </p>
+                      <p className="text-gray-600 text-sm">
+                        Total Project Cost
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div className="bg-white p-3 rounded-lg border">
+                        <p className="text-gray-600">Development</p>
+                        <p className="font-semibold text-gray-900">
+                          ${estimatedQuote.base_cost?.toLocaleString() || "0"}
                         </p>
-                        <div className="text-sm text-gray-600 space-y-1">
-                          <p>
-                            Development Cost: $
-                            {estimatedQuote.base_cost?.toLocaleString() || "0"}
-                          </p>
-                          <p>
-                            Monthly Hosting: $
-                            {estimatedQuote.monthly_hosting?.toFixed(2) || "0"}
-                          </p>
-                          <p>
-                            Optional Retainer: $
-                            {estimatedQuote.monthly_retainer?.toFixed(2) || "0"}
-                            /month
-                          </p>
-                          <p>
-                            Deposit: $
-                            {estimatedQuote.deposit_amount?.toLocaleString() ||
-                              "0"}
-                          </p>
-                          {estimatedQuote.capacity_adjustment !== 1.0 && (
-                            <p
-                              className={
-                                (estimatedQuote.capacity_adjustment || 1) > 1
-                                  ? "text-red-600"
-                                  : "text-green-600"
-                              }
-                            >
-                              Capacity Adjustment:{" "}
-                              {(
-                                ((estimatedQuote.capacity_adjustment || 1) - 1) *
-                                100
-                              ).toFixed(0)}
-                              %
-                              {(estimatedQuote.capacity_adjustment || 1) > 1
-                                ? " (High Demand)"
-                                : " (Low Demand)"}
-                            </p>
-                          )}
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <p className="text-2xl font-bold text-gray-900">
-                          ${estimatedQuote.monthly_fee?.toLocaleString() || "0"}
-                          /month
+                      </div>
+                      <div className="bg-white p-3 rounded-lg border">
+                        <p className="text-gray-600">Monthly Hosting</p>
+                        <p className="font-semibold text-gray-900">
+                          ${estimatedQuote.monthly_hosting?.toFixed(2) || "0"}
                         </p>
-                        <div className="text-sm text-gray-600 space-y-1">
-                          <p>
-                            Bond (3 months): $
-                            {estimatedQuote.bond_amount?.toLocaleString() || "0"}
-                          </p>
-                          <p>Minimum 2-year commitment</p>
-                          <p>Unlimited edits included</p>
-                          <p>Full app build included</p>
-                          {estimatedQuote.capacity_adjustment !== 1.0 && (
-                            <p
-                              className={
-                                (estimatedQuote.capacity_adjustment || 1) > 1
-                                  ? "text-red-600"
-                                  : "text-green-600"
-                              }
-                            >
-                              Capacity Adjustment:{" "}
-                              {(
-                                ((estimatedQuote.capacity_adjustment || 1) - 1) *
-                                100
-                              ).toFixed(0)}
-                              %
-                              {(estimatedQuote.capacity_adjustment || 1) > 1
-                                ? " (High Demand)"
-                                : " (Low Demand)"}
-                            </p>
-                          )}
-                        </div>
-                      </>
-                    )}
+                      </div>
+                    </div>
+
+                    {/* Urgency Timer */}
+                    <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
+                      <div className="flex items-center justify-center gap-2 text-amber-800 mb-1">
+                        <Clock className="w-4 h-4" />
+                        <span className="font-semibold text-sm">
+                          Quote expires in: 24:00:00
+                        </span>
+                      </div>
+                      <p className="text-amber-700 text-xs text-center">
+                        Secure this price before it changes
+                      </p>
+                    </div>
                   </div>
                 ) : (
-                  <div className="space-y-2">
-                    <p className="text-2xl font-bold text-gray-900">
-                      ${calculateEstimatedCost().toLocaleString()}
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      This is a rough estimate. Click "Get Quote" for accurate
-                      pricing.
-                    </p>
+                  <div className="text-center space-y-4">
+                    <div className="text-center">
+                      <p className="text-3xl font-bold text-gray-900 mb-2">
+                        ${calculateEstimatedCost().toLocaleString()}
+                      </p>
+                      <p className="text-gray-600 text-sm">Starting Estimate</p>
+                    </div>
                     <Button
                       type="button"
                       onClick={getQuoteEstimate}
                       disabled={isCalculating}
                       variant="outline"
-                      size="sm"
+                      className="border-2 border-blue-500 text-blue-600 hover:bg-blue-50"
                     >
-                      {isCalculating ? "Calculating..." : "Get Accurate Quote"}
+                      {isCalculating
+                        ? "🔄 Calculating..."
+                        : "🎯 Get AI-Powered Quote"}
                     </Button>
+                    <p className="text-xs text-gray-500">
+                      Get a precise quote tailored to your specific needs
+                    </p>
                   </div>
                 )}
               </div>
@@ -1131,42 +1313,57 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
                   AI Project Insights
                 </h3>
                 <div className="space-y-3">
-                  {estimatedQuote.ai_insights.business_tags && estimatedQuote.ai_insights.business_tags.length > 0 && (
-                    <div>
-                      <p className="text-sm font-medium text-blue-800 mb-2">Business Tags:</p>
-                      <div className="flex flex-wrap gap-2">
-                        {estimatedQuote.ai_insights.business_tags.map((tag: string, index: number) => (
-                          <span
-                            key={index}
-                            className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
-                          >
-                            {tag}
-                          </span>
-                        ))}
+                  {estimatedQuote.ai_insights.business_tags &&
+                    estimatedQuote.ai_insights.business_tags.length > 0 && (
+                      <div>
+                        <p className="text-sm font-medium text-blue-800 mb-2">
+                          Business Tags:
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {estimatedQuote.ai_insights.business_tags.map(
+                            (tag: string, index: number) => (
+                              <span
+                                key={index}
+                                className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+                              >
+                                {tag}
+                              </span>
+                            )
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
                   {estimatedQuote.ai_insights.adjusted_quote && (
                     <div>
-                      <p className="text-sm font-medium text-blue-800 mb-2">AI-Adjusted Quote Reasoning:</p>
+                      <p className="text-sm font-medium text-blue-800 mb-2">
+                        AI-Adjusted Quote Reasoning:
+                      </p>
                       <p className="text-sm text-blue-700 bg-white p-3 rounded border">
                         {estimatedQuote.ai_insights.adjusted_quote}
                       </p>
                     </div>
                   )}
-                  {estimatedQuote.ai_insights.recommendations && estimatedQuote.ai_insights.recommendations.length > 0 && (
-                    <div>
-                      <p className="text-sm font-medium text-blue-800 mb-2">Recommendations:</p>
-                      <ul className="text-sm text-blue-700 space-y-1">
-                        {estimatedQuote.ai_insights.recommendations.map((rec: string, index: number) => (
-                          <li key={index} className="flex items-start gap-2">
-                            <span className="text-blue-500 mt-1">•</span>
-                            <span>{rec}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                  {estimatedQuote.ai_insights.recommendations &&
+                    estimatedQuote.ai_insights.recommendations.length > 0 && (
+                      <div>
+                        <p className="text-sm font-medium text-blue-800 mb-2">
+                          Recommendations:
+                        </p>
+                        <ul className="text-sm text-blue-700 space-y-1">
+                          {estimatedQuote.ai_insights.recommendations.map(
+                            (rec: string, index: number) => (
+                              <li
+                                key={index}
+                                className="flex items-start gap-2"
+                              >
+                                <span className="text-blue-500 mt-1">•</span>
+                                <span>{rec}</span>
+                              </li>
+                            )
+                          )}
+                        </ul>
+                      </div>
+                    )}
                 </div>
               </div>
             )}
@@ -1178,19 +1375,42 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
                   onClick={getQuoteEstimate}
                   disabled={isCalculating}
                   size="lg"
-                  variant="outline"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold px-8 py-3"
                 >
-                  {isCalculating ? "Calculating..." : "Get Quote"}
+                  {isCalculating
+                    ? "Calculating..."
+                    : "🚀 Get Your Custom Quote Now"}
                 </Button>
               )}
               {estimatedQuote && (
-                <Button type="submit" size="lg" className="w-full md:w-auto">
-                  Submit Project Request
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold px-8 py-3"
+                >
+                  ✅ Secure Your Project Today
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               )}
-              <p className="text-sm text-gray-500">
-                No commitment required • Response within 1 hour
+
+              {/* Risk Reversal */}
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4 mt-4">
+                <div className="flex items-center justify-center gap-2 text-green-800 mb-2">
+                  <Shield className="w-5 h-5" />
+                  <span className="font-semibold">
+                    100% Risk-Free Guarantee
+                  </span>
+                </div>
+                <p className="text-green-700 text-sm">
+                  Not satisfied? Get a full refund within 30 days, no questions
+                  asked.
+                </p>
+              </div>
+
+              <p className="text-sm text-gray-500 flex items-center justify-center gap-2">
+                <Clock className="w-4 h-4" />
+                No commitment required • Response within 1 hour • Free
+                consultation
               </p>
             </div>
           </form>

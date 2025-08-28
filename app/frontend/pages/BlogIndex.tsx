@@ -40,9 +40,9 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ blogPosts }) => {
 
       <Header />
 
-      <main className="w-full">
+      <main className="w-full ">
         {/* Hero Section */}
-        <section className="px-4 sm:px-6 lg:px-8 pt-16 pb-24 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+        <section className="px-4 sm:px-6 lg:px-8 pb-24 bg-gradient-to-r from-blue-600 to-purple-600 text-white pt-48">
           <div className="max-w-7xl mx-auto text-center">
             <h1
               className="text-4xl md:text-6xl font-bold mb-6"

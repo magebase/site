@@ -22,6 +22,33 @@ Rails.application.routes.draw do
     end
   end
 
+  # Services routes
+  get 'services', to: 'services#index'
+  get 'services/:slug', to: 'services#show', as: :service
+
+  # Company routes
+  get 'about', to: 'company#about'
+  get 'team', to: 'company#team'
+  get 'careers', to: 'company#careers'
+  get 'careers/:slug', to: 'company#career_detail', as: :career
+
+  # Case Studies routes
+  get 'case-studies', to: 'case_studies#index'
+  get 'case-studies/:slug', to: 'case_studies#show', as: :case_study
+
+  # Resources routes
+  get 'help-center', to: 'resources#help_center'
+  get 'community', to: 'resources#community'
+  get 'webinars', to: 'resources#webinars'
+  get 'webinars/:slug', to: 'resources#webinar_detail', as: :webinar
+
+  # Legal routes
+  get 'privacy-policy', to: 'legal#privacy_policy'
+  get 'terms-of-service', to: 'legal#terms_of_service'
+  get 'cookie-policy', to: 'legal#cookie_policy'
+  get 'gdpr', to: 'legal#gdpr'
+  get 'security', to: 'legal#security'
+
   # Rails Admin
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 

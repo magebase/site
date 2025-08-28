@@ -37,67 +37,201 @@ export function GuaranteeSection({ onQuoteFormClick }: GuaranteeSectionProps) {
     <section className="py-20 bg-gradient-to-r from-green-50 to-blue-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
-            <Shield className="w-4 h-4" />
+          <div
+            className="inline-flex items-center gap-2 bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium mb-6"
+            data-aos="fade-down"
+            data-aos-duration="600"
+          >
+            <Shield
+              className="w-4 h-4"
+              data-aos="fade-in"
+              data-aos-duration="600"
+              data-aos-delay="100"
+            />
             Our Quality Commitments
           </div>
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <h2
+            className="text-4xl font-bold text-gray-900 mb-4"
+            data-aos="fade-up"
+            data-aos-duration="600"
+            data-aos-delay="200"
+          >
             Your Success is Our Priority
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p
+            className="text-xl text-gray-600 max-w-3xl mx-auto"
+            data-aos="fade-up"
+            data-aos-duration="600"
+            data-aos-delay="400"
+          >
             We focus on delivering high-quality solutions with transparent
             communication and professional development practices.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <div
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="600"
+        >
           {guarantees.map((guarantee, index) => (
             <div
               key={index}
               className="bg-white rounded-xl p-6 shadow-lg border border-gray-100"
+              data-aos="fade-up"
+              data-aos-duration="600"
+              data-aos-delay={700 + index * 150}
             >
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-green-100 rounded-lg mb-4">
-                <guarantee.icon className="w-6 h-6 text-green-600" />
+              <div
+                className="inline-flex items-center justify-center w-12 h-12 bg-green-100 rounded-lg mb-4"
+                data-aos="fade-in"
+                data-aos-duration="600"
+                data-aos-delay={800 + index * 150}
+              >
+                <guarantee.icon
+                  className="w-6 h-6 text-green-600"
+                  data-aos="fade-in"
+                  data-aos-duration="600"
+                  data-aos-delay={900 + index * 150}
+                />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3
+                className="text-lg font-semibold text-gray-900 mb-2"
+                data-aos="fade-up"
+                data-aos-duration="600"
+                data-aos-delay={1000 + index * 150}
+              >
                 {guarantee.title}
               </h3>
-              <p className="text-gray-600 text-sm">{guarantee.description}</p>
+              <p
+                className="text-gray-600 text-sm"
+                data-aos="fade-up"
+                data-aos-duration="600"
+                data-aos-delay={1100 + index * 150}
+              >
+                {guarantee.description}
+              </p>
             </div>
           ))}
         </div>
 
         {/* Quality Focus CTA */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 text-center border border-gray-200">
-          <h3 className="text-3xl font-bold text-gray-900 mb-4">
+        <div
+          className="bg-white rounded-2xl shadow-xl p-8 md:p-12 text-center border border-gray-200"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="1300"
+        >
+          <h3
+            className="text-3xl font-bold text-gray-900 mb-4"
+            data-aos="fade-down"
+            data-aos-duration="600"
+            data-aos-delay="1400"
+          >
             Professional Development Process
           </h3>
-          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p
+            className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto"
+            data-aos="fade-up"
+            data-aos-duration="600"
+            data-aos-delay="1500"
+          >
             We follow industry best practices to deliver high-quality solutions
             that meet your business needs and exceed expectations.
           </p>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-green-600 mb-2">Fast</div>
-              <div className="text-sm text-gray-600">Quote Delivery</div>
+          <div
+            className="grid md:grid-cols-3 gap-6 mb-8"
+            data-aos="fade-up"
+            data-aos-duration="800"
+            data-aos-delay="1600"
+          >
+            <div
+              className="text-center"
+              data-aos="fade-up"
+              data-aos-duration="600"
+              data-aos-delay="1700"
+            >
+              <div
+                className="text-2xl font-bold text-green-600 mb-2"
+                data-aos="fade-down"
+                data-aos-duration="600"
+                data-aos-delay="1800"
+              >
+                Fast
+              </div>
+              <div
+                className="text-sm text-gray-600"
+                data-aos="fade-up"
+                data-aos-duration="600"
+                data-aos-delay="1900"
+              >
+                Quote Delivery
+              </div>
             </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600 mb-2">Free</div>
-              <div className="text-sm text-gray-600">Project Planning</div>
+            <div
+              className="text-center"
+              data-aos="fade-up"
+              data-aos-duration="600"
+              data-aos-delay="2000"
+            >
+              <div
+                className="text-2xl font-bold text-blue-600 mb-2"
+                data-aos="fade-down"
+                data-aos-duration="600"
+                data-aos-delay="2100"
+              >
+                Free
+              </div>
+              <div
+                className="text-sm text-gray-600"
+                data-aos="fade-up"
+                data-aos-duration="600"
+                data-aos-delay="2200"
+              >
+                Project Planning
+              </div>
             </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-purple-600 mb-2">No</div>
-              <div className="text-sm text-gray-600">Hidden Fees</div>
+            <div
+              className="text-center"
+              data-aos="fade-up"
+              data-aos-duration="600"
+              data-aos-delay="2300"
+            >
+              <div
+                className="text-2xl font-bold text-purple-600 mb-2"
+                data-aos="fade-down"
+                data-aos-duration="600"
+                data-aos-delay="2400"
+              >
+                No
+              </div>
+              <div
+                className="text-sm text-gray-600"
+                data-aos="fade-up"
+                data-aos-duration="600"
+                data-aos-delay="2500"
+              >
+                Hidden Fees
+              </div>
             </div>
           </div>
 
           <Button
             onClick={onQuoteFormClick}
             className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg font-semibold text-lg"
+            data-aos="fade-up"
+            data-aos-duration="600"
+            data-aos-delay="2600"
           >
             Get Your Quote in Seconds
-            <ArrowRight className="w-5 h-5 ml-2" />
+            <ArrowRight
+              className="w-5 h-5 ml-2"
+              data-aos="fade-in"
+              data-aos-duration="600"
+              data-aos-delay="2700"
+            />
           </Button>
         </div>
       </div>

@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { AnnouncementBar } from "../components/landing/AnnouncementBar";
@@ -27,16 +30,30 @@ export default function Landing({ user }: LandingProps) {
     element?.scrollIntoView({ behavior: "smooth" });
   };
 
+  useEffect(() => {
+    AOS.init({
+      duration: 400,
+      easing: "ease-out-cubic",
+      once: true,
+      offset: 10,
+      delay: 0,
+    });
+  }, []);
+
   return (
     <div className="font-sans text-gray-900 bg-white min-h-screen">
-      <Header user={user} />
+      {/* Announcement Bar - URGENCY - Moved to very top */}
+      <div data-aos="fade-down" data-aos-duration="300">
+        <AnnouncementBar />
+      </div>
 
-      {/* Announcement Bar - URGENCY */}
-      <AnnouncementBar />
+      <Header user={user} />
 
       <main className="w-full">
         {/* Hero - VALUE PROPOSITION */}
-        <HeroSection onQuoteFormClick={scrollToQuoteForm} />
+        <div data-aos="fade-up" data-aos-duration="400">
+          <HeroSection onQuoteFormClick={scrollToQuoteForm} />
+        </div>
 
         {/* Social Proof - TRUST */}
         <SocialProofSection />
@@ -48,7 +65,11 @@ export default function Landing({ user }: LandingProps) {
         <AppleCardsSection />
 
         {/* Quote Form - CONVERSION */}
-        <section className="relative px-4 sm:px-6 lg:px-8 pt-16 pb-24 overflow-hidden bg-gradient-to-br from-gray-50 to-blue-50">
+        <section
+          className="relative px-4 sm:px-6 lg:px-8 pt-16 pb-24 overflow-hidden bg-gradient-to-br from-gray-50 to-blue-50"
+          data-aos="fade-up"
+          data-aos-duration="500"
+        >
           <QuoteFormSection id="quote-form" />
         </section>
 
@@ -62,7 +83,9 @@ export default function Landing({ user }: LandingProps) {
         <FeaturesSection />
 
         {/* Testimonials - SOCIAL PROOF */}
-        <TestimonialsSection />
+        <div data-aos="fade-up" data-aos-duration="400">
+          <TestimonialsSection />
+        </div>
 
         {/* FAQ - OBJECTION HANDLING */}
         <FAQSection />
@@ -71,6 +94,7 @@ export default function Landing({ user }: LandingProps) {
         <FinalCTASection onQuoteFormClick={scrollToQuoteForm} />
       </main>
 
+      {/* Footer */}
       <Footer />
     </div>
   );
