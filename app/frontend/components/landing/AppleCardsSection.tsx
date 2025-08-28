@@ -4,7 +4,7 @@ import { Code, Smartphone, Globe, Zap, Shield, Users } from "lucide-react";
 export function AppleCardsSection() {
   const cards = [
     {
-      src: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=400&h=300&fit=crop&crop=center",
+      src: "/images/apple-cards/web-applications.jpg",
       title: "Web Applications",
       category: "Full-Stack Development",
       content: (
@@ -44,7 +44,7 @@ export function AppleCardsSection() {
       ),
     },
     {
-      src: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop&crop=center",
+      src: "/images/apple-cards/mobile-apps.jpg",
       title: "Mobile Apps",
       category: "iOS & Android Development",
       content: (
@@ -84,7 +84,7 @@ export function AppleCardsSection() {
       ),
     },
     {
-      src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=300&fit=crop&crop=center",
+      src: "/images/apple-cards/api-development.jpg",
       title: "API Development",
       category: "Backend & Microservices",
       content: (
@@ -124,7 +124,7 @@ export function AppleCardsSection() {
       ),
     },
     {
-      src: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop&crop=center",
+      src: "/images/apple-cards/ai-integration.jpg",
       title: "AI Integration",
       category: "Machine Learning & Automation",
       content: (
@@ -164,7 +164,7 @@ export function AppleCardsSection() {
       ),
     },
     {
-      src: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop&crop=center",
+      src: "/images/apple-cards/security-compliance.jpg",
       title: "Security & Compliance",
       category: "Enterprise-Grade Security",
       content: (
@@ -204,7 +204,7 @@ export function AppleCardsSection() {
       ),
     },
     {
-      src: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=300&fit=crop&crop=center",
+      src: "/images/apple-cards/team-collaboration.jpg",
       title: "Team Collaboration",
       category: "Agile Development Process",
       content: (
