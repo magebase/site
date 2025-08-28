@@ -1,4 +1,3 @@
-import { Head } from "@inertiajs/react";
 import PageLayout from "../components/PageLayout";
 import { Button } from "../components/ui/button";
 import {
@@ -42,17 +41,13 @@ export default function CompanyCareerDetail({
   user,
 }: CompanyCareerDetailProps) {
   return (
-    <PageLayout user={user}>
-      <Head>
-        <title>{career.title} | Careers</title>
-        <meta
-          name="description"
-          content={`Join our team as ${
-            career.title
-          }. ${career.description.substring(0, 150)}...`}
-        />
-      </Head>
-
+    <PageLayout
+      user={user}
+      title={`${career.title} | Careers`}
+      description={`Join our team as ${
+        career.title
+      }. ${career.description.substring(0, 150)}...`}
+    >
       {/* Hero Section */}
       <section className="relative px-4 sm:px-6 lg:px-8 pb-24 overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50">
         <div className="max-w-4xl mx-auto">
@@ -250,16 +245,6 @@ export default function CompanyCareerDetail({
                     type="email"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Phone
-                  </label>
-                  <input
-                    type="tel"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 
