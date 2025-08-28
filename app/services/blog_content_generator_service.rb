@@ -1,17 +1,14 @@
 class BlogContentGeneratorService
   def initialize
-    @client = RubyLLM.new
+    @chat = RubyLLM.chat if api_keys_configured?
   end
 
   def generate_post(use_case_slug, use_case_data)
+    return fallback_post(use_case_slug, use_case_data) unless api_keys_configured?
+
     prompt = build_content_prompt(use_case_slug, use_case_data)
 
-    response = @client.complete(
-      model: 'gpt-4',
-      messages: [{ role: 'user', content: prompt }],
-      temperature: 0.7,
-      max_tokens: 2000
-    )
+    response = @chat.ask(prompt)
 
     parse_generated_content(response.content)
   end
@@ -33,6 +30,34 @@ class BlogContentGeneratorService
   end
 
   private
+
+  def api_keys_configured?
+    ENV["OPENAI_API_KEY"].present? || ENV["ANTHROPIC_API_KEY"].present?
+  end
+
+  def fallback_post(use_case_slug, use_case_data)
+    title = "Guide to #{use_case_data[:title]} Development"
+    content = <<~CONTENT
+# Introduction
+
+Developing #{use_case_data[:title]} applications requires careful planning and the right technology stack.
+
+# Best Practices
+
+Always consider scalability, security, and user experience when building #{use_case_data[:title]} solutions.
+
+# Technology Stack
+
+Choose technologies that best fit your #{use_case_data[:title]} requirements and team expertise.
+    CONTENT
+
+    {
+      title: title,
+      excerpt: "Learn about developing #{use_case_data[:title]} applications with modern technologies and best practices.",
+      content: content,
+      tags: ["software development", use_case_slug.parameterize]
+    }
+  end
 
   def build_content_prompt(use_case_slug, use_case_data)
     <<~PROMPT
