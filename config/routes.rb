@@ -1,4 +1,20 @@
 Rails.application.routes.draw do
+  namespace :client do
+    get "dashboard", to: "dashboard#index"
+  end
+  # Tenant creation (outside subdomain constraint)
+  resources :tenants, only: [:new, :create]
+
+  # Tenant subdomain constraints
+  constraints subdomain: /.+/ do
+    namespace :tenant do
+      get 'dashboard', to: 'dashboard#index'
+      resources :change_requests, only: [:index, :new, :create, :show, :update]
+      resources :documents, only: [:index, :new, :create, :show, :destroy]
+      get 'billing', to: 'billing#index'
+    end
+  end
+
   namespace :api do
     get "features", to: "features#index"
     post "quotes/estimate", to: "quotes#estimate"
@@ -6,7 +22,9 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
   # Blog routes
   get 'blog', to: 'blog#index'
+  get 'blog/use-case/:use_case_slug', to: 'blog#use_case', as: :blog_use_case
   get 'blog/:slug', to: 'blog#show', as: :blog_post
+  post 'blog/generate/:use_case_slug', to: 'blog#generate_post', as: :generate_blog_post
 
   # Auth routes
   get 'signin', to: 'auth#signin'
@@ -35,6 +53,10 @@ Rails.application.routes.draw do
   # Case Studies routes
   get 'case-studies', to: 'case_studies#index'
   get 'case-studies/:slug', to: 'case_studies#show', as: :case_study
+
+  # Use Cases routes
+  get 'use-cases', to: 'use_cases#index'
+  get 'use-cases/:slug', to: 'use_cases#show', as: :use_case
 
   # Resources routes
   get 'help-center', to: 'resources#help_center'
