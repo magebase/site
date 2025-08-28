@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_28_025347) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_28_083322) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -81,6 +81,26 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_025347) do
     t.string "author_name"
     t.string "author_title"
     t.string "author_profile_picture"
+    t.string "use_case_slug"
+    t.boolean "featured"
+  end
+
+  create_table "blogs", force: :cascade do |t|
+    t.string "title"
+    t.string "slug"
+    t.text "content"
+    t.text "excerpt"
+    t.string "meta_title"
+    t.string "meta_description"
+    t.boolean "published"
+    t.datetime "published_at"
+    t.string "author"
+    t.string "category"
+    t.jsonb "tags"
+    t.string "featured_image"
+    t.string "use_case_slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "careers", force: :cascade do |t|
@@ -129,6 +149,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_025347) do
     t.index ["slug"], name: "index_case_studies_on_slug", unique: true
   end
 
+  create_table "change_requests", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "status"
+    t.string "priority"
+    t.bigint "tenant_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tenant_id"], name: "index_change_requests_on_tenant_id"
+    t.index ["user_id"], name: "index_change_requests_on_user_id"
+  end
+
   create_table "chats", force: :cascade do |t|
     t.string "model_id"
     t.datetime "created_at", null: false
@@ -157,6 +190,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_025347) do
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_contracts_on_client_id"
     t.index ["quote_request_id"], name: "index_contracts_on_quote_request_id"
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.string "name"
+    t.string "file_path"
+    t.string "file_type"
+    t.bigint "tenant_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tenant_id"], name: "index_documents_on_tenant_id"
+    t.index ["user_id"], name: "index_documents_on_user_id"
   end
 
   create_table "equipment", force: :cascade do |t|
@@ -289,9 +334,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_025347) do
     t.text "inspiration"
     t.jsonb "selected_languages"
     t.jsonb "selected_social_providers"
+    t.bigint "tenant_id"
     t.index ["aasm_state"], name: "index_quote_requests_on_aasm_state"
     t.index ["client_id"], name: "index_quote_requests_on_client_id"
     t.index ["selected_features_json"], name: "index_quote_requests_on_selected_features_json", using: :gin
+    t.index ["tenant_id"], name: "index_quote_requests_on_tenant_id"
     t.index ["use_case"], name: "index_quote_requests_on_use_case"
   end
 
@@ -368,6 +415,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_025347) do
     t.index ["slug"], name: "index_templates_on_slug", unique: true
   end
 
+  create_table "tenants", force: :cascade do |t|
+    t.string "name"
+    t.string "subdomain"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_tenants_on_user_id"
+  end
+
   create_table "tool_calls", force: :cascade do |t|
     t.bigint "message_id", null: false
     t.string "tool_call_id", null: false
@@ -420,13 +476,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_025347) do
     t.index ["slug"], name: "index_webinars_on_slug", unique: true
   end
 
+  add_foreign_key "change_requests", "tenants"
+  add_foreign_key "change_requests", "users"
   add_foreign_key "contracts", "clients"
   add_foreign_key "contracts", "quote_requests"
+  add_foreign_key "documents", "tenants"
+  add_foreign_key "documents", "users"
   add_foreign_key "messages", "chats"
   add_foreign_key "payments", "quote_requests"
   add_foreign_key "project_milestones", "quote_requests"
   add_foreign_key "quote_request_features", "features"
   add_foreign_key "quote_request_features", "quote_requests"
   add_foreign_key "quote_requests", "clients"
+  add_foreign_key "quote_requests", "tenants"
+  add_foreign_key "tenants", "users"
   add_foreign_key "tool_calls", "messages"
 end

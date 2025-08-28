@@ -39,4 +39,56 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+
+  # BlogPost configuration
+  config.model BlogPost do
+    list do
+      field :id
+      field :title
+      field :use_case_slug
+      field :published
+      field :published_at
+      field :featured
+      field :author_name
+      field :created_at
+    end
+
+    show do
+      field :id
+      field :title
+      field :content
+      field :excerpt
+      field :slug
+      field :use_case_slug
+      field :author_name
+      field :author_title
+      field :published
+      field :published_at
+      field :featured
+      field :created_at
+      field :updated_at
+    end
+
+    edit do
+      field :title
+      field :content
+      field :excerpt
+      field :use_case_slug
+      field :author_name
+      field :author_title
+      field :published
+      field :featured
+    end
+
+    export do
+      field :title
+      field :content
+      field :excerpt
+      field :use_case_slug
+      field :author_name
+      field :published
+      field :published_at
+      field :featured
+    end
+  end
 end
