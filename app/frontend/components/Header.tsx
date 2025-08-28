@@ -1,151 +1,192 @@
 import React, { useState } from "react";
-import { Zap, Phone, Calculator, X } from "lucide-react";
+import { Zap, Calculator, LogIn, LogOut, User } from "lucide-react";
+import {
+  Navbar,
+  NavBody,
+  NavItems,
+  MobileNav,
+  MobileNavHeader,
+  MobileNavMenu,
+  MobileNavToggle,
+  NavbarButton,
+} from "./ui/resizable-navbar";
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  user?: {
+    name: string;
+    email: string;
+    avatar_url?: string;
+  };
+}
+
+const Header: React.FC<HeaderProps> = ({ user }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const navItems = [
+    { name: "Features", link: "/#features" },
+    { name: "Blog", link: "/blog" },
+  ];
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const handleSignOut = () => {
+    // This will be handled by Rails/Devise
+    window.location.href = "/users/sign_out";
+  };
+
   return (
-    <div>
-      <header className="bg-gray-900 text-white shadow-lg sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 md:px-6 py-3 md:py-4">
-          <div className="flex items-center justify-between">
-            {/* Logo and Brand */}
-            <div className="flex items-center gap-2 md:gap-4">
-              <div className="w-10 h-10 md:w-12 md:h-12 bg-gray-700 rounded-lg flex items-center justify-center">
-                <Zap className="w-5 h-5 md:w-6 md:h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl md:text-2xl font-bold text-white">
-                  Magebase
-                </h1>
-                <p className="text-xs text-gray-400 hidden sm:block">
-                  Software Development Since 2024
-                </p>
-              </div>
-            </div>
-
-            {/* Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <a
-                href="/#features"
-                className="text-white hover:text-white font-medium transition-colors duration-200 relative group"
-              >
-                Features
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-400 transition-all duration-200 group-hover:w-full"></span>
-              </a>
-              <a
-                href="/#equipment"
-                className="text-white hover:text-white font-medium transition-colors duration-200 relative group"
-              >
-                Equipment
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-400 transition-all duration-200 group-hover:w-full"></span>
-              </a>
-              <a
-                href="/blog"
-                className="text-white hover:text-white font-medium transition-colors duration-200 relative group"
-              >
-                Blog
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-400 transition-all duration-200 group-hover:w-full"></span>
-              </a>
-            </nav>
-
-            {/* CTA Button */}
-            <div className="flex items-center gap-2 md:gap-4">
-              <a
-                href="tel:+61412345678"
-                className="hidden md:flex items-center gap-2 text-white hover:text-white transition-colors"
-              >
-                <Phone className="w-4 h-4" />
-                <span className="font-medium">0412 345 678</span>
-              </a>
-              <a
-                href="/#quote"
-                className="hidden sm:flex px-3 py-2 md:px-4 md:py-2 bg-white text-gray-900 rounded-lg font-medium transition-colors duration-200 hover:bg-gray-100 items-center gap-1 md:gap-2 text-sm md:text-base"
-              >
-                <Calculator className="w-3 h-3 md:w-4 md:h-4" />
-                <span>Get Quote</span>
-              </a>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={toggleMobileMenu}
-              className="md:hidden text-white hover:text-white p-2 -mr-2"
-            >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              )}
-            </button>
+    <Navbar className="top-0">
+      <NavBody>
+        {/* Logo */}
+        <div className="flex items-center gap-2 md:gap-4">
+          <div className="w-10 h-10 md:w-12 md:h-12 bg-gray-700 rounded-lg flex items-center justify-center">
+            <Zap className="w-5 h-5 md:w-6 md:h-6 text-white" />
+          </div>
+          <div>
+            <h1 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
+              Magebase
+            </h1>
+            <p className="text-xs text-gray-600 dark:text-gray-400 hidden sm:block">
+              Software Development Since 2024
+            </p>
           </div>
         </div>
-      </header>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-gray-900 text-white border-t border-gray-700">
-          <div className="max-w-7xl mx-auto px-4 py-4">
-            <nav className="flex flex-col space-y-4">
-              <a
-                href="/#features"
-                className="text-white hover:text-gray-300 font-medium py-2 transition-colors duration-200"
-                onClick={() => setIsMobileMenuOpen(false)}
+        {/* Desktop Navigation */}
+        <NavItems
+          items={navItems}
+          onItemClick={() => setIsMobileMenuOpen(false)}
+        />
+
+        {/* CTA Buttons */}
+        <div className="flex items-center gap-2 md:gap-4">
+          {user ? (
+            <div className="flex items-center gap-3">
+              <div className="hidden md:flex items-center gap-2 text-gray-900 dark:text-white">
+                {user.avatar_url ? (
+                  <img
+                    src={user.avatar_url}
+                    alt={user.name}
+                    className="w-8 h-8 rounded-full"
+                  />
+                ) : (
+                  <User className="w-5 h-5" />
+                )}
+                <span className="font-medium">{user.name}</span>
+              </div>
+              <NavbarButton
+                onClick={handleSignOut}
+                variant="secondary"
+                className="inline-flex place-items-center"
               >
-                Features
-              </a>
-              <a
-                href="/#equipment"
-                className="text-white hover:text-gray-300 font-medium py-2 transition-colors duration-200"
-                onClick={() => setIsMobileMenuOpen(false)}
+                <LogOut className="w-4 h-4 mr-2" />
+                Sign Out
+              </NavbarButton>
+            </div>
+          ) : (
+            <>
+              <NavbarButton
+                href="/signin"
+                variant="secondary"
+                className="inline-flex place-items-center"
               >
-                Equipment
-              </a>
-              <a
-                href="/blog"
-                className="text-white hover:text-gray-300 font-medium py-2 transition-colors duration-200"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Blog
-              </a>
-              <a
+                <LogIn className="w-4 h-4 mr-2" />
+                Sign In
+              </NavbarButton>
+              <NavbarButton
                 href="/#quote"
-                className="text-white hover:text-gray-300 font-medium py-2 transition-colors duration-200"
-                onClick={() => setIsMobileMenuOpen(false)}
+                variant="gradient"
+                className="inline-flex place-items-center"
               >
+                <Calculator className="w-4 h-4 mr-2" />
                 Get Quote
-              </a>
-              <div className="border-t border-gray-700 pt-4 mt-4">
+              </NavbarButton>
+            </>
+          )}
+        </div>
+      </NavBody>
+
+      {/* Mobile Navigation */}
+      <MobileNav>
+        <MobileNavHeader>
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-gray-700 rounded-lg flex items-center justify-center">
+              <Zap className="w-4 h-4 text-white" />
+            </div>
+            <h1 className="text-lg font-bold text-black dark:text-white">
+              Magebase
+            </h1>
+          </div>
+          <MobileNavToggle
+            isOpen={isMobileMenuOpen}
+            onClick={toggleMobileMenu}
+          />
+        </MobileNavHeader>
+
+        <MobileNavMenu isOpen={isMobileMenuOpen}>
+          {navItems.map((item, idx) => (
+            <a
+              key={idx}
+              href={item.link}
+              className="block py-2 text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white transition-colors"
+              onClick={toggleMobileMenu}
+            >
+              {item.name}
+            </a>
+          ))}
+          <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
+            {user ? (
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 text-neutral-600 dark:text-neutral-300">
+                  {user.avatar_url ? (
+                    <img
+                      src={user.avatar_url}
+                      alt={user.name}
+                      className="w-6 h-6 rounded-full"
+                    />
+                  ) : (
+                    <User className="w-4 h-4" />
+                  )}
+                  <span className="font-medium">{user.name}</span>
+                </div>
                 <a
-                  href="tel:+61412345678"
-                  className="flex items-center gap-2 text-white hover:text-gray-300 font-medium py-2 transition-colors duration-200"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleSignOut();
+                  }}
+                  className="block py-2 text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white transition-colors"
                 >
-                  <Phone className="w-4 h-4" />
-                  <span>0412 345 678</span>
+                  <LogOut className="w-4 h-4 mr-2 inline" />
+                  Sign Out
                 </a>
               </div>
-            </nav>
+            ) : (
+              <>
+                <a
+                  href="/signin"
+                  className="block py-2 text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white transition-colors"
+                  onClick={toggleMobileMenu}
+                >
+                  <LogIn className="w-4 h-4 mr-2 inline" />
+                  Sign In
+                </a>
+                <a
+                  href="/#quote"
+                  className="block py-2 text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white transition-colors"
+                  onClick={toggleMobileMenu}
+                >
+                  <Calculator className="w-4 h-4 mr-2 inline" />
+                  Get Quote
+                </a>
+              </>
+            )}
           </div>
-        </div>
-      )}
-    </div>
+        </MobileNavMenu>
+      </MobileNav>
+    </Navbar>
   );
 };
 

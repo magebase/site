@@ -41,4 +41,36 @@ class QuoteRequestTest < ActiveSupport::TestCase
     assert_empty quote_request.selected_languages_data
     assert_empty quote_request.selected_social_providers_data
   end
+
+  test "should have initial draft state" do
+    feature = Feature.create!(name: 'test_feature', description: 'Test feature', category: 'test', base_cost: 100.00, complexity_level: 1)
+
+    quote_request = QuoteRequest.new(
+      project_name: "Test Project",
+      project_description: "This is a test project description that is long enough",
+      use_case: "web_app"
+    )
+    quote_request.selected_features << feature
+
+    assert quote_request.save
+    assert_equal "draft", quote_request.aasm_state
+    assert quote_request.draft?
+  end
+
+  test "should transition from draft to quoted" do
+    feature = Feature.create!(name: 'test_feature', description: 'Test feature', category: 'test', base_cost: 100.00, complexity_level: 1)
+
+    quote_request = QuoteRequest.new(
+      project_name: "Test Project",
+      project_description: "This is a test project description that is long enough",
+      use_case: "web_app"
+    )
+    quote_request.selected_features << feature
+    quote_request.save
+
+    quote_request.generate_quote!
+
+    assert_equal "quoted", quote_request.aasm_state
+    assert quote_request.quoted?
+  end
 end

@@ -20,7 +20,8 @@ export function HowItWorksSection() {
               Discovery & Planning
             </h3>
             <p className="text-gray-600">
-              We analyze your business needs, review your requirements, and create a detailed project roadmap with AI-powered insights.
+              We analyze your business needs, review your requirements, and
+              create a detailed project roadmap with AI-powered insights.
             </p>
           </div>
 
@@ -32,7 +33,8 @@ export function HowItWorksSection() {
               Agile Development
             </h3>
             <p className="text-gray-600">
-              Our expert team builds your solution using modern technologies, with regular updates and transparent communication throughout.
+              Our expert team builds your solution using modern technologies,
+              with regular updates and transparent communication throughout.
             </p>
           </div>
 
@@ -44,7 +46,8 @@ export function HowItWorksSection() {
               Launch & Support
             </h3>
             <p className="text-gray-600">
-              We deploy your application, provide comprehensive testing, and offer ongoing support to ensure your success.
+              We deploy your application, provide comprehensive testing, and
+              offer ongoing support to ensure your success.
             </p>
           </div>
         </div>

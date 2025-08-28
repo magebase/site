@@ -2,6 +2,8 @@ import { ArrowRight, CheckCircle, Phone, Zap } from "lucide-react";
 import { BackgroundBeams } from "../ui/background-beams";
 import { TypewriterEffect } from "../ui/typewriter-effect";
 import { MovingBorder } from "../ui/moving-border";
+import { Highlight } from "../ui/hero-highlight";
+import { FlipWords } from "../ui/flip-words";
 
 interface HeroSectionProps {
   onQuoteFormClick: () => void;
@@ -15,7 +17,18 @@ export function HeroSection({ onQuoteFormClick }: HeroSectionProps) {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 bg-gray-100 text-gray-800 px-4 py-2 rounded-full text-sm font-medium mb-8">
             <Zap className="w-4 h-4" />
-            <span>Digital solutions for modern businesses</span>
+            <span>
+              Digital solutions for
+              <FlipWords
+                words={[
+                  "modern businesses",
+                  "growing companies",
+                  "startups",
+                  "enterprises",
+                ]}
+                duration={2000}
+              />
+            </span>
           </div>
 
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
@@ -36,8 +49,10 @@ export function HeroSection({ onQuoteFormClick }: HeroSectionProps) {
           </h1>
 
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Custom software development with AI-powered project planning, transparent pricing, and guaranteed delivery timelines.
-            Wyoming-based development with expert Ruby on Rails and React expertise.
+            Custom software development with{" "}
+            <Highlight>AI-powered project planning</Highlight>, transparent
+            pricing, and guaranteed delivery timelines. Wyoming-based
+            development with expert Ruby on Rails and React expertise.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -62,15 +77,21 @@ export function HeroSection({ onQuoteFormClick }: HeroSectionProps) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="flex items-center gap-3">
               <CheckCircle className="w-5 h-5 text-green-600" />
-              <span className="text-gray-700">AI-powered project estimation</span>
+              <span className="text-gray-700">
+                AI-powered project estimation
+              </span>
             </div>
             <div className="flex items-center gap-3">
               <CheckCircle className="w-5 h-5 text-green-600" />
-              <span className="text-gray-700">Wyoming jurisdiction contracts</span>
+              <span className="text-gray-700">
+                Wyoming jurisdiction contracts
+              </span>
             </div>
             <div className="flex items-center gap-3">
               <CheckCircle className="w-5 h-5 text-green-600" />
-              <span className="text-gray-700">Transparent milestone billing</span>
+              <span className="text-gray-700">
+                Transparent milestone billing
+              </span>
             </div>
           </div>
         </div>

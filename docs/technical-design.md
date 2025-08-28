@@ -167,7 +167,7 @@ This platform enables clients to request quotes for custom software development 
 - **Web Server**: Nginx or Apache with SSL/TLS
 - **Database**: PostgreSQL 13+ with extensions
 - **Cache**: Redis 6.0+
-- **Background Jobs**: Sidekiq with Redis
+- **Background Jobs**: SolidCache with Rails built-in job system
 - **Monitoring**: Prometheus + Grafana stack
 
 #### Network Requirements

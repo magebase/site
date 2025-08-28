@@ -2,9 +2,16 @@
   "private": true,
   "type": "module",
   "devDependencies": {
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/recharts": "^1.8.29",
+    "jsdom": "^26.1.0",
     "tw-animate-css": "^1.3.7",
     "vite": "^5.4.19",
-    "vite-plugin-ruby": "^5.1.1"
+    "vite-plugin-ruby": "^5.1.1",
+    "vitest": "^3.2.4"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
@@ -35,6 +42,7 @@
     "@radix-ui/react-toggle": "^1.1.10",
     "@radix-ui/react-toggle-group": "^1.1.11",
     "@radix-ui/react-tooltip": "^1.2.8",
+    "@react-pdf/renderer": "^4.3.0",
     "@tabler/icons-react": "^3.34.1",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/typography": "^0.5.16",
@@ -56,16 +64,20 @@
     "framer-motion": "^12.23.12",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.542.0",
+    "mini-svg-data-uri": "^1.4.4",
     "motion": "^12.23.12",
     "next-themes": "^0.4.6",
     "rails_admin": "3.3.0",
     "react": "^19.1.1",
     "react-day-picker": "^9.9.0",
     "react-dom": "^19.1.1",
+    "react-dropzone": "^14.3.8",
     "react-hook-form": "^7.62.0",
     "react-icons": "^5.5.0",
+    "react-pdf": "^9.1.3",
     "react-resizable-panels": "^3.0.5",
-    "recharts": "^2.15.4",
+    "react-to-print": "^3.1.1",
+    "recharts": "^3.1.2",
     "sass": "^1.91.0",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",
@@ -75,6 +87,8 @@
     "zod": "^4.1.3"
   },
   "scripts": {
-    "check": "tsc -p tsconfig.app.json && tsc -p tsconfig.node.json"
+    "check": "tsc -p tsconfig.app.json && tsc -p tsconfig.node.json",
+    "test": "vitest",
+    "test:run": "vitest run"
   }
 }

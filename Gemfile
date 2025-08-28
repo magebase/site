@@ -40,9 +40,13 @@ gem "ahoy_matey", "~> 5.0"
 # Authorization
 gem "pundit", "~> 2.3"
 
+# State machine
+gem "aasm", "~> 5.5"
+
 # Authentication
 gem "devise", "~> 4.9"
 gem "omniauth", "~> 2.1"
+gem "omniauth-google-oauth2", "~> 1.1"
 
 # AI Integration
 gem "ruby_llm", "~> 1.6"
@@ -90,5 +94,16 @@ gem "vite_rails", "~> 3.0"
 # Admin interface
 gem "rails_admin", "~> 3.1"
 
-# State machine for models
-gem "aasm", "~> 5.5"
+# PDF generation
+gem "prawn", "~> 2.4"
+gem "prawn-table", "~> 0.2"
+gem "prawn-templates", "~> 0.1"
+
+# Email sending
+gem "aws-sdk-ses", "~> 1.0"
+
+# Background jobs
+# gem "sidekiq", "~> 7.0"
+
+# Rate limiting
+gem "rack-attack", "~> 6.7"

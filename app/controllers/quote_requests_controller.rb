@@ -108,14 +108,77 @@ class QuoteRequestsController < ApplicationController
     }
   end
 
+  def timeline_pdf
+    @quote_request = QuoteRequest.find(params[:id])
+    render inertia: 'QuoteRequests/TimelinePdf', props: {
+      quote_request: @quote_request.as_json(
+        include: [:client, :selected_features, :project_milestones, :contract, :payments]
+      )
+    }
+  end
+
+  def timeline_csv
+    @quote_request = QuoteRequest.find(params[:id])
+
+    # Generate CSV content
+    require 'csv'
+    csv_data = generate_timeline_csv(@quote_request)
+
+    send_data csv_data,
+              filename: "#{@quote_request.project_name.parameterize}_timeline.csv",
+              type: 'text/csv',
+              disposition: 'attachment'
+  end
+
   private
+
+  def generate_pdf
+    @quote_request = QuoteRequest.find(params[:id])
+
+    # Generate PDF
+    pdf_generator = QuotePdfGenerator.new(@quote_request)
+    pdf_data = pdf_generator.generate.render
+
+    # Send email with PDF attachment (async)
+    QuoteEmailJob.perform_later(@quote_request.id, pdf_data)
+
+    # Return PDF for download
+    send_data pdf_data,
+              filename: "scope-document-#{@quote_request.id}.pdf",
+              type: 'application/pdf',
+              disposition: 'attachment'
+  end
+
+  def generate_timeline_csv(quote_request)
+    timeline = quote_request.project_plan_json&.dig('timeline') || []
+
+    CSV.generate(headers: true) do |csv|
+      csv << ['Project Name', 'Client Company', 'Client Contact', 'Client Email', 'Day', 'Scope', 'Deliverables', 'Estimated Cost', 'Monthly Retainer', 'Deposit Amount', 'Status', 'Created Date']
+
+      timeline.each do |item|
+        csv << [
+          quote_request.project_name,
+          quote_request.client.company_name,
+          quote_request.client.contact_name,
+          quote_request.client.email,
+          item['day'],
+          item['scope'],
+          item['deliverables']&.join('; '),
+          quote_request.estimated_cost,
+          quote_request.monthly_retainer,
+          quote_request.deposit_amount,
+          quote_request.status,
+          quote_request.created_at
+        ]
+      end
+    end
+  end
 
   def quote_request_params
     params.require(:quote_request).permit(
       :project_name,
       :project_description,
       :use_case,
-      :client_id,
       :estimated_cost,
       :monthly_retainer,
       :deposit_amount,
