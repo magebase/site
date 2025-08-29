@@ -30,7 +30,7 @@ class LegalController < ApplicationController
   end
 
   def security
-    @page = Page.published.find_by(slug: 'security')
+    @page = Page.published.find_by(slug: 'security-information')
     render inertia: 'LegalSecurity', props: {
       page: @page&.as_json(only: [:title, :content, :excerpt])
     }

@@ -74,15 +74,6 @@ features = [
     dependencies: [],
     requires_customization: false
   },
-  {
-    name: 'security_features',
-    description: 'SSL, data encryption, CSRF protection, and security audits',
-    category: 'security',
-    base_cost: 3000.00,
-    complexity_level: 2,
-    dependencies: [],
-    requires_customization: true
-  },
 
   # Payment & Commerce
   {
@@ -122,15 +113,6 @@ features = [
     category: 'backend',
     base_cost: 5000.00,
     complexity_level: 3,
-    dependencies: [],
-    requires_customization: true
-  },
-  {
-    name: 'database_design',
-    description: 'Database schema design, optimization, and data migration',
-    category: 'backend',
-    base_cost: 2500.00,
-    complexity_level: 2,
     dependencies: [],
     requires_customization: true
   },
@@ -230,6 +212,24 @@ features = [
     requires_customization: false
   },
   {
+    name: '5_high_converting_seo_marketing_pages',
+    description: '5 high converting, SEO optimized marketing pages including homepage, about, services, blog, and contact',
+    category: 'marketing',
+    base_cost: 2500.00,
+    complexity_level: 2,
+    dependencies: [],
+    requires_customization: true
+  },
+  {
+    name: 'igaming_gambling',
+    description: 'iGaming platform with gambling features including game integration, betting systems, RNG compliance, and regulatory requirements',
+    category: 'gaming',
+    base_cost: 25000.00,
+    complexity_level: 5,
+    dependencies: ['payment_processing', 'user_authentication'],
+    requires_customization: true
+  },
+  {
     name: 'gdpr_compliance',
     description: 'GDPR compliance implementation including data protection, consent management, and privacy controls',
     category: 'compliance',
@@ -246,6 +246,15 @@ features = [
     complexity_level: 4,
     dependencies: [],
     requires_customization: true
+  },
+  {
+    name: 'external_security_audit',
+    description: 'Third-party security audit and penetration testing by certified security professionals',
+    category: 'security',
+    base_cost: 7500.00,
+    complexity_level: 4,
+    dependencies: [],
+    requires_customization: false
   }
 ]
 

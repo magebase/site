@@ -1,4 +1,3 @@
-import { Head } from "@inertiajs/react";
 import PageLayout from "../components/PageLayout";
 import { Button } from "../components/ui/button";
 import {
@@ -33,15 +32,11 @@ interface CompanyCareersProps {
 
 export default function CompanyCareers({ careers, user }: CompanyCareersProps) {
   return (
-    <PageLayout user={user}>
-      <Head>
-        <title>Careers | Join Our Team</title>
-        <meta
-          name="description"
-          content="Explore exciting career opportunities and join our team of passionate professionals working on cutting-edge digital solutions."
-        />
-      </Head>
-
+    <PageLayout
+      user={user}
+      title="Careers | Join Our Team"
+      description="Explore exciting career opportunities and join our team of passionate professionals working on cutting-edge digital solutions."
+    >
       {/* Hero Section */}
       <section className="relative px-4 sm:px-6 lg:px-8 pb-24 overflow-hidden bg-gradient-to-br from-green-50 to-blue-50 pt-48">
         <div className="max-w-4xl mx-auto text-center">

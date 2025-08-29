@@ -2,7 +2,7 @@ require "test_helper"
 
 class QuoteRequestsControllerTest < ActionDispatch::IntegrationTest
   # Skip fixtures for this test to avoid Ahoy issues
-  self.use_transactional_tests = true
+  # self.use_transactional_tests = true
 
   test "should create quote request with new fields" do
     # Create test features
@@ -18,7 +18,10 @@ class QuoteRequestsControllerTest < ActionDispatch::IntegrationTest
           inspiration: "I want a modern, clean design similar to Stripe's dashboard",
           selected_languages: ["English", "Spanish", "French"],
           selected_social_providers: ["Google", "Facebook"],
-          feature_ids: [google_play_store_ios.id, pwa.id]
+          feature_ids: [google_play_store_ios.id, pwa.id],
+          client_name: "Test Client",
+          client_email: "test@example.com",
+          client_phone: "+1234567890"
         }
       }, as: :json
     end
@@ -33,5 +36,13 @@ class QuoteRequestsControllerTest < ActionDispatch::IntegrationTest
     assert_equal ["English", "Spanish", "French"], quote_request.selected_languages_data
     assert_equal ["Google", "Facebook"], quote_request.selected_social_providers_data
     assert_equal 2, quote_request.selected_features.count
+    
+    # Verify pricing was calculated and is not $0
+    assert_not_nil quote_request.estimated_cost
+    assert_not_nil quote_request.monthly_retainer
+    assert_not_nil quote_request.deposit_amount
+    assert quote_request.estimated_cost > 0, "Estimated cost should be greater than 0, got #{quote_request.estimated_cost}"
+    assert quote_request.monthly_retainer > 0, "Monthly retainer should be greater than 0, got #{quote_request.monthly_retainer}"
+    assert quote_request.deposit_amount > 0, "Deposit amount should be greater than 0, got #{quote_request.deposit_amount}"
   end
 end

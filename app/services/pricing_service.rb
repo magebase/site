@@ -5,6 +5,15 @@ class PricingService
 
   def calculate_price
     features = @quote_request.selected_features
+    
+    # Automatically include marketing pages SEO feature for all quotes
+    marketing_pages_feature = Feature.find_by(name: '5_high_converting_seo_marketing_pages')
+    if marketing_pages_feature && !features.include?(marketing_pages_feature)
+      # Add the feature to the quote request through the join table
+      @quote_request.quote_request_features.create!(feature: marketing_pages_feature)
+      features = features + [marketing_pages_feature]
+    end
+    
     use_case = @quote_request.use_case
 
     # Base pricing calculation
@@ -71,7 +80,7 @@ class PricingService
     return 1.0 if features.empty?
 
     feature_count = features.count
-    avg_complexity = features.average(:complexity_level).to_f
+    avg_complexity = features.sum(&:complexity_level).to_f / feature_count
 
     # Base multiplier from feature count
     count_multiplier = case feature_count

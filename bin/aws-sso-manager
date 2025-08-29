@@ -1,0 +1,190 @@
+#!/usr/bin/env bash
+
+# AWS SSO Session Manager for Development
+# This script manages AWS SSO sessions and keeps them refreshed
+
+set -e
+
+# Configuration
+SSO_PROFILE="${AWS_SSO_PROFILE:-default}"
+SSO_REGION="${AWS_REGION:-us-east-1}"
+REFRESH_INTERVAL="${AWS_SSO_REFRESH_INTERVAL:-1800}"  # 30 minutes
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Logging functions
+log_info() {
+    echo -e "${BLUE}[AWS-SSO]${NC} $(date '+%Y-%m-%d %H:%M:%S') - $1"
+}
+
+log_success() {
+    echo -e "${GREEN}[AWS-SSO]${NC} $(date '+%Y-%m-%d %H:%M:%S') - $1"
+}
+
+log_warning() {
+    echo -e "${YELLOW}[AWS-SSO]${NC} $(date '+%Y-%m-%d %H:%M:%S') - $1"
+}
+
+log_error() {
+    echo -e "${RED}[AWS-SSO]${NC} $(date '+%Y-%m-%d %H:%M:%S') - $1"
+}
+
+# Check if AWS CLI is configured for SSO
+check_aws_sso() {
+    if ! command -v aws &> /dev/null; then
+        log_error "AWS CLI is not installed"
+        exit 1
+    fi
+
+    # Check if SSO is configured
+    if ! aws configure sso list-profiles 2>/dev/null | grep -q "$SSO_PROFILE"; then
+        log_warning "AWS SSO profile '$SSO_PROFILE' not found"
+        log_info "Run 'aws configure sso' to set up SSO"
+        return 1
+    fi
+
+    return 0
+}
+
+# Login to AWS SSO
+aws_sso_login() {
+    log_info "Logging into AWS SSO..."
+
+    if aws sso login --profile "$SSO_PROFILE" 2>/dev/null; then
+        log_success "Successfully logged into AWS SSO"
+        return 0
+    else
+        log_error "Failed to login to AWS SSO"
+        return 1
+    fi
+}
+
+# Check if SSO session is still valid
+check_session_validity() {
+    # Try to get caller identity to check if session is valid
+    if aws sts get-caller-identity --profile "$SSO_PROFILE" &>/dev/null; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# Get session expiration time
+get_session_expiration() {
+    # Check if credentials cache exists
+    cache_file="$HOME/.aws/cli/cache/$(echo -n "$SSO_PROFILE" | sha1sum | cut -d' ' -f1).json"
+
+    if [ -f "$cache_file" ]; then
+        # Extract expiration time from cache
+        expiration=$(jq -r '.Credentials.Expiration' "$cache_file" 2>/dev/null || echo "")
+
+        if [ -n "$expiration" ]; then
+            # Convert to epoch time
+            expiration_epoch=$(date -d "$expiration" +%s 2>/dev/null || echo "0")
+            current_epoch=$(date +%s)
+
+            # Return seconds until expiration
+            echo $((expiration_epoch - current_epoch))
+        else
+            echo "0"
+        fi
+    else
+        echo "0"
+    fi
+}
+
+# Main session management loop
+manage_session() {
+    log_info "Starting AWS SSO session manager"
+    log_info "Profile: $SSO_PROFILE"
+    log_info "Region: $SSO_REGION"
+    log_info "Refresh interval: ${REFRESH_INTERVAL}s"
+
+    while true; do
+        if check_session_validity; then
+            # Get time until expiration
+            seconds_left=$(get_session_expiration)
+
+            if [ "$seconds_left" -gt 300 ]; then  # More than 5 minutes left
+                log_info "Session valid for $(($seconds_left / 60)) minutes"
+            else
+                log_warning "Session expires soon (${seconds_left}s). Refreshing..."
+                if ! aws_sso_login; then
+                    log_error "Failed to refresh session"
+                fi
+            fi
+        else
+            log_warning "Session expired or invalid. Logging in..."
+            if ! aws_sso_login; then
+                log_error "Failed to login. Retrying in 60 seconds..."
+                sleep 60
+                continue
+            fi
+        fi
+
+        # Export AWS credentials to environment
+        export_aws_credentials
+
+        # Wait before next check
+        sleep "$REFRESH_INTERVAL"
+    done
+}
+
+# Export AWS credentials for other processes
+export_aws_credentials() {
+    # Get credentials from SSO cache
+    cache_file="$HOME/.aws/cli/cache/$(echo -n "$SSO_PROFILE" | sha1sum | cut -d' ' -f1).json"
+
+    if [ -f "$cache_file" ]; then
+        access_key=$(jq -r '.Credentials.AccessKeyId' "$cache_file" 2>/dev/null || echo "")
+        secret_key=$(jq -r '.Credentials.SecretAccessKey' "$cache_file" 2>/dev/null || echo "")
+        session_token=$(jq -r '.Credentials.SessionToken' "$cache_file" 2>/dev/null || echo "")
+
+        if [ -n "$access_key" ] && [ -n "$secret_key" ]; then
+            export AWS_ACCESS_KEY_ID="$access_key"
+            export AWS_SECRET_ACCESS_KEY="$secret_key"
+            export AWS_SESSION_TOKEN="$session_token"
+            export AWS_DEFAULT_REGION="$SSO_REGION"
+
+            log_success "AWS credentials exported to environment"
+        fi
+    fi
+}
+
+# Graceful shutdown
+cleanup() {
+    log_info "Shutting down AWS SSO session manager"
+    exit 0
+}
+
+# Set up signal handlers
+trap cleanup SIGINT SIGTERM
+
+# Main execution
+main() {
+    log_info "Initializing AWS SSO Session Manager..."
+
+    if ! check_aws_sso; then
+        log_error "AWS SSO not properly configured. Exiting."
+        exit 1
+    fi
+
+    # Initial login if needed
+    if ! check_session_validity; then
+        if ! aws_sso_login; then
+            log_error "Initial SSO login failed. Exiting."
+            exit 1
+        fi
+    fi
+
+    # Start session management loop
+    manage_session
+}
+
+# Run main function
+main "$@"

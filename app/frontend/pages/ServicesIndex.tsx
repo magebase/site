@@ -1,4 +1,3 @@
-import { Head } from "@inertiajs/react";
 import PageLayout from "../components/PageLayout";
 import { Button } from "../components/ui/button";
 import {
@@ -39,15 +38,11 @@ const iconMap = {
 
 export default function ServicesIndex({ services, user }: ServicesIndexProps) {
   return (
-    <PageLayout user={user}>
-      <Head>
-        <title>Our Services | Professional Development Solutions</title>
-        <meta
-          name="description"
-          content="Explore our comprehensive range of development services including web development, mobile apps, AI integration, and more."
-        />
-      </Head>
-
+    <PageLayout
+      user={user}
+      title="Our Services | Professional Development Solutions"
+      description="Explore our comprehensive range of development services including web development, mobile apps, AI integration, and more."
+    >
       {/* Hero Section */}
       <section className="relative px-4 sm:px-6 lg:px-8 pb-24 overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50">
         <div className="max-w-7xl mx-auto text-center">

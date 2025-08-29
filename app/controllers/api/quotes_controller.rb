@@ -1,6 +1,11 @@
 class Api::QuotesController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:estimate]
 
+  # Override authentication for API controllers
+  def authenticate_user!
+    # API endpoints don't require authentication
+  end
+
   USE_CASE_DEFAULT_FEATURES = {
     "E-commerce Platform" => [
       "user_authentication",
@@ -512,6 +517,43 @@ class Api::QuotesController < ApplicationController
 
   # Copy methods from PricingService
   def calculate_base_cost(features, use_case)
+    # Map form use case values to pricing keys
+    use_case_mapping = {
+      "E-commerce" => "ecommerce",
+      "Small Business Branded Site" => "web_app",
+      "Food Delivery" => "mobile_app",
+      "Equipment Hire" => "web_app",
+      "Financial Services or Banking" => "saas",
+      "Gambling or iGaming" => "mobile_app",
+      "Digital Marketing Agency Site" => "web_app",
+      "Cryptocurrency Exchange" => "blockchain",
+      "Fitness & Wellness" => "mobile_app",
+      "Service Booking" => "web_app",
+      "Healthcare Management System" => "saas",
+      "Telemedicine" => "mobile_app",
+      "Educational" => "web_app",
+      "E-learning" => "saas",
+      "Business Management Software" => "saas",
+      "Customer Relationship Management" => "saas",
+      "Project Management Tool" => "saas",
+      "Real Estate" => "marketplace",
+      "Ride-Sharing" => "mobile_app",
+      "Logistics & Delivery" => "mobile_app",
+      "Appointment Scheduling" => "web_app",
+      "Social Networking" => "social_app",
+      "Video Gaming" => "mobile_app",
+      "Event Management System" => "web_app",
+      "Content Management System" => "web_app",
+      "Inventory Management System" => "saas",
+      "Internal Tool" => "web_app",
+      "Streaming Service" => "saas",
+      "Job Board" => "marketplace",
+      "Review & Rating" => "web_app",
+      "Subscription Box Service" => "ecommerce",
+      "Community Forum" => "social_app",
+      "Custom Application" => "web_app",
+    }
+
     base_costs = {
       "ecommerce" => 15000,
       "social_app" => 20000,
@@ -525,7 +567,9 @@ class Api::QuotesController < ApplicationController
       "blockchain" => 40000
     }
 
-    base_cost = base_costs[use_case] || 15000
+    # Map the use case to the pricing key
+    pricing_key = use_case_mapping[use_case] || "web_app"
+    base_cost = base_costs[pricing_key] || 15000
     feature_costs = features.sum(&:base_cost)
 
     base_cost + feature_costs
@@ -667,7 +711,9 @@ class Api::QuotesController < ApplicationController
         insights: {
           complexity: ai_response["complexity"],
           risks: ai_response["risks"],
-          tech_suggestions: ai_response["tech_suggestions"]
+          tech_suggestions: ai_response["tech_suggestions"],
+          business_tags: tags,
+          recommendations: ai_response["tech_suggestions"] || []
         },
         adjustments: {
           pricing_multiplier: ai_response["pricing_multiplier"] || 1.0,

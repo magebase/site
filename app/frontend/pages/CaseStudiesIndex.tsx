@@ -1,4 +1,3 @@
-import { Head } from "@inertiajs/react";
 import PageLayout from "../components/PageLayout";
 import { Button } from "../components/ui/button";
 import {
@@ -36,15 +35,11 @@ export default function CaseStudiesIndex({
   user,
 }: CaseStudiesIndexProps) {
   return (
-    <PageLayout user={user}>
-      <Head>
-        <title>Case Studies | Success Stories & Project Results</title>
-        <meta
-          name="description"
-          content="Explore our portfolio of successful projects and see how we've helped businesses achieve their goals through innovative digital solutions."
-        />
-      </Head>
-
+    <PageLayout
+      user={user}
+      title="Case Studies | Success Stories & Project Results"
+      description="Explore our portfolio of successful projects and see how we've helped businesses achieve their goals through innovative digital solutions."
+    >
       {/* Hero Section */}
       <section className="relative px-4 sm:px-6 lg:px-8 pb-24 overflow-hidden bg-gradient-to-br from-orange-50 to-red-50 pt-48">
         <div className="max-w-4xl mx-auto text-center">
@@ -136,7 +131,8 @@ export default function CaseStudiesIndex({
                 No Case Studies Yet
               </h3>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-                We're currently working on exciting projects with our clients. Check back soon to see our success stories and project results.
+                We're currently working on exciting projects with our clients.
+                Check back soon to see our success stories and project results.
               </p>
               <Button
                 size="lg"

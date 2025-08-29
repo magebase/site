@@ -1,4 +1,3 @@
-import { Head } from "@inertiajs/react";
 import PageLayout from "../components/PageLayout";
 import { Button } from "../components/ui/button";
 import {
@@ -41,10 +40,16 @@ export default function ResourcesDocumentation({
   // Provide default values if page is null
   const pageData = {
     title: page?.title || "Documentation",
-    content: page?.content || "<h1>Documentation</h1><p>Comprehensive documentation for all our services and APIs.</p><h2>Getting Started</h2><p>Quick start guides to help you get up and running with our platform.</p><h2>API Reference</h2><p>Detailed API documentation with examples and code samples.</p><h2>SDKs & Libraries</h2><p>Download our SDKs and libraries for popular programming languages.</p><h2>Best Practices</h2><p>Learn best practices for integrating with our platform.</p><h2>Troubleshooting</h2><p>Common issues and their solutions.</p>",
-    excerpt: page?.excerpt || "Access comprehensive documentation for all our services and APIs.",
+    content:
+      page?.content ||
+      "<h1>Documentation</h1><p>Comprehensive documentation for all our services and APIs.</p><h2>Getting Started</h2><p>Quick start guides to help you get up and running with our platform.</p><h2>API Reference</h2><p>Detailed API documentation with examples and code samples.</p><h2>SDKs & Libraries</h2><p>Download our SDKs and libraries for popular programming languages.</p><h2>Best Practices</h2><p>Learn best practices for integrating with our platform.</p><h2>Troubleshooting</h2><p>Common issues and their solutions.</p>",
+    excerpt:
+      page?.excerpt ||
+      "Access comprehensive documentation for all our services and APIs.",
     meta_title: page?.meta_title || "Documentation | Magebase",
-    meta_description: page?.meta_description || "Access comprehensive documentation for all our services and APIs.",
+    meta_description:
+      page?.meta_description ||
+      "Access comprehensive documentation for all our services and APIs.",
   };
 
   const docCategories = [
@@ -83,12 +88,11 @@ export default function ResourcesDocumentation({
   ];
 
   return (
-    <PageLayout user={user}>
-      <Head>
-        <title>{pageData.meta_title}</title>
-        <meta name="description" content={pageData.meta_description} />
-      </Head>
-
+    <PageLayout
+      user={user}
+      title={pageData.meta_title}
+      description={pageData.meta_description}
+    >
       {/* Hero Section */}
       <section className="relative px-4 sm:px-6 lg:px-8 pb-24 overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50 pt-24 md:pt-32">
         <div className="max-w-4xl mx-auto text-center">

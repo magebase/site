@@ -48,7 +48,7 @@ class BlogController < ApplicationController
     use_case_data = get_use_case_data(use_case_slug)
 
     if use_case_data.nil?
-      render json: { error: 'Use case not found' }, status: :not_found
+      redirect_to blog_index_path, alert: 'Use case not found'
       return
     end
 
@@ -66,13 +66,10 @@ class BlogController < ApplicationController
         published: true
       )
 
-      render json: {
-        success: true,
-        blog_post: blog_post.as_json(only: [:id, :title, :slug, :published_at, :author_name])
-      }
+      redirect_to blog_path(blog_post.slug), notice: 'Blog post generated successfully!'
     rescue => e
       Rails.logger.error("Failed to generate blog post: #{e.message}")
-      render json: { error: 'Failed to generate blog post' }, status: :internal_server_error
+      redirect_to blog_index_path, alert: 'Failed to generate blog post'
     end
   end
 

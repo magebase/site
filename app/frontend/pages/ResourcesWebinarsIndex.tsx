@@ -1,4 +1,3 @@
-import { Head } from "@inertiajs/react";
 import PageLayout from "../components/PageLayout";
 import { Button } from "../components/ui/button";
 import {
@@ -39,15 +38,11 @@ export default function ResourcesWebinarsIndex({
   const pastWebinars = webinars.filter((w) => !w.is_upcoming);
 
   return (
-    <PageLayout user={user}>
-      <Head>
-        <title>Webinars | Expert-Led Sessions & Tutorials</title>
-        <meta
-          name="description"
-          content="Join our expert-led webinars covering the latest technologies, best practices, and industry insights to accelerate your development journey."
-        />
-      </Head>
-
+    <PageLayout
+      user={user}
+      title="Webinars | Expert-Led Sessions & Tutorials"
+      description="Join our expert-led webinars covering the latest technologies, best practices, and industry insights to accelerate your development journey."
+    >
       {/* Hero Section */}
       <section className="relative px-4 sm:px-6 lg:px-8 pb-24 overflow-hidden bg-gradient-to-br from-orange-50 to-red-50">
         <div className="max-w-4xl mx-auto text-center">

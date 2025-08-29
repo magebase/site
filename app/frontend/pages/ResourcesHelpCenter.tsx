@@ -1,4 +1,3 @@
-import { Head } from "@inertiajs/react";
 import PageLayout from "../components/PageLayout";
 import { Button } from "../components/ui/button";
 import {
@@ -71,12 +70,11 @@ export default function ResourcesHelpCenter({
   ];
 
   return (
-    <PageLayout user={user}>
-      <Head>
-        <title>{pageData.title} | Help Center</title>
-        <meta name="description" content={pageData.excerpt} />
-      </Head>
-
+    <PageLayout
+      user={user}
+      title={pageData.title}
+      description={pageData.excerpt}
+    >
       {/* Hero Section */}
       <section className="relative px-4 sm:px-6 lg:px-8 pb-24 pt-12 overflow-hidden bg-gradient-to-br from-green-50 to-blue-50">
         <div className="max-w-4xl mx-auto text-center">

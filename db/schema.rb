@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_28_083322) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_28_110738) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -335,8 +335,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_083322) do
     t.jsonb "selected_languages"
     t.jsonb "selected_social_providers"
     t.bigint "tenant_id"
+    t.string "proposal_token"
     t.index ["aasm_state"], name: "index_quote_requests_on_aasm_state"
     t.index ["client_id"], name: "index_quote_requests_on_client_id"
+    t.index ["proposal_token"], name: "index_quote_requests_on_proposal_token", unique: true
     t.index ["selected_features_json"], name: "index_quote_requests_on_selected_features_json", using: :gin
     t.index ["tenant_id"], name: "index_quote_requests_on_tenant_id"
     t.index ["use_case"], name: "index_quote_requests_on_use_case"
@@ -447,6 +449,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_083322) do
     t.string "uid"
     t.string "name"
     t.string "avatar_url"
+    t.string "magic_link_token"
+    t.datetime "magic_link_sent_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

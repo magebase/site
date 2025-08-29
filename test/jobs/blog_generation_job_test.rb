@@ -25,20 +25,22 @@ class BlogGenerationJobTest < ActiveJob::TestCase
     # Perform the job - it will use fallback content since no API keys are configured
     BlogGenerationJob.perform_now
 
-    # Verify that new blog posts were created (we have 5 use cases in our service)
+    # Verify that new blog posts were created (we have 35 use cases in our service)
     final_count = BlogPost.count
-    assert_equal 5, final_count, "Expected exactly 5 blog posts to be created"
+    assert_equal 35, final_count, "Expected exactly 35 blog posts to be created"
 
     # Verify the created posts have correct attributes
     created_posts = BlogPost.all
-    assert_equal 5, created_posts.count
+    assert_equal 35, created_posts.count
 
     created_posts.each do |post|
       assert post.published
       assert_not_nil post.published_at
       assert_equal "AI Content Generator", post.author_name
       assert_not_nil post.use_case_slug
-      assert_includes ["e-commerce", "food-delivery", "healthcare-management-system", "financial-services-banking", "small-business-branded-site"], post.use_case_slug
+      # Verify that the use case slug exists in our service
+      use_case_data = UseCaseDataService.find_by_slug(post.use_case_slug)
+      assert_not_nil use_case_data, "Use case #{post.use_case_slug} should exist in UseCaseDataService"
     end
   end
 
@@ -62,8 +64,8 @@ class BlogGenerationJobTest < ActiveJob::TestCase
 
     # Verify no new posts were created for e-commerce, but other use cases should still get posts
     final_count = BlogPost.count
-    # We expect 4 new posts (all use cases except e-commerce)
-    assert_equal initial_count + 4, final_count
+    # We expect 34 new posts (all use cases except e-commerce)
+    assert_equal initial_count + 34, final_count
   end
 
   test "handles service errors gracefully" do

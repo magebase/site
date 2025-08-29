@@ -94,6 +94,9 @@ gem "vite_rails", "~> 3.0"
 # Admin interface
 gem "rails_admin", "~> 3.1"
 
+# Pagination
+gem "will_paginate", "~> 4.0"
+
 # PDF generation
 gem "prawn", "~> 2.4"
 gem "prawn-table", "~> 0.2"

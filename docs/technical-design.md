@@ -175,7 +175,7 @@ This platform enables clients to request quotes for custom software development 
 - **Bandwidth**: 100Mbps minimum, 1Gbps recommended
 - **Latency**: < 100ms between services
 - **DNS**: Custom domain with SSL certificate
-- **CDN**: CloudFlare or similar for static assets
+- **CDN**: CloudFront or similar for static assets
 
 ### Data Requirements
 

@@ -1,4 +1,3 @@
-import { Head } from "@inertiajs/react";
 import PageLayout from "../components/PageLayout";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
@@ -29,16 +28,15 @@ export default function LegalCookiePolicy({
       "<h1>Cookie Policy</h1><p>This Cookie Policy explains how we use cookies and similar technologies on our website.</p>",
     excerpt:
       "Learn about how we use cookies and similar technologies on our website.",
-    ...page
+    ...page,
   };
 
   return (
-    <PageLayout user={user}>
-      <Head>
-        <title>{pageData.title} | Cookie Policy</title>
-        <meta name="description" content={pageData.excerpt} />
-      </Head>
-
+    <PageLayout
+      user={user}
+      title={pageData.title}
+      description={pageData.excerpt}
+    >
       {/* Hero Section */}
       {/* Hero Section */}
       <section className="relative px-4 sm:px-6 lg:px-8 pb-24 pt-12 overflow-hidden bg-gradient-to-br from-orange-50 to-red-50">

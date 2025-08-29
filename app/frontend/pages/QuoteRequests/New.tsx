@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../components/ui/select";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowLeft, Send } from "lucide-react";
 
 interface Feature {
@@ -53,6 +53,25 @@ export default function New({ quote_request, features }: Props) {
   });
 
   const [selectedFeatures, setSelectedFeatures] = useState<number[]>([]);
+  const [estimatedCost, setEstimatedCost] = useState<number>(0);
+  const [monthlyRetainer, setMonthlyRetainer] = useState<number>(0);
+  const [depositAmount, setDepositAmount] = useState<number>(0);
+
+  // Automatically include marketing pages feature
+  useEffect(() => {
+    const marketingPagesFeature = features.find(
+      (f) => f.name === "5_high_converting_seo_marketing_pages"
+    );
+    if (
+      marketingPagesFeature &&
+      !selectedFeatures.includes(marketingPagesFeature.id)
+    ) {
+      const newFeatures = [...selectedFeatures, marketingPagesFeature.id];
+      setSelectedFeatures(newFeatures);
+      setData("feature_ids", newFeatures);
+      calculatePricing(newFeatures, data.use_case);
+    }
+  }, [features]);
 
   const handleFeatureToggle = (featureId: number, checked: boolean) => {
     let newSelectedFeatures;
@@ -63,6 +82,52 @@ export default function New({ quote_request, features }: Props) {
     }
     setSelectedFeatures(newSelectedFeatures);
     setData("feature_ids", newSelectedFeatures);
+    calculatePricing(newSelectedFeatures, data.use_case);
+  };
+
+  const calculatePricing = (featureIds: number[], useCase: string) => {
+    const selectedFeatureObjects = features.filter((f) =>
+      featureIds.includes(f.id)
+    );
+    const baseCosts = {
+      "E-commerce Platform": 15000,
+      "Social Networking App": 20000,
+      "Tenant Management System": 18000,
+      "Fitness Tracking App": 16000,
+      "Casino/Gaming Application": 25000,
+      "Sports Betting Platform": 30000,
+      "Neo-bank/FinTech App": 35000,
+      "Generator Hire Service": 12000,
+      "Tradesperson Service App": 14000,
+      "Doctor's Office": 18000,
+      "Veterinary Clinic": 16000,
+      Dispensary: 20000,
+      "Digital Marketing Agency": 15000,
+      "Educational Platform": 22000,
+      "Logistics and Delivery App": 17000,
+      "Event Management System": 16000,
+      "Marketplace Platform": 24000,
+      "SaaS Application": 28000,
+      Other: 15000,
+    };
+
+    let baseCost = baseCosts[useCase as keyof typeof baseCosts] || 15000;
+    const featureCost = selectedFeatureObjects.reduce(
+      (sum, feature) => sum + feature.base_cost,
+      0
+    );
+    const complexityMultiplier = Math.min(
+      1 + selectedFeatureObjects.length * 0.1,
+      1.8
+    );
+
+    const totalCost = (baseCost + featureCost) * complexityMultiplier;
+    const retainer = (totalCost * 0.2) / 12;
+    const deposit = totalCost * 0.3;
+
+    setEstimatedCost(Math.round(totalCost));
+    setMonthlyRetainer(Math.round(retainer));
+    setDepositAmount(Math.round(deposit));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -97,7 +162,6 @@ export default function New({ quote_request, features }: Props) {
     "Dispensary",
     "Digital Marketing Agency",
     "Educational Platform",
-    "Real Estate Application",
     "Logistics and Delivery App",
     "Event Management System",
     "Marketplace Platform",
@@ -199,7 +263,10 @@ export default function New({ quote_request, features }: Props) {
                 <Label htmlFor="use_case">Use Case</Label>
                 <Select
                   value={data.use_case}
-                  onValueChange={(value) => setData("use_case", value)}
+                  onValueChange={(value) => {
+                    setData("use_case", value);
+                    calculatePricing(selectedFeatures, value);
+                  }}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select a use case" />
@@ -273,7 +340,12 @@ export default function New({ quote_request, features }: Props) {
                                 htmlFor={`feature-${feature.id}`}
                                 className="font-medium cursor-pointer"
                               >
-                                {feature.name}
+                                {feature.name ===
+                                "5_high_converting_seo_marketing_pages"
+                                  ? "5 High Converting, SEO Optimized Marketing Pages"
+                                  : feature.name
+                                      .replace(/_/g, " ")
+                                      .replace(/\b\w/g, (l) => l.toUpperCase())}
                               </Label>
                               <p className="text-sm text-gray-600 mt-1">
                                 {feature.description}
@@ -290,6 +362,45 @@ export default function New({ quote_request, features }: Props) {
                     </div>
                   )
                 )}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Pricing Summary */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Estimated Pricing</CardTitle>
+              <p className="text-sm text-gray-600">
+                Real-time cost calculation based on your selections
+              </p>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="text-center p-4 border rounded-lg">
+                  <p className="text-sm text-gray-600">Project Cost</p>
+                  <p className="text-2xl font-bold text-blue-600">
+                    ${estimatedCost.toLocaleString()}
+                  </p>
+                </div>
+                <div className="text-center p-4 border rounded-lg">
+                  <p className="text-sm text-gray-600">Monthly Retainer</p>
+                  <p className="text-2xl font-bold text-blue-600">
+                    ${monthlyRetainer.toLocaleString()}
+                  </p>
+                </div>
+                <div className="text-center p-4 border rounded-lg">
+                  <p className="text-sm text-gray-600">Deposit Required</p>
+                  <p className="text-2xl font-bold text-blue-600">
+                    ${depositAmount.toLocaleString()}
+                  </p>
+                </div>
+              </div>
+              <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+                <p className="text-sm text-gray-600">
+                  <strong>Note:</strong> This is an estimate. Final pricing will
+                  be confirmed after our team reviews your specific
+                  requirements.
+                </p>
               </div>
             </CardContent>
           </Card>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Test Email from Rails Development</h1>
+
+    <p>Hello <%= @user %>,</p>
+
+    <p>This is a test email sent from your Rails development environment using AWS SES.</p>
+
+    <div style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; margin: 20px 0;">
+      <h3>Test Details:</h3>
+      <ul>
+        <li><strong>Environment:</strong> Development</li>
+        <li><strong>Mailer:</strong> AWS SES</li>
+        <li><strong>Timestamp:</strong> <%= @timestamp %></li>
+        <li><strong>Region:</strong> <%= ENV.fetch('AWS_REGION', 'us-east-1') %></li>
+      </ul>
+    </div>
+
+    <p>If you're receiving this email, your SES configuration is working correctly! 🎉</p>
+
+    <p>Best regards,<br/>
+    Magebase Development Team</p>
+  </body>
+</html>

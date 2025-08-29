@@ -1,4 +1,3 @@
-import { Head } from "@inertiajs/react";
 import PageLayout from "../components/PageLayout";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
@@ -25,17 +24,20 @@ export default function LegalPrivacyPolicy({
   // Provide default values and merge with page data to handle null fields
   const pageData = {
     title: page?.title || "Privacy Policy",
-    content: page?.content || "<h1>Privacy Policy</h1><p>This Privacy Policy describes how we collect, use, and protect your personal information.</p>",
-    excerpt: page?.excerpt || "Learn about how we collect, use, and protect your personal information.",
+    content:
+      page?.content ||
+      "<h1>Privacy Policy</h1><p>This Privacy Policy describes how we collect, use, and protect your personal information.</p>",
+    excerpt:
+      page?.excerpt ||
+      "Learn about how we collect, use, and protect your personal information.",
   };
 
   return (
-    <PageLayout user={user}>
-      <Head>
-        <title>{pageData.title} | Privacy Policy</title>
-        <meta name="description" content={pageData.excerpt} />
-      </Head>
-
+    <PageLayout
+      user={user}
+      title={pageData.title}
+      description={pageData.excerpt}
+    >
       {/* Hero Section */}
       {/* Hero Section */}
       <section className="relative px-4 sm:px-6 lg:px-8 pb-24 pt-12 overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50">

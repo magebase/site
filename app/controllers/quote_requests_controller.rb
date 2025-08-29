@@ -25,8 +25,13 @@ class QuoteRequestsController < ApplicationController
   end
 
   def create
-    # Handle client creation/finding
-    client_params = params[:quote_request].slice(:client_name, :client_email, :client_phone)
+    # Handle client creation/finding with correct parameter names
+    client_params = {
+      client_name: params[:quote_request][:name] || params[:quote_request][:companyName],
+      client_email: params[:quote_request][:email],
+      client_phone: params[:quote_request][:phone]
+    }
+
     if client_params[:client_email].present?
       client = Client.find_or_create_by!(email: client_params[:client_email]) do |c|
         c.company_name = client_params[:client_name]
@@ -35,16 +40,24 @@ class QuoteRequestsController < ApplicationController
       end
     end
 
-    # Create quote request with client association
-    quote_request_data = quote_request_params.except(:feature_ids, :client_name, :client_email, :client_phone)
+    # Create quote request with client association and correct parameter mapping
+    quote_request_data = {
+      project_name: params[:quote_request][:companyName] || params[:quote_request][:name],
+      project_description: params[:quote_request][:specialRequirements],
+      use_case: params[:quote_request][:useCase],
+      estimated_cost: params[:quote_request][:estimatedCost],
+      inspiration: params[:quote_request][:inspiration],
+      selected_languages: params[:quote_request][:selectedLanguages] || [],
+      selected_social_providers: params[:quote_request][:selectedSocialProviders] || []
+    }
     quote_request_data[:client_id] = client&.id
 
     @quote_request = QuoteRequest.new(quote_request_data)
 
     # Associate selected features BEFORE saving to pass validation
-    if params[:quote_request][:feature_ids].present?
-      feature_ids = params[:quote_request][:feature_ids].map(&:to_i)
-      features = Feature.where(id: feature_ids)
+    if params[:quote_request][:selectedFeatures].present?
+      feature_names = params[:quote_request][:selectedFeatures]
+      features = Feature.where(name: feature_names)
       @quote_request.selected_features = features
     end
 
@@ -56,19 +69,25 @@ class QuoteRequestsController < ApplicationController
       # Create tenant for client if they don't have one
       create_or_find_client_tenant(client)
 
-      # Send quote ready email instead of direct PDF
-      send_quote_ready_email(@quote_request)
+      # Generate proposal token for public access
+      @quote_request.generate_proposal_token!
 
-      render json: {
+      # Send proposal ready email with public link
+      send_proposal_ready_email(@quote_request)
+
+      render inertia: 'QuoteRequests/Show', props: {
+        quote_request: @quote_request.as_json(include: :selected_features),
         success: true,
-        message: 'Quote request submitted successfully! Check your email for login instructions.',
-        quote_request: @quote_request.as_json(include: :selected_features)
-      }, status: :created
+        message: 'Quote request submitted successfully! Check your email for your proposal link.'
+      }
     else
-      render json: {
-        success: false,
-        errors: @quote_request.errors.full_messages
-      }, status: :unprocessable_entity
+      @features = Feature.all.order(:category, :name)
+      render inertia: 'QuoteRequests/New', props: {
+        quote_request: @quote_request.as_json,
+        features: @features.as_json,
+        errors: @quote_request.errors.full_messages,
+        error_message: @quote_request.errors.full_messages.join(', ')
+      }
     end
   end
 
@@ -76,16 +95,16 @@ class QuoteRequestsController < ApplicationController
     @quote_request = QuoteRequest.find(params[:id])
 
     if @quote_request.update(quote_request_params)
-      render json: {
+      render inertia: 'QuoteRequests/Show', props: {
+        quote_request: @quote_request.as_json,
         success: true,
-        message: 'Quote request updated successfully!',
-        quote_request: @quote_request.as_json
+        message: 'Quote request updated successfully!'
       }
     else
-      render json: {
-        success: false,
+      render inertia: 'QuoteRequests/Show', props: {
+        quote_request: @quote_request.as_json,
         errors: @quote_request.errors.full_messages
-      }, status: :unprocessable_entity
+      }
     end
   end
 
@@ -93,10 +112,10 @@ class QuoteRequestsController < ApplicationController
     @quote_request = QuoteRequest.find(params[:id])
     @quote_request.generate_quote!
 
-    render json: {
+    render inertia: 'QuoteRequests/Show', props: {
+      quote_request: @quote_request.as_json,
       success: true,
-      message: 'Quote generated successfully!',
-      quote_request: @quote_request.as_json
+      message: 'Quote generated successfully!'
     }
   end
 
@@ -107,10 +126,10 @@ class QuoteRequestsController < ApplicationController
     # Generate contract
     ContractGenerationService.new(@quote_request).generate_contract
 
-    render json: {
+    render inertia: 'QuoteRequests/Show', props: {
+      quote_request: @quote_request.as_json(include: :contract),
       success: true,
-      message: 'Quote accepted! Contract generated.',
-      quote_request: @quote_request.as_json(include: :contract)
+      message: 'Quote accepted! Contract generated.'
     }
   end
 
@@ -179,12 +198,12 @@ class QuoteRequestsController < ApplicationController
     subdomain
   end
 
-  def send_quote_ready_email(quote_request)
+  def send_proposal_ready_email(quote_request)
     return unless quote_request.client&.email.present?
     return if Rails.env.test? # Skip email sending in test environment
 
-    # Send email asking client to sign in
-    QuoteReadyEmailService.send_quote_ready_email(quote_request)
+    # Send email with public proposal link
+    ProposalReadyEmailService.send_proposal_ready_email(quote_request)
   end
 
   def generate_timeline_csv(quote_request)

@@ -1,4 +1,3 @@
-import { Head } from "@inertiajs/react";
 import PageLayout from "../components/PageLayout";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
@@ -28,12 +27,11 @@ export default function LegalGdpr({ page, user }: LegalGdprProps) {
   };
 
   return (
-    <PageLayout user={user}>
-      <Head>
-        <title>{pageData.title} | GDPR</title>
-        <meta name="description" content={pageData.excerpt} />
-      </Head>
-
+    <PageLayout
+      user={user}
+      title={pageData.title}
+      description={pageData.excerpt}
+    >
       {/* Hero Section */}
       {/* Hero Section */}
       <section className="relative px-4 sm:px-6 lg:px-8 pb-24 pt-12 overflow-hidden bg-gradient-to-br from-purple-50 to-pink-50">

@@ -1,4 +1,3 @@
-import { Head } from "@inertiajs/react";
 import PageLayout from "../components/PageLayout";
 import { Button } from "../components/ui/button";
 import { ArrowRight, CheckCircle } from "lucide-react";
@@ -32,14 +31,6 @@ export default function ServicesShow({ service, user }: ServicesShowProps) {
       title={service.meta_title || service.title}
       description={service.meta_description || service.excerpt}
     >
-      <Head>
-        <title>{service.meta_title || service.title}</title>
-        <meta
-          name="description"
-          content={service.meta_description || service.excerpt}
-        />
-      </Head>
-
       {/* Hero Section */}
       <section className="relative px-4 sm:px-6 lg:px-8 pb-24 overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50">
         <div className="max-w-4xl mx-auto">

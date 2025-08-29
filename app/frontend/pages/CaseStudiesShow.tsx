@@ -1,4 +1,3 @@
-import { Head } from "@inertiajs/react";
 import PageLayout from "../components/PageLayout";
 import { Button } from "../components/ui/button";
 import {
@@ -36,17 +35,13 @@ export default function CaseStudiesShow({
   user,
 }: CaseStudiesShowProps) {
   return (
-    <PageLayout user={user}>
-      <Head>
-        <title>{caseStudy.title} | Case Study</title>
-        <meta
-          name="description"
-          content={`${
-            caseStudy.client_name
-          } case study: ${caseStudy.challenge.substring(0, 150)}...`}
-        />
-      </Head>
-
+    <PageLayout
+      user={user}
+      title={`${caseStudy.title} | Case Study`}
+      description={`${
+        caseStudy.client_name
+      } case study: ${caseStudy.challenge.substring(0, 150)}...`}
+    >
       {/* Hero Section */}
       <section className="relative px-4 sm:px-6 lg:px-8 pb-24 overflow-hidden bg-gradient-to-br from-orange-50 to-red-50 pt-48">
         <div className="max-w-4xl mx-auto">

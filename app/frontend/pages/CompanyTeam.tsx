@@ -1,8 +1,14 @@
-import { Head } from "@inertiajs/react";
 import PageLayout from "../components/PageLayout";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
-import { ArrowRight, Mail, Linkedin, Twitter, Github, Users } from "lucide-react";
+import {
+  ArrowRight,
+  Mail,
+  Linkedin,
+  Twitter,
+  Github,
+  Users,
+} from "lucide-react";
 
 interface TeamMember {
   id: number;
@@ -28,15 +34,11 @@ interface CompanyTeamProps {
 
 export default function CompanyTeam({ teamMembers, user }: CompanyTeamProps) {
   return (
-    <PageLayout user={user}>
-      <Head>
-        <title>Our Team | Meet the Experts Behind Your Success</title>
-        <meta
-          name="description"
-          content="Meet our talented team of developers, designers, and strategists who are passionate about delivering exceptional digital solutions."
-        />
-      </Head>
-
+    <PageLayout
+      user={user}
+      title="Our Team | Meet the Experts Behind Your Success"
+      description="Meet our talented team of developers, designers, and strategists who are passionate about delivering exceptional digital solutions."
+    >
       {/* Hero Section */}
       <section className="relative px-4 sm:px-6 lg:px-8 pb-24 overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50 pt-48">
         <div className="max-w-4xl mx-auto text-center">
@@ -139,7 +141,9 @@ export default function CompanyTeam({ teamMembers, user }: CompanyTeamProps) {
                 Meet Our Team
               </h3>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-                Our talented team of developers, designers, and strategists work together to deliver exceptional digital solutions. Check back soon to meet the experts behind your success.
+                Our talented team of developers, designers, and strategists work
+                together to deliver exceptional digital solutions. Check back
+                soon to meet the experts behind your success.
               </p>
               <Button
                 size="lg"

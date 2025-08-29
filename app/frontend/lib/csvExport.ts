@@ -112,7 +112,15 @@ export const generateProjectSummaryCSV = (
   ];
 
   const featuresList = quote_request.selected_features
-    .map((feature) => `${feature.name} (${feature.category})`)
+    .map((feature) => {
+      const displayName =
+        feature.name === "5_high_converting_seo_marketing_pages"
+          ? "5 High Converting, SEO Optimized Marketing Pages"
+          : feature.name
+              .replace(/_/g, " ")
+              .replace(/\b\w/g, (l) => l.toUpperCase());
+      return `${displayName} (${feature.category})`;
+    })
     .join("; ");
 
   const timeline = quote_request.project_plan_json?.timeline || [];

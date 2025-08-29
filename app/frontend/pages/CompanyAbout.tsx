@@ -1,4 +1,3 @@
-import { Head } from "@inertiajs/react";
 import PageLayout from "../components/PageLayout";
 import { Button } from "../components/ui/button";
 import { ArrowRight, Users, Target, Award } from "lucide-react";
@@ -46,14 +45,6 @@ export default function CompanyAbout({ page, user }: CompanyAboutProps) {
       title={page.meta_title || page.title}
       description={page.meta_description || page.excerpt}
     >
-      <Head>
-        <title>{page.meta_title || page.title}</title>
-        <meta
-          name="description"
-          content={page.meta_description || page.excerpt}
-        />
-      </Head>
-
       {/* Hero Section */}
       <section className="relative px-4 sm:px-6 lg:px-8 pb-24 pt-12 overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50">
         <div className="max-w-4xl mx-auto text-center">

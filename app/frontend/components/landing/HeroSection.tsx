@@ -1,7 +1,6 @@
 import { ArrowRight, CheckCircle, Phone, Zap } from "lucide-react";
 import { BackgroundBeams } from "../ui/background-beams";
 import { TypewriterEffect } from "../ui/typewriter-effect";
-import { MovingBorder } from "../ui/moving-border";
 import { Highlight } from "../ui/hero-highlight";
 import { FlipWords } from "../ui/flip-words";
 
@@ -65,8 +64,8 @@ export function HeroSection({ onQuoteFormClick }: HeroSectionProps) {
           >
             Custom software development with{" "}
             <Highlight>AI-powered project planning</Highlight>, transparent
-            pricing, and guaranteed delivery timelines. Wyoming-based
-            development with expert Ruby on Rails and React expertise.
+            pricing, and guaranteed delivery timelines. Expert Ruby on Rails and
+            React development.
           </p>
 
           <div
@@ -75,15 +74,13 @@ export function HeroSection({ onQuoteFormClick }: HeroSectionProps) {
             data-aos-duration="800"
             data-aos-delay="600"
           >
-            <MovingBorder duration={3000}>
-              <button
-                onClick={onQuoteFormClick}
-                className="group inline-flex items-center gap-3 bg-gradient-to-r from-gray-900 to-gray-800 text-white px-10 py-5 rounded-xl font-semibold hover:from-gray-800 hover:to-gray-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-              >
-                Start your project
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </MovingBorder>
+            <button
+              onClick={onQuoteFormClick}
+              className="group inline-flex items-center gap-3 bg-gradient-to-r from-gray-900 to-gray-800 text-white px-10 py-5 rounded-xl font-semibold hover:from-gray-800 hover:to-gray-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+            >
+              Start your project
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
             <a
               href="tel:+61412345678"
               className="inline-flex items-center gap-3 bg-white text-gray-900 px-10 py-5 rounded-xl font-semibold border-2 border-gray-200 hover:border-gray-300 hover:bg-gray-50 transition-all duration-300 shadow-md hover:shadow-lg"
@@ -118,7 +115,7 @@ export function HeroSection({ onQuoteFormClick }: HeroSectionProps) {
             >
               <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0" />
               <span className="text-gray-700 font-medium">
-                Wyoming jurisdiction contracts
+                Professional contracts
               </span>
             </div>
             <div

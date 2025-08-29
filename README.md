@@ -1,6 +1,8 @@
 # Magebase - Development Agency Quote Management System
 
-A modern Rails 8 application with React frontend for managing project quotes, featuring AI-powered pricing, timeline generation, and comprehensive project management tools.
+A modern Rails 8 application with React frontend for managing project quotes,
+featuring AI-powered pricing, timeline generation, and comprehensive project
+management tools.
 
 ## Features
 
@@ -74,9 +76,11 @@ A modern Rails 8 application with React frontend for managing project quotes, fe
    ```
 
 5. **Start development servers**
+
    ```bash
    bin/dev
    ```
+
    This will start Rails (port 3000) and Vite (port 5173) using Overmind.
 
 ### Alternative: Run processes separately
@@ -111,7 +115,7 @@ This project follows a strict Test-Driven Development approach with these phases
 
 Always commit with a descriptive message that includes the issue number and a short description of the changes:
 
-```
+```bash
 feat: implement [feature/behavior] to pass test
 ```
 
@@ -119,18 +123,24 @@ feat: implement [feature/behavior] to pass test
 
 - Always commit and push on GREEN
 - Always raise a PR on first commit of a new branch
-- Always merge the PR into main when done and create a release when the main deployment is successful
-- Include detailed comments explaining the purpose of each function, class, type, and complex logic in the code
-- Always do a full PR review of your own code before merging, leave comments, and request changes if needed
+- Always merge the PR into main when done and create a release when the main
+  deployment is successful
+- Include detailed comments explaining the purpose of each function, class,
+  type, and complex logic in the code
+- Always do a full PR review of your own code before merging, leave comments,
+  and request changes if needed
 - Always resolve the review comments on the PR
 - Always use the MCP to link the PR to the relevant issue in the github repo
 - Always resolve the linked issue after merging the PR
 - Always make sure the test suite is green before making a commit
-- Always make sure all workflow runs are successful before merging the PR
+- Always make sure all workflow runs are successful before merging the
+  PR
 
 ### 🛠 REFACTOR Phase
 
-During REFACTOR, do NOT change anything besides any necessary updates to the README. Instead, help me plan to refactor my existing code to improve readability, structure, or performance.
+During REFACTOR, do NOT change anything besides any necessary updates to the
+README. Instead, help me plan to refactor my existing code to improve
+readability, structure, or performance.
 
 When I am ready, proceed again to RED.
 
@@ -149,7 +159,8 @@ When I am ready, proceed again to RED.
 **AASM State Machine for QuoteRequest Model:**
 
 - ✅ Added `aasm` gem to Gemfile
-- ✅ Implemented state machine with states: draft, quoted, contracted, deposit_paid, in_development, completed
+- ✅ Implemented state machine with states: draft, quoted, contracted,
+  deposit_paid, in_development, completed
 - ✅ Added tests for initial state and state transitions
 - ✅ All tests passing
 

@@ -647,44 +647,6 @@ module UseCaseDataService
       ]
     },
     {
-      slug: "real-estate",
-      title: "Real Estate Platforms",
-      subtitle: "Connect property owners with buyers and renters",
-      description: "Real estate platforms for property listings, management, transactions, and market analysis with comprehensive property data.",
-      features: [
-        "Property Listings",
-        "Search & Filtering",
-        "Virtual Tours",
-        "Mortgage Calculator",
-        "Agent Management",
-        "Transaction Management",
-        "Market Analytics",
-        "Mobile Apps"
-      ],
-      category: "Real Estate",
-      complexity: "High",
-      estimated_timeline: "14-20 weeks",
-      target_audience: "Real estate agents, property managers, developers",
-      key_benefits: [
-        "Increased property visibility",
-        "Faster transactions",
-        "Better market insights",
-        "Improved customer experience"
-      ],
-      technical_requirements: [
-        "Property data integration",
-        "MLS integration",
-        "Virtual tour setup",
-        "Market data APIs"
-      ],
-      success_metrics: [
-        "Property listing views",
-        "Transaction completion rate",
-        "Customer satisfaction",
-        "Time to sale/rent"
-      ]
-    },
-    {
       slug: "ride-sharing",
       title: "Ride-Sharing Platforms",
       subtitle: "Connect drivers with passengers efficiently",
@@ -1041,7 +1003,7 @@ module UseCaseDataService
         "Communication Tools",
         "Mobile Access"
       ],
-      category: "Real Estate",
+      category: "Service",
       complexity: "Medium",
       estimated_timeline: "12-18 weeks",
       target_audience: "Property managers, landlords, real estate companies",
@@ -1329,6 +1291,38 @@ module UseCaseDataService
         "ROI achievement",
         "Competitive advantage"
       ]
+    },
+    {
+      slug: "news-website",
+      title: "News Website",
+      subtitle: "Professional news and media platforms",
+      description: "Modern news websites with content management, automated publishing, SEO optimization, and audience engagement features for media companies and publishers.",
+      features: [
+        "Content Management System",
+        "Automated Publishing",
+        "SEO Optimization",
+        "Audience Analytics",
+        "Social Media Integration",
+        "Mobile Responsiveness",
+        "Comment System",
+        "Newsletter Integration"
+      ],
+      category: "Web & Digital Presence",
+      complexity: "Medium",
+      estimated_timeline: "8-16 weeks",
+      target_audience: "Media companies, publishers, news organizations",
+      key_benefits: [
+        "Fast content publishing",
+        "SEO-optimized reach",
+        "Audience engagement",
+        "Revenue monetization"
+      ],
+      success_metrics: [
+        "Page views and unique visitors",
+        "Time spent on site",
+        "Social shares and engagement",
+        "Ad revenue and subscriptions"
+      ]
     }
   ].freeze
 
@@ -1385,8 +1379,6 @@ module UseCaseDataService
       "customer-relationship-management"
     when "project management tool"
       "project-management-tool"
-    when "real estate"
-      "real-estate"
     when "ride-sharing"
       "ride-sharing"
     when "logistics & delivery"
@@ -1423,7 +1415,7 @@ module UseCaseDataService
       "custom-application"
     else
       # Fallback: convert to slug format
-      cleaned_name.gsub(/\s+/, '-').gsub(/[^a-z0-9-]/, '').gsub(/-+/, '-').gsub(/^-|-$/, '')
+      cleaned_name.gsub(/\s+/, "-").gsub(/[^a-z0-9-]/, "").gsub(/-+/, "-").gsub(/^-|-$/, "")
     end
   end
 

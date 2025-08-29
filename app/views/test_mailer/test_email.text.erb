@@ -1,0 +1,16 @@
+Test Email from Rails Development
+
+Hello <%= @user %>,
+
+This is a test email sent from your Rails development environment using AWS SES.
+
+Test Details:
+- Environment: Development
+- Mailer: AWS SES
+- Timestamp: <%= @timestamp %>
+- Region: <%= ENV.fetch('AWS_REGION', 'us-east-1') %>
+
+If you're receiving this email, your SES configuration is working correctly! 🎉
+
+Best regards,
+Magebase Development Team

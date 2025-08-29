@@ -1,4 +1,3 @@
-import { Head } from "@inertiajs/react";
 import PageLayout from "../components/PageLayout";
 import { Button } from "../components/ui/button";
 import {
@@ -69,15 +68,11 @@ export default function ResourcesIndex({ user }: ResourcesIndexProps) {
   ];
 
   return (
-    <PageLayout user={user}>
-      <Head>
-        <title>Resources | Documentation, Help & Community</title>
-        <meta
-          name="description"
-          content="Access comprehensive documentation, help center, community forums, webinars, and templates to support your development journey."
-        />
-      </Head>
-
+    <PageLayout
+      user={user}
+      title="Resources | Documentation, Help & Community"
+      description="Access comprehensive documentation, help center, community forums, webinars, and templates to support your development journey."
+    >
       {/* Hero Section */}
       <section className="relative px-4 sm:px-6 lg:px-8 pb-24 overflow-hidden bg-gradient-to-br from-indigo-50 to-purple-50">
         <div className="max-w-4xl mx-auto text-center">

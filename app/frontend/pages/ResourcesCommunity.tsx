@@ -1,4 +1,3 @@
-import { Head } from "@inertiajs/react";
 import PageLayout from "../components/PageLayout";
 import { Button } from "../components/ui/button";
 import {
@@ -36,8 +35,12 @@ export default function ResourcesCommunity({
   // Provide default values and merge with page data to handle null fields
   const pageData = {
     title: page?.title || "Community",
-    content: page?.content || "<h1>Join Our Developer Community</h1><p>Connect with developers from around the world, share knowledge, and grow together in our supportive community.</p>",
-    excerpt: page?.excerpt || "Join our vibrant developer community to connect, learn, and grow together.",
+    content:
+      page?.content ||
+      "<h1>Join Our Developer Community</h1><p>Connect with developers from around the world, share knowledge, and grow together in our supportive community.</p>",
+    excerpt:
+      page?.excerpt ||
+      "Join our vibrant developer community to connect, learn, and grow together.",
   };
 
   const communityFeatures = [
@@ -75,12 +78,11 @@ export default function ResourcesCommunity({
   ];
 
   return (
-    <PageLayout user={user}>
-      <Head>
-        <title>{pageData.title} | Community</title>
-        <meta name="description" content={pageData.excerpt} />
-      </Head>
-
+    <PageLayout
+      user={user}
+      title={pageData.title}
+      description={pageData.excerpt}
+    >
       {/* Hero Section */}
       <section className="relative px-4 sm:px-6 lg:px-8 pb-24 pt-12 overflow-hidden bg-gradient-to-br from-purple-50 to-pink-50">
         <div className="max-w-4xl mx-auto text-center">

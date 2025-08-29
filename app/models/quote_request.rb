@@ -16,6 +16,7 @@ class QuoteRequest < ApplicationRecord
   validates :project_description, presence: true, length: { minimum: 10 }
   validates :use_case, presence: true
   validates :selected_features, presence: true
+  validates :proposal_token, uniqueness: true, allow_nil: true
 
   # Status tracking with AASM
   aasm do
@@ -95,5 +96,24 @@ class QuoteRequest < ApplicationRecord
   def use_case_slug
     return nil unless use_case.present?
     UseCaseDataService.display_name_to_slug(use_case)
+  end
+
+  # Generate a unique proposal token
+  def generate_proposal_token!
+    return proposal_token if proposal_token.present?
+
+    loop do
+      token = SecureRandom.urlsafe_base64(32)
+      unless QuoteRequest.exists?(proposal_token: token)
+        update!(proposal_token: token)
+        break token
+      end
+    end
+  end
+
+  # Get public proposal URL
+  def public_proposal_url
+    return nil unless proposal_token.present?
+    Rails.application.routes.url_helpers.public_proposal_url(token: proposal_token, host: ENV["APP_HOST"] || "localhost:3000")
   end
 end

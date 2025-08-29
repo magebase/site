@@ -1,8 +1,35 @@
 # Variables for Terraform configuration
 variable "environment" {
-  description = "Environment name (dev, qa, uat, prod)"
+  description = "Environment name (dev, prod)"
   type        = string
   default     = "dev"
+  validation {
+    condition     = contains(["dev", "prod"], var.environment)
+    error_message = "Environment must be either 'dev' or 'prod'"
+  }
+}
+
+variable "hcloud_token" {
+  description = "Hetzner Cloud API token"
+  type        = string
+  sensitive   = true
+}
+
+variable "cloudflare_api_token" {
+  description = "Cloudflare API token"
+  type        = string
+  sensitive   = true
+}
+
+variable "aws_ses_account_id" {
+  description = "AWS account ID for SES"
+  type        = string
+}
+
+variable "domain_name" {
+  description = "Domain name for the application"
+  type        = string
+  default     = "magebase.dev"
 }
 
 variable "database_url" {
@@ -11,8 +38,8 @@ variable "database_url" {
   sensitive   = true
 }
 
-variable "redis_url" {
-  description = "Redis URL"
+variable "cache_database_url" {
+  description = "Cache database URL (SolidCache uses PostgreSQL)"
   type        = string
   sensitive   = true
 }
@@ -45,4 +72,16 @@ variable "docker_image" {
   description = "Docker image for deployment"
   type        = string
   default     = "magebase/site:latest"
+}
+
+variable "stripe_api_key" {
+  description = "Stripe API key for managing billing infrastructure"
+  type        = string
+  sensitive   = true
+}
+
+variable "stripe_webhook_secret" {
+  description = "Stripe webhook secret for validating webhook signatures"
+  type        = string
+  sensitive   = true
 }

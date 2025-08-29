@@ -1,14 +1,14 @@
-# Terraform configuration for Magebase infrastructure
+# Terraform configuration for Magebase infrastructure using Hetzner + k3s
 terraform {
-  required_version = ">= 1.0"
+  required_version = ">= 1.5.0"
   required_providers {
+    hcloud = {
+      source  = "hetznercloud/hcloud"
+      version = ">= 1.51.0"
+    }
     cloudflare = {
       source  = "cloudflare/cloudflare"
       version = "~> 4.0"
-    }
-    fly = {
-      source  = "fly-apps/fly"
-      version = "~> 0.0.15"
     }
     aws = {
       source  = "hashicorp/aws"
@@ -17,308 +17,167 @@ terraform {
   }
 }
 
-# Cloudflare provider configuration
+# Hetzner Cloud Provider
+provider "hcloud" {
+  token = var.hcloud_token
+}
+
+# Cloudflare Provider
 provider "cloudflare" {
   api_token = var.cloudflare_api_token
 }
 
-# AWS provider for SES
+# AWS Provider (for SES only)
 provider "aws" {
-  region = var.aws_region
-}
-
-# Fly.io provider configuration
-provider "fly" {
-  useinternaltunnel    = true
-  internaltunnelorg    = var.fly_org
-  internaltunnelregion = var.fly_region
-}
-
-# Variables
-variable "cloudflare_api_token" {
-  description = "Cloudflare API token"
-  type        = string
-  sensitive   = true
-}
-
-variable "cloudflare_zone_id" {
-  description = "Cloudflare zone ID"
-  type        = string
-}
-
-variable "domain_name" {
-  description = "Domain name"
-  type        = string
-}
-
-variable "aws_region" {
-  description = "AWS region for SES"
-  type        = string
-  default     = "us-east-1"
-}
-
-variable "fly_org" {
-  description = "Fly.io organization"
-  type        = string
-}
-
-variable "fly_region" {
-  description = "Fly.io region"
-  type        = string
-  default     = "syd"
-}
-
-# Cloudflare Zone
-data "cloudflare_zone" "main" {
-  zone_id = var.cloudflare_zone_id
-}
-
-# Cloudflare WAF Rules for Rate Limiting
-resource "cloudflare_ruleset" "rate_limiting" {
-  zone_id     = var.cloudflare_zone_id
-  name        = "Rate Limiting Rules"
-  description = "Rate limiting rules for quote generation endpoints"
-  kind        = "zone"
-  phase       = "http_ratelimit"
-
-  rules {
-    ref         = "rate_limit_quote_generation"
-    description = "Rate limit quote generation to prevent abuse"
-    enabled     = true
-
-    expression  = "(http.request.uri.path matches \"/quote_requests/generate_pdf\")"
-    action      = "block"
-
-    ratelimit {
-      characteristics     = ["cf.colo.id", "ip.src"]
-      period              = 60
-      requests_per_period = 5
-      mitigation_timeout  = 600
-    }
+  alias  = "ses"
+  region = "ap-southeast-1"  # Singapore region for SES
+  assume_role {
+    role_arn = "arn:aws:iam::${var.aws_ses_account_id}:role/SESManagerRole"
   }
 }
 
-# Cloudflare Page Rules for security headers
-resource "cloudflare_page_rule" "security_headers" {
-  zone_id = var.cloudflare_zone_id
-  target  = "${var.domain_name}/*"
+# Local values
+locals {
+  cluster_name = "${var.environment}-magebase"
+  singapore_locations = ["sin"]  # Singapore location
+  location     = "sin"  # Singapore for all environments
+}
 
-  actions {
-    security_level      = "medium"
-    ssl                 = "strict"
-    always_use_https    = true
+# K3s Cluster Module
+module "k3s_cluster" {
+  source  = "kube-hetzner/kube-hetzner/hcloud"
+  version = "2.18.1"
 
-    # Security headers
-    header {
-      name  = "X-Frame-Options"
-      value = "DENY"
-    }
-
-    header {
-      name  = "X-Content-Type-Options"
-      value = "nosniff"
-    }
-
-    header {
-      name  = "Referrer-Policy"
-      value = "strict-origin-when-cross-origin"
-    }
-
-    header {
-      name  = "Permissions-Policy"
-      value = "geolocation=(), microphone=(), camera=()"
-    }
+  providers = {
+    hcloud = hcloud
   }
 
-  priority = 1
+  # Cluster configuration
+  cluster_name = local.cluster_name
+
+  # Hetzner Cloud configuration
+  hcloud_token = var.hcloud_token
+
+  # Network configuration
+  network_region = "ap-southeast"  # Singapore network region
+  network_ipv4_cidr = "10.0.0.0/8"
+  cluster_ipv4_cidr = "10.42.0.0/16"
+  service_ipv4_cidr = "10.43.0.0/16"
+
+  # DNS servers
+  dns_servers = [
+    "1.1.1.1",
+    "8.8.8.8",
+    "2606:4700:4700::1111"
+  ]
+
+  # SSH configuration
+  ssh_public_key  = file("~/.ssh/id_ed25519.pub")
+  ssh_private_key = file("~/.ssh/id_ed25519")
+
+  # Control plane configuration
+  control_plane_nodepools = [
+    {
+      name        = "control-plane-${local.location}"
+      server_type = var.environment == "prod" ? "cpx31" : "cpx21"
+      location    = local.location
+      labels      = []
+      taints      = []
+      count       = var.environment == "prod" ? 3 : 1
+    }
+  ]
+
+  # Agent node pools
+  agent_nodepools = [
+    {
+      name        = "agent-${local.location}"
+      server_type = var.environment == "prod" ? "cpx31" : "cpx21"
+      location    = local.location
+      labels      = []
+      taints      = []
+      count       = var.environment == "prod" ? 3 : 1
+    }
+  ]
+
+  # Load balancer configuration
+  load_balancer_type     = var.environment == "prod" ? "lb21" : "lb11"
+  load_balancer_location = local.location
+
+  # CNI configuration
+  cni_plugin = "cilium"
+
+  # Cilium configuration
+  cilium_routing_mode = "native"
+  cilium_ipv4_native_routing_cidr = "10.0.0.0/8"
+  cilium_egress_gateway_enabled = true
+  cilium_hubble_enabled = true
+
+  # Ingress controller
+  ingress_controller = "nginx"
+
+  # Enable required components
+  enable_cert_manager = true
+  enable_metrics_server = true
+
+  # Allow scheduling on control plane for smaller clusters
+  allow_scheduling_on_control_plane = var.environment == "dev"
+
+  # Firewall configuration
+  block_icmp_ping_in = false
+  firewall_kube_api_source = ["0.0.0.0/0", "::/0"]
+  firewall_ssh_source = ["0.0.0.0/0", "::/0"]
+
+  # K3s configuration
+  initial_k3s_channel = "stable"
+  automatically_upgrade_k3s = true
+  automatically_upgrade_os = true
+
+  # Extra manifests for additional components
+  extra_kustomize_folder = "extra-manifests"
+  extra_kustomize_parameters = {
+    environment = var.environment
+    domain      = var.domain_name
+  }
 }
 
-# SES Configuration
-resource "aws_ses_domain_identity" "main" {
-  domain = var.domain_name
+# Cloudflare DNS Configuration
+module "cloudflare_dns" {
+  source = "./modules/cloudflare"
+
+  domain_name = var.domain_name
+  cluster_ipv4 = module.k3s_cluster.ingress_public_ipv4
+  cluster_ipv6 = module.k3s_cluster.ingress_public_ipv6
 }
 
-resource "aws_ses_domain_dkim" "main" {
-  domain = aws_ses_domain_identity.main.domain
-}
-
-resource "aws_ses_domain_mail_from" "main" {
-  domain           = aws_ses_domain_identity.main.domain
-  mail_from_domain = "mail.${aws_ses_domain_identity.main.domain}"
-}
-
-# SES Configuration Set
-resource "aws_ses_configuration_set" "main" {
-  name = "magebase-${var.environment}"
-
-  delivery_options {
-    tls_policy = "Require"
+# AWS SES Configuration (kept from old infrastructure)
+module "aws_ses" {
+  source = "./modules/aws-ses"
+  providers = {
+    aws = aws.ses
   }
 
-  reputation_metrics_enabled = true
-  sending_enabled           = true
-}
-
-# SES Email Template
-resource "aws_ses_template" "quote_notification" {
-  name    = "QuoteGenerated-${var.environment}"
-  subject = "Your Project Quote from Magebase"
-
-  html = <<HTML
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Your Project Quote</title>
-</head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-  <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-    <h1 style="color: #2563eb;">Your Project Quote is Ready!</h1>
-    <p>Dear {{client_name}},</p>
-    <p>Thank you for your interest in Magebase. We've generated a detailed scope document for your project based on your requirements.</p>
-
-    <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
-      <h3 style="margin-top: 0;">Project Summary:</h3>
-      <p><strong>Project:</strong> {{project_name}}</p>
-      <p><strong>Estimated Timeline:</strong> {{timeline}} days</p>
-      <p><strong>Estimated Cost:</strong> $${cost}</p>
-    </div>
-
-    <p>Please find your detailed scope document attached to this email.</p>
-
-    <div style="text-align: center; margin: 30px 0;">
-      <a href="{{quote_url}}" style="background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">View Full Quote Online</a>
-    </div>
-
-    <p>If you have any questions or would like to discuss your project further, please don't hesitate to contact us.</p>
-
-    <p>Best regards,<br>The Magebase Team</p>
-  </div>
-</body>
-</html>
-HTML
-
-  text = <<TEXT
-Your Project Quote is Ready!
-
-Dear {{client_name}},
-
-Thank you for your interest in Magebase. We've generated a detailed scope document for your project based on your requirements.
-
-Project Summary:
-- Project: {{project_name}}
-- Estimated Timeline: {{timeline}} days
-- Estimated Cost: $${cost}
-
-Please find your detailed scope document attached to this email.
-
-View your full quote online: {{quote_url}}
-
-If you have any questions or would like to discuss your project further, please don't hesitate to contact us.
-
-Best regards,
-The Magebase Team
-TEXT
-}
-
-# Fly.io App Configuration
-resource "fly_app" "magebase" {
-  name = "magebase-${var.environment}"
-  org  = var.fly_org
-}
-
-resource "fly_ip" "main" {
-  app  = fly_app.magebase.name
-  type = "v4"
-}
-
-resource "fly_ip" "ipv6" {
-  app  = fly_app.magebase.name
-  type = "v6"
-}
-
-# Fly.io Secrets
-resource "fly_secret" "database_url" {
-  app   = fly_app.magebase.name
-  name  = "DATABASE_URL"
-  value = var.database_url
-}
-
-resource "fly_secret" "redis_url" {
-  app   = fly_app.magebase.name
-  name  = "REDIS_URL"
-  value = var.redis_url
-}
-
-resource "fly_secret" "secret_key_base" {
-  app   = fly_app.magebase.name
-  name  = "SECRET_KEY_BASE"
-  value = var.secret_key_base
-}
-
-resource "fly_secret" "cloudflare_api_token" {
-  app   = fly_app.magebase.name
-  name  = "CLOUDFLARE_API_TOKEN"
-  value = var.cloudflare_api_token
-}
-
-resource "fly_secret" "aws_ses_access_key" {
-  app   = fly_app.magebase.name
-  name  = "AWS_SES_ACCESS_KEY_ID"
-  value = var.aws_ses_access_key_id
-}
-
-resource "fly_secret" "aws_ses_secret_key" {
-  app   = fly_app.magebase.name
-  name  = "AWS_SES_SECRET_ACCESS_KEY"
-  value = var.aws_ses_secret_access_key
-}
-
-resource "fly_secret" "ruby_llm_api_key" {
-  app   = fly_app.magebase.name
-  name  = "RUBY_LLM_API_KEY"
-  value = var.ruby_llm_api_key
-}
-
-# Fly.io Volumes for persistent storage
-resource "fly_volume" "storage" {
-  app    = fly_app.magebase.name
-  name   = "storage-${var.environment}"
-  size   = 10
-  region = var.fly_region
-}
-
-# Fly.io Deployment
-resource "fly_deployment" "main" {
-  app    = fly_app.magebase.name
-  image  = var.docker_image
-  strategy = "rolling"
-
-  env = {
-    RAILS_ENV = var.environment
-    NODE_ENV  = var.environment
-  }
-
-  depends_on = [fly_secret.database_url, fly_secret.redis_url, fly_secret.secret_key_base]
+  domain_name = var.domain_name
+  environment = var.environment
 }
 
 # Outputs
+output "kubeconfig" {
+  value     = module.k3s_cluster.kubeconfig
+  sensitive = true
+}
+
+output "cluster_name" {
+  value = local.cluster_name
+}
+
+output "ingress_ipv4" {
+  value = module.k3s_cluster.ingress_public_ipv4
+}
+
+output "ingress_ipv6" {
+  value = module.k3s_cluster.ingress_public_ipv6
+}
+
 output "cloudflare_zone_id" {
-  value = var.cloudflare_zone_id
-}
-
-output "fly_app_url" {
-  value = fly_app.magebase.url
-}
-
-output "fly_app_id" {
-  value = fly_app.magebase.id
-}
-
-output "ses_domain_identity_arn" {
-  value = aws_ses_domain_identity.main.arn
-}
-
-output "ses_dkim_tokens" {
-  value = aws_ses_domain_dkim.main.dkim_tokens
+  value = module.cloudflare_dns.zone_id
 }

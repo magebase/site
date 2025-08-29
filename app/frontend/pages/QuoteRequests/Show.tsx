@@ -2,7 +2,6 @@ import { Head, Link, router } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { format } from "date-fns";
 import { Download, Calendar, ChevronRight, FileText } from "lucide-react";
 import { useState } from "react";
@@ -148,7 +147,12 @@ export default function Show({ quote_request }: Props) {
                   {quote_request.selected_features.map((feature) => (
                     <div key={feature.id} className="p-3 border rounded-lg">
                       <h4 className="font-semibold text-gray-900">
-                        {feature.name}
+                        {feature.name ===
+                        "5_high_converting_seo_marketing_pages"
+                          ? "5 High Converting, SEO Optimized Marketing Pages"
+                          : feature.name
+                              .replace(/_/g, " ")
+                              .replace(/\b\w/g, (l) => l.toUpperCase())}
                       </h4>
                       <p className="text-sm text-gray-600 mt-1">
                         {feature.description}
@@ -272,40 +276,130 @@ export default function Show({ quote_request }: Props) {
 
           {/* Sidebar */}
           <div className="space-y-6">
-            {/* Pricing Summary */}
+            {/* Pricing Plans */}
             <Card>
               <CardHeader>
-                <CardTitle>Pricing Summary</CardTitle>
+                <CardTitle>Pricing Plans</CardTitle>
+                <p className="text-sm text-gray-600">
+                  Choose the plan that best fits your needs
+                </p>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Project Cost:</span>
-                  <span className="font-semibold">
-                    ${quote_request.estimated_cost?.toLocaleString() || "TBD"}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Monthly Retainer:</span>
-                  <span className="font-semibold">
-                    ${quote_request.monthly_retainer?.toLocaleString() || "TBD"}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Deposit:</span>
-                  <span className="font-semibold">
-                    ${quote_request.deposit_amount?.toLocaleString() || "TBD"}
-                  </span>
-                </div>
-                <Separator />
-                <div className="flex justify-between font-bold text-lg">
-                  <span>Total:</span>
-                  <span>
-                    $
-                    {(
-                      (quote_request.estimated_cost || 0) +
-                      (quote_request.monthly_retainer || 0)
-                    ).toLocaleString()}
-                  </span>
+              <CardContent>
+                <div className="grid gap-6 md:grid-cols-3">
+                  {/* Basic Plan */}
+                  <div className="border rounded-lg p-6">
+                    <div className="text-center">
+                      <h3 className="text-lg font-semibold text-gray-900">
+                        Basic
+                      </h3>
+                      <p className="text-3xl font-bold text-blue-600 mt-2">
+                        ${(quote_request.estimated_cost * 0.8).toLocaleString()}
+                      </p>
+                      <p className="text-sm text-gray-600 mt-1">
+                        One-time payment
+                      </p>
+                    </div>
+                    <ul className="mt-4 space-y-2">
+                      <li className="flex items-center text-sm">
+                        <ChevronRight className="h-4 w-4 text-green-500 mr-2" />
+                        Core features included
+                      </li>
+                      <li className="flex items-center text-sm">
+                        <ChevronRight className="h-4 w-4 text-green-500 mr-2" />
+                        2 weeks delivery
+                      </li>
+                      <li className="flex items-center text-sm">
+                        <ChevronRight className="h-4 w-4 text-green-500 mr-2" />
+                        Email support
+                      </li>
+                    </ul>
+                    <Button className="w-full mt-4" variant="outline">
+                      Select Basic
+                    </Button>
+                  </div>
+
+                  {/* Standard Plan */}
+                  <div className="border-2 border-blue-500 rounded-lg p-6 relative">
+                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                      <span className="bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                        Recommended
+                      </span>
+                    </div>
+                    <div className="text-center">
+                      <h3 className="text-lg font-semibold text-gray-900">
+                        Standard
+                      </h3>
+                      <p className="text-3xl font-bold text-blue-600 mt-2">
+                        $
+                        {quote_request.estimated_cost?.toLocaleString() ||
+                          "TBD"}
+                      </p>
+                      <p className="text-sm text-gray-600 mt-1">
+                        One-time payment
+                      </p>
+                    </div>
+                    <ul className="mt-4 space-y-2">
+                      <li className="flex items-center text-sm">
+                        <ChevronRight className="h-4 w-4 text-green-500 mr-2" />
+                        All features included
+                      </li>
+                      <li className="flex items-center text-sm">
+                        <ChevronRight className="h-4 w-4 text-green-500 mr-2" />
+                        4 weeks delivery
+                      </li>
+                      <li className="flex items-center text-sm">
+                        <ChevronRight className="h-4 w-4 text-green-500 mr-2" />
+                        Priority support
+                      </li>
+                      <li className="flex items-center text-sm">
+                        <ChevronRight className="h-4 w-4 text-green-500 mr-2" />
+                        3 months maintenance
+                      </li>
+                    </ul>
+                    <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700">
+                      Select Standard
+                    </Button>
+                  </div>
+
+                  {/* Premium Plan */}
+                  <div className="border rounded-lg p-6">
+                    <div className="text-center">
+                      <h3 className="text-lg font-semibold text-gray-900">
+                        Premium
+                      </h3>
+                      <p className="text-3xl font-bold text-blue-600 mt-2">
+                        ${(quote_request.estimated_cost * 1.3).toLocaleString()}
+                      </p>
+                      <p className="text-sm text-gray-600 mt-1">
+                        One-time payment
+                      </p>
+                    </div>
+                    <ul className="mt-4 space-y-2">
+                      <li className="flex items-center text-sm">
+                        <ChevronRight className="h-4 w-4 text-green-500 mr-2" />
+                        All features + extras
+                      </li>
+                      <li className="flex items-center text-sm">
+                        <ChevronRight className="h-4 w-4 text-green-500 mr-2" />
+                        6 weeks delivery
+                      </li>
+                      <li className="flex items-center text-sm">
+                        <ChevronRight className="h-4 w-4 text-green-500 mr-2" />
+                        24/7 support
+                      </li>
+                      <li className="flex items-center text-sm">
+                        <ChevronRight className="h-4 w-4 text-green-500 mr-2" />
+                        6 months maintenance
+                      </li>
+                      <li className="flex items-center text-sm">
+                        <ChevronRight className="h-4 w-4 text-green-500 mr-2" />
+                        Advanced analytics
+                      </li>
+                    </ul>
+                    <Button className="w-full mt-4" variant="outline">
+                      Select Premium
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>

@@ -2,11 +2,12 @@ Rails.application.routes.draw do
   namespace :client do
     get "dashboard", to: "dashboard#index"
   end
-  # Tenant creation (outside subdomain constraint)
+
+  # Tenant creation (outside tenant scope)
   resources :tenants, only: [:new, :create]
 
-  # Tenant subdomain constraints
-  constraints subdomain: /.+/ do
+  # Path-based tenant routing instead of subdomain constraints
+  scope '/:tenant_name', constraints: { tenant_name: /[a-zA-Z0-9_-]+/ } do
     namespace :tenant do
       get 'dashboard', to: 'dashboard#index'
       resources :change_requests, only: [:index, :new, :create, :show, :update]
@@ -19,15 +20,18 @@ Rails.application.routes.draw do
     get "features", to: "features#index"
     post "quotes/estimate", to: "quotes#estimate"
   end
+
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+
   # Blog routes
   get 'blog', to: 'blog#index'
   get 'blog/use-case/:use_case_slug', to: 'blog#use_case', as: :blog_use_case
   get 'blog/:slug', to: 'blog#show', as: :blog_post
   post 'blog/generate/:use_case_slug', to: 'blog#generate_post', as: :generate_blog_post
 
-  # Auth routes
-  get 'signin', to: 'auth#signin'
+  # Magic link authentication
+  get 'magic_link/:token', to: 'magic_links#authenticate', as: :magic_link
+  post 'magic_links/send', to: 'magic_links#send_link', as: :send_magic_link
 
   # Quote requests
   resources :quote_requests, only: [:index, :show, :new, :create, :update] do
@@ -39,6 +43,10 @@ Rails.application.routes.draw do
       get :timeline_csv
     end
   end
+
+  # Public proposal viewing (no authentication required)
+  get 'proposals/:token', to: 'proposals#show', as: :public_proposal
+  post 'proposals/:token/accept', to: 'proposals#accept', as: :accept_proposal
 
   # Services routes
   get 'services', to: 'services#index'
@@ -79,6 +87,7 @@ Rails.application.routes.draw do
 
   # Health check
   get "up" => "rails/health#show", as: :rails_health_check
+  get "health" => "health#index", as: :health_check
 
   # Defines the root path route ("/")
   root "home#index"

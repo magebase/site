@@ -8,8 +8,8 @@ class BlogContentGeneratorServiceTest < ActiveSupport::TestCase
 
   test "#generate_post generates blog post content for a use case" do
     # This test should verify the service can generate content for a use case
-    use_case_data = { slug: 'e-commerce', title: 'E-commerce Solutions' }
-    content = @service.generate_post('e-commerce', use_case_data)
+    use_case_data = { slug: "e-commerce", title: "E-commerce Solutions" }
+    content = @service.generate_post("e-commerce", use_case_data)
 
     assert_not_nil content
     assert_not_empty content
@@ -20,8 +20,8 @@ class BlogContentGeneratorServiceTest < ActiveSupport::TestCase
 
   test "#generate_post handles invalid use case gracefully" do
     # Test error handling for invalid use cases
-    use_case_data = { slug: 'invalid-case', title: 'Invalid Case' }
-    content = @service.generate_post('invalid-case', use_case_data)
+    use_case_data = { slug: "invalid-case", title: "Invalid Case" }
+    content = @service.generate_post("invalid-case", use_case_data)
 
     assert_not_nil content
     assert content.key?(:title)

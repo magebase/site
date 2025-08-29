@@ -1,7 +1,7 @@
 class CompanyController < ApplicationController
   skip_before_action :authenticate_user!
   def about
-    @page = Page.published.find_by(slug: 'about')
+    @page = Page.published.find_by(slug: 'about-us')
     render inertia: 'CompanyAbout', props: {
       page: @page&.as_json(only: [:title, :content, :excerpt])
     }

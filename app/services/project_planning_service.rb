@@ -301,4 +301,25 @@ class ProjectPlanningService
       @quote_request.quote_request_features.find_or_create_by!(feature: feature)
     end
   end
+
+  def create_project_milestones(milestones)
+    return unless milestones.present?
+
+    milestones.each do |milestone|
+      @quote_request.project_milestones.create!(
+        name: milestone[:name],
+        description: milestone[:description],
+        due_date: calculate_milestone_due_date(milestone[:order]),
+        status: 'pending',
+        milestone_data: milestone.except(:name, :description)
+      )
+    end
+  end
+
+  def calculate_milestone_due_date(order)
+    # Calculate due date based on milestone order
+    # Assuming 2 weeks per milestone phase
+    weeks_from_now = order * 2
+    Date.current + weeks_from_now.weeks
+  end
 end

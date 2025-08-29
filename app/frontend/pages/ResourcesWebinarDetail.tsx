@@ -1,4 +1,3 @@
-import { Head } from "@inertiajs/react";
 import PageLayout from "../components/PageLayout";
 import { Button } from "../components/ui/button";
 import {
@@ -45,18 +44,14 @@ export default function ResourcesWebinarDetail({
   user,
 }: ResourcesWebinarDetailProps) {
   return (
-    <PageLayout user={user}>
-      <Head>
-        <title>{webinar.title} | Webinar</title>
-        <meta
-          name="description"
-          content={`${webinar.title} - ${webinar.description.substring(
-            0,
-            150
-          )}...`}
-        />
-      </Head>
-
+    <PageLayout
+      user={user}
+      title={`${webinar.title} | Webinar`}
+      description={`${webinar.title} - ${webinar.description.substring(
+        0,
+        150
+      )}...`}
+    >
       {/* Hero Section */}
       <section className="relative px-4 sm:px-6 lg:px-8 pb-24 overflow-hidden bg-gradient-to-br from-orange-50 to-red-50">
         <div className="max-w-4xl mx-auto">

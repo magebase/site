@@ -1,7 +1,20 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
-import { Zap, Calculator, LogIn, LogOut, Menu, X } from "lucide-react";
+import { Zap, FileText, LogIn, LogOut, Menu, X } from "lucide-react";
 import { Link } from "@inertiajs/react";
 import { AnnouncementBar } from "./landing/AnnouncementBar";
+import BusinessUseCasesMegaMenu from "./BusinessUseCasesMegaMenu";
+import ServicesUseCasesMegaMenu from "./ServicesUseCasesMegaMenu";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
 
 interface HeaderProps {
   user?: {
@@ -16,11 +29,19 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const navItems = [
-    { name: "Home", link: "/" },
-    { name: "Features", link: "/#features" },
-    { name: "Services", link: "/#services" },
+    {
+      name: "Business Apps",
+      link: "/use-cases",
+      hasMegaMenu: true,
+      megaMenuType: "business",
+    },
+    {
+      name: "Service Solutions",
+      link: "/use-cases",
+      hasMegaMenu: true,
+      megaMenuType: "services",
+    },
     { name: "Blog", link: "/blog" },
-    { name: "Contact", link: "/#contact" },
   ];
 
   useEffect(() => {
@@ -88,18 +109,38 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              {navItems.map((item, idx) => (
-                <Link
-                  key={idx}
-                  href={item.link}
-                  className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 relative group"
-                >
-                  {item.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
-                </Link>
-              ))}
-            </nav>
+            <NavigationMenu className="hidden md:flex">
+              <NavigationMenuList className="flex items-center space-x-4">
+                {navItems.map((item, idx) =>
+                  item.hasMegaMenu ? (
+                    <NavigationMenuItem key={idx}>
+                      <NavigationMenuTrigger className="text-gray-700 hover:text-blue-600 font-medium text-sm transition-colors duration-200">
+                        {item.name}
+                      </NavigationMenuTrigger>
+                      {item.megaMenuType === "business" ? (
+                        <BusinessUseCasesMegaMenu />
+                      ) : (
+                        <ServicesUseCasesMegaMenu />
+                      )}
+                    </NavigationMenuItem>
+                  ) : (
+                    <NavigationMenuItem>
+                      <NavigationMenuLink
+                        asChild
+                        className={navigationMenuTriggerStyle()}
+                      >
+                        <Link
+                          href={item.link}
+                          className="text-gray-700 hover:text-blue-600 font-medium text-sm transition-colors duration-200 relative group"
+                        >
+                          {item.name}
+                        </Link>
+                      </NavigationMenuLink>
+                    </NavigationMenuItem>
+                  )
+                )}
+              </NavigationMenuList>
+            </NavigationMenu>
 
             {/* CTA Buttons */}
             <div className="hidden md:flex items-center gap-3 md:gap-4">
@@ -147,7 +188,7 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
                     onClick={scrollToQuoteForm}
                     className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                   >
-                    <Calculator className="w-4 h-4 mr-2" />
+                    <FileText className="w-4 h-4 mr-2" />
                     Get Free Quote
                   </button>
                 </>
@@ -234,7 +275,7 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
                       }}
                       className="flex items-center gap-3 py-3 px-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 w-full"
                     >
-                      <Calculator className="w-5 h-5" />
+                      <FileText className="w-5 h-5" />
                       Get Free Quote
                     </button>
                   </>
