@@ -29,6 +29,30 @@ This repository uses a **separated pipeline architecture** to handle infrastruct
 - Security policy updates
 - Environment provisioning/destruction
 
+### 1.5. AWS Organizations & SSO Pipeline (`sso-management.yml`)
+
+**Purpose**: Manages AWS Organizations accounts and AWS SSO/IAM Identity Center configuration.
+
+**Triggers**:
+
+- Changes to `infra/organizations/`, `infra/sso/`, `infra/main.tf` directories
+- Manual workflow dispatch
+
+**Jobs**:
+
+- **Validate**: AWS credentials, organization status, and prerequisites
+- **Terraform**: Plan/Apply AWS Organizations and SSO configuration
+- **Verify**: Account creation validation and SSO assignment confirmation
+- **Notify**: Deployment results with account IDs and SSO status
+
+**Use Cases**:
+
+- AWS account creation and management
+- SSO permission set configuration
+- User group management
+- Multi-account access control
+- Identity center setup
+
 ### 2. Application Pipeline (`application.yml`)
 
 **Purpose**: Handles Rails application code, testing, building, and deployment.
@@ -74,7 +98,7 @@ This repository uses a **separated pipeline architecture** to handle infrastruct
 
 ## 🔄 Workflow Interactions
 
-```
+```text
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
 │   Developer     │────│  Git Push/PR     │────│   CI/CD         │
 │   Changes       │    │                  │    │   Pipeline      │
@@ -84,15 +108,15 @@ This repository uses a **separated pipeline architecture** to handle infrastruct
          ├────────────────────────┼───────────────────────┤
          │                        │                       │
          ▼                        ▼                       ▼
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│ Infrastructure  │    │   Application     │    │   ArgoCD        │
-│   Pipeline      │    │   Pipeline        │    │   Sync          │
-│                 │    │                   │    │                 │
-│ • Terraform     │    │ • Rails Tests     │    │ • Auto-sync     │
-│ • K8s Manifests │    │ • Docker Build    │    │ • Health Checks │
-│ • ArgoCD Apps   │    │ • Image Push      │    │ • Rollbacks     │
-│ • Security      │    │ • Deploy          │    │                 │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│ AWS Org & SSO   │    │ Infrastructure    │    │   Application     │    │   ArgoCD        │
+│   Pipeline      │    │   Pipeline        │    │   Pipeline        │    │   Sync          │
+│                 │    │                   │    │                   │    │                 │
+│ • Account       │    │ • Terraform       │    │ • Rails Tests     │    │ • Auto-sync     │
+│   Creation      │    │ • K8s Manifests   │    │ • Docker Build    │    │ • Health Checks │
+│ • SSO Setup     │    │ • ArgoCD Apps     │    │ • Image Push      │    │ • Rollbacks     │
+│ • Permissions   │    │ • Security        │    │ • Deploy          │    │                 │
+└─────────────────┘    └──────────────────┘    └───────────────────┘    └─────────────────┘
 ```
 
 ## 🚀 Deployment Strategies
