@@ -131,6 +131,7 @@ cd infra/
 ```
 
 This script will:
+
 - Initialize Terraform
 - Create the Object Storage bucket (if not already created)
 - Provide configuration guidance
