@@ -45,4 +45,5 @@ node_modules
 *.tfvars
 !terraform.tfvars.example
 !infra/*.tfvars
+!infra/bootstrap/terraform.tfvars
 
