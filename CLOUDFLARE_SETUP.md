@@ -1,5 +1,13 @@
 # Cloudflare API Token Setup Instructions
 
+## 🚨 Critical: Secret Name Mismatch
+
+**IMPORTANT:** The workflow expects these exact secret names:
+- `CLOUDFLARE_API_KEY` (not `CLOUDFLARE_API_TOKEN`)
+- `CLOUDFLARE_ZONE_ID`
+
+If you set `CLOUDFLARE_API_TOKEN`, it won't work!
+
 ## 🚨 Current Issues
 
 You're experiencing two errors:
@@ -10,7 +18,7 @@ The email `aws-prod@magebase.dev` is already used by an existing AWS account. Yo
 - Update `terraform.tfvars` with the correct account ID
 
 ### 2. Authentication Error (10000) (Cloudflare)
-Your Cloudflare API token lacks email routing permissions.
+Your Cloudflare API token lacks email routing permissions OR the secret name is wrong.
 
 ## Required Permissions for Email Routing
 
@@ -39,9 +47,12 @@ Your Cloudflare API token needs these permissions:
 7. Create the token
 8. Copy the token value (40 characters)
 
-## Update GitHub Secret:
+## ⚠️ CRITICAL: Update GitHub Secrets with CORRECT Names
 
-Set CLOUDFLARE_API_TOKEN in your GitHub repository secrets with the new token value.
+Set these secrets in your GitHub repository with the EXACT names:
+
+- **`CLOUDFLARE_API_KEY`** ← This is the correct name (not API_TOKEN)
+- **`CLOUDFLARE_ZONE_ID`**
 
 ## Zone ID:
 
@@ -68,7 +79,7 @@ production_account_id = "YOUR_PRODUCTION_ACCOUNT_ID_HERE"
 1. **Find your production account ID** using `./find-aws-accounts.sh`
 2. **Update terraform.tfvars** with the correct production account ID
 3. **Create new Cloudflare API token** with email routing permissions
-4. **Update GitHub secrets:**
-   - `CLOUDFLARE_API_TOKEN`
+4. **⚠️ Update GitHub secrets with CORRECT names:**
+   - `CLOUDFLARE_API_KEY` (not `CLOUDFLARE_API_TOKEN`)
    - `CLOUDFLARE_ZONE_ID`
 5. **Re-run the workflow**
