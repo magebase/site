@@ -8,19 +8,19 @@ class HealthController < ApplicationController
 
     status = :ok
     checks = {
-      status: 'healthy',
+      status: "healthy",
       timestamp: Time.current.iso8601,
       services: {
         database: database_status,
         redis: redis_status,
-        application: 'healthy'
+        application: "healthy"
       }
     }
 
     # If any service is unhealthy, return error status
-    if database_status == 'unhealthy' || redis_status == 'unhealthy'
+    if database_status == "unhealthy" || redis_status == "unhealthy"
       status = :service_unavailable
-      checks[:status] = 'unhealthy'
+      checks[:status] = "unhealthy"
     end
 
     render json: checks, status: status
@@ -31,23 +31,11 @@ class HealthController < ApplicationController
   def check_database
     begin
       # Simple database connectivity check
-      ActiveRecord::Base.connection.execute('SELECT 1')
-      'healthy'
+      ActiveRecord::Base.connection.execute("SELECT 1")
+      "healthy"
     rescue StandardError => e
       Rails.logger.error("Database health check failed: #{e.message}")
-      'unhealthy'
-    end
-  end
-
-  def check_redis
-    begin
-      # Simple Redis connectivity check
-      redis = Redis.new(url: ENV.fetch('CACHE_DATABASE_URL', 'redis://localhost:6379/0'))
-      redis.ping
-      'healthy'
-    rescue StandardError => e
-      Rails.logger.error("Redis health check failed: #{e.message}")
-      'unhealthy'
+      "unhealthy"
     end
   end
 end
