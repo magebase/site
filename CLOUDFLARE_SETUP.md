@@ -2,11 +2,15 @@
 
 ## 🚨 Critical: Secret Name Mismatch
 
-**IMPORTANT:** The workflow expects these exact secret names:
-- `CLOUDFLARE_API_KEY` (not `CLOUDFLARE_API_TOKEN`)
-- `CLOUDFLARE_ZONE_ID`
+# Cloudflare API Token Setup Instructions
 
-If you set `CLOUDFLARE_API_TOKEN`, it won't work!
+## 🚨 Critical: Use CLOUDFLARE_API_TOKEN
+
+**IMPORTANT:** The workflow now expects this exact secret name:
+- `CLOUDFLARE_API_TOKEN` ✅ (correct)
+- `CLOUDFLARE_ZONE_ID` ✅ (correct)
+
+Make sure to set `CLOUDFLARE_API_TOKEN` in your GitHub repository secrets.
 
 ## 🚨 Current Issues
 
@@ -47,12 +51,16 @@ Your Cloudflare API token needs these permissions:
 7. Create the token
 8. Copy the token value (40 characters)
 
-## ⚠️ CRITICAL: Update GitHub Secrets with CORRECT Names
+## ⚠️ CRITICAL: Update GitHub Secrets
 
 Set these secrets in your GitHub repository with the EXACT names:
 
-- **`CLOUDFLARE_API_KEY`** ← This is the correct name (not API_TOKEN)
+- **`CLOUDFLARE_API_TOKEN`** ← This is the correct name
 - **`CLOUDFLARE_ZONE_ID`**
+
+## Update GitHub Secret:
+
+Set CLOUDFLARE_API_TOKEN in your GitHub repository secrets with the new token value.
 
 ## Zone ID:
 
@@ -80,6 +88,6 @@ production_account_id = "YOUR_PRODUCTION_ACCOUNT_ID_HERE"
 2. **Update terraform.tfvars** with the correct production account ID
 3. **Create new Cloudflare API token** with email routing permissions
 4. **⚠️ Update GitHub secrets with CORRECT names:**
-   - `CLOUDFLARE_API_KEY` (not `CLOUDFLARE_API_TOKEN`)
+   - `CLOUDFLARE_API_TOKEN` (this is the correct name)
    - `CLOUDFLARE_ZONE_ID`
 5. **Re-run the workflow**
