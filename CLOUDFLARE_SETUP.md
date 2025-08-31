@@ -7,6 +7,7 @@
 ## 🚨 Critical: Use CLOUDFLARE_API_TOKEN
 
 **IMPORTANT:** The workflow now expects this exact secret name:
+
 - `CLOUDFLARE_API_TOKEN` ✅ (correct)
 - `CLOUDFLARE_ZONE_ID` ✅ (correct)
 
@@ -17,11 +18,14 @@ Make sure to set `CLOUDFLARE_API_TOKEN` in your GitHub repository secrets.
 You're experiencing two errors:
 
 ### 1. EMAIL_ALREADY_EXISTS (AWS)
+
 The email `aws-prod@magebase.dev` is already used by an existing AWS account. You need to:
+
 - Find your existing production account ID
 - Update `terraform.tfvars` with the correct account ID
 
 ### 2. Authentication Error (10000) (Cloudflare)
+
 Your Cloudflare API token lacks email routing permissions OR the secret name is wrong.
 
 ## Required Permissions for Email Routing
@@ -29,10 +33,12 @@ Your Cloudflare API token lacks email routing permissions OR the secret name is 
 Your Cloudflare API token needs these permissions:
 
 ### Zone Permissions:
+
 - Zone:Read (for your domain)
 - Zone:Edit (for your domain)
 
 ### Email Routing Permissions:
+
 - Email Routing:Edit
 - Email Routing:Read
 
