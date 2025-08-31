@@ -254,7 +254,8 @@ test/                     # Test files
 
 ```bash
 # Database
-DATABASE_URL=postgresql://...
+# NOTE: With CloudNativePG, DATABASE_URL is automatically generated
+# by the operator and stored in the 'magebase-db-creds' Kubernetes Secret
 
 # AI Service
 RUBYLLM_API_KEY=your_api_key
