@@ -5,6 +5,11 @@ repos:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-yaml
+        exclude: |
+          (?x)^(
+            k8s/.*\.yaml$|
+            infra/pipeline/site-infrastructure/extra-manifests/.*\.yaml$
+          )$
       - id: check-added-large-files
       - id: check-merge-conflict
       - id: debug-statements
