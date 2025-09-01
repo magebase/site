@@ -36,7 +36,7 @@ class QuoteRequestsControllerTest < ActionDispatch::IntegrationTest
     assert_equal ["English", "Spanish", "French"], quote_request.selected_languages_data
     assert_equal ["Google", "Facebook"], quote_request.selected_social_providers_data
     assert_equal 2, quote_request.selected_features.count
-    
+
     # Verify pricing was calculated and is not $0
     assert_not_nil quote_request.estimated_cost
     assert_not_nil quote_request.monthly_retainer

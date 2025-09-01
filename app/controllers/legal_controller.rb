@@ -1,6 +1,6 @@
 class LegalController < ApplicationController
   skip_before_action :authenticate_user!
-  
+
   def privacy_policy
     @page = Page.published.find_by(slug: 'privacy-policy')
     render inertia: 'LegalPrivacyPolicy', props: {

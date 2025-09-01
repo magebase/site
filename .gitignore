@@ -47,4 +47,3 @@ node_modules
 !infra/*.tfvars
 !infra/bootstrap/terraform.tfvars
 !infra/pipeline/*/terraform.tfvars
-

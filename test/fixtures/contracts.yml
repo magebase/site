@@ -7,7 +7,7 @@ one:
   jurisdiction: MyString
   signed_at: 2025-08-27 18:17:41
   signature_method: MyString
-  contract_data: 
+  contract_data:
 
 two:
   quote_request: two
@@ -16,4 +16,4 @@ two:
   jurisdiction: MyString
   signed_at: 2025-08-27 18:17:41
   signature_method: MyString
-  contract_data: 
+  contract_data:

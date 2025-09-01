@@ -6,7 +6,7 @@ one:
   category: MyString
   base_cost: 9.99
   complexity_level: 1
-  dependencies: 
+  dependencies:
   requires_customization: false
 
 two:
@@ -15,5 +15,5 @@ two:
   category: MyString
   base_cost: 9.99
   complexity_level: 1
-  dependencies: 
+  dependencies:
   requires_customization: false

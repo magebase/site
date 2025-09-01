@@ -209,8 +209,8 @@ This platform enables clients to request quotes for custom software development 
 
 #### US-001: Client Quote Request
 
-**As a** potential client  
-**I want to** fill out an interactive quote form  
+**As a** potential client
+**I want to** fill out an interactive quote form
 **So that** I can get an accurate price estimate for my project
 
 **Acceptance Criteria:**
@@ -223,8 +223,8 @@ This platform enables clients to request quotes for custom software development 
 
 #### US-002: AI Pricing Analysis
 
-**As a** business owner  
-**I want to** receive AI-powered pricing  
+**As a** business owner
+**I want to** receive AI-powered pricing
 **So that** I get fair and accurate project estimates
 
 **Acceptance Criteria:**
@@ -237,8 +237,8 @@ This platform enables clients to request quotes for custom software development 
 
 #### US-003: Contract Generation
 
-**As a** client  
-**I want to** receive a professional contract  
+**As a** client
+**I want to** receive a professional contract
 **So that** I have legal protection for my project
 
 **Acceptance Criteria:**
@@ -251,8 +251,8 @@ This platform enables clients to request quotes for custom software development 
 
 #### US-004: Developer Allocation
 
-**As a** development agency  
-**I want to** automatically allocate developers to projects  
+**As a** development agency
+**I want to** automatically allocate developers to projects
 **So that** I can efficiently manage resource allocation
 
 **Acceptance Criteria:**

@@ -5,7 +5,7 @@ class PricingService
 
   def calculate_price
     features = @quote_request.selected_features
-    
+
     # Automatically include marketing pages SEO feature for all quotes
     marketing_pages_feature = Feature.find_by(name: '5_high_converting_seo_marketing_pages')
     if marketing_pages_feature && !features.include?(marketing_pages_feature)
@@ -13,7 +13,7 @@ class PricingService
       @quote_request.quote_request_features.create!(feature: marketing_pages_feature)
       features = features + [marketing_pages_feature]
     end
-    
+
     use_case = @quote_request.use_case
 
     # Base pricing calculation

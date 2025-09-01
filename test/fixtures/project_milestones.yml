@@ -6,7 +6,7 @@ one:
   description: MyText
   due_date: 2025-08-27
   status: MyString
-  milestone_data: 
+  milestone_data:
 
 two:
   quote_request: two
@@ -14,4 +14,4 @@ two:
   description: MyText
   due_date: 2025-08-27
   status: MyString
-  milestone_data: 
+  milestone_data:

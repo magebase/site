@@ -1,6 +1,6 @@
 class ResourcesController < ApplicationController
   skip_before_action :authenticate_user!
-  
+
   def help_center
     @page = Page.published.find_by(slug: 'help-center')
     render inertia: 'ResourcesHelpCenter', props: {
