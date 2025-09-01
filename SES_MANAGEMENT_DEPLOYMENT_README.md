@@ -23,6 +23,7 @@ First, create the AWS_PIPELINE_ROLE in your management account:
 ```
 
 This will create:
+
 - AWS_PIPELINE_ROLE with necessary permissions
 - IAM policy with SES, S3, DynamoDB, and Route53 permissions
 - Trust relationship allowing your credentials to assume the role
@@ -36,6 +37,7 @@ Create the necessary S3 bucket and DynamoDB table for Terraform state:
 ```
 
 This will create:
+
 - S3 bucket: `magebase-tf-state-management`
 - DynamoDB table: `magebase-terraform-locks-management`
 
@@ -143,11 +145,13 @@ Although both environments use the same AWS account, they are separated by:
 After deployment:
 
 1. **Check AWS SES Console**:
+
    - Verify domain identity is verified
    - Check DKIM configuration
    - Review mail-from settings
 
 2. **Check DNS Records**:
+
    - Verify TXT records are published
    - Confirm CNAME records for DKIM
    - Check MX record configuration
@@ -158,29 +162,32 @@ After deployment:
 
 ## Differences from Multi-Account Setup
 
-| Aspect | Multi-Account Setup | Management Account Setup |
-|--------|-------------------|-------------------------|
-| Accounts | Separate dev/prod accounts | Single management account |
-| SSO | Required for cross-account access | AWS_PIPELINE_ROLE for access |
-| Cost | Higher (multiple accounts) | Lower (single account) |
-| Complexity | Higher | Lower |
-| Security | Better isolation | Role-based access control |
-| Management | More complex | Simpler |
+| Aspect     | Multi-Account Setup               | Management Account Setup     |
+| ---------- | --------------------------------- | ---------------------------- |
+| Accounts   | Separate dev/prod accounts        | Single management account    |
+| SSO        | Required for cross-account access | AWS_PIPELINE_ROLE for access |
+| Cost       | Higher (multiple accounts)        | Lower (single account)       |
+| Complexity | Higher                            | Lower                        |
+| Security   | Better isolation                  | Role-based access control    |
+| Management | More complex                      | Simpler                      |
 
 ## Troubleshooting
 
 ### Common Issues
 
 1. **Role Assumption Errors**:
+
    - Ensure AWS_PIPELINE_ROLE exists in the management account
    - Verify your credentials can assume the role
    - Check trust relationship on the AWS_PIPELINE_ROLE
 
 2. **Domain Verification Pending**:
+
    - Check DNS propagation (can take up to 72 hours)
    - Verify TXT record is correctly published
 
 3. **Terraform State Issues**:
+
    - Ensure S3 bucket and DynamoDB table exist
    - Check AWS credentials have necessary permissions
 
