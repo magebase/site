@@ -38,7 +38,7 @@ Create the necessary S3 bucket and DynamoDB table for Terraform state:
 
 This will create:
 
-- S3 bucket: `magebase-tf-state-management`
+- S3 bucket: `magebase-tf-state-management-ap-southeast-1`
 - DynamoDB table: `magebase-terraform-locks-management`
 
 ## Step 3: Configure Environment Variables

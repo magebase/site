@@ -19,7 +19,7 @@ CURRENT_ACCOUNT=$(aws sts get-caller-identity --query 'Account' --output text)
 echo "✅ Using AWS Account: $CURRENT_ACCOUNT"
 
 # Set variables
-BUCKET_NAME="magebase-tf-state-management"
+BUCKET_NAME="magebase-tf-state-management-ap-southeast-1"
 TABLE_NAME="magebase-terraform-locks-management"
 REGION="ap-southeast-1"
 
