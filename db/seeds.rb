@@ -15,6 +15,7 @@ blog_posts = [
     content: "<h2>Why Businesses Need Custom Web Applications</h2><p>Custom web applications provide tailored solutions that off-the-shelf software cannot match. They integrate seamlessly with your existing systems and scale with your business growth.</p><h2>Choosing the Right Technology Stack</h2><p>The choice of technology depends on your specific requirements. Our team helps you select the best frameworks and tools for your project needs.</p><h2>Benefits of Professional Web Development</h2><ul><li>Scalable architecture</li><li>Modern user interfaces</li><li>API integrations</li><li>Ongoing support and maintenance</li></ul>",
     excerpt: "Learn everything you need to know about custom web application development, from planning to deployment.",
     published: true,
+    use_case_slug: "web-development",
     author_name: "Sarah Mitchell",
     author_title: "Senior Full-Stack Developer",
     author_profile_picture: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face"
@@ -24,6 +25,7 @@ blog_posts = [
     content: "<h2>Understanding Your Mobile App Options</h2><p>Choosing between native and cross-platform development depends on your target audience, budget, and timeline. Each approach has its advantages and trade-offs.</p><h2>Native App Development</h2><p>Native apps provide the best performance and user experience but require separate development for iOS and Android platforms.</p><h2>Cross-Platform Solutions</h2><p>Frameworks like React Native and Flutter allow code sharing across platforms, reducing development time and costs.</p>",
     excerpt: "Discover the differences between native and cross-platform mobile app development and choose the right approach for your project.",
     published: true,
+    use_case_slug: "mobile-development",
     author_name: "Mike Johnson",
     author_title: "Mobile Development Lead",
     author_profile_picture: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
@@ -33,6 +35,7 @@ blog_posts = [
     content: "<h2>Benefits of Cloud Migration</h2><p>Cloud migration offers scalability, cost savings, and improved reliability. Modern cloud platforms provide enterprise-grade infrastructure with pay-as-you-go pricing.</p><h2>Migration Strategies</h2><ul><li>Lift and shift</li><li>Refactoring for cloud optimization</li><li>Hybrid cloud approaches</li><li>Serverless architecture</li></ul><h2>Best Practices</h2><p>We follow industry best practices to ensure smooth migration with minimal downtime and maximum security.</p>",
     excerpt: "Learn about cloud migration strategies and how to successfully move your applications to modern cloud infrastructure.",
     published: true,
+    use_case_slug: "cloud-migration",
     author_name: "David Chen",
     author_title: "Cloud Solutions Architect",
     author_profile_picture: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
@@ -45,6 +48,7 @@ blog_posts.each do |post_data|
     post.content = post_data[:content]
     post.excerpt = post_data[:excerpt]
     post.published = post_data[:published]
+    post.use_case_slug = post_data[:use_case_slug]
     post.author_name = post_data[:author_name]
     post.author_title = post_data[:author_title]
     post.author_profile_picture = post_data[:author_profile_picture]
@@ -56,6 +60,7 @@ blog_posts.each do |post_data|
     post.content = post_data[:content]
     post.excerpt = post_data[:excerpt]
     post.published = post_data[:published]
+    post.use_case_slug = post_data[:use_case_slug]
     post.published_at = Time.current if post_data[:published]
   end
 end
