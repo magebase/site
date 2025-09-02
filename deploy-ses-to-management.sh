@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# Deploy SES to Management Account Script
-# This script deploys SES configuration directly to the management account
-# Skips development/production account creation and org-sso setup
+# Deploy SES Infrastructure Script
+# This script deploys SES infrastructure using the management account OIDC role
+# Creates dedicated AWS IAM users for each environment in the management account
 
 set -e
 
-echo "🚀 Deploying SES to Management Account"
-echo "======================================"
+echo "🚀 Deploying SES Infrastructure to Management Account"
+echo "===================================================="
 
 # Check if AWS CLI is configured
 if ! aws sts get-caller-identity &>/dev/null; then
@@ -19,31 +19,17 @@ fi
 CURRENT_ACCOUNT=$(aws sts get-caller-identity --query 'Account' --output text)
 echo "✅ Using AWS Account: $CURRENT_ACCOUNT"
 
-# Update tfvars files with the current account ID
-echo "📝 Updating tfvars files with account ID..."
-sed -i.bak "s/YOUR_MANAGEMENT_ACCOUNT_ID/$CURRENT_ACCOUNT/" dev.tfvars
-sed -i.bak "s/YOUR_MANAGEMENT_ACCOUNT_ID/$CURRENT_ACCOUNT/" prod.tfvars
-echo "✅ Updated tfvars files with account ID: $CURRENT_ACCOUNT"
-
-# Note: AWS credentials should be configured to allow assuming the AWS_PIPELINE_ROLE
-echo "ℹ️  Note: Ensure your AWS credentials can assume the AWS_PIPELINE_ROLE in account $CURRENT_ACCOUNT"
-
-# Navigate to site-infrastructure directory
-cd infra/pipeline/site-infrastructure
-
-# Check if terraform.tfvars exists
-if [ ! -f "terraform.tfvars" ]; then
-    echo "❌ terraform.tfvars not found. Please create it with your configuration."
-    echo "   You can copy from terraform.tfvars.example"
-    exit 1
-fi
+# Note: This script now uses the management account directly
+# The management account ID should be set in the tfvars files
+echo "ℹ️  Note: Ensure your tfvars files have the correct management_account_id set"
+echo "ℹ️  The workflow will use OIDC to assume the management account role"
 
 # Function to deploy for environment
 deploy_environment() {
     local env=$1
     echo ""
-    echo "🏗️ Deploying SES for $env environment"
-    echo "-----------------------------------"
+    echo "🏗️ Deploying SES infrastructure for $env environment"
+    echo "--------------------------------------------------"
 
     # Initialize Terraform
     echo "🔧 Initializing Terraform..."
@@ -58,7 +44,9 @@ deploy_environment() {
 
     # Plan
     echo "📋 Planning deployment for $env..."
-    terraform plan -var-file="${env}.tfvars"
+    terraform plan \
+        -var="management_account_id=$CURRENT_ACCOUNT" \
+        -var-file="${env}.tfvars"
 
     # Ask for confirmation
     read -p "✅ Proceed with deployment for $env? (y/N): " -n 1 -r
@@ -70,23 +58,71 @@ deploy_environment() {
 
     # Apply
     echo "🚀 Applying deployment for $env..."
-    terraform apply -var-file="${env}.tfvars"
+    terraform apply \
+        -var="management_account_id=$CURRENT_ACCOUNT" \
+        -var-file="${env}.tfvars"
 
     echo "✅ $env deployment completed successfully!"
+
+    # Display SES user information
+    echo ""
+    echo "🔑 SES User Information for $env:"
+    echo "----------------------------------"
+
+    SES_USER_NAME=$(terraform output -raw ses_user_name 2>/dev/null || echo "Not available")
+    SES_ACCESS_KEY_ID=$(terraform output -raw ses_access_key_id 2>/dev/null || echo "Not available")
+
+    echo "SES User Name: $SES_USER_NAME"
+    echo "SES Access Key ID: $SES_ACCESS_KEY_ID"
+    echo "SES Secret Access Key: ***masked*** (available in Terraform outputs)"
+    echo ""
+    echo "⚠️  IMPORTANT: Store these credentials securely!"
+    echo "   The secret access key is only shown once in Terraform outputs."
+    echo "   Save it in a secure location like GitHub Secrets or AWS Secrets Manager."
 }
 
-# Deploy dev environment
-deploy_environment "dev"
+# Deploy environments
+echo "Select environment to deploy:"
+echo "1) dev"
+echo "2) qa"
+echo "3) uat"
+echo "4) prod"
+echo "5) all environments"
+read -p "Enter choice (1-5): " choice
 
-# Deploy prod environment
-deploy_environment "prod"
+case $choice in
+    1)
+        deploy_environment "dev"
+        ;;
+    2)
+        deploy_environment "qa"
+        ;;
+    3)
+        deploy_environment "uat"
+        ;;
+    4)
+        deploy_environment "prod"
+        ;;
+    5)
+        deploy_environment "dev"
+        deploy_environment "qa"
+        deploy_environment "uat"
+        deploy_environment "prod"
+        ;;
+    *)
+        echo "❌ Invalid choice. Exiting."
+        exit 1
+        ;;
+esac
 
 echo ""
-echo "🎉 SES deployment to management account completed!"
-echo "=================================================="
-echo "Both dev and prod SES configurations have been deployed to the management account."
-echo ""
+echo "🎉 SES infrastructure deployment completed!"
+echo "==========================================="
 echo "Next steps:"
 echo "1. Verify SES domain verification in AWS Console"
 echo "2. Check DNS records are properly configured"
-echo "3. Test email sending functionality"
+echo "3. Store SES credentials securely in your deployment environment"
+echo "4. Test email sending functionality"
+echo ""
+echo "Note: This script now creates dedicated AWS IAM users for each environment"
+echo "in the management account using OIDC role assumption."
