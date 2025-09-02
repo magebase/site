@@ -1,6 +1,6 @@
 class BlogController < ApplicationController
   def index
-    @blog_posts = BlogPost.published.recent.page(params[:page]).per(12)
+    @blog_posts = BlogPost.published.recent.paginate(page: params[:page], per_page: 12)
     @categories = BlogPost.published.distinct.pluck(:use_case_slug).compact.uniq
 
     render inertia: 'BlogIndex', props: {
@@ -9,7 +9,7 @@ class BlogController < ApplicationController
       pagination: {
         current_page: @blog_posts.current_page,
         total_pages: @blog_posts.total_pages,
-        total_count: @blog_posts.total_count
+        total_count: @blog_posts.total_entries
       }
     }
   end
@@ -26,7 +26,7 @@ class BlogController < ApplicationController
 
   def use_case
     @use_case_slug = params[:use_case_slug]
-    @blog_posts = BlogPost.published.by_use_case(@use_case_slug).recent.page(params[:page]).per(12)
+    @blog_posts = BlogPost.published.by_use_case(@use_case_slug).recent.paginate(page: params[:page], per_page: 12)
 
     # Get use case info from the data (you might want to create a UseCase model later)
     use_case_data = get_use_case_data(@use_case_slug)
@@ -38,7 +38,7 @@ class BlogController < ApplicationController
       pagination: {
         current_page: @blog_posts.current_page,
         total_pages: @blog_posts.total_pages,
-        total_count: @blog_posts.total_count
+        total_count: @blog_posts.total_entries
       }
     }
   end
@@ -48,7 +48,7 @@ class BlogController < ApplicationController
     use_case_data = get_use_case_data(use_case_slug)
 
     if use_case_data.nil?
-      redirect_to blog_index_path, alert: 'Use case not found'
+      render json: { error: 'Use case not found' }, status: :not_found
       return
     end
 
@@ -66,10 +66,10 @@ class BlogController < ApplicationController
         published: true
       )
 
-      redirect_to blog_path(blog_post.slug), notice: 'Blog post generated successfully!'
+      render json: { success: true, blog_post: blog_post.as_json(only: [:id, :title, :slug]) }, status: :ok
     rescue => e
       Rails.logger.error("Failed to generate blog post: #{e.message}")
-      redirect_to blog_index_path, alert: 'Failed to generate blog post'
+      render json: { error: 'Failed to generate blog post' }, status: :not_found
     end
   end
 

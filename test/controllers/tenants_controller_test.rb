@@ -1,6 +1,14 @@
 require "test_helper"
 
 class TenantsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    Warden.test_mode!
+  end
+
+  teardown do
+    Warden.test_reset!
+  end
+
   test "should get dashboard" do
     # Create a user first
     user = User.create!(email: "test@example.com", password: "password", name: "Test User")
@@ -9,11 +17,10 @@ class TenantsControllerTest < ActionDispatch::IntegrationTest
     tenant = Tenant.create!(name: "Test Tenant", subdomain: "test", user: user)
 
     # Sign in the user
-    sign_in user
+    login_as(user, scope: :user)
 
-    # Test with subdomain
-    host! "#{tenant.subdomain}.example.com"
-    get tenant_dashboard_url
+    # Test with path-based routing
+    get "/#{tenant.subdomain}/tenant/dashboard"
     assert_response :success
   end
 end

@@ -74,12 +74,6 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :ses
 
-  config.action_mailer.ses = {
-    region: ENV.fetch("AWS_REGION", "us-east-1"),
-    access_key_id: ENV["AWS_SES_ACCESS_KEY_ID"],
-    secret_access_key: ENV["AWS_SES_SECRET_ACCESS_KEY"]
-  }
-
   # Default URL options for mailer templates
   config.action_mailer.default_url_options = {
     host: ENV.fetch("MAIL_DEFAULT_HOST", "localhost"),

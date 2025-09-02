@@ -17,7 +17,7 @@ class RailsAdminBlogPostTest < ActionDispatch::IntegrationTest
 
   test "BlogPost is configured in RailsAdmin" do
     # Verify that BlogPost model is registered with RailsAdmin
-    rails_admin_models = RailsAdmin::Config.models.map(&:model)
+    rails_admin_models = RailsAdmin::Config.models.map(&:abstract_model).map(&:model)
     assert_includes rails_admin_models, BlogPost
   end
 
