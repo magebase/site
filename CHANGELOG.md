@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/magebase/site/compare/v1.1.3...v1.1.4) (2025-09-03)
+
+
+### Bug Fixes
+
+* resolve sed command error in deployment step ([56cc7f5](https://github.com/magebase/site/commit/56cc7f59c2f0951edca9f3342971847432ee3bec))
+
 ## [1.1.3](https://github.com/magebase/site/compare/v1.1.2...v1.1.3) (2025-09-03)
 
 
