@@ -25,13 +25,13 @@
             "label": "Changelog"
           }
         ],
-        "successComment": ":tada: This ${issue.pull_request ? 'pull request' : 'issue'} has been resolved in version ${nextRelease.version} :tada:\n\nThe release is available on [GitHub release](${nextRelease.gitHead && `https://github.com/${owner}/${repo}/releases/tag/${nextRelease.gitTag}`})",
+        "successComment": ":tada: This ${issue.pull_request ? 'pull request' : 'issue'} has been resolved in version ${nextRelease.version} :tada:\n\nThe release is available on [GitHub release](${nextRelease.gitHead && `https://github.com/${process.env.GITHUB_REPOSITORY_OWNER}/${process.env.GITHUB_REPOSITORY_NAME}/releases/tag/${nextRelease.gitTag}`})",
         "failTitle": false,
         "failComment": false,
         "releasedLabels": ["released on @${nextRelease.channel || 'latest'}"],
         "addReleases": "bottom",
         "releaseNameTemplate": "v${nextRelease.version}",
-        "releaseBodyTemplate": "# Release v${nextRelease.version}\n\n${nextRelease.notes}\n\n---\n\n**Full Changelog**: https://github.com/${owner}/${repo}/compare/${lastRelease.gitTag}...${nextRelease.gitTag}"
+        "releaseBodyTemplate": "# Release v${nextRelease.version}\n\n${nextRelease.notes}\n\n---\n\n**Full Changelog**: https://github.com/${process.env.GITHUB_REPOSITORY_OWNER}/${process.env.GITHUB_REPOSITORY_NAME}/compare/${lastRelease.gitTag}...${nextRelease.gitTag}"
       }
     ],
     [
