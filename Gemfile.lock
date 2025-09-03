@@ -440,6 +440,7 @@ GEM
       zeitwerk (~> 2)
     rubyzip (3.0.2)
     safely_block (0.5.0)
+    secure_headers (7.1.0)
     securerandom (0.4.1)
     selenium-webdriver (4.35.0)
       base64 (~> 0.2)
@@ -559,6 +560,7 @@ DEPENDENCIES
   rails_admin (~> 3.1)
   rubocop-rails-omakase
   ruby_llm (~> 1.6)
+  secure_headers (~> 7.1)
   selenium-webdriver
   solid_cable
   solid_cache

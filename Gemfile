@@ -37,6 +37,9 @@ gem "ahoy_matey", "~> 5.0"
 # Authorization
 gem "pundit", "~> 2.3"
 
+# Security headers
+gem "secure_headers", "~> 7.1"
+
 # State machine
 gem "aasm", "~> 5.5"
 

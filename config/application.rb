@@ -16,6 +16,10 @@ module Magebase
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    # Security Headers Configuration
+    # Add secure headers middleware to protect against common web vulnerabilities
+    config.middleware.use SecureHeaders::Middleware
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
