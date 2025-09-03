@@ -2,7 +2,7 @@ RailsAdmin.config do |config|
   config.asset_source = :vite
 
   # Exclude ChangeRequest from RailsAdmin to avoid enum conflict
-  config.excluded_models = ['ChangeRequest']
+  config.excluded_models = [ "ChangeRequest" ]
 
   ### Popular gems integration
 

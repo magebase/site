@@ -87,7 +87,7 @@ features = [
     category: 'commerce',
     base_cost: 4000.00,
     complexity_level: 3,
-    dependencies: ['user_authentication'],
+    dependencies: [ 'user_authentication' ],
     requires_customization: true
   },
 
@@ -98,7 +98,7 @@ features = [
     category: 'interface',
     base_cost: 3500.00,
     complexity_level: 2,
-    dependencies: ['user_authentication'],
+    dependencies: [ 'user_authentication' ],
     requires_customization: true
   },
   {
@@ -138,7 +138,7 @@ features = [
     category: 'real_time',
     base_cost: 6000.00,
     complexity_level: 4,
-    dependencies: ['standalone_developer_api_openapi_portal'],
+    dependencies: [ 'standalone_developer_api_openapi_portal' ],
     requires_customization: true
   },
 
@@ -160,7 +160,7 @@ features = [
     category: 'ai_ml',
     base_cost: 15000.00,
     complexity_level: 5,
-    dependencies: ['standalone_developer_api_openapi_portal', 'database_design'],
+    dependencies: [ 'standalone_developer_api_openapi_portal', 'database_design' ],
     requires_customization: true
   },
 
@@ -171,7 +171,7 @@ features = [
     category: 'blockchain',
     base_cost: 20000.00,
     complexity_level: 5,
-    dependencies: ['standalone_developer_api_openapi_portal'],
+    dependencies: [ 'standalone_developer_api_openapi_portal' ],
     requires_customization: true
   },
 
@@ -231,7 +231,7 @@ features = [
     category: 'gaming',
     base_cost: 25000.00,
     complexity_level: 5,
-    dependencies: ['payment_processing', 'user_authentication'],
+    dependencies: [ 'payment_processing', 'user_authentication' ],
     requires_customization: true
   },
   {

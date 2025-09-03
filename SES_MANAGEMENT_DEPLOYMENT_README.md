@@ -145,13 +145,11 @@ Although both environments use the same AWS account, they are separated by:
 After deployment:
 
 1. **Check AWS SES Console**:
-
    - Verify domain identity is verified
    - Check DKIM configuration
    - Review mail-from settings
 
 2. **Check DNS Records**:
-
    - Verify TXT records are published
    - Confirm CNAME records for DKIM
    - Check MX record configuration
@@ -176,18 +174,15 @@ After deployment:
 ### Common Issues
 
 1. **Role Assumption Errors**:
-
    - Ensure AWS_PIPELINE_ROLE exists in the management account
    - Verify your credentials can assume the role
    - Check trust relationship on the AWS_PIPELINE_ROLE
 
 2. **Domain Verification Pending**:
-
    - Check DNS propagation (can take up to 72 hours)
    - Verify TXT record is correctly published
 
 3. **Terraform State Issues**:
-
    - Ensure S3 bucket and DynamoDB table exist
    - Check AWS credentials have necessary permissions
 

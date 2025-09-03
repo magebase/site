@@ -50,7 +50,7 @@ export function MagicLinkForm({
                 errors.email || "Failed to send magic link. Please try again.",
             });
           },
-        }
+        },
       );
     } catch (error) {
       setMessage({

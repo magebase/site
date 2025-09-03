@@ -55,7 +55,7 @@ Choose technologies that best fit your #{use_case_data[:title]} requirements and
       title: title,
       excerpt: "Learn about developing #{use_case_data[:title]} applications with modern technologies and best practices.",
       content: content,
-      tags: ["software development", use_case_slug.parameterize]
+      tags: [ "software development", use_case_slug.parameterize ]
     }
   end
 
@@ -107,7 +107,7 @@ Choose technologies that best fit your #{use_case_data[:title]} requirements and
   def extract_title(lines)
     # Find the title (usually the first line or clearly marked)
     title_line = lines.find { |line| line.start_with?("Title:") || line.match?(/^\#{1,6}\s/) } || lines.first
-    title_line&.gsub(/^Title:\s*/, '')&.strip || "Guide to Development"
+    title_line&.gsub(/^Title:\s*/, "")&.strip || "Guide to Development"
   end
 
   def extract_excerpt(lines)
@@ -129,7 +129,7 @@ Choose technologies that best fit your #{use_case_data[:title]} requirements and
 
   def generate_tags(title, content)
     # Generate relevant tags based on content
-    base_tags = ["software development", "web applications", "technology"]
+    base_tags = [ "software development", "web applications", "technology" ]
     content_tags = []
 
     # Add use case specific tags
@@ -161,10 +161,10 @@ Choose technologies that best fit your #{use_case_data[:title]} requirements and
     # This should return all use cases - for now using a simple array
     # Later this could come from a UseCase model or the useCaseData
     [
-      { slug: 'e-commerce', title: 'E-commerce Solutions' },
-      { slug: 'food-delivery', title: 'Food Delivery Platforms' },
-      { slug: 'healthcare-management-system', title: 'Healthcare Management Systems' },
-      { slug: 'financial-services-banking', title: 'Financial Services & Banking' }
+      { slug: "e-commerce", title: "E-commerce Solutions" },
+      { slug: "food-delivery", title: "Food Delivery Platforms" },
+      { slug: "healthcare-management-system", title: "Healthcare Management Systems" },
+      { slug: "financial-services-banking", title: "Financial Services & Banking" }
       # Add more use cases as they are defined
     ]
   end

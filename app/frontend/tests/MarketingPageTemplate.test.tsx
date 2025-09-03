@@ -21,10 +21,10 @@ describe("MarketingPageTemplate", () => {
 
     expect(screen.getByText("E-commerce Solutions")).toBeInTheDocument();
     expect(
-      screen.getByText("Build the next generation of online stores")
+      screen.getByText("Build the next generation of online stores"),
     ).toBeInTheDocument();
     expect(
-      screen.getByText("Comprehensive e-commerce development services")
+      screen.getByText("Comprehensive e-commerce development services"),
     ).toBeInTheDocument();
     expect(screen.getByText("Shopping Cart")).toBeInTheDocument();
     expect(screen.getByText("Payment Integration")).toBeInTheDocument();
@@ -33,7 +33,7 @@ describe("MarketingPageTemplate", () => {
     // Test for hero section CTA button specifically by looking for the white background
     const buttons = screen.getAllByRole("button", { name: /get started/i });
     const heroButton = buttons.find((button) =>
-      button.classList.contains("bg-white")
+      button.classList.contains("bg-white"),
     );
     expect(heroButton).toBeInTheDocument();
   });

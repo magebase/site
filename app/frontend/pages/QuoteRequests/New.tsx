@@ -60,7 +60,7 @@ export default function New({ quote_request, features }: Props) {
   // Automatically include marketing pages feature
   useEffect(() => {
     const marketingPagesFeature = features.find(
-      (f) => f.name === "5_high_converting_seo_marketing_pages"
+      (f) => f.name === "5_high_converting_seo_marketing_pages",
     );
     if (
       marketingPagesFeature &&
@@ -87,7 +87,7 @@ export default function New({ quote_request, features }: Props) {
 
   const calculatePricing = (featureIds: number[], useCase: string) => {
     const selectedFeatureObjects = features.filter((f) =>
-      featureIds.includes(f.id)
+      featureIds.includes(f.id),
     );
     const baseCosts = {
       "E-commerce Platform": 15000,
@@ -114,11 +114,11 @@ export default function New({ quote_request, features }: Props) {
     let baseCost = baseCosts[useCase as keyof typeof baseCosts] || 15000;
     const featureCost = selectedFeatureObjects.reduce(
       (sum, feature) => sum + feature.base_cost,
-      0
+      0,
     );
     const complexityMultiplier = Math.min(
       1 + selectedFeatureObjects.length * 0.1,
-      1.8
+      1.8,
     );
 
     const totalCost = (baseCost + featureCost) * complexityMultiplier;
@@ -139,13 +139,16 @@ export default function New({ quote_request, features }: Props) {
     });
   };
 
-  const groupedFeatures = features.reduce((acc, feature) => {
-    if (!acc[feature.category]) {
-      acc[feature.category] = [];
-    }
-    acc[feature.category].push(feature);
-    return acc;
-  }, {} as Record<string, Feature[]>);
+  const groupedFeatures = features.reduce(
+    (acc, feature) => {
+      if (!acc[feature.category]) {
+        acc[feature.category] = [];
+      }
+      acc[feature.category].push(feature);
+      return acc;
+    },
+    {} as Record<string, Feature[]>,
+  );
 
   const useCaseOptions = [
     "E-commerce Platform",
@@ -331,7 +334,7 @@ export default function New({ quote_request, features }: Props) {
                               onCheckedChange={(checked) =>
                                 handleFeatureToggle(
                                   feature.id,
-                                  checked as boolean
+                                  checked as boolean,
                                 )
                               }
                             />
@@ -360,7 +363,7 @@ export default function New({ quote_request, features }: Props) {
                         ))}
                       </div>
                     </div>
-                  )
+                  ),
                 )}
               </div>
             </CardContent>

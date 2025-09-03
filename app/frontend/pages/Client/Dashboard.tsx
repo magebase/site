@@ -229,7 +229,7 @@ export default function ClientDashboard({
                                     : feature.name
                                         .replace(/_/g, " ")
                                         .replace(/\b\w/g, (l) =>
-                                          l.toUpperCase()
+                                          l.toUpperCase(),
                                         )}
                                 </Badge>
                               ))}

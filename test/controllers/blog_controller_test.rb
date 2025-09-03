@@ -7,14 +7,14 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
       title: "E-commerce Solutions",
       subtitle: "Build the next generation of online stores",
       description: "Comprehensive e-commerce development services",
-      features: ["Shopping Cart", "Payment Integration"],
+      features: [ "Shopping Cart", "Payment Integration" ],
       category: "Commerce",
       complexity: "High",
       estimated_timeline: "8-16 weeks",
       target_audience: "Retailers, manufacturers",
-      key_benefits: ["Increased sales revenue", "Global market reach"],
-      technical_requirements: ["Product catalog", "Payment processor setup"],
-      success_metrics: ["Conversion rate improvement", "Average order value increase"]
+      key_benefits: [ "Increased sales revenue", "Global market reach" ],
+      technical_requirements: [ "Product catalog", "Payment processor setup" ],
+      success_metrics: [ "Conversion rate improvement", "Average order value increase" ]
     }
   end
 

@@ -85,7 +85,7 @@ export default function TenantNew({ errors }: TenantNewProps) {
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       setData(
                         "subdomain",
-                        e.target.value.toLowerCase().replace(/[^a-z0-9]/g, "")
+                        e.target.value.toLowerCase().replace(/[^a-z0-9]/g, ""),
                       )
                     }
                     placeholder="myawesomeproject"

@@ -176,7 +176,7 @@ export default function TenantDashboard({
                             </h4>
                             <p className="text-xs text-gray-500 mt-1">
                               {new Date(
-                                request.created_at
+                                request.created_at,
                               ).toLocaleDateString()}
                             </p>
                           </div>
@@ -233,7 +233,7 @@ export default function TenantDashboard({
                               <p className="text-xs text-gray-500">
                                 {document.file_type} •{" "}
                                 {new Date(
-                                  document.created_at
+                                  document.created_at,
                                 ).toLocaleDateString()}
                               </p>
                             </div>

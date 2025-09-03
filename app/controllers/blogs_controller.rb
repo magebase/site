@@ -3,8 +3,8 @@ class BlogsController < ApplicationController
     @blogs = Blog.published.recent.page(params[:page]).per(12)
     @categories = Blog.published.distinct.pluck(:category)
 
-    render inertia: 'BlogsIndex', props: {
-      blogs: @blogs.as_json(include: [:tags]),
+    render inertia: "BlogsIndex", props: {
+      blogs: @blogs.as_json(include: [ :tags ]),
       categories: @categories,
       pagination: {
         current_page: @blogs.current_page,
@@ -20,10 +20,10 @@ class BlogsController < ApplicationController
     # Track view (you might want to implement this later)
     # @blog.increment!(:views_count)
 
-    render inertia: 'BlogShow', props: {
-      blog: @blog.as_json(include: [:tags]),
-      related_posts: @blog.related_posts(4).as_json(include: [:tags]),
-      use_case_posts: @blog.use_case_posts(4).as_json(include: [:tags])
+    render inertia: "BlogShow", props: {
+      blog: @blog.as_json(include: [ :tags ]),
+      related_posts: @blog.related_posts(4).as_json(include: [ :tags ]),
+      use_case_posts: @blog.use_case_posts(4).as_json(include: [ :tags ])
     }
   end
 
@@ -31,8 +31,8 @@ class BlogsController < ApplicationController
     @category = params[:category]
     @blogs = Blog.published.by_category(@category).recent.page(params[:page]).per(12)
 
-    render inertia: 'BlogsCategory', props: {
-      blogs: @blogs.as_json(include: [:tags]),
+    render inertia: "BlogsCategory", props: {
+      blogs: @blogs.as_json(include: [ :tags ]),
       category: @category,
       pagination: {
         current_page: @blogs.current_page,
@@ -49,8 +49,8 @@ class BlogsController < ApplicationController
     # Get use case info from the data (you might want to create a UseCase model later)
     use_case_data = get_use_case_data(@use_case_slug)
 
-    render inertia: 'BlogsUseCase', props: {
-      blogs: @blogs.as_json(include: [:tags]),
+    render inertia: "BlogsUseCase", props: {
+      blogs: @blogs.as_json(include: [ :tags ]),
       use_case: use_case_data,
       use_case_slug: @use_case_slug,
       pagination: {
@@ -67,9 +67,9 @@ class BlogsController < ApplicationController
     # This is a temporary implementation
     # Later you might want to create a UseCase model
     use_case_data = {
-      'e-commerce' => { title: 'E-commerce', description: 'Online retail solutions' },
-      'food-delivery' => { title: 'Food Delivery', description: 'Restaurant delivery platforms' },
-      'healthcare' => { title: 'Healthcare', description: 'Medical management systems' }
+      "e-commerce" => { title: "E-commerce", description: "Online retail solutions" },
+      "food-delivery" => { title: "Food Delivery", description: "Restaurant delivery platforms" },
+      "healthcare" => { title: "Healthcare", description: "Medical management systems" }
     }
 
     use_case_data[slug] || { title: slug.titleize, description: "Software development for #{slug.titleize}" }

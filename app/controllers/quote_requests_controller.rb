@@ -1,16 +1,16 @@
 class QuoteRequestsController < ApplicationController
   def index
     @quote_requests = QuoteRequest.includes(:client).order(created_at: :desc)
-    render inertia: 'QuoteRequests/Index', props: {
+    render inertia: "QuoteRequests/Index", props: {
       quote_requests: @quote_requests.as_json(include: :client)
     }
   end
 
   def show
     @quote_request = QuoteRequest.includes(:client, :selected_features, :project_milestones, :contract, :payments).find(params[:id])
-    render inertia: 'QuoteRequests/Show', props: {
+    render inertia: "QuoteRequests/Show", props: {
       quote_request: @quote_request.as_json(
-        include: [:client, :selected_features, :project_milestones, :contract, :payments]
+        include: [ :client, :selected_features, :project_milestones, :contract, :payments ]
       )
     }
   end
@@ -18,7 +18,7 @@ class QuoteRequestsController < ApplicationController
   def new
     @quote_request = QuoteRequest.new
     @features = Feature.all.order(:category, :name)
-    render inertia: 'QuoteRequests/New', props: {
+    render inertia: "QuoteRequests/New", props: {
       quote_request: @quote_request.as_json,
       features: @features.as_json
     }
@@ -75,18 +75,18 @@ class QuoteRequestsController < ApplicationController
       # Send proposal ready email with public link
       send_proposal_ready_email(@quote_request)
 
-      render inertia: 'QuoteRequests/Show', props: {
+      render inertia: "QuoteRequests/Show", props: {
         quote_request: @quote_request.as_json(include: :selected_features),
         success: true,
-        message: 'Quote request submitted successfully! Check your email for your proposal link.'
+        message: "Quote request submitted successfully! Check your email for your proposal link."
       }
     else
       @features = Feature.all.order(:category, :name)
-      render inertia: 'QuoteRequests/New', props: {
+      render inertia: "QuoteRequests/New", props: {
         quote_request: @quote_request.as_json,
         features: @features.as_json,
         errors: @quote_request.errors.full_messages,
-        error_message: @quote_request.errors.full_messages.join(', ')
+        error_message: @quote_request.errors.full_messages.join(", ")
       }
     end
   end
@@ -95,13 +95,13 @@ class QuoteRequestsController < ApplicationController
     @quote_request = QuoteRequest.find(params[:id])
 
     if @quote_request.update(quote_request_params)
-      render inertia: 'QuoteRequests/Show', props: {
+      render inertia: "QuoteRequests/Show", props: {
         quote_request: @quote_request.as_json,
         success: true,
-        message: 'Quote request updated successfully!'
+        message: "Quote request updated successfully!"
       }
     else
-      render inertia: 'QuoteRequests/Show', props: {
+      render inertia: "QuoteRequests/Show", props: {
         quote_request: @quote_request.as_json,
         errors: @quote_request.errors.full_messages
       }
@@ -112,10 +112,10 @@ class QuoteRequestsController < ApplicationController
     @quote_request = QuoteRequest.find(params[:id])
     @quote_request.generate_quote!
 
-    render inertia: 'QuoteRequests/Show', props: {
+    render inertia: "QuoteRequests/Show", props: {
       quote_request: @quote_request.as_json,
       success: true,
-      message: 'Quote generated successfully!'
+      message: "Quote generated successfully!"
     }
   end
 
@@ -126,18 +126,18 @@ class QuoteRequestsController < ApplicationController
     # Generate contract
     ContractGenerationService.new(@quote_request).generate_contract
 
-    render inertia: 'QuoteRequests/Show', props: {
+    render inertia: "QuoteRequests/Show", props: {
       quote_request: @quote_request.as_json(include: :contract),
       success: true,
-      message: 'Quote accepted! Contract generated.'
+      message: "Quote accepted! Contract generated."
     }
   end
 
   def timeline_pdf
     @quote_request = QuoteRequest.find(params[:id])
-    render inertia: 'QuoteRequests/TimelinePdf', props: {
+    render inertia: "QuoteRequests/TimelinePdf", props: {
       quote_request: @quote_request.as_json(
-        include: [:client, :selected_features, :project_milestones, :contract, :payments]
+        include: [ :client, :selected_features, :project_milestones, :contract, :payments ]
       )
     }
   end
@@ -146,13 +146,13 @@ class QuoteRequestsController < ApplicationController
     @quote_request = QuoteRequest.find(params[:id])
 
     # Generate CSV content
-    require 'csv'
+    require "csv"
     csv_data = generate_timeline_csv(@quote_request)
 
     send_data csv_data,
               filename: "#{@quote_request.project_name.parameterize}_timeline.csv",
-              type: 'text/csv',
-              disposition: 'attachment'
+              type: "text/csv",
+              disposition: "attachment"
   end
 
   private
@@ -185,7 +185,7 @@ class QuoteRequestsController < ApplicationController
 
   def generate_unique_subdomain(base_name)
     # Clean the name and create a subdomain
-    subdomain = base_name.downcase.gsub(/[^a-z0-9]/, '')
+    subdomain = base_name.downcase.gsub(/[^a-z0-9]/, "")
 
     # Ensure uniqueness
     original_subdomain = subdomain
@@ -207,10 +207,10 @@ class QuoteRequestsController < ApplicationController
   end
 
   def generate_timeline_csv(quote_request)
-    timeline = quote_request.project_plan_json&.dig('timeline') || []
+    timeline = quote_request.project_plan_json&.dig("timeline") || []
 
     CSV.generate(headers: true) do |csv|
-      csv << ['Project Name', 'Client Company', 'Client Contact', 'Client Email', 'Day', 'Scope', 'Deliverables', 'Estimated Cost', 'Monthly Retainer', 'Deposit Amount', 'Status', 'Created Date']
+      csv << [ "Project Name", "Client Company", "Client Contact", "Client Email", "Day", "Scope", "Deliverables", "Estimated Cost", "Monthly Retainer", "Deposit Amount", "Status", "Created Date" ]
 
       timeline.each do |item|
         csv << [
@@ -218,9 +218,9 @@ class QuoteRequestsController < ApplicationController
           quote_request.client.company_name,
           quote_request.client.contact_name,
           quote_request.client.email,
-          item['day'],
-          item['scope'],
-          item['deliverables']&.join('; '),
+          item["day"],
+          item["scope"],
+          item["deliverables"]&.join("; "),
           quote_request.estimated_cost,
           quote_request.monthly_retainer,
           quote_request.deposit_amount,

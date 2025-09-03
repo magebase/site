@@ -104,7 +104,7 @@ export default function ResourcesWebinarsIndex({
                             year: "numeric",
                             month: "long",
                             day: "numeric",
-                          }
+                          },
                         )}
                       </div>
                       <div className="flex items-center text-sm text-gray-600">
@@ -176,7 +176,7 @@ export default function ResourcesWebinarsIndex({
                             year: "numeric",
                             month: "short",
                             day: "numeric",
-                          }
+                          },
                         )}
                       </div>
                       <div className="flex items-center text-sm text-gray-600">

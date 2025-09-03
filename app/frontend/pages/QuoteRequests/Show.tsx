@@ -129,7 +129,7 @@ export default function Show({ quote_request }: Props) {
                     <p className="text-gray-700">
                       {format(
                         new Date(quote_request.created_at),
-                        "MMM dd, yyyy"
+                        "MMM dd, yyyy",
                       )}
                     </p>
                   </div>

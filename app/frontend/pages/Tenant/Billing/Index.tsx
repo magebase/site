@@ -76,7 +76,7 @@ export default function BillingIndex({
                       </span>
                       <span className="font-semibold">
                         {new Date(
-                          billingInfo.next_billing_date
+                          billingInfo.next_billing_date,
                         ).toLocaleDateString()}
                       </span>
                     </div>

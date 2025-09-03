@@ -37,7 +37,7 @@ export default function PageLayout({
     }
     if (description) {
       const metaDescription = document.querySelector(
-        'meta[name="description"]'
+        'meta[name="description"]',
       );
       if (metaDescription) {
         metaDescription.setAttribute("content", description);

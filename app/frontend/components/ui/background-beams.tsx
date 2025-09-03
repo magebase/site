@@ -14,7 +14,7 @@ export const BackgroundBeams = ({
     <div
       className={cn(
         "relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background",
-        className
+        className,
       )}
       {...props}
     >

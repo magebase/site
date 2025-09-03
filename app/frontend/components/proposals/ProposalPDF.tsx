@@ -145,7 +145,7 @@ export const ProposalPDF: React.FC<ProposalPDFProps> = ({ quote_request }) => {
               <Text key={index} style={styles.text}>
                 • {feature.name}
               </Text>
-            )
+            ),
           )}
         </View>
 

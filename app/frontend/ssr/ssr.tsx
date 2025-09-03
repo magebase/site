@@ -11,5 +11,5 @@ createServer((page) =>
       return pages[`../pages/${name}.tsx`];
     },
     setup: ({ App, props }) => <App {...props} />,
-  })
+  }),
 );

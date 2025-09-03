@@ -3,8 +3,8 @@ class BlogController < ApplicationController
     @blog_posts = BlogPost.published.recent.paginate(page: params[:page], per_page: 12)
     @categories = BlogPost.published.distinct.pluck(:use_case_slug).compact.uniq
 
-    render inertia: 'BlogIndex', props: {
-      blogPosts: @blog_posts.as_json(only: [:id, :title, :excerpt, :slug, :published_at, :author_name, :author_title, :author_profile_picture, :use_case_slug]),
+    render inertia: "BlogIndex", props: {
+      blogPosts: @blog_posts.as_json(only: [ :id, :title, :excerpt, :slug, :published_at, :author_name, :author_title, :author_profile_picture, :use_case_slug ]),
       categories: @categories,
       pagination: {
         current_page: @blog_posts.current_page,
@@ -17,10 +17,10 @@ class BlogController < ApplicationController
   def show
     @blog_post = BlogPost.published.find_by!(slug: params[:slug])
 
-    render inertia: 'BlogShow', props: {
-      blogPost: @blog_post.as_json(only: [:id, :title, :content, :slug, :published_at, :author_name, :author_title, :author_profile_picture, :use_case_slug]),
-      relatedPosts: @blog_post.related_posts(4).as_json(only: [:id, :title, :excerpt, :slug, :published_at, :author_name]),
-      useCasePosts: @blog_post.use_case_posts(4).as_json(only: [:id, :title, :excerpt, :slug, :published_at, :author_name])
+    render inertia: "BlogShow", props: {
+      blogPost: @blog_post.as_json(only: [ :id, :title, :content, :slug, :published_at, :author_name, :author_title, :author_profile_picture, :use_case_slug ]),
+      relatedPosts: @blog_post.related_posts(4).as_json(only: [ :id, :title, :excerpt, :slug, :published_at, :author_name ]),
+      useCasePosts: @blog_post.use_case_posts(4).as_json(only: [ :id, :title, :excerpt, :slug, :published_at, :author_name ])
     }
   end
 
@@ -31,8 +31,8 @@ class BlogController < ApplicationController
     # Get use case info from the data (you might want to create a UseCase model later)
     use_case_data = get_use_case_data(@use_case_slug)
 
-    render inertia: 'BlogUseCase', props: {
-      blogPosts: @blog_posts.as_json(only: [:id, :title, :excerpt, :slug, :published_at, :author_name, :author_title, :author_profile_picture, :use_case_slug]),
+    render inertia: "BlogUseCase", props: {
+      blogPosts: @blog_posts.as_json(only: [ :id, :title, :excerpt, :slug, :published_at, :author_name, :author_title, :author_profile_picture, :use_case_slug ]),
       useCase: use_case_data,
       useCaseSlug: @use_case_slug,
       pagination: {
@@ -48,7 +48,7 @@ class BlogController < ApplicationController
     use_case_data = get_use_case_data(use_case_slug)
 
     if use_case_data.nil?
-      render json: { error: 'Use case not found' }, status: :not_found
+      render json: { error: "Use case not found" }, status: :not_found
       return
     end
 
@@ -66,10 +66,10 @@ class BlogController < ApplicationController
         published: true
       )
 
-      render json: { success: true, blog_post: blog_post.as_json(only: [:id, :title, :slug]) }, status: :ok
+      render json: { success: true, blog_post: blog_post.as_json(only: [ :id, :title, :slug ]) }, status: :ok
     rescue => e
       Rails.logger.error("Failed to generate blog post: #{e.message}")
-      render json: { error: 'Failed to generate blog post' }, status: :not_found
+      render json: { error: "Failed to generate blog post" }, status: :not_found
     end
   end
 

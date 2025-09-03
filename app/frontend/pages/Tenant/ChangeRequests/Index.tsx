@@ -128,7 +128,7 @@ export default function ChangeRequestsIndex({
                             <Calendar className="h-4 w-4" />
                             <span>
                               {new Date(
-                                request.created_at
+                                request.created_at,
                               ).toLocaleDateString()}
                             </span>
                           </div>

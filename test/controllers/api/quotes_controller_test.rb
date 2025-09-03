@@ -3,7 +3,7 @@ require "test_helper"
 class Api::QuotesControllerTest < ActionDispatch::IntegrationTest
   test "should calculate timeline using RubyLLM when timeline param is not provided" do
     # This test verifies that timeline is calculated without timeline parameter
-    features = ["user_authentication", "payment_processing", "admin_dashboard", "analytics_tracking"]
+    features = [ "user_authentication", "payment_processing", "admin_dashboard", "analytics_tracking" ]
     use_case = "E-commerce Platform"
     priority = "medium"
 

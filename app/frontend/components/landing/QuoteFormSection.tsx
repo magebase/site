@@ -94,7 +94,7 @@ const quoteFormSchema = z.object({
     .string()
     .refine(
       (val) => val.split(/\s+/).filter((word) => word.length > 0).length >= 25,
-      "Please provide at least 25 words in the project requirements"
+      "Please provide at least 25 words in the project requirements",
     ),
   selectedFeatures: z.array(z.string()),
   redesignCount: z.number().min(0),
@@ -320,7 +320,7 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
       "deliveryAddress",
     ];
     return requiredFields.filter(
-      (field) => values[field as keyof QuoteFormData]?.toString().trim() !== ""
+      (field) => values[field as keyof QuoteFormData]?.toString().trim() !== "",
     ).length;
   }
 
@@ -351,7 +351,7 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
         featureMultiplier +
         customizationMultiplier * 2000 +
         integrationMultiplier * 1500 +
-        redesignCost
+        redesignCost,
     );
   }
 
@@ -378,10 +378,10 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
         onError: (errors) => {
           console.error("Form submission errors:", errors);
           toast.error(
-            "There was an error submitting your quote request. Please try again."
+            "There was an error submitting your quote request. Please try again.",
           );
         },
-      }
+      },
     );
   }
 
@@ -1146,7 +1146,7 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
                                 const updatedLanguages = checked
                                   ? [...currentLanguages, language]
                                   : currentLanguages.filter(
-                                      (lang: string) => lang !== language
+                                      (lang: string) => lang !== language,
                                     );
                                 field.onChange(updatedLanguages);
                               }}
@@ -1216,7 +1216,7 @@ function QuoteFormSection({ id = "quote-form" }: QuoteFormSectionProps) {
                                 const updatedProviders = checked
                                   ? [...currentProviders, provider]
                                   : currentProviders.filter(
-                                      (p: string) => p !== provider
+                                      (p: string) => p !== provider,
                                     );
                                 field.onChange(updatedProviders);
                               }}

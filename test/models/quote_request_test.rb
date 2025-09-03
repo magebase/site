@@ -3,15 +3,15 @@ require "test_helper"
 class QuoteRequestTest < ActiveSupport::TestCase
   test "should handle new fields" do
     # Create a feature for the test
-    feature = Feature.create!(name: 'test_feature', description: 'Test feature', category: 'test', base_cost: 100.00, complexity_level: 1)
+    feature = Feature.create!(name: "test_feature", description: "Test feature", category: "test", base_cost: 100.00, complexity_level: 1)
 
     quote_request = QuoteRequest.new(
       project_name: "Test Project",
       project_description: "This is a test project description that is long enough",
       use_case: "web_app",
       inspiration: "I want a modern design",
-      selected_languages: ["English", "Spanish"],
-      selected_social_providers: ["Google", "Facebook"]
+      selected_languages: [ "English", "Spanish" ],
+      selected_social_providers: [ "Google", "Facebook" ]
     )
 
     # Associate the feature
@@ -19,13 +19,13 @@ class QuoteRequestTest < ActiveSupport::TestCase
 
     assert quote_request.save
     assert_equal "I want a modern design", quote_request.inspiration
-    assert_equal ["English", "Spanish"], quote_request.selected_languages_data
-    assert_equal ["Google", "Facebook"], quote_request.selected_social_providers_data
+    assert_equal [ "English", "Spanish" ], quote_request.selected_languages_data
+    assert_equal [ "Google", "Facebook" ], quote_request.selected_social_providers_data
   end
 
   test "should handle empty new fields" do
     # Create a feature for the test
-    feature = Feature.create!(name: 'test_feature2', description: 'Test feature 2', category: 'test', base_cost: 100.00, complexity_level: 1)
+    feature = Feature.create!(name: "test_feature2", description: "Test feature 2", category: "test", base_cost: 100.00, complexity_level: 1)
 
     quote_request = QuoteRequest.new(
       project_name: "Test Project",
@@ -43,7 +43,7 @@ class QuoteRequestTest < ActiveSupport::TestCase
   end
 
   test "should have initial draft state" do
-    feature = Feature.create!(name: 'test_feature', description: 'Test feature', category: 'test', base_cost: 100.00, complexity_level: 1)
+    feature = Feature.create!(name: "test_feature", description: "Test feature", category: "test", base_cost: 100.00, complexity_level: 1)
 
     quote_request = QuoteRequest.new(
       project_name: "Test Project",
@@ -58,7 +58,7 @@ class QuoteRequestTest < ActiveSupport::TestCase
   end
 
   test "should transition from draft to quoted" do
-    feature = Feature.create!(name: 'test_feature', description: 'Test feature', category: 'test', base_cost: 100.00, complexity_level: 1)
+    feature = Feature.create!(name: "test_feature", description: "Test feature", category: "test", base_cost: 100.00, complexity_level: 1)
 
     quote_request = QuoteRequest.new(
       project_name: "Test Project",

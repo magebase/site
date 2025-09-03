@@ -18,7 +18,7 @@ def test_ses_email
   test_email = {
     source: ENV['TEST_FROM_EMAIL'] || 'test@magebase.dev',
     destination: {
-      to_addresses: [ENV['TEST_TO_EMAIL'] || 'your-email@example.com']
+      to_addresses: [ ENV['TEST_TO_EMAIL'] || 'your-email@example.com' ]
     },
     message: {
       subject: {
@@ -58,7 +58,7 @@ def check_ses_identity
 
   begin
     response = ses_client.get_identity_verification_attributes({
-      identities: ['magebase.dev']
+      identities: [ 'magebase.dev' ]
     })
 
     identity = response.verification_attributes['magebase.dev']

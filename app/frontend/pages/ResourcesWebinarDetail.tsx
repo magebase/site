@@ -49,7 +49,7 @@ export default function ResourcesWebinarDetail({
       title={`${webinar.title} | Webinar`}
       description={`${webinar.title} - ${webinar.description.substring(
         0,
-        150
+        150,
       )}...`}
     >
       {/* Hero Section */}
@@ -210,7 +210,7 @@ export default function ResourcesWebinarDetail({
                           day: "numeric",
                           hour: "2-digit",
                           minute: "2-digit",
-                        }
+                        },
                       )}
                     </p>
                   </div>

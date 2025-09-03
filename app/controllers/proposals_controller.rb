@@ -10,9 +10,9 @@ class ProposalsController < ApplicationController
       return
     end
 
-    render inertia: 'Proposals/Show', props: {
+    render inertia: "Proposals/Show", props: {
       quote_request: @quote_request.as_json(
-        include: [:client, :selected_features, :project_milestones]
+        include: [ :client, :selected_features, :project_milestones ]
       ),
       proposal_token: params[:token]
     }
@@ -28,9 +28,9 @@ class ProposalsController < ApplicationController
       # Create or find user account for the client
       create_user_account_and_send_magic_link(@quote_request)
 
-      redirect_to root_path, notice: 'Quote accepted successfully! Check your email for your account access link.'
+      redirect_to root_path, notice: "Quote accepted successfully! Check your email for your account access link."
     else
-      redirect_to proposal_path(token: params[:token]), alert: 'Failed to accept quote. Please try again.'
+      redirect_to proposal_path(token: params[:token]), alert: "Failed to accept quote. Please try again."
     end
   end
 

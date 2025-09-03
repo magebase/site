@@ -1,5 +1,5 @@
 class Api::QuotesController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:estimate]
+  skip_before_action :verify_authenticity_token, only: [ :estimate ]
 
   # Override authentication for API controllers
   def authenticate_user!
@@ -166,7 +166,7 @@ class Api::QuotesController < ApplicationController
 
     # Check if delivery address is in Europe and add GDPR compliance
     delivery_address = params[:delivery_address]
-    if delivery_address.present? && delivery_address.downcase != 'remote'
+    if delivery_address.present? && delivery_address.downcase != "remote"
       is_european = european_countries.any? do |country|
         delivery_address.downcase.include?(country.downcase)
       end
@@ -242,7 +242,7 @@ class Api::QuotesController < ApplicationController
     # Generate project plan using AI analysis (copied from ProjectPlanningService)
     {
       timeline_months: calculate_timeline(features, use_case),
-      milestones: generate_milestones(features, use_case),
+      milestones: generate_milestones(features, use_case)
     }
   end
 
@@ -325,21 +325,21 @@ class Api::QuotesController < ApplicationController
 
     # Otherwise, use the existing formula-based calculation
     base_timelines = {
-      'ecommerce' => 2,
-      'social_app' => 3,
-      'marketplace' => 4,
-      'saas' => 5,
-      'mobile_app' => 3,
-      'web_app' => 2,
-      'api_integration' => 1,
-      'data_analytics' => 3,
-      'ai_ml' => 6,
-      'blockchain' => 8
+      "ecommerce" => 2,
+      "social_app" => 3,
+      "marketplace" => 4,
+      "saas" => 5,
+      "mobile_app" => 3,
+      "web_app" => 2,
+      "api_integration" => 1,
+      "data_analytics" => 3,
+      "ai_ml" => 6,
+      "blockchain" => 8
     }
 
     base_months = base_timelines[use_case] || 3
 
-    complex_features = features.select { |f| ['ai_ml', 'blockchain', 'real_time_features'].include?(f.name) }.count
+    complex_features = features.select { |f| [ "ai_ml", "blockchain", "real_time_features" ].include?(f.name) }.count
     feature_adjustment = features.count * 0.2
 
     # Apply velocity adjustment
@@ -407,7 +407,7 @@ class Api::QuotesController < ApplicationController
       # Get AI response
       response = RubyLLM.complete(
         model: "gpt-4",
-        messages: [{ role: "user", content: timeline_prompt }],
+        messages: [ { role: "user", content: timeline_prompt } ],
         temperature: 0.2
       )
 
@@ -426,20 +426,20 @@ class Api::QuotesController < ApplicationController
 
   def calculate_timeline_with_formula(features, use_case)
     base_timelines = {
-      'ecommerce' => 2,
-      'social_app' => 3,
-      'marketplace' => 4,
-      'saas' => 5,
-      'mobile_app' => 3,
-      'web_app' => 2,
-      'api_integration' => 1,
-      'data_analytics' => 3,
-      'ai_ml' => 6,
-      'blockchain' => 8
+      "ecommerce" => 2,
+      "social_app" => 3,
+      "marketplace" => 4,
+      "saas" => 5,
+      "mobile_app" => 3,
+      "web_app" => 2,
+      "api_integration" => 1,
+      "data_analytics" => 3,
+      "ai_ml" => 6,
+      "blockchain" => 8
     }
 
     base_months = base_timelines[use_case] || 3
-    complex_features = features.select { |f| ['ai_ml', 'blockchain', 'real_time_features'].include?(f.name) }.count
+    complex_features = features.select { |f| [ "ai_ml", "blockchain", "real_time_features" ].include?(f.name) }.count
     feature_adjustment = features.count * 0.2
 
     # Apply priority adjustment
@@ -476,23 +476,23 @@ class Api::QuotesController < ApplicationController
 
     features.each do |feature|
       case feature.name
-      when 'mobile_responsive', 'mobile_app'
+      when "mobile_responsive", "mobile_app"
         team[:frontend_developer] = true
-        team[:mobile_developer] = true if feature.name == 'mobile_app'
-      when 'standalone_developer_api_openapi_portal', 'database_design', 'third_party_integrations'
+        team[:mobile_developer] = true if feature.name == "mobile_app"
+      when "standalone_developer_api_openapi_portal", "database_design", "third_party_integrations"
         team[:backend_developer] = true
-      when 'real_time_features', 'payment_processing', 'security_features'
+      when "real_time_features", "payment_processing", "security_features"
         team[:backend_developer] = true
-        team[:devops_engineer] = true if feature.name == 'security_features'
-      when 'admin_dashboard', 'analytics_tracking'
+        team[:devops_engineer] = true if feature.name == "security_features"
+      when "admin_dashboard", "analytics_tracking"
         team[:frontend_developer] = true
         team[:backend_developer] = true
-      when 'ai_ml'
+      when "ai_ml"
         team[:backend_developer] = true
         team[:devops_engineer] = true
-      when 'deployment_devops'
+      when "deployment_devops"
         team[:devops_engineer] = true
-      when 'testing_qa'
+      when "testing_qa"
         team[:qa_tester] = true
       end
     end
@@ -502,17 +502,17 @@ class Api::QuotesController < ApplicationController
 
   def recommend_technology_stack(use_case, features)
     # Simplified tech stack recommendation
-    ["React", "TypeScript", "Node.js", "PostgreSQL"]
+    [ "React", "TypeScript", "Node.js", "PostgreSQL" ]
   end
 
   def identify_risks_and_assumptions(features, use_case)
     # Simplified risks
-    ["Timeline may vary based on feature complexity", "Third-party API availability"]
+    [ "Timeline may vary based on feature complexity", "Third-party API availability" ]
   end
 
   def define_deliverables(use_case, features)
     # Simplified deliverables
-    ["Web application", "Source code", "Documentation", "Deployment"]
+    [ "Web application", "Source code", "Documentation", "Deployment" ]
   end
 
   # Copy methods from PricingService
@@ -551,7 +551,7 @@ class Api::QuotesController < ApplicationController
       "Review & Rating" => "web_app",
       "Subscription Box Service" => "ecommerce",
       "Community Forum" => "social_app",
-      "Custom Application" => "web_app",
+      "Custom Application" => "web_app"
     }
 
     base_costs = {
@@ -692,7 +692,7 @@ class Api::QuotesController < ApplicationController
       # Get AI response
       response = RubyLLM.complete(
         model: "gpt-4",
-        messages: [{ role: "user", content: analysis_prompt }],
+        messages: [ { role: "user", content: analysis_prompt } ],
         temperature: 0.3
       )
 
@@ -733,32 +733,32 @@ class Api::QuotesController < ApplicationController
     # Add tags based on use case
     case context[:use_case]
     when "E-commerce Platform"
-      base_tags += ["ecommerce", "retail", "shopping"]
+      base_tags += [ "ecommerce", "retail", "shopping" ]
     when "Social Networking App"
-      base_tags += ["social", "networking", "community"]
+      base_tags += [ "social", "networking", "community" ]
     when "Healthcare Management System"
-      base_tags += ["healthcare", "medical", "patient-management"]
+      base_tags += [ "healthcare", "medical", "patient-management" ]
     when "Fitness & Wellness App"
-      base_tags += ["fitness", "health", "wellness"]
+      base_tags += [ "fitness", "health", "wellness" ]
     when "Gaming Platform"
-      base_tags += ["gaming", "entertainment", "gamification"]
+      base_tags += [ "gaming", "entertainment", "gamification" ]
     when "Financial Services App"
-      base_tags += ["finance", "fintech", "payments"]
+      base_tags += [ "finance", "fintech", "payments" ]
     end
 
     # Add tags based on features
     context[:selected_features].each do |feature|
       case feature
       when "ai_ml"
-        base_tags += ["artificial-intelligence", "machine-learning"]
+        base_tags += [ "artificial-intelligence", "machine-learning" ]
       when "blockchain"
-        base_tags += ["blockchain", "cryptocurrency", "web3"]
+        base_tags += [ "blockchain", "cryptocurrency", "web3" ]
       when "payment_processing"
-        base_tags += ["payments", "ecommerce", "transactions"]
+        base_tags += [ "payments", "ecommerce", "transactions" ]
       when "real_time_features"
-        base_tags += ["real-time", "live-updates", "websocket"]
+        base_tags += [ "real-time", "live-updates", "websocket" ]
       when "mobile_app"
-        base_tags += ["mobile", "ios", "android"]
+        base_tags += [ "mobile", "ios", "android" ]
       end
     end
 

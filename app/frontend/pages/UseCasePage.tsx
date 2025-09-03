@@ -96,8 +96,8 @@ export default function UseCasePage({ slug, user }: UseCasePageProps) {
                         useCase.complexity === "Low"
                           ? "default"
                           : useCase.complexity === "Medium"
-                          ? "secondary"
-                          : "destructive"
+                            ? "secondary"
+                            : "destructive"
                       }
                     >
                       {useCase.complexity}

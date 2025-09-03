@@ -6,9 +6,9 @@ class QuoteEmailService
 
     # Create SES client
     ses_client = Aws::SES::Client.new(
-      region: ENV['AWS_REGION'] || 'us-east-1',
-      access_key_id: ENV['AWS_SES_ACCESS_KEY_ID'],
-      secret_access_key: ENV['AWS_SES_SECRET_ACCESS_KEY']
+      region: ENV["AWS_REGION"] || "us-east-1",
+      access_key_id: ENV["AWS_SES_ACCESS_KEY_ID"],
+      secret_access_key: ENV["AWS_SES_SECRET_ACCESS_KEY"]
     )
 
     # Prepare email content
@@ -18,23 +18,23 @@ class QuoteEmailService
 
     # Send email with attachment
     ses_client.send_email(
-      source: 'Magebase <hello@magebase.site>',
+      source: "Magebase <hello@magebase.site>",
       destination: {
-        to_addresses: [quote_request.client.email]
+        to_addresses: [ quote_request.client.email ]
       },
       message: {
         subject: {
           data: subject,
-          charset: 'UTF-8'
+          charset: "UTF-8"
         },
         body: {
           html: {
             data: html_body,
-            charset: 'UTF-8'
+            charset: "UTF-8"
           },
           text: {
             data: text_body,
-            charset: 'UTF-8'
+            charset: "UTF-8"
           }
         }
       },
@@ -42,7 +42,7 @@ class QuoteEmailService
         {
           name: "scope-document-#{quote_request.id}.pdf",
           data: pdf_data,
-          content_type: 'application/pdf'
+          content_type: "application/pdf"
         }
       ]
     )

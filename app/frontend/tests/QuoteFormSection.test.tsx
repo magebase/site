@@ -25,6 +25,8 @@ describe("QuoteFormSection", () => {
     expect(screen.getByLabelText(/velocity/i)).toBeInTheDocument();
 
     // Check that the main heading is present
-    expect(screen.getByText(/get your custom quote in 60 seconds/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/get your custom quote in 60 seconds/i),
+    ).toBeInTheDocument();
   });
 });

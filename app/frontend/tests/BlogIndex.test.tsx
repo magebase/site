@@ -41,7 +41,7 @@ describe("BlogIndex", () => {
 
     // Check if the main heading is present
     expect(
-      screen.getByText("Software Development Insights & Tips")
+      screen.getByText("Software Development Insights & Tips"),
     ).toBeInTheDocument();
 
     // Check if blog post titles are rendered
@@ -50,10 +50,10 @@ describe("BlogIndex", () => {
 
     // Check if excerpts are rendered
     expect(
-      screen.getByText("This is a test excerpt for the first blog post")
+      screen.getByText("This is a test excerpt for the first blog post"),
     ).toBeInTheDocument();
     expect(
-      screen.getByText("This is a test excerpt for the second blog post")
+      screen.getByText("This is a test excerpt for the second blog post"),
     ).toBeInTheDocument();
 
     // Check if author names are rendered
@@ -67,8 +67,8 @@ describe("BlogIndex", () => {
     expect(screen.getByText("No blog posts yet")).toBeInTheDocument();
     expect(
       screen.getByText(
-        "Check back soon for the latest software development tips and insights!"
-      )
+        "Check back soon for the latest software development tips and insights!",
+      ),
     ).toBeInTheDocument();
   });
 

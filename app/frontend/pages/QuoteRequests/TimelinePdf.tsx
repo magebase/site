@@ -56,7 +56,7 @@ export default function TimelinePdf({ quote_request }: Props) {
       link.href = instance.url;
       link.download = `${quote_request.project_name.replace(
         /\s+/g,
-        "_"
+        "_",
       )}_timeline.pdf`;
       document.body.appendChild(link);
       link.click();
@@ -75,7 +75,7 @@ export default function TimelinePdf({ quote_request }: Props) {
       link.href = instance.url;
       link.download = `${quote_request.project_name.replace(
         /\s+/g,
-        "_"
+        "_",
       )}_timeline.pdf`;
       document.body.appendChild(link);
       link.click();
@@ -125,7 +125,7 @@ export default function TimelinePdf({ quote_request }: Props) {
                 <Button
                   onClick={() =>
                     updateInstance(
-                      <TimelinePdfGenerator quote_request={quote_request} />
+                      <TimelinePdfGenerator quote_request={quote_request} />,
                     )
                   }
                 >

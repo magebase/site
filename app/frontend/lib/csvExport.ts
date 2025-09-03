@@ -82,7 +82,7 @@ export const downloadCSV = (quote_request: QuoteRequest): void => {
     link.setAttribute("href", url);
     link.setAttribute(
       "download",
-      `${quote_request.project_name.replace(/\s+/g, "_")}_timeline.csv`
+      `${quote_request.project_name.replace(/\s+/g, "_")}_timeline.csv`,
     );
     link.style.visibility = "hidden";
     document.body.appendChild(link);
@@ -92,7 +92,7 @@ export const downloadCSV = (quote_request: QuoteRequest): void => {
 };
 
 export const generateProjectSummaryCSV = (
-  quote_request: QuoteRequest
+  quote_request: QuoteRequest,
 ): string => {
   const headers = [
     "Project Name",
@@ -148,7 +148,7 @@ export const generateProjectSummaryCSV = (
 };
 
 export const downloadProjectSummaryCSV = (
-  quote_request: QuoteRequest
+  quote_request: QuoteRequest,
 ): void => {
   const csvContent = generateProjectSummaryCSV(quote_request);
   const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
@@ -159,7 +159,7 @@ export const downloadProjectSummaryCSV = (
     link.setAttribute("href", url);
     link.setAttribute(
       "download",
-      `${quote_request.project_name.replace(/\s+/g, "_")}_summary.csv`
+      `${quote_request.project_name.replace(/\s+/g, "_")}_summary.csv`,
     );
     link.style.visibility = "hidden";
     document.body.appendChild(link);

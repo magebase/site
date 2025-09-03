@@ -87,7 +87,7 @@ begin
   # Check domain identity
   begin
     response = ses_client.get_identity_verification_attributes({
-      identities: ['magebase.dev']
+      identities: [ 'magebase.dev' ]
     })
 
     identity = response.verification_attributes['magebase.dev']

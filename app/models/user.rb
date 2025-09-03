@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable,
-         omniauth_providers: [:google_oauth2]
+         omniauth_providers: [ :google_oauth2 ]
 
   has_many :tenants
 
@@ -34,7 +34,7 @@ class User < ApplicationRecord
   # Generate magic link URL
   def magic_link_url
     return nil unless magic_link_token.present?
-    Rails.application.routes.url_helpers.magic_link_url(token: magic_link_token, host: ENV['APP_HOST'] || 'localhost:3000')
+    Rails.application.routes.url_helpers.magic_link_url(token: magic_link_token, host: ENV["APP_HOST"] || "localhost:3000")
   end
 
   # Send magic link email

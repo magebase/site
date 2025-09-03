@@ -137,7 +137,7 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
                         </Link>
                       </NavigationMenuLink>
                     </NavigationMenuItem>
-                  )
+                  ),
                 )}
               </NavigationMenuList>
             </NavigationMenu>

@@ -69,13 +69,13 @@ export default function ProposalShow({
 
       if (data.success) {
         toast.success(
-          "Quote accepted successfully! Contract has been generated."
+          "Quote accepted successfully! Contract has been generated.",
         );
         // Redirect to contract or success page
         window.location.href = "/";
       } else {
         toast.error(
-          data.message || "Failed to accept quote. Please try again."
+          data.message || "Failed to accept quote. Please try again.",
         );
       }
     } catch (error) {
@@ -187,7 +187,7 @@ export default function ProposalShow({
                   {phases.reduce(
                     (sum, phase) =>
                       sum + parseInt(phase.duration.split("-")[1]),
-                    0
+                    0,
                   )}{" "}
                   weeks
                 </span>
