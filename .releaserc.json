@@ -24,7 +24,10 @@
             "path": "CHANGELOG.md",
             "label": "Changelog"
           }
-        ]
+        ],
+        "failTitle": false,
+        "failComment": false,
+        "successComment": false
       }
     ],
     [
