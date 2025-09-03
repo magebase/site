@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/magebase/site/compare/v1.0.4...v1.0.5) (2025-09-03)
+
+
+### Bug Fixes
+
+* use bundle exec rails instead of bin/rails for assets precompile ([2cea199](https://github.com/magebase/site/commit/2cea199fd0f1cd40b49ca447aad6f54d3f4f32d2))
+
 ## [1.0.4](https://github.com/magebase/site/compare/v1.0.3...v1.0.4) (2025-09-03)
 
 
