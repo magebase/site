@@ -59,10 +59,9 @@ repos:
     hooks:
       - id: prettier
         name: Prettier Code Formatting Check
-        entry: npx prettier --check "**/*.{js,jsx,ts,tsx,json,yaml,yml}"
-        language: system
+        language: node
         files: \.(js|jsx|ts|tsx|json|yaml|yml)$
-        pass_filenames: false
+        exclude: package\.json$
         description: Check code formatting with Prettier
 
   - repo: https://github.com/shellcheck-py/shellcheck-py

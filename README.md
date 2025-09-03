@@ -228,3 +228,4 @@ type, and complex logic in the code
 ├── frontend/              # React/TypeScript frontend
 ├── models/               # Rails models
 ├── services/             # Business logic services
+# Test
