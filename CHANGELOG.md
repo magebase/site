@@ -1,3 +1,10 @@
+## [1.0.7](https://github.com/magebase/site/compare/v1.0.6...v1.0.7) (2025-09-03)
+
+
+### Bug Fixes
+
+* add Docker authentication to security scan job ([2943cbe](https://github.com/magebase/site/commit/2943cbed07b1008e0529d7de2fda2db16d1a012d))
+
 ## [1.0.6](https://github.com/magebase/site/compare/v1.0.5...v1.0.6) (2025-09-03)
 
 
