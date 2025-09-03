@@ -149,7 +149,7 @@ repos:
       - id: brakeman
         name: Brakeman Security Scan
         entry: |
-          sh -c "if command -v brakeman >/dev/null 2>&1; then brakeman --quiet --exit-on-warn; else echo \"⚠️  Skipping Brakeman security scan (brakeman not installed)\"; fi"
+          sh -c "if command -v brakeman >/dev/null 2>&1; then brakeman --no-pager .; else echo \"⚠️  Skipping Brakeman security scan (brakeman not installed)\"; fi"
         language: system
         files: \.(rb|erb|haml|slim)$
         pass_filenames: false

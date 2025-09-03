@@ -11,7 +11,8 @@ class Tenant::BillingController < ApplicationController
     }
 
     render inertia: "Tenant/Billing/Index", props: {
-      tenant: current_tenant.as_json(           only: [ :name, :subdomai n ]),
-      billingInfo: billing_in f o    }
-end
+      tenant: current_tenant.as_json(only: [ :name, :subdomain ]),
+      billingInfo: billing_info
+    }
+  end
 end
