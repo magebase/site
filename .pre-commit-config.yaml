@@ -8,7 +8,8 @@ repos:
         exclude: |
           (?x)^(
             k8s/.*\.yaml$|
-            infra/pipeline/site-infrastructure/extra-manifests/.*\.yaml$
+            infra/pipeline/site-infrastructure/extra-manifests/.*\.yaml$|
+            \.terraform/.*\.yaml$
           )$
       - id: check-added-large-files
       - id: check-merge-conflict
@@ -36,6 +37,48 @@ repos:
         pass_filenames: false
         exclude: \.terraform/
         additional_dependencies: []
+
+      - id: kustomization-validate
+        name: Kustomization Validation
+        entry: kustomize build --load-restrictor LoadRestrictionsNone
+        language: system
+        files: ^kustomization\.ya?ml$
+        pass_filenames: true
+        additional_dependencies: []
+        description: Validate kustomization files can be built successfully
+
+      - id: kustomization-lint
+        name: Kustomization Linting
+        entry: sh -c 'kustomize build --load-restrictor LoadRestrictionsNone "$1" > /dev/null && echo "✓ $1 validates successfully"'
+        language: system
+        files: ^kustomization\.ya?ml$
+        pass_filenames: true
+        additional_dependencies: []
+        description: Lint kustomization files for build errors
+
+      - id: kubectl-validate
+        name: Kubernetes Manifest Validation
+        entry: kubectl --dry-run=client --validate=true apply -f
+        language: system
+        files: \.(yaml|yml)$
+        exclude: |
+          (?x)^(
+            \.pre-commit-config\.yaml$|
+            \.terraform/.*|
+            kustomization\.ya?ml$
+          )$
+        pass_filenames: true
+        additional_dependencies: []
+        description: Validate Kubernetes manifests with kubectl
+
+      - id: extra-manifests-validate
+        name: Extra Manifests Validation
+        entry: sh -c 'cd infra/pipeline/base-infrastructure/extra-manifests && kustomize build --load-restrictor LoadRestrictionsNone . > /dev/null && echo "✓ Extra manifests validate successfully"'
+        language: system
+        files: infra/pipeline/base-infrastructure/extra-manifests/.*\.ya?ml$
+        pass_filenames: false
+        additional_dependencies: []
+        description: Validate base-infrastructure extra-manifests kustomization
 
 ci:
   autofix_commit_msg: |
