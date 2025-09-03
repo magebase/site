@@ -114,6 +114,15 @@ repos:
         pass_filenames: false
         description: Validate Rails database schema
 
+      - id: annotaterb-models
+        name: AnnotateRb Model Annotations
+        entry: |
+          sh -c "if command -v annotaterb >/dev/null 2>&1; then annotaterb models --position=after --sort; else echo \"⚠️  Skipping AnnotateRb (annotaterb not installed)\"; fi"
+        language: system
+        files: app/models/.*\.rb$
+        pass_filenames: false
+        description: Add schema annotations to Rails model files
+
       - id: bundle-audit
         name: Bundle Audit
         entry: |
