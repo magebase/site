@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/magebase/site/compare/v1.1.0...v1.1.1) (2025-09-03)
+
+
+### Bug Fixes
+
+* restore Docker authentication for security scan ([a8a0031](https://github.com/magebase/site/commit/a8a00315a47eaf0fdc66c155dc81dedd3562850c))
+
 # [1.1.0](https://github.com/magebase/site/compare/v1.0.7...v1.1.0) (2025-09-03)
 
 
