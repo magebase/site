@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/magebase/site/compare/v1.1.2...v1.1.3) (2025-09-03)
+
+
+### Bug Fixes
+
+* make SARIF upload robust against Advanced Security requirements ([897891e](https://github.com/magebase/site/commit/897891eaf0086702f754b0cdc7aa4e96ce5300c7))
+
 ## [1.1.2](https://github.com/magebase/site/compare/v1.1.1...v1.1.2) (2025-09-03)
 
 
