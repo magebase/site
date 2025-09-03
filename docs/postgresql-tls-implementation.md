@@ -123,16 +123,19 @@ kubectl describe certificate postgresql-tls -n database
 ## Monitoring and Maintenance
 
 ### Certificate Monitoring
+
 - Monitor certificate expiration via cert-manager
 - Set up alerts for certificate renewal failures
 - Regularly verify certificate validity
 
 ### Connection Security
+
 - All database connections now require SSL
 - Client applications must use SSL certificates
 - Monitor for SSL connection failures
 
 ### Performance Impact
+
 - Minimal performance impact from TLS encryption
 - Hardware acceleration recommended for high-throughput scenarios
 - Monitor CPU usage for encryption/decryption operations
@@ -140,11 +143,13 @@ kubectl describe certificate postgresql-tls -n database
 ## Troubleshooting
 
 ### Common Issues
+
 1. **Certificate Not Issued**: Check cert-manager logs and DNS configuration
 2. **SSL Connection Failures**: Verify client certificates and pg_hba configuration
 3. **Performance Issues**: Monitor encryption overhead and consider hardware acceleration
 
 ### Logs and Debugging
+
 ```bash
 # Check cert-manager logs
 kubectl logs -n cert-manager deployment/cert-manager
@@ -159,12 +164,14 @@ kubectl exec -it magebase-db-1 -n magebase -- psql -c "SELECT * FROM pg_stat_ssl
 ## Compliance and Security Standards
 
 ### Security Standards Met
+
 - **PCI DSS**: Encrypted database connections
 - **GDPR**: Data protection in transit
 - **ISO 27001**: Information security management
 - **OWASP**: Secure database connections
 
 ### Audit and Compliance
+
 - All database connections are encrypted
 - Certificate lifecycle is automated and auditable
 - Encryption status is verifiable via the verification script
@@ -173,12 +180,14 @@ kubectl exec -it magebase-db-1 -n magebase -- psql -c "SELECT * FROM pg_stat_ssl
 ## Future Enhancements
 
 ### Planned Improvements
+
 1. **Client Certificate Authentication**: Require client certificates for database access
 2. **Certificate Rotation**: Implement automated certificate rotation policies
 3. **Multi-Region Certificates**: Support for geo-distributed deployments
 4. **Integration Testing**: Automated tests for SSL connectivity
 
 ### Monitoring Enhancements
+
 1. **SSL Metrics**: Prometheus metrics for SSL connection status
 2. **Certificate Expiry Alerts**: Proactive alerting for certificate expiration
 3. **Connection Security Dashboard**: Real-time visibility into encrypted connections

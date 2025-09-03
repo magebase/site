@@ -10,6 +10,7 @@ repos:
           (?x)^(
             k8s/.*\.yaml$|
             infra/pipeline/site-infrastructure/extra-manifests/.*\.yaml$|
+            infra/pipeline/base-infrastructure/extra-manifests/.*\.yaml$|
             \.terraform/.*\.yaml$
           )$
       - id: check-added-large-files
