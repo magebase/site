@@ -5,6 +5,7 @@ repos:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-yaml
+        files: \.(yaml|yml|tpl)$
         exclude: |
           (?x)^(
             k8s/.*\.yaml$|
@@ -42,7 +43,7 @@ repos:
         name: Kustomization Validation
         entry: kustomize build --load-restrictor LoadRestrictionsNone
         language: system
-        files: ^kustomization\.ya?ml$
+        files: ^kustomization\.ya?ml(\.tpl)?$
         pass_filenames: true
         additional_dependencies: []
         description: Validate kustomization files can be built successfully
@@ -51,7 +52,7 @@ repos:
         name: Kustomization Linting
         entry: sh -c 'kustomize build --load-restrictor LoadRestrictionsNone "$1" > /dev/null && echo "✓ $1 validates successfully"'
         language: system
-        files: ^kustomization\.ya?ml$
+        files: ^kustomization\.ya?ml(\.tpl)?$
         pass_filenames: true
         additional_dependencies: []
         description: Lint kustomization files for build errors
@@ -60,12 +61,12 @@ repos:
         name: Kubernetes Manifest Validation
         entry: kubectl --dry-run=client --validate=true apply -f
         language: system
-        files: \.(yaml|yml)$
+        files: \.(yaml|yml|tpl)$
         exclude: |
           (?x)^(
             \.pre-commit-config\.yaml$|
             \.terraform/.*|
-            kustomization\.ya?ml$
+            kustomization\.ya?ml(\.tpl)?$
           )$
         pass_filenames: true
         additional_dependencies: []
@@ -75,7 +76,7 @@ repos:
         name: Extra Manifests Validation
         entry: sh -c 'cd infra/pipeline/base-infrastructure/extra-manifests && kustomize build --load-restrictor LoadRestrictionsNone . > /dev/null && echo "✓ Extra manifests validate successfully"'
         language: system
-        files: infra/pipeline/base-infrastructure/extra-manifests/.*\.ya?ml$
+        files: infra/pipeline/base-infrastructure/extra-manifests/.*\.(ya?ml|tpl)$
         pass_filenames: false
         additional_dependencies: []
         description: Validate base-infrastructure extra-manifests kustomization
