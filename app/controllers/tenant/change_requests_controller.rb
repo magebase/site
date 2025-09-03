@@ -1,5 +1,5 @@
 class Tenant::ChangeRequestsController < ApplicationController
-  include TenantSubdomain  # Changed from TenantSubdomain to TenantPath
+  include TenantPath  # Changed from TenantSubdomain to TenantPath
   before_action :authenticate_user!
 
   def index

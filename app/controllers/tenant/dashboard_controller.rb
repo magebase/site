@@ -1,7 +1,7 @@
-require_dependency Rails.root.join("app/controllers/concerns/tenant_subdomain")
+require_dependency Rails.root.join("app/controllers/concerns/tenant_path")
 
 class Tenant::DashboardController < ApplicationController
-  include TenantSubdomain  # Changed from TenantSubdomain to TenantPath
+  include TenantPath  # Changed from TenantSubdomain to TenantPath
   before_action :authenticate_user!
 
   def index
