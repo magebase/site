@@ -56,7 +56,14 @@ repos:
 
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v4.0.0-alpha.8
-    hooks: []
+    hooks:
+      - id: prettier
+        name: Prettier Code Formatting Check
+        entry: npx prettier --check "**/*.{js,jsx,ts,tsx,json,yaml,yml}"
+        language: system
+        files: \.(js|jsx|ts|tsx|json|yaml|yml)$
+        pass_filenames: false
+        description: Check code formatting with Prettier
 
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.10.0.1
