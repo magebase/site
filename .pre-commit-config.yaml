@@ -15,6 +15,84 @@ repos:
       - id: check-added-large-files
       - id: check-merge-conflict
       - id: debug-statements
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+      - id: mixed-line-ending
+        files: \.(py|rb|js|ts|tsx|jsx)$
+      - id: check-case-conflict
+      - id: check-docstring-first
+        files: \.(py|rb)$
+      - id: requirements-txt-fixer
+        files: requirements.*\.txt$
+      - id: file-contents-sorter
+        files: \.(txt|md)$
+      - id: check-toml
+      - id: check-json
+      - id: check-xml
+      - id: check-ast
+        files: \.(py|rb)$
+      - id: fix-byte-order-marker
+      - id: forbid-new-submodules
+
+  - repo: https://github.com/rubocop/rubocop
+    rev: v1.68.0
+    hooks:
+      - id: rubocop
+        files: \.(rb|rake)$
+        exclude: |
+          (?x)^(
+            db/schema\.rb$|
+            vendor/.*
+          )$
+        additional_dependencies:
+          - rubocop-rails
+
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v9.15.0
+    hooks:
+      - id: eslint
+        files: \.(js|jsx|ts|tsx)$
+        types: [file]
+        additional_dependencies:
+          - eslint@^8.57.0
+          - "@typescript-eslint/parser@^8.0.0"
+          - "@typescript-eslint/eslint-plugin@^8.0.0"
+          - typescript@^5.0.0
+
+      - id: eslint
+        name: eslint-fix
+        files: \.(js|jsx|ts|tsx)$
+        types: [file]
+        additional_dependencies:
+          - eslint@^8.57.0
+          - "@typescript-eslint/parser@^8.0.0"
+          - "@typescript-eslint/eslint-plugin@^8.0.0"
+          - typescript@^5.0.0
+        args: [--fix]
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        files: \.(js|jsx|ts|tsx|json|yaml|yml|md)$
+        exclude: |
+          (?x)^(
+            package-lock\.json$|
+            yarn\.lock$|
+            \.terraform/.*|
+            k8s/.*\.yaml$
+          )$
+
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+        files: \.(sh|bash)$
+        exclude: |
+          (?x)^(
+            \.terraform/.*|
+            vendor/.*
+          )$
 
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.88.0
@@ -31,6 +109,81 @@ repos:
 
   - repo: local
     hooks:
+      - id: typescript-check
+        name: TypeScript Type Check
+        entry: npx tsc --noEmit
+        language: system
+        files: \.(ts|tsx)$
+        pass_filenames: false
+        additional_dependencies: []
+        description: Run TypeScript compiler to check for type errors
+
+      - id: rails-routes-check
+        name: Rails Routes Check
+        entry: bin/rails routes
+        language: system
+        files: config/routes\.rb$
+        pass_filenames: false
+        additional_dependencies: []
+        description: Check if Rails routes are valid
+
+      - id: rails-schema-check
+        name: Rails Schema Check
+        entry: bin/rails db:schema:dump
+        language: system
+        files: db/schema\.rb$
+        pass_filenames: false
+        additional_dependencies: []
+        description: Validate Rails database schema
+
+      - id: bundle-audit
+        name: Bundle Audit
+        entry: |
+          sh -c "if command -v bundle-audit >/dev/null 2>&1; then bundle-audit check --update; else echo \"⚠️  Skipping bundle audit (bundle-audit not installed)\"; fi"
+        language: system
+        files: Gemfile\.lock$
+        pass_filenames: false
+        additional_dependencies: []
+        description: Check for vulnerable gems in Gemfile.lock
+
+      - id: brakeman
+        name: Brakeman Security Scan
+        entry: |
+          sh -c "if command -v brakeman >/dev/null 2>&1; then brakeman --quiet --exit-on-warn; else echo \"⚠️  Skipping Brakeman security scan (brakeman not installed)\"; fi"
+        language: system
+        files: \.(rb|erb|haml|slim)$
+        pass_filenames: false
+        additional_dependencies: []
+        description: Run Brakeman security scanner on Rails application
+
+      - id: ruby-syntax-check
+        name: Ruby Syntax Check
+        entry: ruby -c
+        language: system
+        files: \.(rb|rake)$
+        pass_filenames: true
+        additional_dependencies: []
+        description: Check Ruby syntax
+
+      - id: node-syntax-check
+        name: Node.js Syntax Check
+        entry: node --check
+        language: system
+        files: \.(js|jsx)$
+        pass_filenames: true
+        additional_dependencies: []
+        description: Check JavaScript syntax
+
+      - id: package-json-check
+        name: Package.json Validation
+        entry: |
+          sh -c "if command -v npm >/dev/null 2>&1; then npm ls --depth=0 >/dev/null 2>&1 && echo \"✓ package.json dependencies are valid\"; else echo \"⚠️  Skipping package.json validation (npm not installed)\"; fi"
+        language: system
+        files: package\.json$
+        pass_filenames: false
+        additional_dependencies: []
+        description: Validate package.json dependencies
+
       - id: terraform-syntax-check
         name: Terraform Syntax Check
         entry: terraform fmt -check
