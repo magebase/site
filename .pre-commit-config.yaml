@@ -41,7 +41,8 @@ repos:
 
       - id: kustomization-validate
         name: Kustomization Validation
-        entry: kustomize build --load-restrictor LoadRestrictionsNone
+        entry: |
+          sh -c "if command -v kustomize >/dev/null 2>&1; then kustomize build --load-restrictor LoadRestrictionsNone \"$1\"; else echo \"⚠️  Skipping kustomization validation (kustomize not installed): $1\"; fi"
         language: system
         files: ^kustomization\.ya?ml(\.tpl)?$
         pass_filenames: true
@@ -50,7 +51,8 @@ repos:
 
       - id: kustomization-lint
         name: Kustomization Linting
-        entry: sh -c 'kustomize build --load-restrictor LoadRestrictionsNone "$1" > /dev/null && echo "✓ $1 validates successfully"'
+        entry: |
+          sh -c "if command -v kustomize >/dev/null 2>&1; then kustomize build --load-restrictor LoadRestrictionsNone \"$1\" > /dev/null && echo \"✓ $1 validates successfully\"; else echo \"⚠️  Skipping kustomization linting (kustomize not installed): $1\"; fi"
         language: system
         files: ^kustomization\.ya?ml(\.tpl)?$
         pass_filenames: true
@@ -59,7 +61,8 @@ repos:
 
       - id: kubectl-validate
         name: Kubernetes Manifest Validation
-        entry: kubectl --dry-run=client --validate=true apply -f
+        entry: |
+          sh -c "if command -v kubeconform >/dev/null 2>&1; then kubeconform -strict -summary \"$1\"; else echo \"⚠️  Skipping kubeconform validation (kubeconform not installed): $1\"; fi"
         language: system
         files: \.(yaml|yml|tpl)$
         exclude: |
@@ -70,16 +73,17 @@ repos:
           )$
         pass_filenames: true
         additional_dependencies: []
-        description: Validate Kubernetes manifests with kubectl
+        description: Validate Kubernetes manifests with kubeconform
 
       - id: extra-manifests-validate
         name: Extra Manifests Validation
-        entry: sh -c 'cd infra/pipeline/base-infrastructure/extra-manifests && kustomize build --load-restrictor LoadRestrictionsNone . > /dev/null && echo "✓ Extra manifests validate successfully"'
+        entry: |
+          sh -c "if command -v kustomize >/dev/null 2>&1 && command -v kubeconform >/dev/null 2>&1; then cd infra/pipeline/base-infrastructure/extra-manifests && kustomize build --load-restrictor LoadRestrictionsNone . | kubeconform -strict -summary; else echo \"⚠️  Skipping kustomize/kubeconform validation (tools not installed)\"; fi"
         language: system
         files: infra/pipeline/base-infrastructure/extra-manifests/.*\.(ya?ml|tpl)$
         pass_filenames: false
         additional_dependencies: []
-        description: Validate base-infrastructure extra-manifests kustomization
+        description: Validate base-infrastructure extra-manifests with kustomize + kubeconform
 
 ci:
   autofix_commit_msg: |
