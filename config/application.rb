@@ -18,7 +18,11 @@ module Magebase
 
     # Security Headers Configuration
     # Add secure headers middleware to protect against common web vulnerabilities
-    config.middleware.use SecureHeaders::Middleware
+    # Note: secure_headers gem automatically registers its middleware
+    # config.middleware.use SecureHeaders::Middleware
+
+    # Configure Rails CSP to not interfere with secure_headers
+    config.content_security_policy_report_only = true
 
     # Configuration for the application, engines, and railties goes here.
     #
