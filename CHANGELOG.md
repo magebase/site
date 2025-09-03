@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/magebase/site/compare/v1.1.1...v1.1.2) (2025-09-03)
+
+
+### Bug Fixes
+
+* add image availability check to security scan ([b937c08](https://github.com/magebase/site/commit/b937c08b835cbce6363af43702839b3cad499757))
+
 ## [1.1.1](https://github.com/magebase/site/compare/v1.1.0...v1.1.1) (2025-09-03)
 
 
