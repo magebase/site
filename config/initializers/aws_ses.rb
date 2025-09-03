@@ -3,10 +3,10 @@ require "aws-sdk-ses"
 
 # Configure AWS SDK
 Aws.config.update(
-  region: ENV.fetch("AWS_REGION", "us-east-1"),
+  region: Rails.application.credentials.dig(:aws, :region) || ENV.fetch("AWS_REGION", "us-east-1"),
   credentials: Aws::Credentials.new(
-    ENV["AWS_SES_ACCESS_KEY_ID"],
-    ENV["AWS_SES_SECRET_ACCESS_KEY"]
+    Rails.application.credentials.dig(:aws, :ses_access_key_id) || ENV["AWS_SES_ACCESS_KEY_ID"],
+    Rails.application.credentials.dig(:aws, :ses_secret_access_key) || ENV["AWS_SES_SECRET_ACCESS_KEY"]
   )
 )
 
