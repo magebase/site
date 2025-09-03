@@ -97,7 +97,6 @@ repos:
         language: system
         files: \.(ts|tsx)$
         pass_filenames: false
-        additional_dependencies: []
         description: Run TypeScript compiler to check for type errors
 
       - id: rails-routes-check
@@ -106,7 +105,6 @@ repos:
         language: system
         files: config/routes\.rb$
         pass_filenames: false
-        additional_dependencies: []
         description: Check if Rails routes are valid
 
       - id: rails-schema-check
@@ -115,7 +113,6 @@ repos:
         language: system
         files: db/schema\.rb$
         pass_filenames: false
-        additional_dependencies: []
         description: Validate Rails database schema
 
       - id: bundle-audit
@@ -125,7 +122,6 @@ repos:
         language: system
         files: Gemfile\.lock$
         pass_filenames: false
-        additional_dependencies: []
         description: Check for vulnerable gems in Gemfile.lock
 
       - id: brakeman
@@ -135,7 +131,6 @@ repos:
         language: system
         files: \.(rb|erb|haml|slim)$
         pass_filenames: false
-        additional_dependencies: []
         description: Run Brakeman security scanner on Rails application
 
       - id: ruby-syntax-check
@@ -144,7 +139,6 @@ repos:
         language: system
         files: \.(rb|rake)$
         pass_filenames: true
-        additional_dependencies: []
         description: Check Ruby syntax
 
       - id: node-syntax-check
@@ -153,7 +147,6 @@ repos:
         language: system
         files: \.(js|jsx)$
         pass_filenames: true
-        additional_dependencies: []
         description: Check JavaScript syntax
 
       - id: package-json-check
@@ -163,7 +156,6 @@ repos:
         language: system
         files: package\.json$
         pass_filenames: false
-        additional_dependencies: []
         description: Validate package.json dependencies
 
       - id: terraform-syntax-check
@@ -173,7 +165,7 @@ repos:
         files: \.(tf|tfvars)$
         pass_filenames: false
         exclude: \.terraform/
-        additional_dependencies: []
+        description: Check Terraform syntax
 
       - id: kustomization-validate
         name: Kustomization Validation
@@ -182,7 +174,6 @@ repos:
         language: system
         files: ^kustomization\.ya?ml(\.tpl)?$
         pass_filenames: true
-        additional_dependencies: []
         description: Validate kustomization files can be built successfully
 
       - id: kustomization-lint
@@ -192,7 +183,6 @@ repos:
         language: system
         files: ^kustomization\.ya?ml(\.tpl)?$
         pass_filenames: true
-        additional_dependencies: []
         description: Lint kustomization files for build errors
 
       # - id: kubectl-validate
@@ -218,7 +208,6 @@ repos:
         language: system
         files: infra/pipeline/base-infrastructure/extra-manifests/.*\.(ya?ml|tpl)$
         pass_filenames: false
-        additional_dependencies: []
         description: Validate base-infrastructure extra-manifests with kustomize + kubeconform
 
 ci:
