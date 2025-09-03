@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/magebase/site/compare/v1.0.2...v1.0.3) (2025-09-03)
+
+
+### Performance Improvements
+
+* optimize Docker build performance ([94c9ee7](https://github.com/magebase/site/commit/94c9ee7bdeac9c1b8daed35ad27143bae3a80cd4))
+
 ## [1.0.2](https://github.com/magebase/site/compare/v1.0.1...v1.0.2) (2025-09-03)
 
 
