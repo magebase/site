@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/magebase/site/compare/v1.0.0...v1.0.1) (2025-09-03)
+
+
+### Bug Fixes
+
+* resolve semantic-release owner/repo undefined variables ([e77e379](https://github.com/magebase/site/commit/e77e379a017526e2616c9662293ed638af7b9ee1))
+
 # 1.0.0 (2025-09-03)
 
 
