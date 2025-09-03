@@ -48,7 +48,7 @@ RUN bundle install && \
 
 # Install node modules
 COPY package.json package-lock.json ./
-RUN npm ci && \
+RUN npm install && \
     rm -rf ~/.npm
 
 # Copy application code
