@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/magebase/site/compare/v1.0.1...v1.0.2) (2025-09-03)
+
+
+### Bug Fixes
+
+* add packages: write permission for GHCR deployment ([f921391](https://github.com/magebase/site/commit/f921391f45d4f2860bd1f10a3d09fc1cf50025f0))
+
 ## [1.0.1](https://github.com/magebase/site/compare/v1.0.0...v1.0.1) (2025-09-03)
 
 
