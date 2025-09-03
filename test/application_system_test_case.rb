@@ -3,10 +3,15 @@ require "test_helper"
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   begin
     require "playwright"
-    require "capybara/playwright"
+    require "capybara-playwright-driver"
 
     Capybara.register_driver :playwright do |app|
-      Capybara::Playwright::Driver.new(app, headless: true, screen_size: [1400, 1400])
+      Capybara::Playwright::Driver.new(
+        app,
+        playwright_cli_executable_path: "./node_modules/.bin/playwright",
+        headless: true,
+        screen_size: [ 1400, 1400 ]
+      )
     end
 
     driven_by :playwright
