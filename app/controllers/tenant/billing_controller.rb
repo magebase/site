@@ -1,5 +1,5 @@
 class Tenant::BillingController < ApplicationController
-  include TenantPath  # Changed from TenantSubdomain to TenantPath
+  include TenantSubdomain  # Changed from TenantSubdomain to TenantPath
   before_action :authenticate_user!
 
   def index
