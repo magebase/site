@@ -1,3 +1,16 @@
+# [1.1.0](https://github.com/magebase/site/compare/v1.0.7...v1.1.0) (2025-09-03)
+
+
+### Bug Fixes
+
+* add bundle ([8729292](https://github.com/magebase/site/commit/8729292643e7f1c0b770d8eaaed45c9697063175))
+* annontate ([b248bfa](https://github.com/magebase/site/commit/b248bfad33e443ef70f1406ced0056222b868cd0))
+
+
+### Features
+
+* add AnnotateRb pre-commit hook and gem ([3e68eb5](https://github.com/magebase/site/commit/3e68eb5a23c0fb3b4a351a8ec99ba650234979fd))
+
 ## [1.0.7](https://github.com/magebase/site/compare/v1.0.6...v1.0.7) (2025-09-03)
 
 
