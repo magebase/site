@@ -22,9 +22,10 @@ repos:
       - id: terraform_fmt
         files: \.(tf|tfvars)$
         exclude: \.terraform/
-      - id: terraform_validate
-        files: \.(tf|tfvars)$
-        exclude: \.terraform/
+      # Removed terraform_validate due to missing providers issue
+      # - id: terraform_validate
+      #   files: \.(tf|tfvars)$
+      #   exclude: \.terraform/
       # Removed terraform_docs as terraform-docs is not installed
       # Use CI/CD pipeline for full validation and documentation
 
