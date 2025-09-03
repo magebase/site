@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/magebase/site/compare/v1.0.5...v1.0.6) (2025-09-03)
+
+
+### Bug Fixes
+
+* resolve container security scan and attestation issues ([8229cab](https://github.com/magebase/site/commit/8229cab3b68bdf52869f9223ecac7eaea11aed24))
+
 ## [1.0.5](https://github.com/magebase/site/compare/v1.0.4...v1.0.5) (2025-09-03)
 
 
