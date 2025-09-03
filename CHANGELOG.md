@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/magebase/site/compare/v1.0.3...v1.0.4) (2025-09-03)
+
+
+### Bug Fixes
+
+* ensure bin/rails is executable in Docker build ([6ae462c](https://github.com/magebase/site/commit/6ae462c1f8781116ad900516fe5896082b37493f))
+
 ## [1.0.3](https://github.com/magebase/site/compare/v1.0.2...v1.0.3) (2025-09-03)
 
 
