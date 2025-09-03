@@ -1,3 +1,29 @@
+# == Schema Information
+#
+# Table name: services
+#
+#  id               :bigint           not null, primary key
+#  category         :string
+#  content          :text             not null
+#  description      :text             not null
+#  excerpt          :text
+#  icon             :string
+#  meta_description :text
+#  meta_title       :string
+#  position         :integer          default(0)
+#  published        :boolean          default(FALSE)
+#  published_at     :datetime
+#  slug             :string           not null
+#  title            :string           not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
+# Indexes
+#
+#  index_services_on_category   (category)
+#  index_services_on_published  (published)
+#  index_services_on_slug       (slug) UNIQUE
+#
 class Service < ApplicationRecord
   validates :title, :slug, :description, :content, presence: true
   validates :slug, uniqueness: true

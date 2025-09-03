@@ -1,3 +1,27 @@
+# == Schema Information
+#
+# Table name: pages
+#
+#  id               :bigint           not null, primary key
+#  content          :text             not null
+#  excerpt          :text
+#  meta_description :text
+#  meta_title       :string
+#  page_type        :string
+#  position         :integer          default(0)
+#  published        :boolean          default(FALSE)
+#  published_at     :datetime
+#  slug             :string           not null
+#  title            :string           not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
+# Indexes
+#
+#  index_pages_on_page_type  (page_type)
+#  index_pages_on_published  (published)
+#  index_pages_on_slug       (slug) UNIQUE
+#
 class Page < ApplicationRecord
   validates :title, :slug, :content, presence: true
   validates :slug, uniqueness: true

@@ -1,3 +1,34 @@
+# == Schema Information
+#
+# Table name: webinars
+#
+#  id                :bigint           not null, primary key
+#  description       :text             not null
+#  duration_minutes  :integer
+#  excerpt           :text
+#  meta_description  :text
+#  meta_title        :string
+#  position          :integer          default(0)
+#  published         :boolean          default(FALSE)
+#  published_at      :datetime
+#  registration_url  :string
+#  scheduled_at      :datetime         not null
+#  slug              :string           not null
+#  speaker_bio       :text             not null
+#  speaker_image_url :string
+#  speaker_name      :string           not null
+#  thumbnail_url     :string
+#  title             :string           not null
+#  video_url         :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+# Indexes
+#
+#  index_webinars_on_published     (published)
+#  index_webinars_on_scheduled_at  (scheduled_at)
+#  index_webinars_on_slug          (slug) UNIQUE
+#
 class Webinar < ApplicationRecord
   validates :title, :slug, :description, :speaker_name, :speaker_bio, :scheduled_at, presence: true
   validates :slug, uniqueness: true

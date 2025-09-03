@@ -1,3 +1,32 @@
+# == Schema Information
+#
+# Table name: careers
+#
+#  id               :bigint           not null, primary key
+#  description      :text             not null
+#  employment_type  :string
+#  excerpt          :text
+#  location         :string           not null
+#  meta_description :text
+#  meta_title       :string
+#  position         :integer          default(0)
+#  published        :boolean          default(FALSE)
+#  published_at     :datetime
+#  requirements     :text             not null
+#  salary_range     :string
+#  slug             :string           not null
+#  status           :string           default("open")
+#  title            :string           not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
+# Indexes
+#
+#  index_careers_on_location   (location)
+#  index_careers_on_published  (published)
+#  index_careers_on_slug       (slug) UNIQUE
+#  index_careers_on_status     (status)
+#
 class Career < ApplicationRecord
   validates :title, :slug, :description, :requirements, :location, presence: true
   validates :slug, uniqueness: true

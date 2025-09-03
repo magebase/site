@@ -1,3 +1,32 @@
+# == Schema Information
+#
+# Table name: case_studies
+#
+#  id                 :bigint           not null, primary key
+#  challenge          :text             not null
+#  client_logo_url    :string
+#  client_name        :string           not null
+#  excerpt            :text
+#  featured_image_url :string
+#  industry           :string           not null
+#  meta_description   :text
+#  meta_title         :string
+#  position           :integer          default(0)
+#  published          :boolean          default(FALSE)
+#  published_at       :datetime
+#  results            :text             not null
+#  slug               :string           not null
+#  solution           :text             not null
+#  title              :string           not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
+# Indexes
+#
+#  index_case_studies_on_industry   (industry)
+#  index_case_studies_on_published  (published)
+#  index_case_studies_on_slug       (slug) UNIQUE
+#
 class CaseStudy < ApplicationRecord
   validates :title, :slug, :client_name, :industry, :challenge, :solution, :results, presence: true
   validates :slug, uniqueness: true

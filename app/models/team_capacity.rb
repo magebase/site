@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: team_capacities
+#
+#  id                   :bigint           not null, primary key
+#  available_developers :integer          default(0), not null
+#  capacity_percentage  :decimal(5, 2)    not null
+#  current_projects     :integer          default(0), not null
+#  last_updated         :datetime         not null
+#  total_developers     :integer          not null
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#
 class TeamCapacity < ApplicationRecord
   # Tracks current team capacity and utilization
 
