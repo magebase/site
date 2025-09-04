@@ -3,12 +3,14 @@
 ## ✅ FIXES COMPLETED
 
 ### Critical Issues Resolved
+
 1. **Terraform Template Syntax** ✅ - Fixed shell escaping in cert-debug.yaml.tpl
 2. **Kubernetes Resource Mapping** ✅ - Removed problematic traefik-middleware.yaml
 3. **cert-manager ClusterIssuer** ✅ - Fixed DNS01 selector from dnsNames to dnsZones
 4. **Ingress Configuration** ✅ - Added proper SSL termination annotations
 
 ### Infrastructure Status ✅ OPERATIONAL
+
 - GitHub Actions deployments: All succeeding
 - Kubernetes cluster: All pods running
 - ArgoCD service: Responding to requests
@@ -17,6 +19,7 @@
 ## ⚠️ REMAINING ISSUE
 
 **Certificate Issuance Blocked** - DNS challenges not being created
+
 - Current cert: Still Traefik default
 - DNS TXT records: None appearing
 - Most likely cause: Cloudflare API token permissions
