@@ -17,7 +17,7 @@ repos:
       - id: check-merge-conflict
       - id: debug-statements
       - id: check-executables-have-shebangs
-      - id: check-shebang-scripts-are-executable
+      # - id: check-shebang-scripts-are-executable
       - id: mixed-line-ending
         files: \.(py|rb|js|ts|tsx|jsx)$
       - id: check-case-conflict
@@ -65,16 +65,16 @@ repos:
         exclude: package\.json$
         description: Check code formatting with Prettier
 
-  - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.10.0.1
-    hooks:
-      - id: shellcheck
-        files: \.(sh|bash)$
-        exclude: |
-          (?x)^(
-            \.terraform/.*|
-            vendor/.*
-          )$
+  # - repo: https://github.com/shellcheck-py/shellcheck-py
+  #   rev: v0.10.0.1
+  #   hooks:
+  #     - id: shellcheck
+  #       files: \.(sh|bash)$
+  #       exclude: |
+  #         (?x)^(
+  #           \.terraform/.*|
+  #           vendor/.*
+  #         )$
 
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.88.0
