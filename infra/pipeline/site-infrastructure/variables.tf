@@ -148,15 +148,6 @@ variable "ssh_private_key" {
   sensitive   = true
 }
 
-variable "hetzner_region" {
-  description = "Hetzner Cloud region/datacenter location"
-  type        = string
-  default     = "fsn1"
-  validation {
-    condition     = contains(["fsn1", "nbg1", "hel1", "ash", "sin"], var.hetzner_region)
-    error_message = "Hetzner region must be one of: fsn1 (Falkenstein), nbg1 (Nuremberg), hel1 (Helsinki), ash (Ashburn), sin (Singapore)"
-  }
-}
 
 variable "cloudflare_region" {
   description = "Cloudflare region for operations"
