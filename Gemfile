@@ -111,7 +111,7 @@ gem "prawn-table", "~> 0.2"
 gem "prawn-templates", "~> 0.1"
 
 # Email sending
-gem "aws-sdk-ses", "~> 1.0"
+gem "aws-sdk-ses", "~> 1.90"
 
 # Background jobs
 # gem "sidekiq", "~> 7.0"
