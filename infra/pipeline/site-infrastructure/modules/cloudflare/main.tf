@@ -133,18 +133,6 @@ resource "cloudflare_dns_record" "wildcard_cname" {
   proxied = true
 }
 
-
-# A record for ArgoCD subdomain pointing to Hetzner LB for SSL termination
-resource "cloudflare_dns_record" "argocd_a" {
-  zone_id = local.zone_id
-  # Use environment prefix: dev-argocd.magebase.dev, prod-argocd.magebase.dev
-  name    = local.subdomain == "@" ? "argocd" : "argocd-${local.subdomain}"
-  content = var.cluster_ipv4 # Hetzner LB IP for SSL termination
-  type    = "A"
-  ttl     = 1    # Use 600 for non-proxied records
-  proxied = true # Disable Cloudflare proxying - let Traefik handle SSL termination
-}
-
 # SES Domain Verification Record
 resource "cloudflare_dns_record" "ses_verification" {
   count   = var.ses_verification_record != null ? 1 : 0
