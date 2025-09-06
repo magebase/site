@@ -127,7 +127,6 @@ jobs:
 
           terraform plan \
             -var="management_account_id=${{ vars.MANAGEMENT_ACCOUNT_ID }}" \
-            -var-file="${ENVIRONMENT}.tfvars" \
             -out=tfplan
 
           echo "✅ Plan completed successfully"
@@ -155,7 +154,6 @@ jobs:
 
           terraform apply \
             -var="management_account_id=${{ vars.MANAGEMENT_ACCOUNT_ID }}" \
-            -var-file="${ENVIRONMENT}.tfvars" \
             -auto-approve
 
           echo "✅ Apply completed successfully"
@@ -324,7 +322,6 @@ jobs:
 
           terraform destroy \
             -var="management_account_id=${{ vars.MANAGEMENT_ACCOUNT_ID }}" \
-            -var-file="${ENVIRONMENT}.tfvars" \
             -auto-approve
 
           echo "✅ Destroy completed successfully"
