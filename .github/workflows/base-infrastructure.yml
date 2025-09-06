@@ -305,7 +305,7 @@ jobs:
           done
 
       - name: Update Pull Request
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         if: github.event_name == 'pull_request' && (steps.tf-plan.outcome == 'success' || steps.tf-plan-main.outcome == 'success')
         env:
           PLAN: "terraform\n${{ steps.tf-plan.outputs.stdout || steps.tf-plan-main.outputs.stdout }}"
