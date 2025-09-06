@@ -142,13 +142,6 @@ variable "production_email" {
   default     = "magebase.dev+production@gmail.com"
 }
 
-variable "ssh_private_key" {
-  description = "SSH private key for accessing k3s nodes"
-  type        = string
-  sensitive   = true
-}
-
-
 variable "cloudflare_region" {
   description = "Cloudflare region for operations"
   type        = string
