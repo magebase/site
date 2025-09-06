@@ -3,10 +3,6 @@ terraform {
   required_version = ">= 1.8.0"
 
   required_providers {
-    hcloud = {
-      source  = "hetznercloud/hcloud"
-      version = ">= 1.52.0"
-    }
     cloudflare = {
       source  = "cloudflare/cloudflare"
       version = "~> 5.0"
@@ -23,10 +19,7 @@ terraform {
 }
 
 
-# Hetzner Cloud Provider
-provider "hcloud" {
-  token = var.hcloud_token
-}
+
 
 # Cloudflare Provider
 provider "cloudflare" {
