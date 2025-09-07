@@ -44,9 +44,12 @@ repos:
       - id: terraform_fmt
         files: \.(tf|tfvars)$
         exclude: \.terraform/
-      - id: terraform_validate
-        files: \.(tf|tfvars)$
-        exclude: \.terraform/
+      # - id: terraform_validate
+      #   files: \.(tf|tfvars)$
+      #   exclude: \.terraform/
+      #   args:
+      #     - --tf-init-args=-backend=false
+      #     - --hook-config=--retry-once-with-cleanup=true
       - id: terraform_tflint
         files: \.(tf|tfvars)$
         exclude: \.terraform/

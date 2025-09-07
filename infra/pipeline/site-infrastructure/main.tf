@@ -102,24 +102,7 @@ module "aws_ses_users" {
   account_id  = var.management_account_id
 }
 
-# AWS Organization Outputs (moved to separate org-sso step)
-# output "development_account_id" {
-#   description = "AWS Account ID for the development account"
-#   value       = module.organizations.development_account_id
-# }
-
-# output "production_account_id" {
-#   description = "AWS Account ID for the production account"
-#   value       = module.organizations.production_account_id
-# }
-
-# SSO Outputs (moved to separate org-sso step)
-# output "sso_enabled" {
-#   description = "Whether AWS SSO is enabled"
-#   value       = module.sso.sso_enabled
-# }
-
-# output "sso_instance_arn" {
-#   description = "ARN of the AWS SSO instance"
-#   value       = module.sso.sso_instance_arn
-# }
+# Stripe Configuration
+module "stripe" {
+  source = "./modules/stripe"
+}
