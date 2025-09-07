@@ -40,7 +40,7 @@ resource "stripe_portal_configuration" "portal_configuration" {
         enabled = true
         options = ["too_expensive", "missing_features", "switched_service", "unused", "customer_service", "too_complex", "low_quality", "other"]
       }
-      mode               = "immediately_cancel"
+      mode               = "immediately"
       proration_behavior = "always_invoice"
     }
     subscription_update {
