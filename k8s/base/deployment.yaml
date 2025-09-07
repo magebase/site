@@ -34,19 +34,54 @@ spec:
           env:
             - name: RAILS_ENV
               valueFrom:
-                configMapKeyRef:
-                  name: magebase-config
+                secretKeyRef:
+                  name: magebase-app-secrets
                   key: RAILS_ENV
             - name: RAILS_LOG_TO_STDOUT
               valueFrom:
-                configMapKeyRef:
-                  name: magebase-config
+                secretKeyRef:
+                  name: magebase-app-secrets
                   key: RAILS_LOG_TO_STDOUT
             - name: RAILS_SERVE_STATIC_FILES
               valueFrom:
-                configMapKeyRef:
-                  name: magebase-config
+                secretKeyRef:
+                  name: magebase-app-secrets
                   key: RAILS_SERVE_STATIC_FILES
+            - name: IMAGE_REGISTRY
+              valueFrom:
+                secretKeyRef:
+                  name: magebase-app-secrets
+                  key: IMAGE_REGISTRY
+            - name: IMAGE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: magebase-app-secrets
+                  key: IMAGE_NAME
+            - name: IMAGE_TAG
+              valueFrom:
+                secretKeyRef:
+                  name: magebase-app-secrets
+                  key: IMAGE_TAG
+            - name: DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: magebase-app-secrets
+                  key: DOMAIN
+            - name: CLOUDFLARE_R2_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: magebase-app-secrets
+                  key: CLOUDFLARE_R2_ACCESS_KEY_ID
+            - name: CLOUDFLARE_R2_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: magebase-app-secrets
+                  key: CLOUDFLARE_R2_SECRET_ACCESS_KEY
+            - name: RAILS_MASTER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: magebase-app-secrets
+                  key: rails-master-key
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
@@ -55,22 +90,22 @@ spec:
             - name: SECRET_KEY_BASE
               valueFrom:
                 secretKeyRef:
-                  name: magebase-secrets
+                  name: magebase-app-secrets
                   key: secret-key-base
             - name: RUBY_LLM_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: magebase-secrets
+                  name: magebase-app-secrets
                   key: ruby-llm-api-key
             - name: AWS_SES_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
-                  name: magebase-secrets
+                  name: magebase-app-secrets
                   key: aws-ses-access-key-id
             - name: AWS_SES_SECRET_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
-                  name: magebase-secrets
+                  name: magebase-app-secrets
                   key: aws-ses-secret-access-key
           resources:
             requests:

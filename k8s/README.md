@@ -72,6 +72,38 @@ This directory contains Kubernetes manifests for deploying Magebase to Hetzner C
 
 # Magebase Kubernetes Deployment
 
+## Secret Management
+
+**Important**: Due to ArgoCD's execution context, environment variables are not available during `kustomize build`. The previous `secretGenerator` approach using environment variables has been replaced with a static secrets file.
+
+### Setting up Secrets
+
+1. **Generate your secrets**:
+   ```bash
+   cd k8s
+   ./generate-secrets.sh
+   ```
+
+2. **Update the secrets file**:
+   - Edit `k8s/base/secrets.yaml`
+   - Replace the placeholder base64 values with your actual encoded secrets
+   - The `generate-secrets.sh` script will output the correct base64 encoded values
+
+3. **Required Secrets**:
+   - `SECRET_KEY_BASE`: Rails secret key base for session encryption
+   - `RUBY_LLM_API_KEY`: API key for RubyLLM service
+   - `AWS_SES_ACCESS_KEY_ID`: AWS SES access key ID
+   - `AWS_SES_SECRET_ACCESS_KEY`: AWS SES secret access key
+   - `AWS_S3_ACCESS_KEY_ID`: AWS S3 access key for database backups
+   - `AWS_S3_SECRET_ACCESS_KEY`: AWS S3 secret key for database backups
+
+### Troubleshooting Secret Errors
+
+If you encounter "illegal base64 data at input byte 0" errors:
+1. Ensure all secret values in `secrets.yaml` are properly base64 encoded
+2. Verify that no secret values are empty
+3. Use the `generate-secrets.sh` script to create properly encoded values
+
 # Manual backup
 
 # NOTE: With CloudNativePG, DATABASE_URL is automatically generated

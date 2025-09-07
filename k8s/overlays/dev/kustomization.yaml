@@ -4,22 +4,14 @@ kind: Kustomization
 metadata:
   name: magebase-dev
 
-resources:
+bases:
   - ../../base
 
-patches:
-  - path: dev-patches.yaml
+patchesStrategicMerge:
+  - configmap-patch.yaml
 
 images:
   - name: magebase-app
     newTag: dev-${IMAGE_TAG}
-
-configMapGenerator:
-  - name: magebase-config
-    behavior: replace
-    literals:
-      - RAILS_ENV=development
-      - RAILS_LOG_TO_STDOUT=true
-      - RAILS_SERVE_STATIC_FILES=true
 
 namespace: magebase-dev

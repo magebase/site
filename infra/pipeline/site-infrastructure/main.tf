@@ -50,8 +50,6 @@ data "terraform_remote_state" "base_infrastructure" {
 
 # Local values
 locals {
-  cluster_name = "${var.environment}-magebase"
-  account_type = var.environment == "prod" ? "production" : "development"
   # Get the load balancer IP from base infrastructure
   cluster_ipv4 = data.terraform_remote_state.base_infrastructure.outputs.lb_ipv4
 }
@@ -104,6 +102,45 @@ module "aws_ses_users" {
   account_id  = var.management_account_id
 }
 
+# SSM Parameters Module
+module "ssm_parameters" {
+  source = "./modules/ssm-parameters"
+
+  environment = var.environment
+
+  # Application Secrets
+  secret_key_base  = var.secret_key_base
+  ruby_llm_api_key = var.ruby_llm_api_key
+
+  # AWS Credentials
+  aws_ses_access_key_id     = var.aws_ses_access_key_id
+  aws_ses_secret_access_key = var.aws_ses_secret_access_key
+  aws_s3_access_key_id      = var.aws_s3_access_key_id
+  aws_s3_secret_access_key  = var.aws_s3_secret_access_key
+
+  # Docker Configuration
+  image_registry = var.image_registry
+  image_name     = var.image_name
+  image_tag      = var.image_tag
+
+  # Domain Configuration
+  domain = var.domain
+
+  # Rails Configuration
+  rails_env                = var.rails_env
+  rails_log_to_stdout      = var.rails_log_to_stdout
+  rails_serve_static_files = var.rails_serve_static_files
+  rails_master_key         = var.rails_master_key
+
+  # Cloudflare R2
+  cloudflare_r2_access_key_id     = var.cloudflare_r2_access_key_id
+  cloudflare_r2_secret_access_key = var.cloudflare_r2_secret_access_key
+
+  # Support Configuration
+  support_email     = var.support_email
+  cloudflare_region = var.cloudflare_region
+}
+
 # AWS Organization Outputs (moved to separate org-sso step)
 # output "development_account_id" {
 #   description = "AWS Account ID for the development account"
@@ -125,26 +162,3 @@ module "aws_ses_users" {
 #   description = "ARN of the AWS SSO instance"
 #   value       = module.sso.sso_instance_arn
 # }
-
-# SES User Outputs
-output "ses_user_name" {
-  description = "Name of the SES IAM user for this environment"
-  value       = module.aws_ses_users.ses_user_name
-}
-
-output "ses_access_key_id" {
-  description = "Access Key ID for the SES user"
-  value       = module.aws_ses_users.ses_access_key_id
-  sensitive   = true
-}
-
-output "ses_secret_access_key" {
-  description = "Secret Access Key for the SES user"
-  value       = module.aws_ses_users.ses_secret_access_key
-  sensitive   = true
-}
-
-output "ses_user_arn" {
-  description = "ARN of the SES IAM user"
-  value       = module.aws_ses_users.ses_user_arn
-}
