@@ -72,7 +72,7 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: magebase/rails-site
+  IMAGE_NAME: magebase/site
   DOCKER_BUILDKIT: 1
 
 jobs:
