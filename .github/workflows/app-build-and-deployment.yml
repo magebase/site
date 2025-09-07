@@ -578,8 +578,7 @@ jobs:
         security,
         build,
         security-scan,
-        deploy,
-        performance-test,
+        commit-latest-image-tag,
       ]
     if: success() && needs.semantic-release-dry-run.outputs.new_release_published == 'true'
 
@@ -618,8 +617,6 @@ jobs:
         build,
         security-scan,
         semantic-release-dry-run,
-        deploy,
-        performance-test,
         semantic-release-publish,
         # cleanup,
       ]
