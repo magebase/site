@@ -580,7 +580,7 @@ jobs:
         security-scan,
         commit-latest-image-tag,
       ]
-    if: success() && needs.semantic-release-dry-run.outputs.new_release_published == 'true'
+    if: success()
 
     steps:
       - name: Checkout code
