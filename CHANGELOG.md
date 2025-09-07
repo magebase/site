@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/magebase/site/compare/v1.0.2...v1.0.3) (2025-09-07)
+
+
+### Bug Fixes
+
+* update free tier ([459b973](https://github.com/magebase/site/commit/459b9739e7ff0385112e68ec69326da75326ae61))
+
 ## [1.0.2](https://github.com/magebase/site/compare/v1.0.1...v1.0.2) (2025-09-07)
 
 
