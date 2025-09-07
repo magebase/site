@@ -297,64 +297,25 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Set up Node.js for semantic-release
-        uses: actions/setup-node@v4
-        with:
-          node-version: "18"
-          cache: "npm"
-
-      - name: Cache semantic-release dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.npm
-            /usr/local/lib/node_modules
-          key: semantic-release-${{ runner.os }}-${{ hashFiles('package.json', 'package-lock.json') }}
-          restore-keys: |
-            semantic-release-${{ runner.os }}-
-
-      - name: Install semantic-release
-        run: |
-          # Check if semantic-release is already installed
-          if ! command -v semantic-release &> /dev/null; then
-            npm install -g semantic-release
-          fi
-          if ! npm list -g @semantic-release/git &> /dev/null; then
-            npm install -g @semantic-release/git
-          fi
-          if ! npm list -g @semantic-release/github &> /dev/null; then
-            npm install -g @semantic-release/github
-          fi
-          if ! npm list -g @semantic-release/changelog &> /dev/null; then
-            npm install -g @semantic-release/changelog
-          fi
-          if ! npm list -g @semantic-release/exec &> /dev/null; then
-            npm install -g @semantic-release/exec
-          fi
-
       - name: Run semantic-release
         id: semantic
-        run: |
-          # Determine release type from input or analyze commits
-          if [ "${{ github.event.inputs.release_type }}" != "" ]; then
-            export RELEASE_TYPE="${{ github.event.inputs.release_type }}"
-          else
-            RELEASE_TYPE="patch"
-          fi
-
-          # Run semantic release (dry-run for PRs)
-          if [ "${{ github.event_name }}" == "pull_request" ]; then
-            npx semantic-release --dry-run
-            echo "new_release_published=false" >> $GITHUB_OUTPUT
-            echo "new_release_version=dry-run" >> $GITHUB_OUTPUT
-          else
-            npx semantic-release --branches main
-          fi
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          branches: main
+          dry_run: ${{ github.event_name == 'pull_request' }}
+          extra_plugins: |
+            @semantic-release/git
+            @semantic-release/github
+            @semantic-release/changelog
+            @semantic-release/exec
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_TYPE: ${{ github.event.inputs.release_type }}
-          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
-          GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
+
+      - name: Set outputs for dry run
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "new_release_published=false" >> $GITHUB_OUTPUT
+          echo "new_release_version=dry-run" >> $GITHUB_OUTPUT
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
