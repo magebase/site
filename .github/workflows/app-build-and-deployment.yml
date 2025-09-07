@@ -502,9 +502,9 @@ jobs:
           fi
 
   deploy:
-    name: Trigger deployment to Kubernetes via ArgoCD and update image tag
+    name: Commit latest image tag
     runs-on: ubicloud-standard-2-arm
-    needs: build
+    needs: [test, lint, security, build, security-scan]
     if: success() && (github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch')
     environment: ${{ github.event.inputs.environment || 'dev' }}
 
@@ -590,9 +590,19 @@ jobs:
   #         delete-only-untagged-versions: true
 
   semantic-release-publish:
-    name: Semantic Release Publish
+    name: Semantic Release Publish (Trigger release)
     runs-on: ubicloud-standard-2-arm
-    needs: [build, security-scan, deploy, performance-test]
+    needs:
+      [
+        semantic-release-dry-run,
+        test,
+        lint,
+        security,
+        build,
+        security-scan,
+        deploy,
+        performance-test,
+      ]
     if: success() && needs.semantic-release-dry-run.outputs.new_release_published == 'true'
 
     steps:
@@ -624,11 +634,11 @@ jobs:
     name: Deployment Notification
     runs-on: ubicloud-standard-2-arm
     needs: [
-        # test,
-        # lint,
-        # security,
-        # build,
-        # security-scan,
+        test,
+        lint,
+        security,
+        build,
+        security-scan,
         semantic-release-dry-run,
         deploy,
         performance-test,
