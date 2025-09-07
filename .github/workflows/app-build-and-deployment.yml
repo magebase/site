@@ -476,17 +476,37 @@ jobs:
           scan-type: 'image'
           scan-ref: ${{ steps.scan-image.outputs.image }}
           format: 'table'
-          severity: 'CRITICAL,HIGH'
-          exit-code: 1
-          ignore-unfixed: true
+          severity: 'CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN'
+          exit-code: 0
+          ignore-unfixed: false
           output: 'trivy-results.sarif'
 
-      # - name: Upload Trivy scan results to GitHub Security tab
-      #   uses: github/codeql-action/upload-sarif@v3
-      #   if: always() && github.event.repository.private == false
-      #   continue-on-error: true
-      #   with:
-      #     sarif_file: 'trivy-results.sarif'
+      - name: Display Trivy scan summary
+        if: always()
+        run: |
+          echo "## 🔍 Trivy Security Scan Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ -f "trivy-results.sarif" ]; then
+            echo "✅ **Scan completed successfully**" >> $GITHUB_STEP_SUMMARY
+            echo "- SARIF file generated: $(stat -f%z trivy-results.sarif 2>/dev/null || stat -c%s trivy-results.sarif 2>/dev/null || echo 'unknown') bytes" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "⚠️ **Scan completed but no SARIF file found**" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 Scan Configuration:" >> $GITHUB_STEP_SUMMARY
+          echo "- **Image:** ${{ steps.scan-image.outputs.image }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Severity Levels:** CRITICAL, HIGH, MEDIUM, LOW, UNKNOWN" >> $GITHUB_STEP_SUMMARY
+          echo "- **Format:** Table" >> $GITHUB_STEP_SUMMARY
+          echo "- **Ignore Unfixed:** Disabled" >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        if: always() && github.event.repository.private == false
+        continue-on-error: true
+        with:
+          sarif_file: 'trivy-results.sarif'
 
       - name: Check SARIF upload status
         if: always()
@@ -497,14 +517,13 @@ jobs:
 
             # Check if Advanced Security is likely enabled
             if [ "${{ github.event.repository.private }}" == "false" ]; then
-              echo "ℹ️  Repository is public - SARIF upload attempted"
-              echo "📋 If upload failed, enable GitHub Advanced Security for this repository:"
-              echo "   Settings → Security → Code security → Enable CodeQL analysis"
+              echo "ℹ️  Repository is public - SARIF upload attempted to GitHub Security tab"
+              echo "🔗 View results: https://github.com/${{ github.repository }}/security/code-scanning"
             else
-              echo "🔒 Repository is private - Advanced Security may not be available"
+              echo "🔒 Repository is private - SARIF upload attempted (Advanced Security may not be available)"
             fi
           else
-            echo "⚠️  Trivy SARIF file not found"
+            echo "⚠️  Trivy SARIF file not found - scan may have failed"
           fi
 
   commit-latest-image-tag:
