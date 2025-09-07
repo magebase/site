@@ -350,6 +350,7 @@ jobs:
             type=sha,prefix={{branch}}-
             type=raw,value=latest,enable={{is_default_branch}}
             type=raw,value=${{ steps.semantic.outputs.new_release_version }},enable=${{ steps.semantic.outputs.new_release_published == 'true' }}
+            type=raw,value=v${{ steps.semantic.outputs.new_release_version }},enable=${{ steps.semantic.outputs.new_release_published == 'true' }}
 
       - name: Build and push Docker image
         id: build
@@ -381,6 +382,22 @@ jobs:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           subject-digest: ${{ steps.build.outputs.digest }}
           push-to-registry: true
+
+      - name: Verify Docker tags
+        run: |
+          echo "Verifying Docker image tags..."
+          if [ "${{ steps.semantic.outputs.new_release_published }}" == "true" ]; then
+            echo "New release published: ${{ steps.semantic.outputs.new_release_version }}"
+            echo "Checking for Docker tags:"
+            echo "- ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.semantic.outputs.new_release_version }}"
+            echo "- ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ steps.semantic.outputs.new_release_version }}"
+            echo "- ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
+          else
+            echo "No new release published"
+            echo "Checking for Docker tags:"
+            echo "- ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main"
+            echo "- ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}"
+          fi
 
   security-scan:
     name: Container Security Scan
@@ -487,10 +504,16 @@ jobs:
 
       - name: Update Kubernetes Deployment
         run: |
-          # Update the image tag in the Kubernetes deployment manifest
-          IMAGE_TAG=${{ needs.build.outputs.new_release_version }}
+          # Determine the image tag to use
+          if [ "${{ needs.build.outputs.new_release_published }}" == "true" ]; then
+            IMAGE_TAG="v${{ needs.build.outputs.new_release_version }}"
+            echo "Using semantic release version: $IMAGE_TAG"
+          else
+            IMAGE_TAG="${{ github.sha }}"
+            echo "Using commit SHA: $IMAGE_TAG"
+          fi
 
-          # Use the semantic release version for the image tag
+          # Set the final image
           FINAL_IMAGE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$IMAGE_TAG"
 
           echo "Using image: $FINAL_IMAGE"

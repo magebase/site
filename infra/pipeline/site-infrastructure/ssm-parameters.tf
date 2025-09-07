@@ -153,3 +153,48 @@ resource "aws_ssm_parameter" "cloudflare_region" {
     Project     = "site"
   }
 }
+
+# Company Information Parameters
+resource "aws_ssm_parameter" "company_name" {
+  name      = "/site/${var.environment}/company/name"
+  type      = "String"
+  value     = "Magebase"
+  overwrite = true
+  tags = {
+    Environment = var.environment
+    Project     = "site"
+  }
+}
+
+resource "aws_ssm_parameter" "company_website" {
+  name      = "/site/${var.environment}/company/website"
+  type      = "String"
+  value     = "www.magebase.dev"
+  overwrite = true
+  tags = {
+    Environment = var.environment
+    Project     = "site"
+  }
+}
+
+resource "aws_ssm_parameter" "company_email" {
+  name      = "/site/${var.environment}/company/email"
+  type      = "String"
+  value     = "hello@magebase.dev"
+  overwrite = true
+  tags = {
+    Environment = var.environment
+    Project     = "site"
+  }
+}
+
+resource "aws_ssm_parameter" "company_phone" {
+  name      = "/site/${var.environment}/company/phone"
+  type      = "String"
+  value     = "+1 (555) 123-4567"
+  overwrite = true
+  tags = {
+    Environment = var.environment
+    Project     = "site"
+  }
+}
