@@ -23,6 +23,7 @@ permissions:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: magebase/site
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   handle-release:
