@@ -223,7 +223,7 @@ resource "stripe_price" "digital_marketing_standard" {
     tier                   = "standard"
     target_business_size   = "Growing businesses,Mid-market companies"
     monthly_traffic_target = "25k-100k visitors"
-    features_included      = "Advanced SEO with technical audits,8 blog posts/month,Comprehensive social media (6 platforms),Email marketing campaigns,Google Ads management,Advanced analytics dashboard,Competitor analysis"
+    features_included      = "Advanced SEO with technical audits,8 blog posts/month,Comprehensive social media (6 platforms),Email marketing campaigns,Cloudflare Ads management,Advanced analytics dashboard,Competitor analysis"
     support_level          = "Priority email,Weekly strategy calls,Dedicated account manager"
     setup_time             = "1 week"
     contract_term          = "3 months minimum"
@@ -246,7 +246,7 @@ resource "stripe_price" "digital_marketing_premium" {
     tier                   = "premium"
     target_business_size   = "Enterprise,High-growth companies"
     monthly_traffic_target = "100k+ visitors"
-    features_included      = "Enterprise SEO with international targeting,16 premium blog posts/month,Full social media management (10+ platforms),Advanced email automation,PPC campaign management (Google,Facebook,LinkedIn),Custom analytics dashboards,Conversion rate optimization,Brand monitoring,Influencer partnerships"
+    features_included      = "Enterprise SEO with international targeting,16 premium blog posts/month,Full social media management (10+ platforms),Advanced email automation,PPC campaign management (Cloudflare,Facebook,LinkedIn),Custom analytics dashboards,Conversion rate optimization,Brand monitoring,Influencer partnerships"
     support_level          = "24/7 phone support,Daily strategy calls,Dedicated marketing team,Monthly executive reports"
     setup_time             = "3-5 days"
     contract_term          = "6 months minimum"
@@ -300,7 +300,7 @@ resource "stripe_price" "digital_marketing_standard_yearly" {
     monthly_equivalent     = "$4,000"
     target_business_size   = "Growing businesses,Mid-market companies"
     monthly_traffic_target = "25k-100k visitors"
-    features_included      = "Advanced SEO with technical audits,8 blog posts/month,Comprehensive social media (6 platforms),Email marketing campaigns,Google Ads management,Advanced analytics dashboard,Competitor analysis"
+    features_included      = "Advanced SEO with technical audits,8 blog posts/month,Comprehensive social media (6 platforms),Email marketing campaigns,Cloudflare Ads management,Advanced analytics dashboard,Competitor analysis"
     support_level          = "Priority email,Weekly strategy calls,Dedicated account manager"
     setup_time             = "1 week"
     contract_term          = "Annual commitment"
@@ -568,7 +568,6 @@ resource "stripe_price" "payment_processing_free" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -662,7 +661,6 @@ resource "stripe_price" "payment_processing_custom" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -789,7 +787,6 @@ resource "stripe_price" "analytics_free" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -888,7 +885,6 @@ resource "stripe_price" "analytics_custom" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -1007,7 +1003,6 @@ resource "stripe_price" "ai_ml_free" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -1086,7 +1081,6 @@ resource "stripe_price" "ai_ml_custom" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -1188,7 +1182,6 @@ resource "stripe_price" "blockchain_free" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -1267,7 +1260,6 @@ resource "stripe_price" "blockchain_custom" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -1303,7 +1295,6 @@ resource "stripe_price" "gambling_free" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -1383,7 +1374,6 @@ resource "stripe_price" "gambling_custom" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -1419,7 +1409,6 @@ resource "stripe_price" "real_time_free" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -1499,7 +1488,6 @@ resource "stripe_price" "real_time_custom" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -1535,7 +1523,6 @@ resource "stripe_price" "marketing_free" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -1615,7 +1602,6 @@ resource "stripe_price" "marketing_custom" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -1651,7 +1637,6 @@ resource "stripe_price" "autoblogger_free" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -1731,7 +1716,6 @@ resource "stripe_price" "autoblogger_custom" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -1767,7 +1751,6 @@ resource "stripe_price" "publisher_free" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -1791,7 +1774,6 @@ resource "stripe_price" "publisher_basic" {
   billing_scheme = "tiered"
 
   tiers {
-    up_to = null
   }
 
   tiers_mode = "volume"
@@ -1811,7 +1793,6 @@ resource "stripe_price" "publisher_standard" {
   billing_scheme = "tiered"
 
   tiers {
-    up_to = null
   }
 
   tiers_mode = "volume"
@@ -1831,7 +1812,6 @@ resource "stripe_price" "publisher_premium" {
   billing_scheme = "tiered"
 
   tiers {
-    up_to = null
   }
 
   tiers_mode = "volume"
@@ -1853,7 +1833,6 @@ resource "stripe_price" "publisher_custom" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -1889,7 +1868,6 @@ resource "stripe_price" "support_chatbot_free" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -1969,7 +1947,6 @@ resource "stripe_price" "support_chatbot_custom" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -2005,7 +1982,6 @@ resource "stripe_price" "sales_chatbot_free" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -2085,7 +2061,6 @@ resource "stripe_price" "sales_chatbot_custom" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -2121,7 +2096,6 @@ resource "stripe_price" "crm_free" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -2201,7 +2175,6 @@ resource "stripe_price" "crm_custom" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -2242,7 +2215,6 @@ resource "stripe_price" "maintenance_retainer_free" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -2346,7 +2318,6 @@ resource "stripe_price" "maintenance_retainer_custom" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -2391,7 +2362,6 @@ resource "stripe_price" "api_free" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -2471,7 +2441,6 @@ resource "stripe_price" "api_custom" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -2507,7 +2476,6 @@ resource "stripe_price" "app_store_free" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -2587,7 +2555,6 @@ resource "stripe_price" "app_store_custom" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -2623,7 +2590,6 @@ resource "stripe_price" "blog_cms_free" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -2703,7 +2669,6 @@ resource "stripe_price" "blog_cms_custom" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -2739,7 +2704,6 @@ resource "stripe_price" "i18n_free" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -2819,7 +2783,6 @@ resource "stripe_price" "i18n_custom" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -2855,7 +2818,6 @@ resource "stripe_price" "sso_free" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
@@ -2935,7 +2897,6 @@ resource "stripe_price" "sso_custom" {
 
   tiers {
     unit_amount = 0
-    up_to       = null
   }
 
   tiers_mode = "volume"
