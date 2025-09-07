@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: magebase-app
+  namespace: magebase
+spec:
+  replicas: 2
+  template:
+    spec:
+      containers:
+        - name: magebase
+          resources:
+            requests:
+              memory: '512Mi'
+              cpu: '250m'
+            limits:
+              memory: '1Gi'
+              cpu: '500m'
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: magebase-db
+  namespace: magebase
+spec:
+  instances: 1
+  storage:
+    size: 20Gi
+  postgresql:
+    parameters:
+      max_connections: '150'
+      shared_buffers: '128MB'
+      effective_cache_size: '512MB'
+      maintenance_work_mem: '128MB'
+  resources:
+    requests:
+      memory: '512Mi'
+      cpu: '250m'
+    limits:
+      memory: '1Gi'
+      cpu: '500m'
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: magebase-ingress
+  namespace: magebase
+spec:
+  tls:
+    - hosts:
+        - uat.magebase.dev

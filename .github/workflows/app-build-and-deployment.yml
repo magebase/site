@@ -320,6 +320,10 @@ jobs:
       image-url: ${{ steps.meta.outputs.tags }}
       new_release_published: ${{ needs.semantic-release-dry-run.outputs.new_release_published }}
       new_release_version: ${{ needs.semantic-release-dry-run.outputs.new_release_version }}
+      dev-url: https://dev.magebase.dev
+      qa-url: https://qa.magebase.dev
+      uat-url: https://uat.magebase.dev
+      prod-url: https://magebase.dev
 
     steps:
       - name: Checkout code
@@ -617,6 +621,7 @@ jobs:
         build,
         security-scan,
         semantic-release-dry-run,
+        commit-latest-image-tag,
         semantic-release-publish,
         # cleanup,
       ]
@@ -636,18 +641,25 @@ jobs:
           # Security Scan - Temporarily commented out
 
           # Deployment
-          if [ "${{ needs.deploy.result }}" == "success" ]; then
+          if [ "${{ needs.commit-latest-image-tag.result }}" == "success" ]; then
             echo "✅ **Deployment:** Successful" >> $GITHUB_STEP_SUMMARY
           else
             echo "❌ **Deployment:** Failed" >> $GITHUB_STEP_SUMMARY
           fi
 
-          # Performance
-          if [ "${{ needs.performance-test.result }}" == "success" ]; then
-            echo "✅ **Performance Test:** Passed" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "❌ **Performance Test:** Failed" >> $GITHUB_STEP_SUMMARY
-          fi
+          # Performance - Temporarily disabled
+          # if [ "${{ needs.performance-test.result }}" == "success" ]; then
+          #   echo "✅ **Performance Test:** Passed" >> $GITHUB_STEP_SUMMARY
+          # else
+          #   echo "❌ **Performance Test:** Failed" >> $GITHUB_STEP_SUMMARY
+          # fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🌐 Environment URLs:" >> $GITHUB_STEP_SUMMARY
+          echo "- **Dev:** ${{ needs.build.outputs.dev-url }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **QA:** ${{ needs.build.outputs.qa-url }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **UAT:** ${{ needs.build.outputs.uat-url }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Prod:** ${{ needs.build.outputs.prod-url }}" >> $GITHUB_STEP_SUMMARY
 
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### 📋 Deployment Details:" >> $GITHUB_STEP_SUMMARY
@@ -682,7 +694,7 @@ jobs:
         with:
           payload: |
             {
-              "text": "🚀 Unified Rails Deployment ${{ needs.deploy.result == 'success' && '✅ Success' || '❌ Failed' }}",
+              "text": "🚀 Unified Rails Deployment ${{ needs.commit-latest-image-tag.result == 'success' && '✅ Success' || '❌ Failed' }}",
               "blocks": [
                 {
                   "type": "header",
@@ -695,7 +707,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "*Environment:* ${{ github.event.inputs.environment || 'dev' }}\\n*Version:* ${{ needs.semantic-release-dry-run.outputs.new_release_published == 'true' && format('v{0}', needs.semantic-release-dry-run.outputs.new_release_version) || github.sha }}\\n*Image:* ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.semantic-release-dry-run.outputs.new_release_published == 'true' && format('v{0}', needs.semantic-release-dry-run.outputs.new_release_version) || github.sha }}\\n*Status:* ${{ needs.deploy.result == 'success' && '✅ Success' || '❌ Failed' }}\\n*Triggered by:* @${{ github.actor }}\\n*Semantic Release:* ${{ needs.semantic-release-dry-run.outputs.new_release_published == 'true' && format('✅ v{0}', needs.semantic-release-dry-run.outputs.new_release_version) || '⏭️ Skipped (no version bump)' }}"
+                    "text": "*Environment:* ${{ github.event.inputs.environment || 'dev' }}\\n*Version:* ${{ needs.semantic-release-dry-run.outputs.new_release_published == 'true' && format('v{0}', needs.semantic-release-dry-run.outputs.new_release_version) || github.sha }}\\n*Image:* ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.semantic-release-dry-run.outputs.new_release_published == 'true' && format('v{0}', needs.semantic-release-dry-run.outputs.new_release_version) || github.sha }}\\n*Status:* ${{ needs.commit-latest-image-tag.result == 'success' && '✅ Success' || '❌ Failed' }}\\n*Triggered by:* @${{ github.actor }}\\n*Semantic Release:* ${{ needs.semantic-release-dry-run.outputs.new_release_published == 'true' && format('✅ v{0}', needs.semantic-release-dry-run.outputs.new_release_version) || '⏭️ Skipped (no version bump)' }}"
                   }
                 }
               ]
