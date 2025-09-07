@@ -57,75 +57,75 @@ resource "stripe_portal_configuration" "portal_configuration" {
       }
       products {
         product = stripe_product.payment_processing.id
-        prices  = [stripe_price.payment_processing_free.id, stripe_price.payment_processing_basic.id, stripe_price.payment_processing_standard.id, stripe_price.payment_processing_premium.id, stripe_price.payment_processing_custom.id, stripe_price.payment_processing_basic_yearly.id, stripe_price.payment_processing_standard_yearly.id, stripe_price.payment_processing_premium_yearly.id]
+        prices  = [stripe_price.payment_processing_free.id, stripe_price.payment_processing_basic.id, stripe_price.payment_processing_standard.id, stripe_price.payment_processing_premium.id, stripe_price.payment_processing_basic_yearly.id, stripe_price.payment_processing_standard_yearly.id, stripe_price.payment_processing_premium_yearly.id]
       }
       products {
         product = stripe_product.analytics_tracking.id
-        prices  = [stripe_price.analytics_free.id, stripe_price.analytics_basic.id, stripe_price.analytics_standard.id, stripe_price.analytics_premium.id, stripe_price.analytics_custom.id, stripe_price.analytics_basic_yearly.id, stripe_price.analytics_standard_yearly.id, stripe_price.analytics_premium_yearly.id]
+        prices  = [stripe_price.analytics_free.id, stripe_price.analytics_basic.id, stripe_price.analytics_standard.id, stripe_price.analytics_premium.id, stripe_price.analytics_basic_yearly.id, stripe_price.analytics_standard_yearly.id, stripe_price.analytics_premium_yearly.id]
       }
       products {
         product = stripe_product.ai_ml_features.id
-        prices  = [stripe_price.ai_ml_free.id, stripe_price.ai_ml_basic.id, stripe_price.ai_ml_standard.id, stripe_price.ai_ml_premium.id, stripe_price.ai_ml_custom.id, stripe_price.ai_ml_basic_yearly.id, stripe_price.ai_ml_standard_yearly.id, stripe_price.ai_ml_premium_yearly.id]
+        prices  = [stripe_price.ai_ml_free.id, stripe_price.ai_ml_basic.id, stripe_price.ai_ml_standard.id, stripe_price.ai_ml_premium.id, stripe_price.ai_ml_basic_yearly.id, stripe_price.ai_ml_standard_yearly.id, stripe_price.ai_ml_premium_yearly.id]
       }
       products {
         product = stripe_product.blockchain_integration.id
-        prices  = [stripe_price.blockchain_free.id, stripe_price.blockchain_basic.id, stripe_price.blockchain_standard.id, stripe_price.blockchain_premium.id, stripe_price.blockchain_custom.id]
+        prices  = [stripe_price.blockchain_free.id, stripe_price.blockchain_basic.id, stripe_price.blockchain_standard.id, stripe_price.blockchain_premium.id]
       }
       products {
         product = stripe_product.gambling_igaming.id
-        prices  = [stripe_price.gambling_free.id, stripe_price.gambling_basic.id, stripe_price.gambling_standard.id, stripe_price.gambling_premium.id, stripe_price.gambling_custom.id]
+        prices  = [stripe_price.gambling_free.id, stripe_price.gambling_basic.id, stripe_price.gambling_standard.id, stripe_price.gambling_premium.id]
       }
       products {
         product = stripe_product.real_time_features.id
-        prices  = [stripe_price.real_time_free.id, stripe_price.real_time_basic.id, stripe_price.real_time_standard.id, stripe_price.real_time_premium.id, stripe_price.real_time_custom.id]
+        prices  = [stripe_price.real_time_free.id, stripe_price.real_time_basic.id, stripe_price.real_time_standard.id, stripe_price.real_time_premium.id]
       }
       products {
         product = stripe_product.automated_digital_marketing.id
-        prices  = [stripe_price.marketing_free.id, stripe_price.marketing_basic.id, stripe_price.marketing_standard.id, stripe_price.marketing_premium.id, stripe_price.marketing_custom.id]
+        prices  = [stripe_price.marketing_free.id, stripe_price.marketing_basic.id, stripe_price.marketing_standard.id, stripe_price.marketing_premium.id]
       }
       products {
         product = stripe_product.autoblogger.id
-        prices  = [stripe_price.autoblogger_free.id, stripe_price.autoblogger_basic.id, stripe_price.autoblogger_standard.id, stripe_price.autoblogger_premium.id, stripe_price.autoblogger_custom.id]
+        prices  = [stripe_price.autoblogger_free.id, stripe_price.autoblogger_basic.id, stripe_price.autoblogger_standard.id, stripe_price.autoblogger_premium.id]
       }
       products {
         product = stripe_product.publisher.id
-        prices  = [stripe_price.publisher_free.id, stripe_price.publisher_basic.id, stripe_price.publisher_standard.id, stripe_price.publisher_premium.id, stripe_price.publisher_custom.id]
+        prices  = [stripe_price.publisher_free.id, stripe_price.publisher_basic.id, stripe_price.publisher_standard.id, stripe_price.publisher_premium.id]
       }
       products {
         product = stripe_product.customer_support_chatbot.id
-        prices  = [stripe_price.support_chatbot_free.id, stripe_price.support_chatbot_basic.id, stripe_price.support_chatbot_standard.id, stripe_price.support_chatbot_premium.id, stripe_price.support_chatbot_custom.id]
+        prices  = [stripe_price.support_chatbot_free.id, stripe_price.support_chatbot_basic.id, stripe_price.support_chatbot_standard.id, stripe_price.support_chatbot_premium.id]
       }
       products {
         product = stripe_product.sales_chatbot.id
-        prices  = [stripe_price.sales_chatbot_free.id, stripe_price.sales_chatbot_basic.id, stripe_price.sales_chatbot_standard.id, stripe_price.sales_chatbot_premium.id, stripe_price.sales_chatbot_custom.id]
+        prices  = [stripe_price.sales_chatbot_free.id, stripe_price.sales_chatbot_basic.id, stripe_price.sales_chatbot_standard.id, stripe_price.sales_chatbot_premium.id]
       }
       products {
         product = stripe_product.crm_system.id
-        prices  = [stripe_price.crm_free.id, stripe_price.crm_basic.id, stripe_price.crm_standard.id, stripe_price.crm_premium.id, stripe_price.crm_custom.id]
+        prices  = [stripe_price.crm_free.id, stripe_price.crm_basic.id, stripe_price.crm_standard.id, stripe_price.crm_premium.id]
       }
       products {
         product = stripe_product.general_maintenance_retainer.id
-        prices  = [stripe_price.maintenance_retainer_free.id, stripe_price.maintenance_retainer_basic.id, stripe_price.maintenance_retainer_standard.id, stripe_price.maintenance_retainer_premium.id, stripe_price.maintenance_retainer_custom.id]
+        prices  = [stripe_price.maintenance_retainer_free.id, stripe_price.maintenance_retainer_basic.id, stripe_price.maintenance_retainer_standard.id, stripe_price.maintenance_retainer_premium.id]
       }
       products {
         product = stripe_product.api_development.id
-        prices  = [stripe_price.api_free.id, stripe_price.api_basic.id, stripe_price.api_standard.id, stripe_price.api_premium.id, stripe_price.api_custom.id]
+        prices  = [stripe_price.api_free.id, stripe_price.api_basic.id, stripe_price.api_standard.id, stripe_price.api_premium.id]
       }
       products {
         product = stripe_product.app_store_management.id
-        prices  = [stripe_price.app_store_free.id, stripe_price.app_store_basic.id, stripe_price.app_store_standard.id, stripe_price.app_store_premium.id, stripe_price.app_store_custom.id]
+        prices  = [stripe_price.app_store_free.id, stripe_price.app_store_basic.id, stripe_price.app_store_standard.id, stripe_price.app_store_premium.id]
       }
       products {
         product = stripe_product.blog_cms.id
-        prices  = [stripe_price.blog_cms_free.id, stripe_price.blog_cms_basic.id, stripe_price.blog_cms_standard.id, stripe_price.blog_cms_premium.id, stripe_price.blog_cms_custom.id]
+        prices  = [stripe_price.blog_cms_free.id, stripe_price.blog_cms_basic.id, stripe_price.blog_cms_standard.id, stripe_price.blog_cms_premium.id]
       }
       products {
         product = stripe_product.internationalization.id
-        prices  = [stripe_price.i18n_free.id, stripe_price.i18n_basic.id, stripe_price.i18n_standard.id, stripe_price.i18n_premium.id, stripe_price.i18n_custom.id]
+        prices  = [stripe_price.i18n_free.id, stripe_price.i18n_basic.id, stripe_price.i18n_standard.id, stripe_price.i18n_premium.id]
       }
       products {
         product = stripe_product.sso_social_login.id
-        prices  = [stripe_price.sso_free.id, stripe_price.sso_basic.id, stripe_price.sso_standard.id, stripe_price.sso_premium.id, stripe_price.sso_custom.id]
+        prices  = [stripe_price.sso_free.id, stripe_price.sso_basic.id, stripe_price.sso_standard.id, stripe_price.sso_premium.id]
       }
     }
   }
@@ -563,14 +563,9 @@ resource "stripe_product" "payment_processing" {
 resource "stripe_price" "payment_processing_free" {
   currency       = "usd"
   product        = stripe_product.payment_processing.id
+  unit_amount    = 0
   active         = true
-  billing_scheme = "tiered"
-
-  tiers {
-    unit_amount = 0
-  }
-
-  tiers_mode = "volume"
+  billing_scheme = "per_unit"
 
   metadata = {
     tier              = "free"
@@ -653,28 +648,28 @@ resource "stripe_price" "payment_processing_premium" {
   }
 }
 
-resource "stripe_price" "payment_processing_custom" {
-  currency       = "usd"
-  product        = stripe_product.payment_processing.id
-  active         = true
-  billing_scheme = "tiered"
+# resource "stripe_price" "payment_processing_custom" {
+#   currency       = "usd"
+#   product        = stripe_product.payment_processing.id
+#   active         = true
+#   billing_scheme = "tiered"
 
-  tiers {
-    unit_amount = 0
-  }
+#   tiers {
+#     unit_amount = 0
+#   }
 
-  tiers_mode = "volume"
+#   tiers_mode = "volume"
 
-  metadata = {
-    tier               = "custom"
-    target_businesses  = "Enterprise,High-volume,Specialized industries"
-    pricing_model      = "Volume-based or custom agreement"
-    features_included  = "Everything in Premium plus: Custom SLAs, Dedicated team, White-label solutions, API customization"
-    minimum_commitment = "12 months"
-    custom_features    = "Available upon consultation"
-    phase              = "mrr"
-  }
-}
+#   metadata = {
+#     tier               = "custom"
+#     target_businesses  = "Enterprise,High-volume,Specialized industries"
+#     pricing_model      = "Volume-based or custom agreement"
+#     features_included  = "Everything in Premium plus: Custom SLAs, Dedicated team, White-label solutions, API customization"
+#     minimum_commitment = "12 months"
+#     custom_features    = "Available upon consultation"
+#     phase              = "mrr"
+#   }
+# }
 
 # Annual Pricing for Payment Processing (20% discount)
 resource "stripe_price" "payment_processing_basic_yearly" {
@@ -782,14 +777,9 @@ resource "stripe_product" "analytics_tracking" {
 resource "stripe_price" "analytics_free" {
   currency       = "usd"
   product        = stripe_product.analytics_tracking.id
+  unit_amount    = 0
   active         = true
-  billing_scheme = "tiered"
-
-  tiers {
-    unit_amount = 0
-  }
-
-  tiers_mode = "volume"
+  billing_scheme = "per_unit"
 
   metadata = {
     tier              = "free"
@@ -877,24 +867,24 @@ resource "stripe_price" "analytics_premium" {
   }
 }
 
-resource "stripe_price" "analytics_custom" {
-  currency       = "usd"
-  product        = stripe_product.analytics_tracking.id
-  active         = true
-  billing_scheme = "tiered"
+# resource "stripe_price" "analytics_custom" {
+#   currency       = "usd"
+#   product        = stripe_product.analytics_tracking.id
+#   active         = true
+#   billing_scheme = "tiered"
 
-  tiers {
-    unit_amount = 0
-  }
+#   tiers {
+#     unit_amount = 0
+#   }
 
-  tiers_mode = "volume"
+#   tiers_mode = "volume"
 
-  metadata = {
-    tier     = "custom"
-    features = "Custom pricing based on data volume and specific analytics requirements"
-    phase    = "mrr"
-  }
-}
+#   metadata = {
+#     tier     = "custom"
+#     features = "Custom pricing based on data volume and specific analytics requirements"
+#     phase    = "mrr"
+#   }
+# }
 
 # Annual Pricing for Analytics (20% discount)
 resource "stripe_price" "analytics_basic_yearly" {
@@ -998,14 +988,9 @@ resource "stripe_product" "ai_ml_features" {
 resource "stripe_price" "ai_ml_free" {
   currency       = "usd"
   product        = stripe_product.ai_ml_features.id
+  unit_amount    = 0
   active         = true
-  billing_scheme = "tiered"
-
-  tiers {
-    unit_amount = 0
-  }
-
-  tiers_mode = "volume"
+  billing_scheme = "per_unit"
 
   metadata = {
     tier              = "free"
@@ -1073,24 +1058,24 @@ resource "stripe_price" "ai_ml_premium" {
   }
 }
 
-resource "stripe_price" "ai_ml_custom" {
-  currency       = "usd"
-  product        = stripe_product.ai_ml_features.id
-  active         = true
-  billing_scheme = "tiered"
+# resource "stripe_price" "ai_ml_custom" {
+#   currency       = "usd"
+#   product        = stripe_product.ai_ml_features.id
+#   active         = true
+#   billing_scheme = "tiered"
 
-  tiers {
-    unit_amount = 0
-  }
+#   tiers {
+#     unit_amount = 0
+#   }
 
-  tiers_mode = "volume"
+#   tiers_mode = "volume"
 
-  metadata = {
-    tier     = "custom"
-    features = "Custom pricing based on model complexity, data volume, and specific AI/ML requirements"
-    phase    = "mrr"
-  }
-}
+#   metadata = {
+#     tier     = "custom"
+#     features = "Custom pricing based on model complexity, data volume, and specific AI/ML requirements"
+#     phase    = "mrr"
+#   }
+# }
 
 # Annual Pricing for AI/ML (20% discount)
 resource "stripe_price" "ai_ml_basic_yearly" {
@@ -1177,14 +1162,9 @@ resource "stripe_product" "blockchain_integration" {
 resource "stripe_price" "blockchain_free" {
   currency       = "usd"
   product        = stripe_product.blockchain_integration.id
+  unit_amount    = 0
   active         = true
-  billing_scheme = "tiered"
-
-  tiers {
-    unit_amount = 0
-  }
-
-  tiers_mode = "volume"
+  billing_scheme = "per_unit"
 
   metadata = {
     tier              = "free"
@@ -1252,24 +1232,24 @@ resource "stripe_price" "blockchain_premium" {
   }
 }
 
-resource "stripe_price" "blockchain_custom" {
-  currency       = "usd"
-  product        = stripe_product.blockchain_integration.id
-  active         = true
-  billing_scheme = "tiered"
+# resource "stripe_price" "blockchain_custom" {
+#   currency       = "usd"
+#   product        = stripe_product.blockchain_integration.id
+#   active         = true
+#   billing_scheme = "tiered"
 
-  tiers {
-    unit_amount = 0
-  }
+#   tiers {
+#     unit_amount = 0
+#   }
 
-  tiers_mode = "volume"
+#   tiers_mode = "volume"
 
-  metadata = {
-    tier     = "custom"
-    features = "Custom pricing based on blockchain complexity and network requirements"
-    phase    = "mrr"
-  }
-}
+#   metadata = {
+#     tier     = "custom"
+#     features = "Custom pricing based on blockchain complexity and network requirements"
+#     phase    = "mrr"
+#   }
+# }
 
 # 5. Gambling or iGaming
 resource "stripe_product" "gambling_igaming" {
@@ -1289,14 +1269,9 @@ resource "stripe_product" "gambling_igaming" {
 resource "stripe_price" "gambling_free" {
   currency       = "usd"
   product        = stripe_product.gambling_igaming.id
+  unit_amount    = 0
   active         = true
-  billing_scheme = "tiered"
-
-  tiers {
-    unit_amount = 0
-  }
-
-  tiers_mode = "volume"
+  billing_scheme = "per_unit"
 
   metadata = {
     tier              = "free"
@@ -1364,24 +1339,24 @@ resource "stripe_price" "gambling_premium" {
   }
 }
 
-resource "stripe_price" "gambling_custom" {
-  currency       = "usd"
-  product        = stripe_product.gambling_igaming.id
-  active         = true
-  billing_scheme = "tiered"
+# resource "stripe_price" "gambling_custom" {
+#   currency       = "usd"
+#   product        = stripe_product.gambling_igaming.id
+#   active         = true
+#   billing_scheme = "tiered"
 
-  tiers {
-    unit_amount = 0
-  }
+#   tiers {
+#     unit_amount = 0
+#   }
 
-  tiers_mode = "volume"
+#   tiers_mode = "volume"
 
-  metadata = {
-    tier     = "custom"
-    features = "Custom pricing based on gaming complexity and regulatory requirements"
-    phase    = "mrr"
-  }
-}
+#   metadata = {
+#     tier     = "custom"
+#     features = "Custom pricing based on gaming complexity and regulatory requirements"
+#     phase    = "mrr"
+#   }
+# }
 
 # 6. Real-time Features
 resource "stripe_product" "real_time_features" {
@@ -1401,14 +1376,9 @@ resource "stripe_product" "real_time_features" {
 resource "stripe_price" "real_time_free" {
   currency       = "usd"
   product        = stripe_product.real_time_features.id
+  unit_amount    = 0
   active         = true
-  billing_scheme = "tiered"
-
-  tiers {
-    unit_amount = 0
-  }
-
-  tiers_mode = "volume"
+  billing_scheme = "per_unit"
 
   metadata = {
     tier              = "free"
@@ -1476,24 +1446,24 @@ resource "stripe_price" "real_time_premium" {
   }
 }
 
-resource "stripe_price" "real_time_custom" {
-  currency       = "usd"
-  product        = stripe_product.real_time_features.id
-  active         = true
-  billing_scheme = "tiered"
+# resource "stripe_price" "real_time_custom" {
+#   currency       = "usd"
+#   product        = stripe_product.real_time_features.id
+#   active         = true
+#   billing_scheme = "tiered"
 
-  tiers {
-    unit_amount = 0
-  }
+#   tiers {
+#     unit_amount = 0
+#   }
 
-  tiers_mode = "volume"
+#   tiers_mode = "volume"
 
-  metadata = {
-    tier     = "custom"
-    features = "Custom pricing based on real-time feature complexity and traffic volume"
-    phase    = "mrr"
-  }
-}
+#   metadata = {
+#     tier     = "custom"
+#     features = "Custom pricing based on real-time feature complexity and traffic volume"
+#     phase    = "mrr"
+#   }
+# }
 
 # 7. Automated Digital Marketing
 resource "stripe_product" "automated_digital_marketing" {
@@ -1513,14 +1483,9 @@ resource "stripe_product" "automated_digital_marketing" {
 resource "stripe_price" "marketing_free" {
   currency       = "usd"
   product        = stripe_product.automated_digital_marketing.id
+  unit_amount    = 0
   active         = true
-  billing_scheme = "tiered"
-
-  tiers {
-    unit_amount = 0
-  }
-
-  tiers_mode = "volume"
+  billing_scheme = "per_unit"
 
   metadata = {
     tier              = "free"
@@ -1588,24 +1553,24 @@ resource "stripe_price" "marketing_premium" {
   }
 }
 
-resource "stripe_price" "marketing_custom" {
-  currency       = "usd"
-  product        = stripe_product.automated_digital_marketing.id
-  active         = true
-  billing_scheme = "tiered"
+# resource "stripe_price" "marketing_custom" {
+#   currency       = "usd"
+#   product        = stripe_product.automated_digital_marketing.id
+#   active         = true
+#   billing_scheme = "tiered"
 
-  tiers {
-    unit_amount = 0
-  }
+#   tiers {
+#     unit_amount = 0
+#   }
 
-  tiers_mode = "volume"
+#   tiers_mode = "volume"
 
-  metadata = {
-    tier     = "custom"
-    features = "Custom pricing based on ad spend volume and marketing complexity"
-    phase    = "mrr"
-  }
-}
+#   metadata = {
+#     tier     = "custom"
+#     features = "Custom pricing based on ad spend volume and marketing complexity"
+#     phase    = "mrr"
+#   }
+# }
 
 # 8. Autoblogger (AI Content Generation)
 resource "stripe_product" "autoblogger" {
@@ -1625,14 +1590,9 @@ resource "stripe_product" "autoblogger" {
 resource "stripe_price" "autoblogger_free" {
   currency       = "usd"
   product        = stripe_product.autoblogger.id
+  unit_amount    = 0
   active         = true
-  billing_scheme = "tiered"
-
-  tiers {
-    unit_amount = 0
-  }
-
-  tiers_mode = "volume"
+  billing_scheme = "per_unit"
 
   metadata = {
     tier              = "free"
@@ -1700,24 +1660,24 @@ resource "stripe_price" "autoblogger_premium" {
   }
 }
 
-resource "stripe_price" "autoblogger_custom" {
-  currency       = "usd"
-  product        = stripe_product.autoblogger.id
-  active         = true
-  billing_scheme = "tiered"
+# resource "stripe_price" "autoblogger_custom" {
+#   currency       = "usd"
+#   product        = stripe_product.autoblogger.id
+#   active         = true
+#   billing_scheme = "tiered"
 
-  tiers {
-    unit_amount = 0
-  }
+#   tiers {
+#     unit_amount = 0
+#   }
 
-  tiers_mode = "volume"
+#   tiers_mode = "volume"
 
-  metadata = {
-    tier     = "custom"
-    features = "Custom pricing based on content volume and specific blogging requirements"
-    phase    = "mrr"
-  }
-}
+#   metadata = {
+#     tier     = "custom"
+#     features = "Custom pricing based on content volume and specific blogging requirements"
+#     phase    = "mrr"
+#   }
+# }
 
 # 9. Publisher (Ad Revenue)
 resource "stripe_product" "publisher" {
@@ -1737,14 +1697,9 @@ resource "stripe_product" "publisher" {
 resource "stripe_price" "publisher_free" {
   currency       = "usd"
   product        = stripe_product.publisher.id
+  unit_amount    = 0
   active         = true
-  billing_scheme = "tiered"
-
-  tiers {
-    unit_amount = 0
-  }
-
-  tiers_mode = "volume"
+  billing_scheme = "per_unit"
 
   metadata = {
     tier              = "free"
@@ -1815,24 +1770,24 @@ resource "stripe_price" "publisher_premium" {
   }
 }
 
-resource "stripe_price" "publisher_custom" {
-  currency       = "usd"
-  product        = stripe_product.publisher.id
-  active         = true
-  billing_scheme = "tiered"
+# resource "stripe_price" "publisher_custom" {
+#   currency       = "usd"
+#   product        = stripe_product.publisher.id
+#   active         = true
+#   billing_scheme = "tiered"
 
-  tiers {
-    unit_amount = 0
-  }
+#   tiers {
+#     unit_amount = 0
+#   }
 
-  tiers_mode = "volume"
+#   tiers_mode = "volume"
 
-  metadata = {
-    tier     = "custom"
-    features = "Custom revenue share percentage based on ad revenue volume and specific requirements"
-    phase    = "mrr"
-  }
-}
+#   metadata = {
+#     tier     = "custom"
+#     features = "Custom revenue share percentage based on ad revenue volume and specific requirements"
+#     phase    = "mrr"
+#   }
+# }
 
 # 10. Customer Support Chatbot
 resource "stripe_product" "customer_support_chatbot" {
@@ -1852,14 +1807,9 @@ resource "stripe_product" "customer_support_chatbot" {
 resource "stripe_price" "support_chatbot_free" {
   currency       = "usd"
   product        = stripe_product.customer_support_chatbot.id
+  unit_amount    = 0
   active         = true
-  billing_scheme = "tiered"
-
-  tiers {
-    unit_amount = 0
-  }
-
-  tiers_mode = "volume"
+  billing_scheme = "per_unit"
 
   metadata = {
     tier              = "free"
@@ -1927,24 +1877,24 @@ resource "stripe_price" "support_chatbot_premium" {
   }
 }
 
-resource "stripe_price" "support_chatbot_custom" {
-  currency       = "usd"
-  product        = stripe_product.customer_support_chatbot.id
-  active         = true
-  billing_scheme = "tiered"
+# resource "stripe_price" "support_chatbot_custom" {
+#   currency       = "usd"
+#   product        = stripe_product.customer_support_chatbot.id
+#   active         = true
+#   billing_scheme = "tiered"
 
-  tiers {
-    unit_amount = 0
-  }
+#   tiers {
+#     unit_amount = 0
+#   }
 
-  tiers_mode = "volume"
+#   tiers_mode = "volume"
 
-  metadata = {
-    tier     = "custom"
-    features = "Custom pricing based on conversation volume and support complexity"
-    phase    = "mrr"
-  }
-}
+#   metadata = {
+#     tier     = "custom"
+#     features = "Custom pricing based on conversation volume and support complexity"
+#     phase    = "mrr"
+#   }
+# }
 
 # 11. Sales Chatbot
 resource "stripe_product" "sales_chatbot" {
@@ -1964,14 +1914,9 @@ resource "stripe_product" "sales_chatbot" {
 resource "stripe_price" "sales_chatbot_free" {
   currency       = "usd"
   product        = stripe_product.sales_chatbot.id
+  unit_amount    = 0
   active         = true
-  billing_scheme = "tiered"
-
-  tiers {
-    unit_amount = 0
-  }
-
-  tiers_mode = "volume"
+  billing_scheme = "per_unit"
 
   metadata = {
     tier              = "free"
@@ -2039,24 +1984,24 @@ resource "stripe_price" "sales_chatbot_premium" {
   }
 }
 
-resource "stripe_price" "sales_chatbot_custom" {
-  currency       = "usd"
-  product        = stripe_product.sales_chatbot.id
-  active         = true
-  billing_scheme = "tiered"
+# resource "stripe_price" "sales_chatbot_custom" {
+#   currency       = "usd"
+#   product        = stripe_product.sales_chatbot.id
+#   active         = true
+#   billing_scheme = "tiered"
 
-  tiers {
-    unit_amount = 0
-  }
+#   tiers {
+#     unit_amount = 0
+#   }
 
-  tiers_mode = "volume"
+#   tiers_mode = "volume"
 
-  metadata = {
-    tier     = "custom"
-    features = "Custom pricing based on sales volume and lead complexity"
-    phase    = "mrr"
-  }
-}
+#   metadata = {
+#     tier     = "custom"
+#     features = "Custom pricing based on sales volume and lead complexity"
+#     phase    = "mrr"
+#   }
+# }
 
 # 12. CRM System
 resource "stripe_product" "crm_system" {
@@ -2076,14 +2021,9 @@ resource "stripe_product" "crm_system" {
 resource "stripe_price" "crm_free" {
   currency       = "usd"
   product        = stripe_product.crm_system.id
+  unit_amount    = 0
   active         = true
-  billing_scheme = "tiered"
-
-  tiers {
-    unit_amount = 0
-  }
-
-  tiers_mode = "volume"
+  billing_scheme = "per_unit"
 
   metadata = {
     tier              = "free"
@@ -2151,24 +2091,24 @@ resource "stripe_price" "crm_premium" {
   }
 }
 
-resource "stripe_price" "crm_custom" {
-  currency       = "usd"
-  product        = stripe_product.crm_system.id
-  active         = true
-  billing_scheme = "tiered"
+# resource "stripe_price" "crm_custom" {
+#   currency       = "usd"
+#   product        = stripe_product.crm_system.id
+#   active         = true
+#   billing_scheme = "tiered"
 
-  tiers {
-    unit_amount = 0
-  }
+#   tiers {
+#     unit_amount = 0
+#   }
 
-  tiers_mode = "volume"
+#   tiers_mode = "volume"
 
-  metadata = {
-    tier     = "custom"
-    features = "Custom pricing based on user count and integration complexity"
-    phase    = "mrr"
-  }
-}
+#   metadata = {
+#     tier     = "custom"
+#     features = "Custom pricing based on user count and integration complexity"
+#     phase    = "mrr"
+#   }
+# }
 
 # 12.5. General Maintenance Retainer
 resource "stripe_product" "general_maintenance_retainer" {
@@ -2193,14 +2133,9 @@ resource "stripe_product" "general_maintenance_retainer" {
 resource "stripe_price" "maintenance_retainer_free" {
   currency       = "usd"
   product        = stripe_product.general_maintenance_retainer.id
+  unit_amount    = 0
   active         = true
-  billing_scheme = "tiered"
-
-  tiers {
-    unit_amount = 0
-  }
-
-  tiers_mode = "volume"
+  billing_scheme = "per_unit"
 
   metadata = {
     tier                = "free"
@@ -2292,31 +2227,31 @@ resource "stripe_price" "maintenance_retainer_premium" {
   }
 }
 
-resource "stripe_price" "maintenance_retainer_custom" {
-  currency       = "usd"
-  product        = stripe_product.general_maintenance_retainer.id
-  active         = true
-  billing_scheme = "tiered"
+# resource "stripe_price" "maintenance_retainer_custom" {
+#   currency       = "usd"
+#   product        = stripe_product.general_maintenance_retainer.id
+#   active         = true
+#   billing_scheme = "tiered"
 
-  tiers {
-    unit_amount = 0
-  }
+#   tiers {
+#     unit_amount = 0
+#   }
 
-  tiers_mode = "volume"
+#   tiers_mode = "volume"
 
-  metadata = {
-    tier                = "custom"
-    target_businesses   = "Large enterprises,Complex multi-system environments,Highly specialized applications"
-    monthly_hours       = "Custom hours based on requirements"
-    features_included   = "Fully customized maintenance plan,White-label support,Dedicated team,Custom SLAs,Advanced integrations"
-    response_time       = "Custom SLA-based"
-    monitoring_features = "Custom monitoring stack,Advanced analytics,Custom reporting"
-    included_services   = "Custom development,Specialized security,Compliance management,Legacy system support"
-    support_level       = "Custom support model,Dedicated account team,Custom communication channels"
-    business_value      = "Tailored maintenance solution,Custom SLAs,Dedicated resources,Specialized expertise"
-    phase               = "mrr"
-  }
-}
+#   metadata = {
+#     tier                = "custom"
+#     target_businesses   = "Large enterprises,Complex multi-system environments,Highly specialized applications"
+#     monthly_hours       = "Custom hours based on requirements"
+#     features_included   = "Fully customized maintenance plan,White-label support,Dedicated team,Custom SLAs,Advanced integrations"
+#     response_time       = "Custom SLA-based"
+#     monitoring_features = "Custom monitoring stack,Advanced analytics,Custom reporting"
+#     included_services   = "Custom development,Specialized security,Compliance management,Legacy system support"
+#     support_level       = "Custom support model,Dedicated account team,Custom communication channels"
+#     business_value      = "Tailored maintenance solution,Custom SLAs,Dedicated resources,Specialized expertise"
+#     phase               = "mrr"
+#   }
+# }
 
 # Medium-Priority MRR Candidates
 
@@ -2338,14 +2273,9 @@ resource "stripe_product" "api_development" {
 resource "stripe_price" "api_free" {
   currency       = "usd"
   product        = stripe_product.api_development.id
+  unit_amount    = 0
   active         = true
-  billing_scheme = "tiered"
-
-  tiers {
-    unit_amount = 0
-  }
-
-  tiers_mode = "volume"
+  billing_scheme = "per_unit"
 
   metadata = {
     tier              = "free"
@@ -2413,24 +2343,24 @@ resource "stripe_price" "api_premium" {
   }
 }
 
-resource "stripe_price" "api_custom" {
-  currency       = "usd"
-  product        = stripe_product.api_development.id
-  active         = true
-  billing_scheme = "tiered"
+# resource "stripe_price" "api_custom" {
+#   currency       = "usd"
+#   product        = stripe_product.api_development.id
+#   active         = true
+#   billing_scheme = "tiered"
 
-  tiers {
-    unit_amount = 0
-  }
+#   tiers {
+#     unit_amount = 0
+#   }
 
-  tiers_mode = "volume"
+#   tiers_mode = "volume"
 
-  metadata = {
-    tier     = "custom"
-    features = "Custom pricing based on API complexity and usage volume"
-    phase    = "mrr"
-  }
-}
+#   metadata = {
+#     tier     = "custom"
+#     features = "Custom pricing based on API complexity and usage volume"
+#     phase    = "mrr"
+#   }
+# }
 
 # 14. Google Play Store + iOS App Store
 resource "stripe_product" "app_store_management" {
@@ -2450,14 +2380,9 @@ resource "stripe_product" "app_store_management" {
 resource "stripe_price" "app_store_free" {
   currency       = "usd"
   product        = stripe_product.app_store_management.id
+  unit_amount    = 0
   active         = true
-  billing_scheme = "tiered"
-
-  tiers {
-    unit_amount = 0
-  }
-
-  tiers_mode = "volume"
+  billing_scheme = "per_unit"
 
   metadata = {
     tier              = "free"
@@ -2525,24 +2450,24 @@ resource "stripe_price" "app_store_premium" {
   }
 }
 
-resource "stripe_price" "app_store_custom" {
-  currency       = "usd"
-  product        = stripe_product.app_store_management.id
-  active         = true
-  billing_scheme = "tiered"
+# resource "stripe_price" "app_store_custom" {
+#   currency       = "usd"
+#   product        = stripe_product.app_store_management.id
+#   active         = true
+#   billing_scheme = "tiered"
 
-  tiers {
-    unit_amount = 0
-  }
+#   tiers {
+#     unit_amount = 0
+#   }
 
-  tiers_mode = "volume"
+#   tiers_mode = "volume"
 
-  metadata = {
-    tier     = "custom"
-    features = "Custom pricing based on app complexity and platform requirements"
-    phase    = "mrr"
-  }
-}
+#   metadata = {
+#     tier     = "custom"
+#     features = "Custom pricing based on app complexity and platform requirements"
+#     phase    = "mrr"
+#   }
+# }
 
 # 15. Blog with CMS
 resource "stripe_product" "blog_cms" {
@@ -2562,14 +2487,9 @@ resource "stripe_product" "blog_cms" {
 resource "stripe_price" "blog_cms_free" {
   currency       = "usd"
   product        = stripe_product.blog_cms.id
+  unit_amount    = 0
   active         = true
-  billing_scheme = "tiered"
-
-  tiers {
-    unit_amount = 0
-  }
-
-  tiers_mode = "volume"
+  billing_scheme = "per_unit"
 
   metadata = {
     tier              = "free"
@@ -2637,24 +2557,24 @@ resource "stripe_price" "blog_cms_premium" {
   }
 }
 
-resource "stripe_price" "blog_cms_custom" {
-  currency       = "usd"
-  product        = stripe_product.blog_cms.id
-  active         = true
-  billing_scheme = "tiered"
+# resource "stripe_price" "blog_cms_custom" {
+#   currency       = "usd"
+#   product        = stripe_product.blog_cms.id
+#   active         = true
+#   billing_scheme = "tiered"
 
-  tiers {
-    unit_amount = 0
-  }
+#   tiers {
+#     unit_amount = 0
+#   }
 
-  tiers_mode = "volume"
+#   tiers_mode = "volume"
 
-  metadata = {
-    tier     = "custom"
-    features = "Custom pricing based on content volume and CMS complexity"
-    phase    = "mrr"
-  }
-}
+#   metadata = {
+#     tier     = "custom"
+#     features = "Custom pricing based on content volume and CMS complexity"
+#     phase    = "mrr"
+#   }
+# }
 
 # 16. Internationalization
 resource "stripe_product" "internationalization" {
@@ -2674,14 +2594,9 @@ resource "stripe_product" "internationalization" {
 resource "stripe_price" "i18n_free" {
   currency       = "usd"
   product        = stripe_product.internationalization.id
+  unit_amount    = 0
   active         = true
-  billing_scheme = "tiered"
-
-  tiers {
-    unit_amount = 0
-  }
-
-  tiers_mode = "volume"
+  billing_scheme = "per_unit"
 
   metadata = {
     tier              = "free"
@@ -2749,24 +2664,24 @@ resource "stripe_price" "i18n_premium" {
   }
 }
 
-resource "stripe_price" "i18n_custom" {
-  currency       = "usd"
-  product        = stripe_product.internationalization.id
-  active         = true
-  billing_scheme = "tiered"
+# resource "stripe_price" "i18n_custom" {
+#   currency       = "usd"
+#   product        = stripe_product.internationalization.id
+#   active         = true
+#   billing_scheme = "tiered"
 
-  tiers {
-    unit_amount = 0
-  }
+#   tiers {
+#     unit_amount = 0
+#   }
 
-  tiers_mode = "volume"
+#   tiers_mode = "volume"
 
-  metadata = {
-    tier     = "custom"
-    features = "Custom pricing based on language count and localization complexity"
-    phase    = "mrr"
-  }
-}
+#   metadata = {
+#     tier     = "custom"
+#     features = "Custom pricing based on language count and localization complexity"
+#     phase    = "mrr"
+#   }
+# }
 
 # 17. SSO/Social Login
 resource "stripe_product" "sso_social_login" {
@@ -2786,14 +2701,9 @@ resource "stripe_product" "sso_social_login" {
 resource "stripe_price" "sso_free" {
   currency       = "usd"
   product        = stripe_product.sso_social_login.id
+  unit_amount    = 0
   active         = true
-  billing_scheme = "tiered"
-
-  tiers {
-    unit_amount = 0
-  }
-
-  tiers_mode = "volume"
+  billing_scheme = "per_unit"
 
   metadata = {
     tier              = "free"
@@ -2861,21 +2771,21 @@ resource "stripe_price" "sso_premium" {
   }
 }
 
-resource "stripe_price" "sso_custom" {
-  currency       = "usd"
-  product        = stripe_product.sso_social_login.id
-  active         = true
-  billing_scheme = "tiered"
+# resource "stripe_price" "sso_custom" {
+#   currency       = "usd"
+#   product        = stripe_product.sso_social_login.id
+#   active         = true
+#   billing_scheme = "tiered"
 
-  tiers {
-    unit_amount = 0
-  }
+#   tiers {
+#     unit_amount = 0
+#   }
 
-  tiers_mode = "volume"
+#   tiers_mode = "volume"
 
-  metadata = {
-    tier     = "custom"
-    features = "Custom pricing based on provider count and authentication complexity"
-    phase    = "mrr"
-  }
-}
+#   metadata = {
+#     tier     = "custom"
+#     features = "Custom pricing based on provider count and authentication complexity"
+#     phase    = "mrr"
+#   }
+# }
