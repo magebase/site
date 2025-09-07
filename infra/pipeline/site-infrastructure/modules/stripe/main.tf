@@ -515,9 +515,14 @@ resource "stripe_price" "ai_ml_free" {
   billing_scheme = "per_unit"
 
   metadata = {
-    tier     = "free"
-    features = "Self-managed AI/ML implementation, basic model deployment"
-    phase    = "mrr"
+    tier              = "free"
+    target_businesses = "Small businesses,Startups,Basic AI needs"
+    features_included = "Self-managed AI/ML setup,Basic model integration"
+    support_level     = "No ongoing support available - self-managed, self-serviced tier"
+    management_type   = "Self-managed and self-serviced"
+    limitations       = "No dedicated support,No model retraining,No performance monitoring"
+    upgrade_path      = "Basic tier recommended for production AI/ML needs"
+    phase             = "mrr"
   }
 }
 
@@ -612,9 +617,14 @@ resource "stripe_price" "blockchain_free" {
   billing_scheme = "per_unit"
 
   metadata = {
-    tier     = "free"
-    features = "Self-managed blockchain integration, basic smart contract deployment"
-    phase    = "mrr"
+    tier              = "free"
+    target_businesses = "Small businesses,Startups,Basic blockchain needs"
+    features_included = "Self-managed blockchain integration,Basic smart contract deployment"
+    support_level     = "No ongoing support available - self-managed, self-serviced tier"
+    management_type   = "Self-managed and self-serviced"
+    limitations       = "No dedicated support,No network monitoring,No security audits"
+    upgrade_path      = "Basic tier recommended for production blockchain needs"
+    phase             = "mrr"
   }
 }
 
@@ -709,9 +719,14 @@ resource "stripe_price" "gambling_free" {
   billing_scheme = "per_unit"
 
   metadata = {
-    tier     = "free"
-    features = "Self-managed gaming platform, basic compliance setup"
-    phase    = "mrr"
+    tier              = "free"
+    target_businesses = "Small gaming businesses,Startups,Basic gaming platforms"
+    features_included = "Self-managed gaming platform,Basic compliance setup"
+    support_level     = "No ongoing support available - self-managed, self-serviced tier"
+    management_type   = "Self-managed and self-serviced"
+    limitations       = "No dedicated support,No compliance monitoring,No RNG verification"
+    upgrade_path      = "Basic tier recommended for regulated gaming platforms"
+    phase             = "mrr"
   }
 }
 
@@ -806,9 +821,14 @@ resource "stripe_price" "real_time_free" {
   billing_scheme = "per_unit"
 
   metadata = {
-    tier     = "free"
-    features = "Self-managed real-time features, basic WebSocket implementation"
-    phase    = "mrr"
+    tier              = "free"
+    target_businesses = "Small applications,Startups,Basic real-time needs"
+    features_included = "Self-managed real-time features,Basic WebSocket implementation"
+    support_level     = "No ongoing support available - self-managed, self-serviced tier"
+    management_type   = "Self-managed and self-serviced"
+    limitations       = "No dedicated support,No server monitoring,No uptime guarantees"
+    upgrade_path      = "Basic tier recommended for production real-time applications"
+    phase             = "mrr"
   }
 }
 
@@ -903,9 +923,14 @@ resource "stripe_price" "marketing_free" {
   billing_scheme = "per_unit"
 
   metadata = {
-    tier     = "free"
-    features = "Self-managed marketing campaigns, basic social media setup"
-    phase    = "mrr"
+    tier              = "free"
+    target_businesses = "Small businesses,Startups,Basic marketing needs"
+    features_included = "Self-managed marketing campaigns,Basic social media setup"
+    support_level     = "No ongoing support available - self-managed, self-serviced tier"
+    management_type   = "Self-managed and self-serviced"
+    limitations       = "No dedicated support,No campaign monitoring,No optimization"
+    upgrade_path      = "Basic tier recommended for professional marketing campaigns"
+    phase             = "mrr"
   }
 }
 
@@ -1000,9 +1025,14 @@ resource "stripe_price" "autoblogger_free" {
   billing_scheme = "per_unit"
 
   metadata = {
-    tier     = "free"
-    features = "Self-managed content creation, basic blogging platform"
-    phase    = "mrr"
+    tier              = "free"
+    target_businesses = "Small businesses,Startups,Basic content needs"
+    features_included = "Self-managed content creation,Basic blogging platform"
+    support_level     = "No ongoing support available - self-managed, self-serviced tier"
+    management_type   = "Self-managed and self-serviced"
+    limitations       = "No dedicated support,No content quality monitoring,No SEO optimization"
+    upgrade_path      = "Basic tier recommended for professional content creation"
+    phase             = "mrr"
   }
 }
 
@@ -1097,9 +1127,14 @@ resource "stripe_price" "publisher_free" {
   billing_scheme = "per_unit"
 
   metadata = {
-    tier     = "free"
-    features = "Self-managed ad placements, basic ad network integration"
-    phase    = "mrr"
+    tier              = "free"
+    target_businesses = "Small publishers,Startups,Basic ad monetization needs"
+    features_included = "Self-managed ad placements,Basic ad network integration"
+    support_level     = "No ongoing support available - self-managed, self-serviced tier"
+    management_type   = "Self-managed and self-serviced"
+    limitations       = "No dedicated support,No ad optimization,No performance tracking"
+    upgrade_path      = "Basic tier recommended for professional ad monetization"
+    phase             = "mrr"
   }
 }
 
@@ -1185,9 +1220,14 @@ resource "stripe_price" "support_chatbot_free" {
   billing_scheme = "per_unit"
 
   metadata = {
-    tier     = "free"
-    features = "Self-managed chatbot, basic support integration"
-    phase    = "mrr"
+    tier              = "free"
+    target_businesses = "Small businesses,Startups,Basic customer support needs"
+    features_included = "Self-managed chatbot implementation,Basic conversation handling"
+    support_level     = "No ongoing support available - self-managed, self-serviced tier"
+    management_type   = "Self-managed and self-serviced"
+    limitations       = "No dedicated support,No training updates,No performance monitoring"
+    upgrade_path      = "Basic tier recommended for professional customer support"
+    phase             = "mrr"
   }
 }
 
@@ -1282,9 +1322,14 @@ resource "stripe_price" "sales_chatbot_free" {
   billing_scheme = "per_unit"
 
   metadata = {
-    tier     = "free"
-    features = "Self-managed sales chatbot, basic lead capture"
-    phase    = "mrr"
+    tier              = "free"
+    target_businesses = "Small businesses,Startups,Basic sales needs"
+    features_included = "Self-managed sales chatbot,Basic lead capture"
+    support_level     = "No ongoing support available - self-managed, self-serviced tier"
+    management_type   = "Self-managed and self-serviced"
+    limitations       = "No dedicated support,No lead qualification,No conversion tracking"
+    upgrade_path      = "Basic tier recommended for professional sales automation"
+    phase             = "mrr"
   }
 }
 
@@ -1379,9 +1424,14 @@ resource "stripe_price" "crm_free" {
   billing_scheme = "per_unit"
 
   metadata = {
-    tier     = "free"
-    features = "Self-managed CRM, basic contact management"
-    phase    = "mrr"
+    tier              = "free"
+    target_businesses = "Small businesses,Startups,Basic CRM needs"
+    features_included = "Self-managed CRM,Basic contact management"
+    support_level     = "No ongoing support available - self-managed, self-serviced tier"
+    management_type   = "Self-managed and self-serviced"
+    limitations       = "No dedicated support,No data synchronization,No integration monitoring"
+    upgrade_path      = "Basic tier recommended for professional CRM management"
+    phase             = "mrr"
   }
 }
 
@@ -1485,6 +1535,8 @@ resource "stripe_price" "maintenance_retainer_free" {
     target_businesses   = "Small businesses,Startups,Simple web applications"
     monthly_hours       = "0 hours included"
     features_included   = "Basic uptime monitoring,Self-service documentation,Community support"
+    support_level       = "No ongoing support available - self-managed, self-serviced tier"
+    management_type     = "Self-managed and self-serviced"
     limitations         = "No dedicated support,No proactive maintenance,Limited monitoring"
     upgrade_path        = "Basic tier recommended for growing applications"
     response_time       = "Best effort"
@@ -1614,9 +1666,14 @@ resource "stripe_price" "api_free" {
   billing_scheme = "per_unit"
 
   metadata = {
-    tier     = "free"
-    features = "Self-managed API development, basic documentation"
-    phase    = "mrr"
+    tier              = "free"
+    target_businesses = "Small businesses,Startups,Basic API needs"
+    features_included = "Self-managed API development,Basic documentation"
+    support_level     = "No ongoing support available - self-managed, self-serviced tier"
+    management_type   = "Self-managed and self-serviced"
+    limitations       = "No dedicated support,No monitoring,No version control"
+    upgrade_path      = "Basic tier recommended for production API management"
+    phase             = "mrr"
   }
 }
 
@@ -1711,9 +1768,14 @@ resource "stripe_price" "app_store_free" {
   billing_scheme = "per_unit"
 
   metadata = {
-    tier     = "free"
-    features = "Self-managed app store presence, basic app submission"
-    phase    = "mrr"
+    tier              = "free"
+    target_businesses = "Small businesses,Startups,Basic mobile apps"
+    features_included = "Self-managed app store presence,Basic app submission"
+    support_level     = "No ongoing support available - self-managed, self-serviced tier"
+    management_type   = "Self-managed and self-serviced"
+    limitations       = "No dedicated support,No compliance monitoring,No update management"
+    upgrade_path      = "Basic tier recommended for professional app store management"
+    phase             = "mrr"
   }
 }
 
@@ -1808,9 +1870,14 @@ resource "stripe_price" "blog_cms_free" {
   billing_scheme = "per_unit"
 
   metadata = {
-    tier     = "free"
-    features = "Self-managed blog/CMS, basic content management"
-    phase    = "mrr"
+    tier              = "free"
+    target_businesses = "Small businesses,Startups,Basic content needs"
+    features_included = "Self-managed blog/CMS,Basic content management"
+    support_level     = "No ongoing support available - self-managed, self-serviced tier"
+    management_type   = "Self-managed and self-serviced"
+    limitations       = "No dedicated support,No security updates,No SEO monitoring"
+    upgrade_path      = "Basic tier recommended for professional content management"
+    phase             = "mrr"
   }
 }
 
@@ -1905,9 +1972,14 @@ resource "stripe_price" "i18n_free" {
   billing_scheme = "per_unit"
 
   metadata = {
-    tier     = "free"
-    features = "Self-managed internationalization, basic language support"
-    phase    = "mrr"
+    tier              = "free"
+    target_businesses = "Small businesses,Startups,Basic internationalization needs"
+    features_included = "Self-managed internationalization,Basic language support"
+    support_level     = "No ongoing support available - self-managed, self-serviced tier"
+    management_type   = "Self-managed and self-serviced"
+    limitations       = "No dedicated support,No translation updates,No localization testing"
+    upgrade_path      = "Basic tier recommended for multi-language applications"
+    phase             = "mrr"
   }
 }
 
@@ -2002,9 +2074,14 @@ resource "stripe_price" "sso_free" {
   billing_scheme = "per_unit"
 
   metadata = {
-    tier     = "free"
-    features = "Self-managed authentication, basic social login setup"
-    phase    = "mrr"
+    tier              = "free"
+    target_businesses = "Small businesses,Startups,Basic authentication needs"
+    features_included = "Self-managed authentication,Basic social login setup"
+    support_level     = "No ongoing support available - self-managed, self-serviced tier"
+    management_type   = "Self-managed and self-serviced"
+    limitations       = "No dedicated support,No API monitoring,No security updates"
+    upgrade_path      = "Basic tier recommended for professional authentication management"
+    phase             = "mrr"
   }
 }
 
