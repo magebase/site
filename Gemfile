@@ -112,8 +112,6 @@ gem "will_paginate", "~> 4.0"
 # Friendly ID for permalinks
 gem "friendly_id", "~> 5.5"
 
-# Friendly ID for permalinks
-gem "friendly_id", "~> 5.5"
 
 # Stripe for payment processing
 gem "stripe", "~> 15.5"

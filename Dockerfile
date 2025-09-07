@@ -14,13 +14,20 @@ FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 # Rails app lives here
 WORKDIR /rails
 
-# Install base packages
+# Install base packages with security updates
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 libvips postgresql-client && \
+    apt-get upgrade -y && \
+    apt-get install --no-install-recommends -y \
+        curl \
+        libjemalloc2 \
+        libvips \
+        postgresql-client \
+        ca-certificates \
+        && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
     # Install JavaScript dependencies
-ARG NODE_VERSION=22.13.1
+ARG NODE_VERSION=22.14.0
 ENV PATH=/usr/local/node/bin:$PATH
 RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz -C /tmp/ && \
     /tmp/node-build-master/bin/node-build "${NODE_VERSION}" /usr/local/node && \
@@ -37,7 +44,17 @@ FROM base AS build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config && \
+    apt-get upgrade -y && \
+    apt-get install --no-install-recommends -y \
+        build-essential \
+        git \
+        libpq-dev \
+        libyaml-dev \
+        pkg-config \
+        imagemagick \
+        libmagickcore-dev \
+        libmagickwand-dev \
+        && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems
@@ -74,6 +91,13 @@ RUN SECRET_KEY_BASE_DUMMY=1 RAILS_MASTER_KEY=dummy_key_for_build RAILS_ENV=produ
 
 # Final stage for app image
 FROM base
+
+# Install runtime security updates
+USER root
+RUN apt-get update -qq && \
+    apt-get upgrade -y && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+USER 1000:1000
 
 # Copy built artifacts: gems, application
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
