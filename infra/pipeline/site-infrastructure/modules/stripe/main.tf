@@ -48,7 +48,7 @@ resource "stripe_product" "managed_devops" {
     phase             = "productization"
     target_businesses = "SaaS companies,E-commerce platforms,FinTech apps,High-growth startups"
     technologies      = "Docker,Kubernetes,AWS,Hetzner"
-    monitoring_tools  = "Prometheus,Grafana,ELK Stack,ArgoCD"
+    monitoring_tools  = "Prometheus,Grafana,OpenTelemetry,ArgoCD"
     security_features = "Vulnerability scanning,Compliance monitoring,Access control,Security audits"
     uptime_sla        = "99.9% guaranteed"
     response_time     = "< 15 minutes for critical alerts"
