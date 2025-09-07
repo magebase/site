@@ -26,8 +26,8 @@
     /* ShadcnUI */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./app/frontend/*"]
+      "@/*": ["./app/frontend/*", "./components/*"]
     }
   },
-  "include": ["app/frontend"]
+  "include": ["app/frontend", "components"]
 }

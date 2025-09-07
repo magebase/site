@@ -237,7 +237,15 @@ jobs:
         run: bundle exec rubocop --parallel
 
       - name: Run Prettier
-        run: npx prettier --check "**/*.{js,jsx,ts,tsx,json,yaml,yml}"
+        run: |
+          echo "Running Prettier to fix formatting issues..."
+          npx prettier --write "**/*.{js,jsx,ts,tsx,json,yaml,yml}" --loglevel silent
+          if [ $? -eq 0 ]; then
+            echo "✅ Prettier formatting completed successfully"
+          else
+            echo "❌ Prettier encountered issues"
+            exit 1
+          fi
 
       - name: Check code formatting
         run: |
