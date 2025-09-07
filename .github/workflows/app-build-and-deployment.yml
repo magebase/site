@@ -414,7 +414,6 @@ jobs:
             echo "- ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main"
             echo "- ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}"
           fi
-
   security-scan:
     name: Container Security Scan
     runs-on: ubicloud-standard-2-arm
@@ -472,15 +471,18 @@ jobs:
         with:
           scan-type: 'image'
           scan-ref: ${{ steps.scan-image.outputs.image }}
-          format: 'sarif'
+          format: 'table'
+          severity: 'CRITICAL,HIGH'
+          exit-code: 1
+          ignore-unfixed: true
           output: 'trivy-results.sarif'
 
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v3
-        if: always() && github.event.repository.private == false
-        continue-on-error: true
-        with:
-          sarif_file: 'trivy-results.sarif'
+      # - name: Upload Trivy scan results to GitHub Security tab
+      #   uses: github/codeql-action/upload-sarif@v3
+      #   if: always() && github.event.repository.private == false
+      #   continue-on-error: true
+      #   with:
+      #     sarif_file: 'trivy-results.sarif'
 
       - name: Check SARIF upload status
         if: always()
@@ -501,7 +503,7 @@ jobs:
             echo "⚠️  Trivy SARIF file not found"
           fi
 
-  deploy:
+  commit-latest-image-tag:
     name: Commit latest image tag
     runs-on: ubicloud-standard-2-arm
     needs: [test, lint, security, build, security-scan]
@@ -512,13 +514,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install ArgoCD CLI
-        run: |
-          curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-          chmod +x argocd-linux-amd64
-          sudo mv argocd-linux-amd64 /usr/local/bin/argocd
-
-      - name: Update Kubernetes Deployment
+      - name: Commit release image tag
         run: |
           # Determine the image tag to use
           if [ "${{ needs.build.outputs.new_release_published }}" == "true" ]; then
@@ -555,24 +551,6 @@ jobs:
 
       #     # Run health checks
       #     curl -f https://${{ github.event.inputs.environment != 'prod' && format('{0}.', github.event.inputs.environment || 'dev')}}magebase.dev/health
-
-  performance-test:
-    name: Performance Testing
-    runs-on: ubicloud-standard-2-arm
-    needs: deploy
-    if: success() && github.ref == 'refs/heads/main'
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run Lighthouse Performance Test
-        uses: treosh/lighthouse-ci-action@v10
-        with:
-          urls: https://magebase.dev
-          configPath: .lighthouserc.json
-          uploadArtifacts: true
-          temporaryPublicStorage: true
 
   # cleanup:
   #   name: Cleanup Old Images
