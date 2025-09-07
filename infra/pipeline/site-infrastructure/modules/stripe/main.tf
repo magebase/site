@@ -57,75 +57,75 @@ resource "stripe_portal_configuration" "portal_configuration" {
       }
       products {
         product = stripe_product.payment_processing.id
-        prices  = [stripe_price.payment_processing_free.id, stripe_price.payment_processing_basic.id, stripe_price.payment_processing_standard.id, stripe_price.payment_processing_premium.id, stripe_price.payment_processing_basic_yearly.id, stripe_price.payment_processing_standard_yearly.id, stripe_price.payment_processing_premium_yearly.id]
+        prices  = [stripe_price.payment_processing_basic.id, stripe_price.payment_processing_standard.id, stripe_price.payment_processing_premium.id, stripe_price.payment_processing_basic_yearly.id, stripe_price.payment_processing_standard_yearly.id, stripe_price.payment_processing_premium_yearly.id]
       }
       products {
         product = stripe_product.analytics_tracking.id
-        prices  = [stripe_price.analytics_free.id, stripe_price.analytics_basic.id, stripe_price.analytics_standard.id, stripe_price.analytics_premium.id, stripe_price.analytics_basic_yearly.id, stripe_price.analytics_standard_yearly.id, stripe_price.analytics_premium_yearly.id]
+        prices  = [stripe_price.analytics_basic.id, stripe_price.analytics_standard.id, stripe_price.analytics_premium.id, stripe_price.analytics_basic_yearly.id, stripe_price.analytics_standard_yearly.id, stripe_price.analytics_premium_yearly.id]
       }
       products {
         product = stripe_product.ai_ml_features.id
-        prices  = [stripe_price.ai_ml_free.id, stripe_price.ai_ml_basic.id, stripe_price.ai_ml_standard.id, stripe_price.ai_ml_premium.id, stripe_price.ai_ml_basic_yearly.id, stripe_price.ai_ml_standard_yearly.id, stripe_price.ai_ml_premium_yearly.id]
+        prices  = [stripe_price.ai_ml_basic.id, stripe_price.ai_ml_standard.id, stripe_price.ai_ml_premium.id, stripe_price.ai_ml_basic_yearly.id, stripe_price.ai_ml_standard_yearly.id, stripe_price.ai_ml_premium_yearly.id]
       }
       products {
         product = stripe_product.blockchain_integration.id
-        prices  = [stripe_price.blockchain_free.id, stripe_price.blockchain_basic.id, stripe_price.blockchain_standard.id, stripe_price.blockchain_premium.id]
+        prices  = [stripe_price.blockchain_basic.id, stripe_price.blockchain_standard.id, stripe_price.blockchain_premium.id]
       }
       products {
         product = stripe_product.gambling_igaming.id
-        prices  = [stripe_price.gambling_free.id, stripe_price.gambling_basic.id, stripe_price.gambling_standard.id, stripe_price.gambling_premium.id]
+        prices  = [stripe_price.gambling_basic.id, stripe_price.gambling_standard.id, stripe_price.gambling_premium.id]
       }
       products {
         product = stripe_product.real_time_features.id
-        prices  = [stripe_price.real_time_free.id, stripe_price.real_time_basic.id, stripe_price.real_time_standard.id, stripe_price.real_time_premium.id]
+        prices  = [stripe_price.real_time_basic.id, stripe_price.real_time_standard.id, stripe_price.real_time_premium.id]
       }
       products {
         product = stripe_product.automated_digital_marketing.id
-        prices  = [stripe_price.marketing_free.id, stripe_price.marketing_basic.id, stripe_price.marketing_standard.id, stripe_price.marketing_premium.id]
+        prices  = [stripe_price.marketing_basic.id, stripe_price.marketing_standard.id, stripe_price.marketing_premium.id]
       }
       products {
         product = stripe_product.autoblogger.id
-        prices  = [stripe_price.autoblogger_free.id, stripe_price.autoblogger_basic.id, stripe_price.autoblogger_standard.id, stripe_price.autoblogger_premium.id]
+        prices  = [stripe_price.autoblogger_basic.id, stripe_price.autoblogger_standard.id, stripe_price.autoblogger_premium.id]
       }
       products {
         product = stripe_product.publisher.id
-        prices  = [stripe_price.publisher_free.id, stripe_price.publisher_basic.id, stripe_price.publisher_standard.id, stripe_price.publisher_premium.id]
+        prices  = [stripe_price.publisher_basic.id, stripe_price.publisher_standard.id, stripe_price.publisher_premium.id]
       }
       products {
         product = stripe_product.customer_support_chatbot.id
-        prices  = [stripe_price.support_chatbot_free.id, stripe_price.support_chatbot_basic.id, stripe_price.support_chatbot_standard.id, stripe_price.support_chatbot_premium.id]
+        prices  = [stripe_price.support_chatbot_basic.id, stripe_price.support_chatbot_standard.id, stripe_price.support_chatbot_premium.id]
       }
       products {
         product = stripe_product.sales_chatbot.id
-        prices  = [stripe_price.sales_chatbot_free.id, stripe_price.sales_chatbot_basic.id, stripe_price.sales_chatbot_standard.id, stripe_price.sales_chatbot_premium.id]
+        prices  = [stripe_price.sales_chatbot_basic.id, stripe_price.sales_chatbot_standard.id, stripe_price.sales_chatbot_premium.id]
       }
       products {
         product = stripe_product.crm_system.id
-        prices  = [stripe_price.crm_free.id, stripe_price.crm_basic.id, stripe_price.crm_standard.id, stripe_price.crm_premium.id]
+        prices  = [stripe_price.crm_basic.id, stripe_price.crm_standard.id, stripe_price.crm_premium.id]
       }
       products {
         product = stripe_product.general_maintenance_retainer.id
-        prices  = [stripe_price.maintenance_retainer_free.id, stripe_price.maintenance_retainer_basic.id, stripe_price.maintenance_retainer_standard.id, stripe_price.maintenance_retainer_premium.id]
+        prices  = [stripe_price.maintenance_retainer_basic.id, stripe_price.maintenance_retainer_standard.id, stripe_price.maintenance_retainer_premium.id]
       }
       products {
         product = stripe_product.api_development.id
-        prices  = [stripe_price.api_free.id, stripe_price.api_basic.id, stripe_price.api_standard.id, stripe_price.api_premium.id]
+        prices  = [stripe_price.api_basic.id, stripe_price.api_standard.id, stripe_price.api_premium.id]
       }
       products {
         product = stripe_product.app_store_management.id
-        prices  = [stripe_price.app_store_free.id, stripe_price.app_store_basic.id, stripe_price.app_store_standard.id, stripe_price.app_store_premium.id]
+        prices  = [stripe_price.app_store_basic.id, stripe_price.app_store_standard.id, stripe_price.app_store_premium.id]
       }
       products {
         product = stripe_product.blog_cms.id
-        prices  = [stripe_price.blog_cms_free.id, stripe_price.blog_cms_basic.id, stripe_price.blog_cms_standard.id, stripe_price.blog_cms_premium.id]
+        prices  = [stripe_price.blog_cms_basic.id, stripe_price.blog_cms_standard.id, stripe_price.blog_cms_premium.id]
       }
       products {
         product = stripe_product.internationalization.id
-        prices  = [stripe_price.i18n_free.id, stripe_price.i18n_basic.id, stripe_price.i18n_standard.id, stripe_price.i18n_premium.id]
+        prices  = [stripe_price.i18n_basic.id, stripe_price.i18n_standard.id, stripe_price.i18n_premium.id]
       }
       products {
         product = stripe_product.sso_social_login.id
-        prices  = [stripe_price.sso_free.id, stripe_price.sso_basic.id, stripe_price.sso_standard.id, stripe_price.sso_premium.id]
+        prices  = [stripe_price.sso_basic.id, stripe_price.sso_standard.id, stripe_price.sso_premium.id]
       }
     }
   }
@@ -560,23 +560,23 @@ resource "stripe_product" "payment_processing" {
   }
 }
 
-resource "stripe_price" "payment_processing_free" {
-  currency    = "usd"
-  product     = stripe_product.payment_processing.id
-  unit_amount = 0
-  active      = true
+# resource "stripe_price" "payment_processing_free" {
+#   currency    = "usd"
+#   product     = stripe_product.payment_processing.id
+#   unit_amount = 0
+#   active      = true
 
-  metadata = {
-    tier              = "free"
-    target_businesses = "Small businesses,Startups,Low-volume merchants"
-    features_included = "Self-managed Stripe integration,Stripe PCI compliance"
-    limitations       = "No dedicated support,No custom integrations,Limited reporting"
-    support_level     = "No ongoing support available - self-managed, self-serviced tier"
-    management_type   = "Self-managed and self-serviced"
-    upgrade_path      = "Basic tier recommended for growing businesses"
-    phase             = "mrr"
-  }
-}
+#   metadata = {
+#     tier              = "free"
+#     target_businesses = "Small businesses,Startups,Low-volume merchants"
+#     features_included = "Self-managed Stripe integration,Stripe PCI compliance"
+#     limitations       = "No dedicated support,No custom integrations,Limited reporting"
+#     support_level     = "No ongoing support available - self-managed, self-serviced tier"
+#     management_type   = "Self-managed and self-serviced"
+#     upgrade_path      = "Basic tier recommended for growing businesses"
+#     phase             = "mrr"
+#   }
+# }
 
 resource "stripe_price" "payment_processing_basic" {
   currency       = "usd"
@@ -773,24 +773,24 @@ resource "stripe_product" "analytics_tracking" {
   }
 }
 
-resource "stripe_price" "analytics_free" {
-  currency    = "usd"
-  product     = stripe_product.analytics_tracking.id
-  unit_amount = 0
-  active      = true
+# resource "stripe_price" "analytics_free" {
+#   currency    = "usd"
+#   product     = stripe_product.analytics_tracking.id
+#   unit_amount = 0
+#   active      = true
 
-  metadata = {
-    tier              = "free"
-    target_businesses = "Small SaaS,Content sites,E-commerce stores"
-    monthly_pageviews = "Up to 100k"
-    features_included = "Self-managed analytics setup, basic Google Analytics integration"
-    support_level     = "No ongoing support available - self-managed, self-serviced tier"
-    management_type   = "Self-managed and self-serviced"
-    limitations       = "No dedicated support,No custom dashboards,Limited reporting"
-    upgrade_path      = "Basic tier recommended for growing businesses"
-    phase             = "mrr"
-  }
-}
+#   metadata = {
+#     tier              = "free"
+#     target_businesses = "Small SaaS,Content sites,E-commerce stores"
+#     monthly_pageviews = "Up to 100k"
+#     features_included = "Self-managed analytics setup, basic Google Analytics integration"
+#     support_level     = "No ongoing support available - self-managed, self-serviced tier"
+#     management_type   = "Self-managed and self-serviced"
+#     limitations       = "No dedicated support,No custom dashboards,Limited reporting"
+#     upgrade_path      = "Basic tier recommended for growing businesses"
+#     phase             = "mrr"
+#   }
+# }
 
 resource "stripe_price" "analytics_basic" {
   currency       = "usd"
@@ -983,23 +983,23 @@ resource "stripe_product" "ai_ml_features" {
   }
 }
 
-resource "stripe_price" "ai_ml_free" {
-  currency    = "usd"
-  product     = stripe_product.ai_ml_features.id
-  unit_amount = 0
-  active      = true
+# resource "stripe_price" "ai_ml_free" {
+#   currency    = "usd"
+#   product     = stripe_product.ai_ml_features.id
+#   unit_amount = 0
+#   active      = true
 
-  metadata = {
-    tier              = "free"
-    target_businesses = "Small businesses,Startups,Basic AI needs"
-    features_included = "Self-managed AI/ML setup,Basic model integration"
-    support_level     = "No ongoing support available - self-managed, self-serviced tier"
-    management_type   = "Self-managed and self-serviced"
-    limitations       = "No dedicated support,No model retraining,No performance monitoring"
-    upgrade_path      = "Basic tier recommended for production AI/ML needs"
-    phase             = "mrr"
-  }
-}
+#   metadata = {
+#     tier              = "free"
+#     target_businesses = "Small businesses,Startups,Basic AI needs"
+#     features_included = "Self-managed AI/ML setup,Basic model integration"
+#     support_level     = "No ongoing support available - self-managed, self-serviced tier"
+#     management_type   = "Self-managed and self-serviced"
+#     limitations       = "No dedicated support,No model retraining,No performance monitoring"
+#     upgrade_path      = "Basic tier recommended for production AI/ML needs"
+#     phase             = "mrr"
+#   }
+# }
 
 resource "stripe_price" "ai_ml_basic" {
   currency       = "usd"
@@ -1156,23 +1156,23 @@ resource "stripe_product" "blockchain_integration" {
   }
 }
 
-resource "stripe_price" "blockchain_free" {
-  currency    = "usd"
-  product     = stripe_product.blockchain_integration.id
-  unit_amount = 0
-  active      = true
+# resource "stripe_price" "blockchain_free" {
+#   currency    = "usd"
+#   product     = stripe_product.blockchain_integration.id
+#   unit_amount = 0
+#   active      = true
 
-  metadata = {
-    tier              = "free"
-    target_businesses = "Small businesses,Startups,Basic blockchain needs"
-    features_included = "Self-managed blockchain integration,Basic smart contract deployment"
-    support_level     = "No ongoing support available - self-managed, self-serviced tier"
-    management_type   = "Self-managed and self-serviced"
-    limitations       = "No dedicated support,No network monitoring,No security audits"
-    upgrade_path      = "Basic tier recommended for production blockchain needs"
-    phase             = "mrr"
-  }
-}
+#   metadata = {
+#     tier              = "free"
+#     target_businesses = "Small businesses,Startups,Basic blockchain needs"
+#     features_included = "Self-managed blockchain integration,Basic smart contract deployment"
+#     support_level     = "No ongoing support available - self-managed, self-serviced tier"
+#     management_type   = "Self-managed and self-serviced"
+#     limitations       = "No dedicated support,No network monitoring,No security audits"
+#     upgrade_path      = "Basic tier recommended for production blockchain needs"
+#     phase             = "mrr"
+#   }
+# }
 
 resource "stripe_price" "blockchain_basic" {
   currency       = "usd"
@@ -1262,23 +1262,23 @@ resource "stripe_product" "gambling_igaming" {
   }
 }
 
-resource "stripe_price" "gambling_free" {
-  currency    = "usd"
-  product     = stripe_product.gambling_igaming.id
-  unit_amount = 0
-  active      = true
+# resource "stripe_price" "gambling_free" {
+#   currency    = "usd"
+#   product     = stripe_product.gambling_igaming.id
+#   unit_amount = 0
+#   active      = true
 
-  metadata = {
-    tier              = "free"
-    target_businesses = "Small gaming businesses,Startups,Basic gaming platforms"
-    features_included = "Self-managed gaming platform,Basic compliance setup"
-    support_level     = "No ongoing support available - self-managed, self-serviced tier"
-    management_type   = "Self-managed and self-serviced"
-    limitations       = "No dedicated support,No compliance monitoring,No RNG verification"
-    upgrade_path      = "Basic tier recommended for regulated gaming platforms"
-    phase             = "mrr"
-  }
-}
+#   metadata = {
+#     tier              = "free"
+#     target_businesses = "Small gaming businesses,Startups,Basic gaming platforms"
+#     features_included = "Self-managed gaming platform,Basic compliance setup"
+#     support_level     = "No ongoing support available - self-managed, self-serviced tier"
+#     management_type   = "Self-managed and self-serviced"
+#     limitations       = "No dedicated support,No compliance monitoring,No RNG verification"
+#     upgrade_path      = "Basic tier recommended for regulated gaming platforms"
+#     phase             = "mrr"
+#   }
+# }
 
 resource "stripe_price" "gambling_basic" {
   currency       = "usd"
@@ -1368,23 +1368,23 @@ resource "stripe_product" "real_time_features" {
   }
 }
 
-resource "stripe_price" "real_time_free" {
-  currency    = "usd"
-  product     = stripe_product.real_time_features.id
-  unit_amount = 0
-  active      = true
+# resource "stripe_price" "real_time_free" {
+#   currency    = "usd"
+#   product     = stripe_product.real_time_features.id
+#   unit_amount = 0
+#   active      = true
 
-  metadata = {
-    tier              = "free"
-    target_businesses = "Small applications,Startups,Basic real-time needs"
-    features_included = "Self-managed real-time features,Basic WebSocket implementation"
-    support_level     = "No ongoing support available - self-managed, self-serviced tier"
-    management_type   = "Self-managed and self-serviced"
-    limitations       = "No dedicated support,No server monitoring,No uptime guarantees"
-    upgrade_path      = "Basic tier recommended for production real-time applications"
-    phase             = "mrr"
-  }
-}
+#   metadata = {
+#     tier              = "free"
+#     target_businesses = "Small applications,Startups,Basic real-time needs"
+#     features_included = "Self-managed real-time features,Basic WebSocket implementation"
+#     support_level     = "No ongoing support available - self-managed, self-serviced tier"
+#     management_type   = "Self-managed and self-serviced"
+#     limitations       = "No dedicated support,No server monitoring,No uptime guarantees"
+#     upgrade_path      = "Basic tier recommended for production real-time applications"
+#     phase             = "mrr"
+#   }
+# }
 
 resource "stripe_price" "real_time_basic" {
   currency       = "usd"
@@ -1474,23 +1474,23 @@ resource "stripe_product" "automated_digital_marketing" {
   }
 }
 
-resource "stripe_price" "marketing_free" {
-  currency    = "usd"
-  product     = stripe_product.automated_digital_marketing.id
-  unit_amount = 0
-  active      = true
+# resource "stripe_price" "marketing_free" {
+#   currency    = "usd"
+#   product     = stripe_product.automated_digital_marketing.id
+#   unit_amount = 0
+#   active      = true
 
-  metadata = {
-    tier              = "free"
-    target_businesses = "Small businesses,Startups,Basic marketing needs"
-    features_included = "Self-managed marketing campaigns,Basic social media setup"
-    support_level     = "No ongoing support available - self-managed, self-serviced tier"
-    management_type   = "Self-managed and self-serviced"
-    limitations       = "No dedicated support,No campaign monitoring,No optimization"
-    upgrade_path      = "Basic tier recommended for professional marketing campaigns"
-    phase             = "mrr"
-  }
-}
+#   metadata = {
+#     tier              = "free"
+#     target_businesses = "Small businesses,Startups,Basic marketing needs"
+#     features_included = "Self-managed marketing campaigns,Basic social media setup"
+#     support_level     = "No ongoing support available - self-managed, self-serviced tier"
+#     management_type   = "Self-managed and self-serviced"
+#     limitations       = "No dedicated support,No campaign monitoring,No optimization"
+#     upgrade_path      = "Basic tier recommended for professional marketing campaigns"
+#     phase             = "mrr"
+#   }
+# }
 
 resource "stripe_price" "marketing_basic" {
   currency       = "usd"
@@ -1580,23 +1580,23 @@ resource "stripe_product" "autoblogger" {
   }
 }
 
-resource "stripe_price" "autoblogger_free" {
-  currency    = "usd"
-  product     = stripe_product.autoblogger.id
-  unit_amount = 0
-  active      = true
+# resource "stripe_price" "autoblogger_free" {
+#   currency    = "usd"
+#   product     = stripe_product.autoblogger.id
+#   unit_amount = 0
+#   active      = true
 
-  metadata = {
-    tier              = "free"
-    target_businesses = "Small businesses,Startups,Basic content needs"
-    features_included = "Self-managed content creation,Basic blogging platform"
-    support_level     = "No ongoing support available - self-managed, self-serviced tier"
-    management_type   = "Self-managed and self-serviced"
-    limitations       = "No dedicated support,No content quality monitoring,No SEO optimization"
-    upgrade_path      = "Basic tier recommended for professional content creation"
-    phase             = "mrr"
-  }
-}
+#   metadata = {
+#     tier              = "free"
+#     target_businesses = "Small businesses,Startups,Basic content needs"
+#     features_included = "Self-managed content creation,Basic blogging platform"
+#     support_level     = "No ongoing support available - self-managed, self-serviced tier"
+#     management_type   = "Self-managed and self-serviced"
+#     limitations       = "No dedicated support,No content quality monitoring,No SEO optimization"
+#     upgrade_path      = "Basic tier recommended for professional content creation"
+#     phase             = "mrr"
+#   }
+# }
 
 resource "stripe_price" "autoblogger_basic" {
   currency       = "usd"
@@ -1686,34 +1686,34 @@ resource "stripe_product" "publisher" {
   }
 }
 
-resource "stripe_price" "publisher_free" {
-  currency    = "usd"
-  product     = stripe_product.publisher.id
-  unit_amount = 0
-  active      = true
+# resource "stripe_price" "publisher_free" {
+#   currency    = "usd"
+#   product     = stripe_product.publisher.id
+#   unit_amount = 0
+#   active      = true
 
-  metadata = {
-    tier              = "free"
-    target_businesses = "Small publishers,Startups,Basic ad monetization needs"
-    features_included = "Self-managed ad placements,Basic ad network integration"
-    support_level     = "No ongoing support available - self-managed, self-serviced tier"
-    management_type   = "Self-managed and self-serviced"
-    limitations       = "No dedicated support,No ad optimization,No performance tracking"
-    upgrade_path      = "Basic tier recommended for professional ad monetization"
-    phase             = "mrr"
-  }
-}
+#   metadata = {
+#     tier              = "free"
+#     target_businesses = "Small publishers,Startups,Basic ad monetization needs"
+#     features_included = "Self-managed ad placements,Basic ad network integration"
+#     support_level     = "No ongoing support available - self-managed, self-serviced tier"
+#     management_type   = "Self-managed and self-serviced"
+#     limitations       = "No dedicated support,No ad optimization,No performance tracking"
+#     upgrade_path      = "Basic tier recommended for professional ad monetization"
+#     phase             = "mrr"
+#   }
+# }
 
 resource "stripe_price" "publisher_basic" {
   currency       = "usd"
   product        = stripe_product.publisher.id
+  unit_amount    = 50000 # $500.00 per month
   active         = true
-  billing_scheme = "tiered"
-
-  tiers {
+  billing_scheme = "per_unit"
+  recurring {
+    interval       = "month"
+    interval_count = 1
   }
-
-  tiers_mode = "volume"
 
   metadata = {
     tier          = "basic"
@@ -1726,13 +1726,13 @@ resource "stripe_price" "publisher_basic" {
 resource "stripe_price" "publisher_standard" {
   currency       = "usd"
   product        = stripe_product.publisher.id
+  unit_amount    = 100000 # $1,000.00 per month
   active         = true
-  billing_scheme = "tiered"
-
-  tiers {
+  billing_scheme = "per_unit"
+  recurring {
+    interval       = "month"
+    interval_count = 1
   }
-
-  tiers_mode = "volume"
 
   metadata = {
     tier          = "standard"
@@ -1745,13 +1745,13 @@ resource "stripe_price" "publisher_standard" {
 resource "stripe_price" "publisher_premium" {
   currency       = "usd"
   product        = stripe_product.publisher.id
+  unit_amount    = 200000 # $2,000.00 per month
   active         = true
-  billing_scheme = "tiered"
-
-  tiers {
+  billing_scheme = "per_unit"
+  recurring {
+    interval       = "month"
+    interval_count = 1
   }
-
-  tiers_mode = "volume"
 
   metadata = {
     tier          = "premium"
@@ -1795,23 +1795,23 @@ resource "stripe_product" "customer_support_chatbot" {
   }
 }
 
-resource "stripe_price" "support_chatbot_free" {
-  currency    = "usd"
-  product     = stripe_product.customer_support_chatbot.id
-  unit_amount = 0
-  active      = true
+# resource "stripe_price" "support_chatbot_free" {
+#   currency    = "usd"
+#   product     = stripe_product.customer_support_chatbot.id
+#   unit_amount = 0
+#   active      = true
 
-  metadata = {
-    tier              = "free"
-    target_businesses = "Small businesses,Startups,Basic customer support needs"
-    features_included = "Self-managed chatbot implementation,Basic conversation handling"
-    support_level     = "No ongoing support available - self-managed, self-serviced tier"
-    management_type   = "Self-managed and self-serviced"
-    limitations       = "No dedicated support,No training updates,No performance monitoring"
-    upgrade_path      = "Basic tier recommended for professional customer support"
-    phase             = "mrr"
-  }
-}
+#   metadata = {
+#     tier              = "free"
+#     target_businesses = "Small businesses,Startups,Basic customer support needs"
+#     features_included = "Self-managed chatbot implementation,Basic conversation handling"
+#     support_level     = "No ongoing support available - self-managed, self-serviced tier"
+#     management_type   = "Self-managed and self-serviced"
+#     limitations       = "No dedicated support,No training updates,No performance monitoring"
+#     upgrade_path      = "Basic tier recommended for professional customer support"
+#     phase             = "mrr"
+#   }
+# }
 
 resource "stripe_price" "support_chatbot_basic" {
   currency       = "usd"
@@ -1901,23 +1901,23 @@ resource "stripe_product" "sales_chatbot" {
   }
 }
 
-resource "stripe_price" "sales_chatbot_free" {
-  currency    = "usd"
-  product     = stripe_product.sales_chatbot.id
-  unit_amount = 0
-  active      = true
+# resource "stripe_price" "sales_chatbot_free" {
+#   currency    = "usd"
+#   product     = stripe_product.sales_chatbot.id
+#   unit_amount = 0
+#   active      = true
 
-  metadata = {
-    tier              = "free"
-    target_businesses = "Small businesses,Startups,Basic sales needs"
-    features_included = "Self-managed sales chatbot,Basic lead capture"
-    support_level     = "No ongoing support available - self-managed, self-serviced tier"
-    management_type   = "Self-managed and self-serviced"
-    limitations       = "No dedicated support,No lead qualification,No conversion tracking"
-    upgrade_path      = "Basic tier recommended for professional sales automation"
-    phase             = "mrr"
-  }
-}
+#   metadata = {
+#     tier              = "free"
+#     target_businesses = "Small businesses,Startups,Basic sales needs"
+#     features_included = "Self-managed sales chatbot,Basic lead capture"
+#     support_level     = "No ongoing support available - self-managed, self-serviced tier"
+#     management_type   = "Self-managed and self-serviced"
+#     limitations       = "No dedicated support,No lead qualification,No conversion tracking"
+#     upgrade_path      = "Basic tier recommended for professional sales automation"
+#     phase             = "mrr"
+#   }
+# }
 
 resource "stripe_price" "sales_chatbot_basic" {
   currency       = "usd"
@@ -2007,23 +2007,23 @@ resource "stripe_product" "crm_system" {
   }
 }
 
-resource "stripe_price" "crm_free" {
-  currency    = "usd"
-  product     = stripe_product.crm_system.id
-  unit_amount = 0
-  active      = true
+# resource "stripe_price" "crm_free" {
+#   currency    = "usd"
+#   product     = stripe_product.crm_system.id
+#   unit_amount = 0
+#   active      = true
 
-  metadata = {
-    tier              = "free"
-    target_businesses = "Small businesses,Startups,Basic CRM needs"
-    features_included = "Self-managed CRM,Basic contact management"
-    support_level     = "No ongoing support available - self-managed, self-serviced tier"
-    management_type   = "Self-managed and self-serviced"
-    limitations       = "No dedicated support,No data synchronization,No integration monitoring"
-    upgrade_path      = "Basic tier recommended for professional CRM management"
-    phase             = "mrr"
-  }
-}
+#   metadata = {
+#     tier              = "free"
+#     target_businesses = "Small businesses,Startups,Basic CRM needs"
+#     features_included = "Self-managed CRM,Basic contact management"
+#     support_level     = "No ongoing support available - self-managed, self-serviced tier"
+#     management_type   = "Self-managed and self-serviced"
+#     limitations       = "No dedicated support,No data synchronization,No integration monitoring"
+#     upgrade_path      = "Basic tier recommended for professional CRM management"
+#     phase             = "mrr"
+#   }
+# }
 
 resource "stripe_price" "crm_basic" {
   currency       = "usd"
@@ -2118,26 +2118,26 @@ resource "stripe_product" "general_maintenance_retainer" {
   }
 }
 
-resource "stripe_price" "maintenance_retainer_free" {
-  currency    = "usd"
-  product     = stripe_product.general_maintenance_retainer.id
-  unit_amount = 0
-  active      = true
+# resource "stripe_price" "maintenance_retainer_free" {
+#   currency    = "usd"
+#   product     = stripe_product.general_maintenance_retainer.id
+#   unit_amount = 0
+#   active      = true
 
-  metadata = {
-    tier                = "free"
-    target_businesses   = "Small businesses,Startups,Simple web applications"
-    monthly_hours       = "0 hours included"
-    features_included   = "Basic uptime monitoring,Self-service documentation,Community support"
-    support_level       = "No ongoing support available - self-managed, self-serviced tier"
-    management_type     = "Self-managed and self-serviced"
-    limitations         = "No dedicated support,No proactive maintenance,Limited monitoring"
-    upgrade_path        = "Basic tier recommended for growing applications"
-    response_time       = "Best effort"
-    monitoring_features = "Basic uptime checks only"
-    phase               = "mrr"
-  }
-}
+#   metadata = {
+#     tier                = "free"
+#     target_businesses   = "Small businesses,Startups,Simple web applications"
+#     monthly_hours       = "0 hours included"
+#     features_included   = "Basic uptime monitoring,Self-service documentation,Community support"
+#     support_level       = "No ongoing support available - self-managed, self-serviced tier"
+#     management_type     = "Self-managed and self-serviced"
+#     limitations         = "No dedicated support,No proactive maintenance,Limited monitoring"
+#     upgrade_path        = "Basic tier recommended for growing applications"
+#     response_time       = "Best effort"
+#     monitoring_features = "Basic uptime checks only"
+#     phase               = "mrr"
+#   }
+# }
 
 resource "stripe_price" "maintenance_retainer_basic" {
   currency       = "usd"
@@ -2257,23 +2257,23 @@ resource "stripe_product" "api_development" {
   }
 }
 
-resource "stripe_price" "api_free" {
-  currency    = "usd"
-  product     = stripe_product.api_development.id
-  unit_amount = 0
-  active      = true
+# resource "stripe_price" "api_free" {
+#   currency    = "usd"
+#   product     = stripe_product.api_development.id
+#   unit_amount = 0
+#   active      = true
 
-  metadata = {
-    tier              = "free"
-    target_businesses = "Small businesses,Startups,Basic API needs"
-    features_included = "Self-managed API development,Basic documentation"
-    support_level     = "No ongoing support available - self-managed, self-serviced tier"
-    management_type   = "Self-managed and self-serviced"
-    limitations       = "No dedicated support,No monitoring,No version control"
-    upgrade_path      = "Basic tier recommended for production API management"
-    phase             = "mrr"
-  }
-}
+#   metadata = {
+#     tier              = "free"
+#     target_businesses = "Small businesses,Startups,Basic API needs"
+#     features_included = "Self-managed API development,Basic documentation"
+#     support_level     = "No ongoing support available - self-managed, self-serviced tier"
+#     management_type   = "Self-managed and self-serviced"
+#     limitations       = "No dedicated support,No monitoring,No version control"
+#     upgrade_path      = "Basic tier recommended for production API management"
+#     phase             = "mrr"
+#   }
+# }
 
 resource "stripe_price" "api_basic" {
   currency       = "usd"
@@ -2363,23 +2363,23 @@ resource "stripe_product" "app_store_management" {
   }
 }
 
-resource "stripe_price" "app_store_free" {
-  currency    = "usd"
-  product     = stripe_product.app_store_management.id
-  unit_amount = 0
-  active      = true
+# resource "stripe_price" "app_store_free" {
+#   currency    = "usd"
+#   product     = stripe_product.app_store_management.id
+#   unit_amount = 0
+#   active      = true
 
-  metadata = {
-    tier              = "free"
-    target_businesses = "Small businesses,Startups,Basic mobile apps"
-    features_included = "Self-managed app store presence,Basic app submission"
-    support_level     = "No ongoing support available - self-managed, self-serviced tier"
-    management_type   = "Self-managed and self-serviced"
-    limitations       = "No dedicated support,No compliance monitoring,No update management"
-    upgrade_path      = "Basic tier recommended for professional app store management"
-    phase             = "mrr"
-  }
-}
+#   metadata = {
+#     tier              = "free"
+#     target_businesses = "Small businesses,Startups,Basic mobile apps"
+#     features_included = "Self-managed app store presence,Basic app submission"
+#     support_level     = "No ongoing support available - self-managed, self-serviced tier"
+#     management_type   = "Self-managed and self-serviced"
+#     limitations       = "No dedicated support,No compliance monitoring,No update management"
+#     upgrade_path      = "Basic tier recommended for professional app store management"
+#     phase             = "mrr"
+#   }
+# }
 
 resource "stripe_price" "app_store_basic" {
   currency       = "usd"
@@ -2469,23 +2469,23 @@ resource "stripe_product" "blog_cms" {
   }
 }
 
-resource "stripe_price" "blog_cms_free" {
-  currency    = "usd"
-  product     = stripe_product.blog_cms.id
-  unit_amount = 0
-  active      = true
+# resource "stripe_price" "blog_cms_free" {
+#   currency    = "usd"
+#   product     = stripe_product.blog_cms.id
+#   unit_amount = 0
+#   active      = true
 
-  metadata = {
-    tier              = "free"
-    target_businesses = "Small businesses,Startups,Basic content needs"
-    features_included = "Self-managed blog/CMS,Basic content management"
-    support_level     = "No ongoing support available - self-managed, self-serviced tier"
-    management_type   = "Self-managed and self-serviced"
-    limitations       = "No dedicated support,No security updates,No SEO monitoring"
-    upgrade_path      = "Basic tier recommended for professional content management"
-    phase             = "mrr"
-  }
-}
+#   metadata = {
+#     tier              = "free"
+#     target_businesses = "Small businesses,Startups,Basic content needs"
+#     features_included = "Self-managed blog/CMS,Basic content management"
+#     support_level     = "No ongoing support available - self-managed, self-serviced tier"
+#     management_type   = "Self-managed and self-serviced"
+#     limitations       = "No dedicated support,No security updates,No SEO monitoring"
+#     upgrade_path      = "Basic tier recommended for professional content management"
+#     phase             = "mrr"
+#   }
+# }
 
 resource "stripe_price" "blog_cms_basic" {
   currency       = "usd"
@@ -2575,23 +2575,23 @@ resource "stripe_product" "internationalization" {
   }
 }
 
-resource "stripe_price" "i18n_free" {
-  currency    = "usd"
-  product     = stripe_product.internationalization.id
-  unit_amount = 0
-  active      = true
+# resource "stripe_price" "i18n_free" {
+#   currency    = "usd"
+#   product     = stripe_product.internationalization.id
+#   unit_amount = 0
+#   active      = true
 
-  metadata = {
-    tier              = "free"
-    target_businesses = "Small businesses,Startups,Basic internationalization needs"
-    features_included = "Self-managed internationalization,Basic language support"
-    support_level     = "No ongoing support available - self-managed, self-serviced tier"
-    management_type   = "Self-managed and self-serviced"
-    limitations       = "No dedicated support,No translation updates,No localization testing"
-    upgrade_path      = "Basic tier recommended for multi-language applications"
-    phase             = "mrr"
-  }
-}
+#   metadata = {
+#     tier              = "free"
+#     target_businesses = "Small businesses,Startups,Basic internationalization needs"
+#     features_included = "Self-managed internationalization,Basic language support"
+#     support_level     = "No ongoing support available - self-managed, self-serviced tier"
+#     management_type   = "Self-managed and self-serviced"
+#     limitations       = "No dedicated support,No translation updates,No localization testing"
+#     upgrade_path      = "Basic tier recommended for multi-language applications"
+#     phase             = "mrr"
+#   }
+# }
 
 resource "stripe_price" "i18n_basic" {
   currency       = "usd"
@@ -2681,23 +2681,23 @@ resource "stripe_product" "sso_social_login" {
   }
 }
 
-resource "stripe_price" "sso_free" {
-  currency    = "usd"
-  product     = stripe_product.sso_social_login.id
-  unit_amount = 0
-  active      = true
+# resource "stripe_price" "sso_free" {
+#   currency    = "usd"
+#   product     = stripe_product.sso_social_login.id
+#   unit_amount = 0
+#   active      = true
 
-  metadata = {
-    tier              = "free"
-    target_businesses = "Small businesses,Startups,Basic authentication needs"
-    features_included = "Self-managed authentication,Basic social login setup"
-    support_level     = "No ongoing support available - self-managed, self-serviced tier"
-    management_type   = "Self-managed and self-serviced"
-    limitations       = "No dedicated support,No API monitoring,No security updates"
-    upgrade_path      = "Basic tier recommended for professional authentication management"
-    phase             = "mrr"
-  }
-}
+#   metadata = {
+#     tier              = "free"
+#     target_businesses = "Small businesses,Startups,Basic authentication needs"
+#     features_included = "Self-managed authentication,Basic social login setup"
+#     support_level     = "No ongoing support available - self-managed, self-serviced tier"
+#     management_type   = "Self-managed and self-serviced"
+#     limitations       = "No dedicated support,No API monitoring,No security updates"
+#     upgrade_path      = "Basic tier recommended for professional authentication management"
+#     phase             = "mrr"
+#   }
+# }
 
 resource "stripe_price" "sso_basic" {
   currency       = "usd"
