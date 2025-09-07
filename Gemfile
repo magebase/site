@@ -85,6 +85,9 @@ group :development do
 
   # Add schema annotations to Rails models [https://github.com/drwl/annotaterb]
   gem "annotaterb", "~> 4.19"
+
+  # Preview emails in browser during development [https://github.com/ryanb/letter_opener]
+  gem "letter_opener", "~> 1.10"
 end
 
 group :test do
@@ -105,16 +108,18 @@ gem "rails_admin", "~> 3.1"
 # Pagination
 gem "will_paginate", "~> 4.0"
 
-# PDF generation
-gem "prawn", "~> 2.4"
-gem "prawn-table", "~> 0.2"
-gem "prawn-templates", "~> 0.1"
+
+# Friendly ID for permalinks
+gem "friendly_id", "~> 5.5"
+
+# Friendly ID for permalinks
+gem "friendly_id", "~> 5.5"
+
+# Stripe for payment processing
+gem "stripe", "~> 15.5"
+
+# Discord notifications
+gem "discordrb", "~> 3.5"
 
 # Email sending
-gem "aws-sdk-ses", "~> 1.0"
-
-# Background jobs
-# gem "sidekiq", "~> 7.0"
-
-# Rate limiting
-gem "rack-attack", "~> 6.7"
+gem "aws-actionmailer-ses", "~> 1.0"

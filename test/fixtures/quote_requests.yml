@@ -29,6 +29,7 @@
 #  selected_features_json    :jsonb
 #  selected_languages        :jsonb
 #  selected_social_providers :jsonb
+#  slug                      :string
 #  special_requirements      :text
 #  start_hire_date           :datetime
 #  use_case                  :string
@@ -44,6 +45,7 @@
 #  index_quote_requests_on_client_id               (client_id)
 #  index_quote_requests_on_proposal_token          (proposal_token) UNIQUE
 #  index_quote_requests_on_selected_features_json  (selected_features_json) USING gin
+#  index_quote_requests_on_slug                    (slug)
 #  index_quote_requests_on_tenant_id               (tenant_id)
 #  index_quote_requests_on_use_case                (use_case)
 #

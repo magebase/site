@@ -1,7 +1,7 @@
-# AWS SES Mailer Configuration
-require "aws-sdk-ses"
+# AWS SES Action Mailer Configuration
+require "aws-actionmailer-ses"
 
-# Configure AWS SDK
+# Configure AWS SDK for SES
 Aws.config.update(
   region: Rails.application.credentials.dig(:aws, :region) || ENV.fetch("AWS_REGION", "us-east-1"),
   credentials: Aws::Credentials.new(
@@ -9,6 +9,14 @@ Aws.config.update(
     Rails.application.credentials.dig(:aws, :ses_secret_access_key) || ENV["AWS_SES_SECRET_ACCESS_KEY"]
   )
 )
+
+# Configure Action Mailer to use SES with aws-actionmailer-ses gem
+Rails.application.config.action_mailer.delivery_method = :ses
+Rails.application.config.action_mailer.ses_settings = {
+  region: ENV.fetch("AWS_REGION", "us-east-1"),
+  access_key_id: ENV["AWS_SES_ACCESS_KEY_ID"],
+  secret_access_key: ENV["AWS_SES_SECRET_ACCESS_KEY"]
+}
 
 # Custom SES Mailer Delivery Method
 class SesMailer

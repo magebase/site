@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Download, ArrowLeft } from "lucide-react";
 import { Link } from "@inertiajs/react";
-import TimelinePdfGenerator from "@/components/TimelinePdfGenerator";
+import TimelinePDF from "@/components/TimelinePDF";
 import { useEffect } from "react";
 
 interface TimelineItem {
@@ -35,8 +35,19 @@ interface QuoteRequest {
   selected_features: Array<{
     id: number;
     name: string;
+    base_cost: number;
+  }>;
+  project_milestones: Array<{
+    id: number;
+    name: string;
     description: string;
-    category: string;
+    due_date: string;
+    status: string;
+    milestone_data?: {
+      duration_weeks?: number;
+      deliverables?: string[];
+      order?: number;
+    };
   }>;
 }
 
@@ -46,7 +57,7 @@ interface Props {
 
 export default function TimelinePdf({ quote_request }: Props) {
   const [instance, updateInstance] = usePDF({
-    document: <TimelinePdfGenerator quote_request={quote_request} />,
+    document: <TimelinePDF quoteRequest={quote_request} />,
   });
 
   useEffect(() => {
@@ -124,9 +135,7 @@ export default function TimelinePdf({ quote_request }: Props) {
                 </p>
                 <Button
                   onClick={() =>
-                    updateInstance(
-                      <TimelinePdfGenerator quote_request={quote_request} />,
-                    )
+                    updateInstance(<TimelinePDF quoteRequest={quote_request} />)
                   }
                 >
                   Try Again

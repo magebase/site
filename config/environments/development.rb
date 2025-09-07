@@ -72,7 +72,7 @@ Rails.application.configure do
 
   # AWS SES Configuration for Development
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :ses
+  config.action_mailer.delivery_method = :letter_opener
 
   # Default URL options for mailer templates
   config.action_mailer.default_url_options = {

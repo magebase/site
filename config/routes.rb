@@ -45,8 +45,8 @@ Rails.application.routes.draw do
   end
 
   # Public proposal viewing (no authentication required)
-  get "proposals/:token", to: "proposals#show", as: :public_proposal
-  post "proposals/:token/accept", to: "proposals#accept", as: :accept_proposal
+  get "proposals/:slug", to: "proposals#show", as: :public_proposal
+  post "proposals/:slug/accept", to: "proposals#accept", as: :accept_proposal
 
   # Services routes
   get "services", to: "services#index"
@@ -85,9 +85,8 @@ Rails.application.routes.draw do
   # Other pages
   get "inertia-example", to: "inertia_example#index"
 
-  # Health check
-  get "up" => "rails/health#show", as: :rails_health_check
-  get "health" => "health#index", as: :health_check
+  # Stripe webhooks
+  post "webhooks/stripe", to: "webhooks#stripe"
 
   # Defines the root path route ("/")
   root "home#index"

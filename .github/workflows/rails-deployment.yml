@@ -79,201 +79,201 @@ env:
   TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
 
 jobs:
-  # test:
-  #   name: Run Comprehensive Tests
-  #   runs-on: ubicloud-standard-2-arm
-  #   needs: security
-  #   if: success()
-  #   services:
-  #     postgres:
-  #       image: postgres:15
-  #       env:
-  #         POSTGRES_USER: postgres
-  #         POSTGRES_PASSWORD: postgres
-  #         POSTGRES_DB: magebase_test
-  #       options: >-
-  #         --health-cmd pg_isready
-  #         --health-interval 10s
-  #         --health-timeout 10s
-  #         --health-retries 10
-  #         --name postgres-test
-  #       ports:
-  #         - 5432:5432
-  #     redis:
-  #       image: redis:7-alpine
-  #       options: >-
-  #         --health-cmd "redis-cli ping"
-  #         --health-interval 10s
-  #         --health-timeout 5s
-  #         --health-retries 5
+  test:
+    name: Run Comprehensive Tests
+    runs-on: ubicloud-standard-2-arm
+    needs: security
+    if: success()
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: magebase_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 10s
+          --health-retries 10
+          --name postgres-test
+        ports:
+          - 5432:5432
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 0
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-  #     - name: Set up Ruby
-  #       uses: ruby/setup-ruby@v1
-  #       with:
-  #         ruby-version: 3.4.5
-  #         bundler-cache: true
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.4.5
+          bundler-cache: true
 
-  #     - name: Set up Node.js
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: "18"
-  #         cache: "npm"
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
 
-  #     - name: Install system dependencies
-  #       run: |
-  #         sudo apt-get update
-  #         sudo apt-get install -y postgresql-client
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
 
-  #     - name: Install dependencies
-  #       run: |
-  #         bundle install
-  #         npm install
+      - name: Install dependencies
+        run: |
+          bundle install
+          npm install
 
-  #     - name: Verify Playwright setup
-  #       run: |
-  #         # Verify Ruby gems are installed
-  #         bundle exec ruby -e "require 'playwright'; puts 'Playwright Ruby gem loaded successfully'"
-  #         bundle exec ruby -e "require 'capybara-playwright-driver'; puts 'Capybara Playwright driver loaded successfully'"
+      - name: Verify Playwright setup
+        run: |
+          # Verify Ruby gems are installed
+          bundle exec ruby -e "require 'playwright'; puts 'Playwright Ruby gem loaded successfully'"
+          bundle exec ruby -e "require 'capybara-playwright-driver'; puts 'Capybara Playwright driver loaded successfully'"
 
-  #     - name: Install Playwright browsers
-  #       run: |
-  #         # Install Playwright browsers
-  #         npx playwright install chromium || ./node_modules/.bin/playwright install chromium || playwright install chromium
-  #         # Verify playwright installation
-  #         npx playwright --version || ./node_modules/.bin/playwright --version || playwright --version
+      - name: Install Playwright browsers
+        run: |
+          # Install Playwright browsers
+          npx playwright install chromium || ./node_modules/.bin/playwright install chromium || playwright install chromium
+          # Verify playwright installation
+          npx playwright --version || ./node_modules/.bin/playwright --version || playwright --version
 
-  #     - name: Wait for PostgreSQL
-  #       run: |
-  #         echo "Waiting for PostgreSQL to be ready..."
-  #         for i in {1..30}; do
-  #             if pg_isready -h localhost -p 5432 -U postgres; then
-  #               echo "PostgreSQL is ready!"
-  #               break
-  #             fi
-  #             echo "Attempt $i: PostgreSQL not ready yet..."
-  #             sleep 2
-  #           done
+      - name: Wait for PostgreSQL
+        run: |
+          echo "Waiting for PostgreSQL to be ready..."
+          for i in {1..30}; do
+              if pg_isready -h localhost -p 5432 -U postgres; then
+                echo "PostgreSQL is ready!"
+                break
+              fi
+              echo "Attempt $i: PostgreSQL not ready yet..."
+              sleep 2
+            done
 
-  #           # Final check
-  #           if ! pg_isready -h localhost -p 5432 -U postgres; then
-  #             echo "PostgreSQL failed to start"
-  #             exit 1
-  #           fi
-  #     - name: Set up database
-  #       env:
-  #         RAILS_ENV: test
-  #         DATABASE_URL: postgres://postgres:postgres@localhost:5432/magebase_test
-  #       run: |
-  #         # Drop database if it exists to ensure clean state
-  #         bundle exec rails db:drop || echo "Database doesn't exist, continuing..."
+            # Final check
+            if ! pg_isready -h localhost -p 5432 -U postgres; then
+              echo "PostgreSQL failed to start"
+              exit 1
+            fi
+      - name: Set up database
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/magebase_test
+        run: |
+          # Drop database if it exists to ensure clean state
+          bundle exec rails db:drop || echo "Database doesn't exist, continuing..."
 
-  #         # Create fresh database
-  #         bundle exec rails db:create
+          # Create fresh database
+          bundle exec rails db:create
 
-  #         # Run migrations
-  #         bundle exec rails db:migrate
+          # Run migrations
+          bundle exec rails db:migrate
 
-  #         # Seed database (with error handling)
-  #         echo "Seeding database..."
-  #         bundle exec rails db:seed || echo "Seeding completed with warnings"
+          # Seed database (with error handling)
+          echo "Seeding database..."
+          bundle exec rails db:seed || echo "Seeding completed with warnings"
 
-  #     - name: Run Ruby tests
-  #       if: github.event_name != 'workflow_dispatch' || github.event.inputs.skip_tests != 'true'
-  #       env:
-  #         RAILS_ENV: test
-  #         DATABASE_URL: postgres://postgres:postgres@localhost:5432/magebase_test
-  #       run: bundle exec rails test
+      - name: Run Ruby tests
+        if: github.event_name != 'workflow_dispatch' || github.event.inputs.skip_tests != 'true'
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/magebase_test
+        run: bundle exec rails test
 
-  #     - name: Run system tests
-  #       if: github.event_name != 'workflow_dispatch' || github.event.inputs.skip_tests != 'true'
-  #       env:
-  #         RAILS_ENV: test
-  #         DATABASE_URL: postgres://postgres:postgres@localhost:5432/magebase_test
-  #       run: bundle exec rails test:system
+      - name: Run system tests
+        if: github.event_name != 'workflow_dispatch' || github.event.inputs.skip_tests != 'true'
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/magebase_test
+        run: bundle exec rails test:system
 
-  #     - name: Run JavaScript tests
-  #       if: github.event_name != 'workflow_dispatch' || github.event.inputs.skip_tests != 'true'
-  #       run: npm test
+      - name: Run JavaScript tests
+        if: github.event_name != 'workflow_dispatch' || github.event.inputs.skip_tests != 'true'
+        run: npm test
 
-  #     - name: Skip Tests (Optional)
-  #       if: github.event_name == 'workflow_dispatch' && github.event.inputs.skip_tests == 'true'
-  #       run: |
-  #         echo "🧪 Tests skipped as requested"
-  #         echo "test_results=skipped" >> $GITHUB_OUTPUT
+      - name: Skip Tests (Optional)
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.skip_tests == 'true'
+        run: |
+          echo "🧪 Tests skipped as requested"
+          echo "test_results=skipped" >> $GITHUB_OUTPUT
 
-  # lint:
-  #   name: Code Quality & Linting
-  #   runs-on: ubicloud-standard-2-arm
-  #   if: success()
+  lint:
+    name: Code Quality & Linting
+    runs-on: ubicloud-standard-2-arm
+    if: success()
 
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  #     - name: Set up Ruby
-  #       uses: ruby/setup-ruby@v1
-  #       with:
-  #         ruby-version: 3.4.5
-  #         bundler-cache: false
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.4.5
+          bundler-cache: false
 
-  #     - name: Set up Node.js
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: "18"
-  #         cache: "npm"
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
 
-  #     - name: Install dependencies
-  #       run: |
-  #         bundle install
-  #         npm install
+      - name: Install dependencies
+        run: |
+          bundle install
+          npm install
 
-  #     - name: Run RuboCop
-  #       run: bundle exec rubocop --parallel
+      - name: Run RuboCop
+        run: bundle exec rubocop --parallel
 
-  #     - name: Run Prettier
-  #       run: npx prettier --check "**/*.{js,jsx,ts,tsx,json,yaml,yml}"
+      - name: Run Prettier
+        run: npx prettier --check "**/*.{js,jsx,ts,tsx,json,yaml,yml}"
 
-  #     - name: Check code formatting
-  #       run: |
-  #         bundle exec rubocop --format offenses
+      - name: Check code formatting
+        run: |
+          bundle exec rubocop --format offenses
 
-  # security:
-  #   name: Security Audit & Scan
-  #   runs-on: ubicloud-standard-2-arm
-  #   needs: lint
-  #   if: success()
+  security:
+    name: Security Audit & Scan
+    runs-on: ubicloud-standard-2-arm
+    needs: lint
+    if: success()
 
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  #     - name: Set up Ruby
-  #       uses: ruby/setup-ruby@v1
-  #       with:
-  #         ruby-version: 3.4.5
-  #         bundler-cache: false
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.4.5
+          bundler-cache: false
 
-  #     - name: Install dependencies
-  #       run: bundle install
+      - name: Install dependencies
+        run: bundle install
 
-  #     - name: Run bundle audit
-  #       run: bundle exec bundle-audit check --update
+      - name: Run bundle audit
+        run: bundle exec bundle-audit check --update
 
-  #     - name: Run Brakeman security scan
-  #       run: bundle exec brakeman -q -f json -o brakeman-report.json
+      - name: Run Brakeman security scan
+        run: bundle exec brakeman -q -f json -o brakeman-report.json
 
-  #     - name: Upload Brakeman results
-  #       uses: actions/upload-artifact@v4
-  #       if: always()
-  #       with:
-  #         name: brakeman-report
-  #         path: brakeman-report.json
+      - name: Upload Brakeman results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: brakeman-report
+          path: brakeman-report.json
 
   build:
     name: Build Docker Image
@@ -382,94 +382,94 @@ jobs:
           subject-digest: ${{ steps.build.outputs.digest }}
           push-to-registry: true
 
-  # security-scan:
-  #   name: Container Security Scan
-  #   runs-on: ubicloud-standard-2-arm
-  #   needs: build
-  #   if: success()
+  security-scan:
+    name: Container Security Scan
+    runs-on: ubicloud-standard-2-arm
+    needs: build
+    if: success()
 
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  #     - name: Log in to GitHub Container Registry
-  #       uses: docker/login-action@v3
-  #       with:
-  #         registry: ${{ env.REGISTRY }}
-  #         username: ${{ github.actor }}
-  #         password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-  #     - name: Determine scan image
-  #       id: scan-image
-  #       run: |
-  #         # Use the latest image for main branch, or commit SHA image for others
-  #         if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-  #           echo "image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" >> $GITHUB_OUTPUT
-  #         else
-  #           echo "image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main-${{ github.sha }}" >> $GITHUB_OUTPUT
-  #         fi
+      - name: Determine scan image
+        id: scan-image
+        run: |
+          # Use the latest image for main branch, or commit SHA image for others
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            echo "image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" >> $GITHUB_OUTPUT
+          else
+            echo "image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main-${{ github.sha }}" >> $GITHUB_OUTPUT
+          fi
 
-  #     - name: Wait for image to be available
-  #       run: |
-  #         echo "Waiting for image ${{ steps.scan-image.outputs.image }} to be available..."
-  #         max_attempts=30
-  #         attempt=1
+      - name: Wait for image to be available
+        run: |
+          echo "Waiting for image ${{ steps.scan-image.outputs.image }} to be available..."
+          max_attempts=30
+          attempt=1
 
-  #         while [ $attempt -le $max_attempts ]; do
-  #           echo "Attempt $attempt/$max_attempts: Checking if image exists..."
+          while [ $attempt -le $max_attempts ]; do
+            echo "Attempt $attempt/$max_attempts: Checking if image exists..."
 
-  #           # Try to pull the image to check if it exists
-  #           if docker pull ${{ steps.scan-image.outputs.image }} 2>/dev/null; then
-  #             echo "✅ Image is available!"
-  #             break
-  #           else
-  #             echo "⏳ Image not yet available, waiting 10 seconds..."
-  #             sleep 10
-  #             attempt=$((attempt + 1))
-  #           fi
-  #         done
+            # Try to pull the image to check if it exists
+            if docker pull ${{ steps.scan-image.outputs.image }} 2>/dev/null; then
+              echo "✅ Image is available!"
+              break
+            else
+              echo "⏳ Image not yet available, waiting 10 seconds..."
+              sleep 10
+              attempt=$((attempt + 1))
+            fi
+          done
 
-  #         if [ $attempt -gt $max_attempts ]; then
-  #           echo "❌ Image did not become available within 5 minutes"
-  #           exit 1
-  #         fi
+          if [ $attempt -gt $max_attempts ]; then
+            echo "❌ Image did not become available within 5 minutes"
+            exit 1
+          fi
 
-  #     - name: Run Trivy vulnerability scanner
-  #       uses: aquasecurity/trivy-action@master
-  #       with:
-  #         scan-type: "image"
-  #         scan-ref: ${{ steps.scan-image.outputs.image }}
-  #         format: "sarif"
-  #         output: "trivy-results.sarif"
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: "image"
+          scan-ref: ${{ steps.scan-image.outputs.image }}
+          format: "sarif"
+          output: "trivy-results.sarif"
 
-  #     - name: Upload Trivy scan results to GitHub Security tab
-  #       uses: github/codeql-action/upload-sarif@v3
-  #       if: always() && github.event.repository.private == false
-  #       continue-on-error: true
-  #       with:
-  #         sarif_file: "trivy-results.sarif"
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        if: always() && github.event.repository.private == false
+        continue-on-error: true
+        with:
+          sarif_file: "trivy-results.sarif"
 
-  #     - name: Check SARIF upload status
-  #       if: always()
-  #       run: |
-  #         if [ -f "trivy-results.sarif" ]; then
-  #           echo "✅ Trivy SARIF file generated successfully"
-  #           echo "📊 SARIF file size: $(stat -f%z trivy-results.sarif 2>/dev/null || stat -c%s trivy-results.sarif 2>/dev/null || echo 'unknown') bytes"
+      - name: Check SARIF upload status
+        if: always()
+        run: |
+          if [ -f "trivy-results.sarif" ]; then
+            echo "✅ Trivy SARIF file generated successfully"
+            echo "📊 SARIF file size: $(stat -f%z trivy-results.sarif 2>/dev/null || stat -c%s trivy-results.sarif 2>/dev/null || echo 'unknown') bytes"
 
-  #           # Check if Advanced Security is likely enabled
-  #           if [ "${{ github.event.repository.private }}" == "false" ]; then
-  #             echo "ℹ️  Repository is public - SARIF upload attempted"
-  #             echo "📋 If upload failed, enable GitHub Advanced Security for this repository:"
-  #             echo "   Settings → Security → Code security → Enable CodeQL analysis"
-  #           else
-  #             echo "🔒 Repository is private - Advanced Security may not be available"
-  #           fi
-  #         else
-  #           echo "⚠️  Trivy SARIF file not found"
-  #         fi
+            # Check if Advanced Security is likely enabled
+            if [ "${{ github.event.repository.private }}" == "false" ]; then
+              echo "ℹ️  Repository is public - SARIF upload attempted"
+              echo "📋 If upload failed, enable GitHub Advanced Security for this repository:"
+              echo "   Settings → Security → Code security → Enable CodeQL analysis"
+            else
+              echo "🔒 Repository is private - Advanced Security may not be available"
+            fi
+          else
+            echo "⚠️  Trivy SARIF file not found"
+          fi
 
   deploy:
-    name: Deploy to ArgoCD
+    name: Trigger deployment to ArgoCD
     runs-on: ubicloud-standard-2-arm
     needs: build
     if: success() && (github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch')

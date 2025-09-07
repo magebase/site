@@ -1,4 +1,2 @@
 web: bin/rails s
-ssr: bin/vite ssr
 vite: bin/vite dev
-aws-sso: ./bin/aws-sso-manager

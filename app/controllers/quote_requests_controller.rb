@@ -62,6 +62,9 @@ class QuoteRequestsController < ApplicationController
     end
 
     if @quote_request.save
+      # Generate slug for FriendlyId permalink
+      @quote_request.save! # This will generate the slug
+
       # Trigger AI pricing and project planning
       PricingService.new(@quote_request).calculate_price
       ProjectPlanningService.new(@quote_request).generate_plan
@@ -69,8 +72,8 @@ class QuoteRequestsController < ApplicationController
       # Create tenant for client if they don't have one
       create_or_find_client_tenant(client)
 
-      # Generate proposal token for public access
-      @quote_request.generate_proposal_token!
+      # Send Discord notification for new quote
+      DiscordNotificationJob.perform_later("new_quote", @quote_request.id)
 
       # Send proposal ready email with public link
       send_proposal_ready_email(@quote_request)
@@ -111,6 +114,12 @@ class QuoteRequestsController < ApplicationController
   def generate_quote
     @quote_request = QuoteRequest.find(params[:id])
     @quote_request.generate_quote!
+
+    # Create draft Stripe invoice
+    StripeInvoiceService.new(@quote_request).create_draft_invoice
+
+    # Send Discord notification for approved quote
+    DiscordNotificationJob.perform_later("quote_approved", @quote_request.id)
 
     render inertia: "QuoteRequests/Show", props: {
       quote_request: @quote_request.as_json,

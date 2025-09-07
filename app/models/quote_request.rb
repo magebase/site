@@ -27,6 +27,7 @@
 #  selected_features_json    :jsonb
 #  selected_languages        :jsonb
 #  selected_social_providers :jsonb
+#  slug                      :string
 #  special_requirements      :text
 #  start_hire_date           :datetime
 #  use_case                  :string
@@ -42,6 +43,7 @@
 #  index_quote_requests_on_client_id               (client_id)
 #  index_quote_requests_on_proposal_token          (proposal_token) UNIQUE
 #  index_quote_requests_on_selected_features_json  (selected_features_json) USING gin
+#  index_quote_requests_on_slug                    (slug)
 #  index_quote_requests_on_tenant_id               (tenant_id)
 #  index_quote_requests_on_use_case                (use_case)
 #
@@ -52,6 +54,10 @@
 #
 class QuoteRequest < ApplicationRecord
   include AASM
+  extend FriendlyId
+
+  # Friendly ID configuration for expiring permalinks
+  friendly_id :generate_permalink_slug, use: :slugged
 
   belongs_to :client, optional: true
   belongs_to :tenant, optional: true
@@ -81,6 +87,13 @@ class QuoteRequest < ApplicationRecord
 
     event :generate_quote do
       transitions from: :draft, to: :quoted
+      after do
+        # Calculate pricing and generate project plan when quote is generated
+        PricingService.new(self).calculate_price
+        ProjectPlanningService.new(self).generate_plan
+        generate_proposal_token!
+        update!(quoted_at: Time.current)
+      end
     end
 
     event :accept_quote do
@@ -163,9 +176,21 @@ class QuoteRequest < ApplicationRecord
     end
   end
 
-  # Get public proposal URL
+  # Generate permalink slug for FriendlyId
+  def generate_permalink_slug
+    base_name = project_name.presence || "project"
+    "#{base_name.parameterize}-#{SecureRandom.hex(4)}"
+  end
+
+  # Get public proposal URL with FriendlyId slug
   def public_proposal_url
-    return nil unless proposal_token.present?
-    Rails.application.routes.url_helpers.public_proposal_url(token: proposal_token, host: ENV["APP_HOST"] || "localhost:3000")
+    return nil unless slug.present?
+    Rails.application.routes.url_helpers.public_proposal_url(slug: slug, host: ENV["APP_HOST"] || "localhost:3000")
+  end
+
+  # Check if permalink is expired (7 days)
+  def permalink_expired?
+    return false unless slug.present?
+    created_at < 7.days.ago
   end
 end

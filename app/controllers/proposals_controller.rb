@@ -2,7 +2,15 @@ class ProposalsController < ApplicationController
   skip_before_action :authenticate_user!
 
   def show
-    @quote_request = QuoteRequest.find_by!(proposal_token: params[:token])
+    @quote_request = QuoteRequest.friendly.find(params[:slug])
+
+    # Check if permalink is expired
+    if @quote_request.permalink_expired?
+      render inertia: "Proposals/Expired", props: {
+        message: "This proposal link has expired. Please contact us for a new link."
+      }
+      return
+    end
 
     # Only allow viewing if the quote is in quoted state
     unless @quote_request.quoted?
@@ -14,12 +22,17 @@ class ProposalsController < ApplicationController
       quote_request: @quote_request.as_json(
         include: [ :client, :selected_features, :project_milestones ]
       ),
-      proposal_token: params[:token]
+      proposal_slug: params[:slug]
     }
   end
 
   def accept
-    @quote_request = QuoteRequest.find_by!(proposal_token: params[:token])
+    @quote_request = QuoteRequest.friendly.find(params[:slug])
+
+    if @quote_request.permalink_expired?
+      redirect_to root_path, alert: "This proposal link has expired."
+      return
+    end
 
     if @quote_request.accept_quote!
       # Generate contract
@@ -30,7 +43,7 @@ class ProposalsController < ApplicationController
 
       redirect_to root_path, notice: "Quote accepted successfully! Check your email for your account access link."
     else
-      redirect_to proposal_path(token: params[:token]), alert: "Failed to accept quote. Please try again."
+      redirect_to proposal_path(slug: params[:slug]), alert: "Failed to accept quote. Please try again."
     end
   end
 

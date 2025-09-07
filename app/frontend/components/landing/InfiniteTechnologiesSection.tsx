@@ -3,74 +3,115 @@ import { InfiniteMovingCards } from "../ui/infinite-moving-cards";
 export function InfiniteTechnologiesSection() {
   const technologies = [
     {
-      quote: "React 18+ with TypeScript",
-      name: "Frontend Framework",
-      title: "Modern Development",
+      image: "https://commons.wikimedia.org/wiki/File:React-icon.svg",
+      name: "React",
+      alt: "React Logo",
     },
     {
-      quote: "Next.js & Inertia.js",
-      name: "Full-Stack Solutions",
-      title: "Seamless Integration",
+      image: "https://en.wikipedia.org/wiki/File:Ruby_On_Rails_Logo.svg",
+      name: "Ruby on Rails",
+      alt: "Ruby on Rails Logo",
     },
     {
-      quote: "PostgreSQL & Redis",
-      name: "Database & Caching",
-      title: "High Performance",
+      image: "https://seeklogo.com/vector-logo/428028/github-actions",
+      name: "GitHub Actions",
+      alt: "GitHub Actions Logo",
     },
     {
-      quote: "Tailwind CSS & Shadcn/ui",
-      name: "Styling & Components",
-      title: "Beautiful Design",
+      image: "https://commons.wikimedia.org/wiki/File:Kubernetes_logo.svg",
+      name: "Kubernetes",
+      alt: "Kubernetes Logo",
     },
     {
-      quote: "Stripe & Payment APIs",
-      name: "Payment Processing",
-      title: "Secure Transactions",
+      image:
+        "https://commons.wikimedia.org/wiki/File:Amazon_Web_Services_Logo.svg",
+      name: "AWS",
+      alt: "Amazon Web Services Logo",
     },
     {
-      quote: "AWS & Cloud Services",
-      name: "Cloud Infrastructure",
-      title: "Scalable Solutions",
+      image: "https://commons.wikimedia.org/wiki/File:Cloudflare_Logo.svg",
+      name: "Cloudflare",
+      alt: "Cloudflare Logo",
     },
     {
-      quote: "Docker & Kubernetes",
-      name: "Containerization",
-      title: "Deployment Ready",
+      image: "https://commons.wikimedia.org/wiki/File:Terraform_Logo.svg",
+      name: "Terraform",
+      alt: "Terraform Logo",
     },
     {
-      quote: "RESTful APIs & GraphQL",
-      name: "API Development",
-      title: "Flexible Integration",
+      image: "https://www.docker.com/company/newsroom/media-resources/",
+      name: "Docker",
+      alt: "Docker Logo",
     },
     {
-      quote: "CI/CD & DevOps",
-      name: "Automation",
-      title: "Fast Delivery",
+      image: "https://commons.wikimedia.org/wiki/File:Logo_PostgreSQL.png",
+      name: "PostgreSQL",
+      alt: "PostgreSQL Logo",
     },
     {
-      quote: "Testing & Quality Assurance",
-      name: "Code Quality",
-      title: "Reliable Software",
+      image: "https://techicons.dev/icons/argocd",
+      name: "ArgoCD",
+      alt: "ArgoCD Logo",
+    },
+    {
+      image: "https://commons.wikimedia.org/wiki/File:Grafana_logo.png",
+      name: "Grafana",
+      alt: "Grafana Logo",
+    },
+    {
+      image:
+        "https://images.seeklogo.com/logo-png/43/1/vitest-logo-png_seeklogo-434979.png",
+      name: "Vitest",
+      alt: "Vitest Logo",
+    },
+    {
+      image: "https://logo.svgcdn.com/d/rspec-original-wordmark.png",
+      name: "RSpec",
+      alt: "RSpec Logo",
+    },
+    {
+      image:
+        "https://images.seeklogo.com/logo-png/43/1/playwright-logo-png_seeklogo-435674.png",
+      name: "Playwright",
+      alt: "Playwright Logo",
+    },
+    {
+      image:
+        "https://images.seeklogo.com/logo-png/29/1/stripe-logo-png_seeklogo-290635.png",
+      name: "Stripe",
+      alt: "Stripe Logo",
+    },
+    {
+      image:
+        "https://images.seeklogo.com/logo-png/24/1/paypal-logo-png_seeklogo-249214.png",
+      name: "PayPal",
+      alt: "PayPal Logo",
+    },
+    {
+      image:
+        "https://images.seeklogo.com/logo-png/26/1/shopify-logo-png_seeklogo-267188.png",
+      name: "Shopify",
+      alt: "Shopify Logo",
     },
   ];
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-white dark:bg-gray-900">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            Technologies We Use
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            Technologies We Work With
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300 text-lg">
             Modern tech stack for cutting-edge solutions
           </p>
         </div>
 
-        <div className="h-[300px] rounded-md flex flex-col antialiased items-center justify-center relative overflow-hidden">
+        <div className="h-[40rem] rounded-md flex flex-col antialiased bg-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
           <InfiniteMovingCards
             items={technologies}
-            direction="left"
-            speed="normal"
+            direction="right"
+            speed="slow"
           />
         </div>
       </div>

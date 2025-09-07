@@ -1,6 +1,6 @@
 RubyLLM.configure do |config|
   # Configure multiple LLM providers
-  config.google_studio_api_key = ENV["GOOGLE_STUDIO_API_KEY"]
+  config.gemini_api_key = ENV["GOOGLE_STUDIO_API_KEY"]
   config.openai_api_key = ENV["OPENAI_API_KEY"]
   config.anthropic_api_key = ENV["ANTHROPIC_API_KEY"]
 
