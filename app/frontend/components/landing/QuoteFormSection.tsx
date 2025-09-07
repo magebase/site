@@ -1199,7 +1199,6 @@ function QuoteFormSection({ id = 'quote-form' }: QuoteFormSectionProps) {
                           'Microsoft',
                           'Apple',
                           'Discord',
-                          'Slack',
                           'Twitch',
                           'Spotify',
                           'Other',

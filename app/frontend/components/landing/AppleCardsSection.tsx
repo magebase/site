@@ -245,7 +245,7 @@ export function AppleCardsSection() {
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span>Slack Integration</span>
+              <span>Discord Integration</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>

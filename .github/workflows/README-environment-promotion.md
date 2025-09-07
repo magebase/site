@@ -83,8 +83,9 @@ Once the PR is merged, the main deployment workflow will:
 - Adds appropriate labels
 
 ### 5. Notify Promotion Status
-- Sends Slack notifications about promotion status
+
 - Provides summary of the promotion process
+- Logs promotion status in GitHub Actions
 
 ## Environment Configurations
 
@@ -151,5 +152,5 @@ If automated promotion fails, you can:
 
 - **GitHub Actions**: Monitor workflow runs and failures
 - **ArgoCD**: Track deployment status and rollbacks
-- **Slack Notifications**: Receive real-time promotion updates
+- **GitHub Notifications**: Receive real-time promotion updates via GitHub
 - **Health Checks**: Verify deployments via environment URLs

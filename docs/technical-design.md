@@ -988,7 +988,7 @@ jobs:
 ### Integration Opportunities
 
 - GitHub integration for code delivery
-- Slack/Discord for team communication
+- Discord for team communication
 - Jira/Trello for project management
 - AWS/Azure for cloud infrastructure
 
