@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/magebase/site/compare/v1.0.1...v1.0.2) (2025-09-07)
+
+
+### Bug Fixes
+
+* remove deploy.yml ([db537f1](https://github.com/magebase/site/commit/db537f14c5613259411aca8f994a330f42b507ce))
+
 ## [1.0.1](https://github.com/magebase/site/compare/v1.0.0...v1.0.1) (2025-09-07)
 
 
