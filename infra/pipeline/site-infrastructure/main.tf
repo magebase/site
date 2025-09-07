@@ -50,8 +50,8 @@ data "terraform_remote_state" "base_infrastructure" {
 
 # Local values
 locals {
-  cluster_name        = "${var.environment}-magebase"
-  account_type        = var.environment == "prod" ? "production" : "development"
+  cluster_name = "${var.environment}-magebase"
+  account_type = var.environment == "prod" ? "production" : "development"
   # Get the load balancer IP from base infrastructure
   cluster_ipv4 = data.terraform_remote_state.base_infrastructure.outputs.lb_ipv4
 }
