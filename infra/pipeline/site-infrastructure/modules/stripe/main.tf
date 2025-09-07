@@ -15,14 +15,219 @@ provider "stripe" {
   api_key = var.stripe_api_key
 }
 
-# A billing portal using all the available options
-resource "stripe_portal_configuration" "portal_configuration" {
+# Define product configurations for portal generation
+locals {
+  portal_products = {
+    digital_marketing = {
+      product_id = stripe_product.digital_marketing_package.id
+      prices = [
+        stripe_price.digital_marketing_basic.id,
+        stripe_price.digital_marketing_standard.id,
+        stripe_price.digital_marketing_premium.id,
+        stripe_price.digital_marketing_basic_yearly.id,
+        stripe_price.digital_marketing_standard_yearly.id,
+        stripe_price.digital_marketing_premium_yearly.id
+      ]
+      name = "Digital Marketing Package"
+    }
+    managed_devops = {
+      product_id = stripe_product.managed_devops.id
+      prices = [
+        stripe_price.devops_starter.id,
+        stripe_price.devops_basic.id,
+        stripe_price.devops_standard.id,
+        stripe_price.devops_enterprise.id,
+        stripe_price.devops_basic_yearly.id,
+        stripe_price.devops_standard_yearly.id,
+        stripe_price.devops_enterprise_yearly.id
+      ]
+      name = "Managed DevOps"
+    }
+    payment_processing = {
+      product_id = stripe_product.payment_processing.id
+      prices = [
+        stripe_price.payment_processing_basic.id,
+        stripe_price.payment_processing_standard.id,
+        stripe_price.payment_processing_premium.id,
+        stripe_price.payment_processing_basic_yearly.id,
+        stripe_price.payment_processing_standard_yearly.id,
+        stripe_price.payment_processing_premium_yearly.id
+      ]
+      name = "Payment Processing"
+    }
+    analytics_tracking = {
+      product_id = stripe_product.analytics_tracking.id
+      prices = [
+        stripe_price.analytics_basic.id,
+        stripe_price.analytics_standard.id,
+        stripe_price.analytics_premium.id,
+        stripe_price.analytics_basic_yearly.id,
+        stripe_price.analytics_standard_yearly.id,
+        stripe_price.analytics_premium_yearly.id
+      ]
+      name = "Analytics Tracking"
+    }
+    ai_ml_features = {
+      product_id = stripe_product.ai_ml_features.id
+      prices = [
+        stripe_price.ai_ml_basic.id,
+        stripe_price.ai_ml_standard.id,
+        stripe_price.ai_ml_premium.id,
+        stripe_price.ai_ml_basic_yearly.id,
+        stripe_price.ai_ml_standard_yearly.id,
+        stripe_price.ai_ml_premium_yearly.id
+      ]
+      name = "AI/ML Features"
+    }
+    blockchain_integration = {
+      product_id = stripe_product.blockchain_integration.id
+      prices = [
+        stripe_price.blockchain_basic.id,
+        stripe_price.blockchain_standard.id,
+        stripe_price.blockchain_premium.id
+      ]
+      name = "Blockchain Integration"
+    }
+    gambling_igaming = {
+      product_id = stripe_product.gambling_igaming.id
+      prices = [
+        stripe_price.gambling_basic.id,
+        stripe_price.gambling_standard.id,
+        stripe_price.gambling_premium.id
+      ]
+      name = "Gambling/iGaming"
+    }
+    real_time_features = {
+      product_id = stripe_product.real_time_features.id
+      prices = [
+        stripe_price.real_time_basic.id,
+        stripe_price.real_time_standard.id,
+        stripe_price.real_time_premium.id
+      ]
+      name = "Real-time Features"
+    }
+    automated_digital_marketing = {
+      product_id = stripe_product.automated_digital_marketing.id
+      prices = [
+        stripe_price.marketing_basic.id,
+        stripe_price.marketing_standard.id,
+        stripe_price.marketing_premium.id
+      ]
+      name = "Automated Digital Marketing"
+    }
+    autoblogger = {
+      product_id = stripe_product.autoblogger.id
+      prices = [
+        stripe_price.autoblogger_basic.id,
+        stripe_price.autoblogger_standard.id,
+        stripe_price.autoblogger_premium.id
+      ]
+      name = "Autoblogger"
+    }
+    publisher = {
+      product_id = stripe_product.publisher.id
+      prices = [
+        stripe_price.publisher_basic.id,
+        stripe_price.publisher_standard.id,
+        stripe_price.publisher_premium.id
+      ]
+      name = "Publisher"
+    }
+    customer_support_chatbot = {
+      product_id = stripe_product.customer_support_chatbot.id
+      prices = [
+        stripe_price.support_chatbot_basic.id,
+        stripe_price.support_chatbot_standard.id,
+        stripe_price.support_chatbot_premium.id
+      ]
+      name = "Customer Support Chatbot"
+    }
+    sales_chatbot = {
+      product_id = stripe_product.sales_chatbot.id
+      prices = [
+        stripe_price.sales_chatbot_basic.id,
+        stripe_price.sales_chatbot_standard.id,
+        stripe_price.sales_chatbot_premium.id
+      ]
+      name = "Sales Chatbot"
+    }
+    crm_system = {
+      product_id = stripe_product.crm_system.id
+      prices = [
+        stripe_price.crm_basic.id,
+        stripe_price.crm_standard.id,
+        stripe_price.crm_premium.id
+      ]
+      name = "CRM System"
+    }
+    general_maintenance_retainer = {
+      product_id = stripe_product.general_maintenance_retainer.id
+      prices = [
+        stripe_price.maintenance_retainer_basic.id,
+        stripe_price.maintenance_retainer_standard.id,
+        stripe_price.maintenance_retainer_premium.id
+      ]
+      name = "General Maintenance Retainer"
+    }
+    api_development = {
+      product_id = stripe_product.api_development.id
+      prices = [
+        stripe_price.api_basic.id,
+        stripe_price.api_standard.id,
+        stripe_price.api_premium.id
+      ]
+      name = "API Development"
+    }
+    app_store_management = {
+      product_id = stripe_product.app_store_management.id
+      prices = [
+        stripe_price.app_store_basic.id,
+        stripe_price.app_store_standard.id,
+        stripe_price.app_store_premium.id
+      ]
+      name = "App Store Management"
+    }
+    blog_cms = {
+      product_id = stripe_product.blog_cms.id
+      prices = [
+        stripe_price.blog_cms_basic.id,
+        stripe_price.blog_cms_standard.id,
+        stripe_price.blog_cms_premium.id
+      ]
+      name = "Blog/CMS"
+    }
+    internationalization = {
+      product_id = stripe_product.internationalization.id
+      prices = [
+        stripe_price.i18n_basic.id,
+        stripe_price.i18n_standard.id,
+        stripe_price.i18n_premium.id
+      ]
+      name = "Internationalization"
+    }
+    sso_social_login = {
+      product_id = stripe_product.sso_social_login.id
+      prices = [
+        stripe_price.sso_basic.id,
+        stripe_price.sso_standard.id,
+        stripe_price.sso_premium.id
+      ]
+      name = "SSO/Social Login"
+    }
+  }
+}
+
+# Create individual portal configurations for each product
+resource "stripe_portal_configuration" "product_portals" {
+  for_each = local.portal_products
+
   business_profile {
-    headline             = var.company_name
+    headline             = "${each.value.name} - ${var.company_name}"
     privacy_policy_url   = "https://${var.domain}/privacy"
     terms_of_service_url = "https://${var.domain}/terms"
   }
   default_return_url = "https://${var.domain}"
+
   features {
     customer_update {
       enabled         = true
@@ -48,93 +253,20 @@ resource "stripe_portal_configuration" "portal_configuration" {
       default_allowed_updates = ["price", "quantity", "promotion_code"]
       proration_behavior      = "always_invoice"
       products {
-        product = stripe_product.digital_marketing_package.id
-        prices  = [stripe_price.digital_marketing_basic.id, stripe_price.digital_marketing_standard.id, stripe_price.digital_marketing_premium.id, stripe_price.digital_marketing_basic_yearly.id, stripe_price.digital_marketing_standard_yearly.id, stripe_price.digital_marketing_premium_yearly.id]
-      }
-      products {
-        product = stripe_product.managed_devops.id
-        prices  = [stripe_price.devops_starter.id, stripe_price.devops_basic.id, stripe_price.devops_standard.id, stripe_price.devops_enterprise.id, stripe_price.devops_basic_yearly.id, stripe_price.devops_standard_yearly.id, stripe_price.devops_enterprise_yearly.id]
-      }
-      products {
-        product = stripe_product.payment_processing.id
-        prices  = [stripe_price.payment_processing_basic.id, stripe_price.payment_processing_standard.id, stripe_price.payment_processing_premium.id, stripe_price.payment_processing_basic_yearly.id, stripe_price.payment_processing_standard_yearly.id, stripe_price.payment_processing_premium_yearly.id]
-      }
-      products {
-        product = stripe_product.analytics_tracking.id
-        prices  = [stripe_price.analytics_basic.id, stripe_price.analytics_standard.id, stripe_price.analytics_premium.id, stripe_price.analytics_basic_yearly.id, stripe_price.analytics_standard_yearly.id, stripe_price.analytics_premium_yearly.id]
-      }
-      products {
-        product = stripe_product.ai_ml_features.id
-        prices  = [stripe_price.ai_ml_basic.id, stripe_price.ai_ml_standard.id, stripe_price.ai_ml_premium.id, stripe_price.ai_ml_basic_yearly.id, stripe_price.ai_ml_standard_yearly.id, stripe_price.ai_ml_premium_yearly.id]
-      }
-      products {
-        product = stripe_product.blockchain_integration.id
-        prices  = [stripe_price.blockchain_basic.id, stripe_price.blockchain_standard.id, stripe_price.blockchain_premium.id]
-      }
-      products {
-        product = stripe_product.gambling_igaming.id
-        prices  = [stripe_price.gambling_basic.id, stripe_price.gambling_standard.id, stripe_price.gambling_premium.id]
-      }
-      products {
-        product = stripe_product.real_time_features.id
-        prices  = [stripe_price.real_time_basic.id, stripe_price.real_time_standard.id, stripe_price.real_time_premium.id]
-      }
-      products {
-        product = stripe_product.automated_digital_marketing.id
-        prices  = [stripe_price.marketing_basic.id, stripe_price.marketing_standard.id, stripe_price.marketing_premium.id]
-      }
-      products {
-        product = stripe_product.autoblogger.id
-        prices  = [stripe_price.autoblogger_basic.id, stripe_price.autoblogger_standard.id, stripe_price.autoblogger_premium.id]
-      }
-      products {
-        product = stripe_product.publisher.id
-        prices  = [stripe_price.publisher_basic.id, stripe_price.publisher_standard.id, stripe_price.publisher_premium.id]
-      }
-      products {
-        product = stripe_product.customer_support_chatbot.id
-        prices  = [stripe_price.support_chatbot_basic.id, stripe_price.support_chatbot_standard.id, stripe_price.support_chatbot_premium.id]
-      }
-      products {
-        product = stripe_product.sales_chatbot.id
-        prices  = [stripe_price.sales_chatbot_basic.id, stripe_price.sales_chatbot_standard.id, stripe_price.sales_chatbot_premium.id]
-      }
-      products {
-        product = stripe_product.crm_system.id
-        prices  = [stripe_price.crm_basic.id, stripe_price.crm_standard.id, stripe_price.crm_premium.id]
-      }
-      products {
-        product = stripe_product.general_maintenance_retainer.id
-        prices  = [stripe_price.maintenance_retainer_basic.id, stripe_price.maintenance_retainer_standard.id, stripe_price.maintenance_retainer_premium.id]
-      }
-      products {
-        product = stripe_product.api_development.id
-        prices  = [stripe_price.api_basic.id, stripe_price.api_standard.id, stripe_price.api_premium.id]
-      }
-      products {
-        product = stripe_product.app_store_management.id
-        prices  = [stripe_price.app_store_basic.id, stripe_price.app_store_standard.id, stripe_price.app_store_premium.id]
-      }
-      products {
-        product = stripe_product.blog_cms.id
-        prices  = [stripe_price.blog_cms_basic.id, stripe_price.blog_cms_standard.id, stripe_price.blog_cms_premium.id]
-      }
-      products {
-        product = stripe_product.internationalization.id
-        prices  = [stripe_price.i18n_basic.id, stripe_price.i18n_standard.id, stripe_price.i18n_premium.id]
-      }
-      products {
-        product = stripe_product.sso_social_login.id
-        prices  = [stripe_price.sso_basic.id, stripe_price.sso_standard.id, stripe_price.sso_premium.id]
+        product = each.value.product_id
+        prices  = each.value.prices
       }
     }
   }
+
   metadata = {
     company_name     = var.company_name
     domain           = var.domain
     portal_version   = "1.0"
     created_by       = "terraform"
     environment      = "production"
+    product_name     = each.value.name
+    product_key      = each.key
     features_enabled = "customer_update,invoice_history,payment_method_update,subscription_cancel,subscription_update,subscription_pause"
     support_email    = "support@${var.domain}"
     last_updated     = "2025-09-07"
