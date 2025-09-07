@@ -1,3 +1,12 @@
+## [1.0.4](https://github.com/magebase/site/compare/v1.0.3...v1.0.4) (2025-09-07)
+
+
+### Bug Fixes
+
+* add stripe_api_key ([3bff2df](https://github.com/magebase/site/commit/3bff2dfaff7f43a3275002f2a4dd1e017df604f4))
+* add stripe_api_key ([a11bdc5](https://github.com/magebase/site/commit/a11bdc536b9b7b99dd0822e8f9837e0249722b48))
+* portal per product ([481cc99](https://github.com/magebase/site/commit/481cc99c786f7ca85aed791f7a27a893d7412501))
+
 ## [1.0.3](https://github.com/magebase/site/compare/v1.0.2...v1.0.3) (2025-09-07)
 
 
