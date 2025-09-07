@@ -315,37 +315,3 @@ jobs:
           1. Review the changes in this PR
           2. Approve and merge when ready
           3. The main deployment workflow will handle the actual deployment to $TARGET_ENV"
-
-  notify-promotion:
-    name: Notify Promotion Status
-    runs-on: ubicloud-standard-2-arm
-    needs: [validate-promotion, create-promotion-pr]
-    if: always()
-
-    steps:
-      - name: Send promotion notification
-        if: env.SLACK_WEBHOOK_URL
-        uses: slackapi/slack-github-action@v1.26.0
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        with:
-          payload: |
-            {
-              "text": "🚀 Environment Promotion ${{ needs.validate-promotion.outputs.valid == 'true' && '✅ Initiated' || '❌ Failed' }}",
-              "blocks": [
-                {
-                  "type": "header",
-                  "text": {
-                    "type": "plain_text",
-                    "text": "🚀 Environment Promotion"
-                  }
-                },
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "*Release:* ${{ github.event.inputs.release_version }}\\n*From:* ${{ github.event.inputs.source_environment }}\\n*To:* ${{ github.event.inputs.target_environment }}\\n*Status:* ${{ needs.validate-promotion.outputs.valid == 'true' && '✅ Success' || '❌ Failed' }}\\n*Triggered by:* @${{ github.actor }}\\n*Branch:* ${{ needs.validate-promotion.outputs.release_branch }}"
-                  }
-                }
-              ]
-            }

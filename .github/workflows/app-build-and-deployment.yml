@@ -472,13 +472,23 @@ jobs:
             exit 1
           fi
 
-      - name: Run Trivy vulnerability scanner
+      - name: Run Trivy vulnerability scanner (Table output)
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: 'image'
           scan-ref: ${{ steps.scan-image.outputs.image }}
           format: 'table'
-          severity: 'CRITICAL,HIGH,MEDIUM'
+          severity: 'CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN'
+          exit-code: 0
+          ignore-unfixed: false
+
+      - name: Run Trivy vulnerability scanner (SARIF output)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'image'
+          scan-ref: ${{ steps.scan-image.outputs.image }}
+          format: 'sarif'
+          severity: 'CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN'
           exit-code: 0
           ignore-unfixed: false
           output: 'trivy-results.sarif'
@@ -492,6 +502,7 @@ jobs:
           if [ -f "trivy-results.sarif" ]; then
             echo "✅ **Scan completed successfully**" >> $GITHUB_STEP_SUMMARY
             echo "- SARIF file generated: $(stat -f%z trivy-results.sarif 2>/dev/null || stat -c%s trivy-results.sarif 2>/dev/null || echo 'unknown') bytes" >> $GITHUB_STEP_SUMMARY
+            echo "- Table output displayed in logs above" >> $GITHUB_STEP_SUMMARY
           else
             echo "⚠️ **Scan completed but no SARIF file found**" >> $GITHUB_STEP_SUMMARY
           fi
@@ -500,7 +511,7 @@ jobs:
           echo "### 📊 Scan Configuration:" >> $GITHUB_STEP_SUMMARY
           echo "- **Image:** ${{ steps.scan-image.outputs.image }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Severity Levels:** CRITICAL, HIGH, MEDIUM, LOW, UNKNOWN" >> $GITHUB_STEP_SUMMARY
-          echo "- **Format:** Table" >> $GITHUB_STEP_SUMMARY
+          echo "- **Format:** Table (logs) + SARIF (file)" >> $GITHUB_STEP_SUMMARY
           echo "- **Ignore Unfixed:** Disabled" >> $GITHUB_STEP_SUMMARY
 
       - name: Upload Trivy scan results to GitHub Security tab
