@@ -270,6 +270,8 @@ resource "stripe_price" "payment_processing_free" {
     monthly_transactions = "Up to 1,000"
     features_included    = "Self-managed Stripe integration,Basic fraud detection,Standard PCI compliance"
     limitations          = "No dedicated support,No custom integrations,Limited reporting"
+    support_level        = "No ongoing support available - self-managed, self-serviced tier"
+    management_type      = "Self-managed and self-serviced"
     upgrade_path         = "Basic tier recommended for growing businesses"
     phase                = "mrr"
   }
@@ -391,9 +393,15 @@ resource "stripe_price" "analytics_free" {
   billing_scheme = "per_unit"
 
   metadata = {
-    tier     = "free"
-    features = "Self-managed analytics setup, basic Google Analytics integration"
-    phase    = "mrr"
+    tier              = "free"
+    target_businesses = "Small SaaS,Content sites,E-commerce stores"
+    monthly_pageviews = "Up to 100k"
+    features_included = "Self-managed analytics setup, basic Google Analytics integration"
+    support_level     = "No ongoing support available - self-managed, self-serviced tier"
+    management_type   = "Self-managed and self-serviced"
+    limitations       = "No dedicated support,No custom dashboards,Limited reporting"
+    upgrade_path      = "Basic tier recommended for growing businesses"
+    phase             = "mrr"
   }
 }
 

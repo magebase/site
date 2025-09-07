@@ -4,6 +4,9 @@ class ContractGenerationService
   end
 
   def generate_contract
+    # Get AI-generated contract terms
+    ai_contract_terms = get_ai_contract_terms
+
     contract_data = {
       title: "#{@quote_request.project_name} Development Contract",
       client_id: @quote_request.client_id,
@@ -11,11 +14,12 @@ class ContractGenerationService
       total_amount: @quote_request.estimated_cost,
       deposit_amount: @quote_request.deposit_amount,
       monthly_retainer: @quote_request.monthly_retainer,
-      contract_terms: generate_contract_terms,
+      contract_terms: ai_contract_terms.present? ? ai_contract_terms : generate_contract_terms,
       deliverables: @quote_request.project_plan_json["deliverables"] || [],
       timeline_months: @quote_request.project_plan_json["timeline_months"] || 3,
       payment_schedule: generate_payment_schedule,
-      status: "draft"
+      status: "draft",
+      ai_generated: ai_contract_terms.present?
     }
 
     contract = Contract.create!(contract_data)
@@ -138,5 +142,19 @@ class ContractGenerationService
 
   def format_currency(amount)
     ActionController::Base.helpers.number_to_currency(amount, precision: 0)
+  end
+
+  private
+
+  def get_ai_contract_terms
+    return nil unless ENV["GOOGLE_STUDIO_API_KEY"].present? || ENV["OPENAI_API_KEY"].present? || ENV["ANTHROPIC_API_KEY"].present?
+
+    begin
+      llm_service = LlmService.new
+      llm_service.generate_contract_terms(@quote_request)
+    rescue => e
+      Rails.logger.error("AI contract generation failed: #{e.message}")
+      nil
+    end
   end
 end

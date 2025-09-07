@@ -38,11 +38,35 @@ variable "domain_name" {
 #   default     = "127.0.0.1"
 # }
 
-variable "ruby_llm_api_key" {
-  description = "RubyLLM API key"
+variable "google_studio_api_key" {
+  description = "Google Studio API key for AI services"
   type        = string
   sensitive   = true
   default     = ""
+}
+
+variable "openai_api_key" {
+  description = "OpenAI API key for AI services"
+  type        = string
+  sensitive   = true
+  default     = ""
+}
+
+variable "anthropic_api_key" {
+  description = "Anthropic API key for AI services"
+  type        = string
+  sensitive   = true
+  default     = ""
+}
+
+variable "default_llm_provider" {
+  description = "Default LLM provider to use (google, openai, anthropic)"
+  type        = string
+  default     = "google"
+  validation {
+    condition     = contains(["google", "openai", "anthropic"], var.default_llm_provider)
+    error_message = "Default LLM provider must be one of: google, openai, anthropic"
+  }
 }
 
 variable "image_registry" {
@@ -73,13 +97,6 @@ variable "rails_env" {
   description = "Rails environment"
   type        = string
   default     = "development"
-}
-
-variable "rails_master_key" {
-  description = "Rails master key for encrypted credentials"
-  type        = string
-  sensitive   = true
-  default     = ""
 }
 
 variable "cloudflare_r2_access_key_id" {

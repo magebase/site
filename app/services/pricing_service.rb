@@ -16,19 +16,24 @@ class PricingService
 
     use_case = @quote_request.use_case
 
-    # Base pricing calculation
-    base_cost = calculate_base_cost(features, use_case)
-    complexity_multiplier = calculate_complexity_multiplier(features)
-    timeline_adjustment = calculate_timeline_adjustment(@quote_request.project_plan_json)
+    # Get AI-powered pricing analysis
+    ai_analysis = get_ai_pricing_analysis(features, use_case)
+
+    # Base pricing calculation with AI insights
+    base_cost = ai_analysis["base_cost"] || calculate_base_cost(features, use_case)
+    complexity_multiplier = ai_analysis["complexity_multiplier"] || calculate_complexity_multiplier(features)
+    timeline_adjustment = ai_analysis["timeline_adjustment"] || calculate_timeline_adjustment(@quote_request.project_plan_json)
     capacity_adjustment = calculate_capacity_adjustment
 
     estimated_cost = base_cost * complexity_multiplier * timeline_adjustment * capacity_adjustment
 
-    # Monthly retainer calculation (20% of total cost, spread over 12 months)
-    monthly_retainer = estimated_cost * 0.20 / 12
+    # Monthly retainer calculation (use AI recommendation or default to 20%)
+    monthly_retainer_percentage = ai_analysis["monthly_retainer_percentage"] || 0.20
+    monthly_retainer = estimated_cost * monthly_retainer_percentage / 12
 
-    # Deposit amount (30% of total cost)
-    deposit_amount = estimated_cost * 0.30
+    # Deposit amount (use AI recommendation or default to 30%)
+    deposit_percentage = ai_analysis["deposit_percentage"] || 0.30
+    deposit_amount = estimated_cost * deposit_percentage
 
     # Store AI pricing data
     ai_pricing = {
@@ -39,6 +44,7 @@ class PricingService
       estimated_cost: estimated_cost,
       monthly_retainer: monthly_retainer,
       deposit_amount: deposit_amount,
+      ai_analysis: ai_analysis,
       breakdown: generate_cost_breakdown(features, use_case)
     }
 
@@ -141,5 +147,19 @@ class PricingService
     end
 
     breakdown
+  end
+
+  private
+
+  def get_ai_pricing_analysis(features, use_case)
+    return {} unless ENV["GOOGLE_STUDIO_API_KEY"].present? || ENV["OPENAI_API_KEY"].present? || ENV["ANTHROPIC_API_KEY"].present?
+
+    begin
+      llm_service = LlmService.new
+      llm_service.generate_pricing_analysis(features, use_case)
+    rescue => e
+      Rails.logger.error("AI pricing analysis failed: #{e.message}")
+      {}
+    end
   end
 end

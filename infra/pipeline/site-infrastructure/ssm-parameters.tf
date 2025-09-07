@@ -1,14 +1,52 @@
-# SSM Parameters Configuration
-# This file contains all SSM parameters for the application
-
-resource "aws_ssm_parameter" "ruby_llm_api_key" {
-  name      = "/site/${var.environment}/api/ruby-llm-api-key"
+# AI/LLM Configuration Parameters
+resource "aws_ssm_parameter" "google_studio_api_key" {
+  name      = "/site/${var.environment}/ai/google-studio-api-key"
   type      = "SecureString"
-  value     = var.ruby_llm_api_key
+  value     = var.google_studio_api_key
   overwrite = true
   tags = {
     Environment = var.environment
     Project     = "site"
+    Service     = "ai"
+    Provider    = "google"
+  }
+}
+
+resource "aws_ssm_parameter" "openai_api_key" {
+  name      = "/site/${var.environment}/ai/openai-api-key"
+  type      = "SecureString"
+  value     = var.openai_api_key
+  overwrite = true
+  tags = {
+    Environment = var.environment
+    Project     = "site"
+    Service     = "ai"
+    Provider    = "openai"
+  }
+}
+
+resource "aws_ssm_parameter" "anthropic_api_key" {
+  name      = "/site/${var.environment}/ai/anthropic-api-key"
+  type      = "SecureString"
+  value     = var.anthropic_api_key
+  overwrite = true
+  tags = {
+    Environment = var.environment
+    Project     = "site"
+    Service     = "ai"
+    Provider    = "anthropic"
+  }
+}
+
+resource "aws_ssm_parameter" "default_llm_provider" {
+  name      = "/site/${var.environment}/ai/default-llm-provider"
+  type      = "String"
+  value     = var.default_llm_provider
+  overwrite = true
+  tags = {
+    Environment = var.environment
+    Project     = "site"
+    Service     = "ai"
   }
 }
 
@@ -63,17 +101,6 @@ resource "aws_ssm_parameter" "rails_env" {
   name      = "/site/${var.environment}/rails/env"
   type      = "String"
   value     = var.rails_env
-  overwrite = true
-  tags = {
-    Environment = var.environment
-    Project     = "site"
-  }
-}
-
-resource "aws_ssm_parameter" "rails_master_key" {
-  name      = "/site/${var.environment}/rails/master-key"
-  type      = "SecureString"
-  value     = var.rails_master_key
   overwrite = true
   tags = {
     Environment = var.environment

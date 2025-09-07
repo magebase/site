@@ -7,14 +7,18 @@ class ProjectPlanningService
     features = @quote_request.selected_features
     use_case = @quote_request.use_case
 
-    # Generate project plan using AI analysis
+    # Get AI-enhanced project plan
+    ai_plan = get_ai_project_plan
+
+    # Generate project plan with AI insights
     project_plan = {
-      timeline_months: calculate_timeline(features, use_case),
-      milestones: generate_milestones(features, use_case),
-      team_requirements: determine_team_requirements(features),
-      technology_stack: recommend_technology_stack(use_case, features),
-      risks_assumptions: identify_risks_and_assumptions(features, use_case),
-      deliverables: define_deliverables(use_case, features)
+      timeline_months: ai_plan["timeline_months"] || calculate_timeline(features, use_case),
+      milestones: ai_plan["milestones"] || generate_milestones(features, use_case),
+      team_requirements: ai_plan["team_requirements"] || determine_team_requirements(features),
+      technology_stack: ai_plan["technology_stack"] || recommend_technology_stack(use_case, features),
+      risks_assumptions: ai_plan["risks"] ? merge_risks_and_assumptions(ai_plan["risks"], identify_risks_and_assumptions(features, use_case)) : identify_risks_and_assumptions(features, use_case),
+      deliverables: define_deliverables(use_case, features),
+      ai_enhanced: ai_plan.present?
     }
 
     @quote_request.update!(project_plan_json: project_plan)
@@ -321,5 +325,26 @@ class ProjectPlanningService
     # Assuming 2 weeks per milestone phase
     weeks_from_now = order * 2
     Date.current + weeks_from_now.weeks
+  end
+
+  private
+
+  def get_ai_project_plan
+    return {} unless ENV["GOOGLE_STUDIO_API_KEY"].present? || ENV["OPENAI_API_KEY"].present? || ENV["ANTHROPIC_API_KEY"].present?
+
+    begin
+      llm_service = LlmService.new
+      llm_service.generate_project_plan(@quote_request)
+    rescue => e
+      Rails.logger.error("AI project planning failed: #{e.message}")
+      {}
+    end
+  end
+
+  def merge_risks_and_assumptions(ai_risks, traditional_risks_assumptions)
+    {
+      risks: (ai_risks + traditional_risks_assumptions[:risks]).uniq,
+      assumptions: traditional_risks_assumptions[:assumptions]
+    }
   end
 end
