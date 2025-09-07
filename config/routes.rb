@@ -38,7 +38,6 @@ Rails.application.routes.draw do
     member do
       post :generate_quote
       post :accept_quote
-      get :generate_pdf
       get :timeline_pdf
       get :timeline_csv
     end

@@ -79,6 +79,40 @@ env:
   TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
 
 jobs:
+  semantic-release-dry-run:
+    name: Semantic Release Dry Run
+    runs-on: ubicloud-standard-2-arm
+    if: success()
+    outputs:
+      new_release_published: ${{ steps.semantic.outputs.new_release_published }}
+      new_release_version: ${{ steps.semantic.outputs.new_release_version }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Run semantic-release dry run
+        id: semantic
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          branches: main
+          dry_run: true
+          extra_plugins: |
+            @semantic-release/git
+            @semantic-release/github
+            @semantic-release/changelog
+            @semantic-release/exec
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   test:
     name: Run Comprehensive Tests
     runs-on: ubicloud-standard-2-arm
@@ -99,13 +133,6 @@ jobs:
           --name postgres-test
         ports:
           - 5432:5432
-      redis:
-        image: redis:7-alpine
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
 
     steps:
       - name: Checkout code
@@ -286,13 +313,13 @@ jobs:
   build:
     name: Build Docker Image
     runs-on: ubicloud-standard-2-arm
-    # needs: [lint, security, test]
+    needs: semantic-release-dry-run
     if: success()
     outputs:
       image-digest: ${{ steps.build.outputs.digest }}
       image-url: ${{ steps.meta.outputs.tags }}
-      new_release_published: ${{ steps.semantic.outputs.new_release_published }}
-      new_release_version: ${{ steps.semantic.outputs.new_release_version }}
+      new_release_published: ${{ needs.semantic-release-dry-run.outputs.new_release_published }}
+      new_release_version: ${{ needs.semantic-release-dry-run.outputs.new_release_version }}
 
     steps:
       - name: Checkout code
@@ -302,25 +329,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           submodules: false
           lfs: false
-
-      - name: Configure Git
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Run semantic-release
-        id: semantic
-        uses: cycjimmy/semantic-release-action@v4
-        with:
-          branches: main
-          dry_run: ${{ github.event_name == 'pull_request' }}
-          extra_plugins: |
-            @semantic-release/git
-            @semantic-release/github
-            @semantic-release/changelog
-            @semantic-release/exec
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set outputs for dry run
         if: github.event_name == 'pull_request'
@@ -357,8 +365,8 @@ jobs:
             type=ref,event=pr
             type=sha,prefix={{branch}}-
             type=raw,value=latest,enable={{is_default_branch}}
-            type=raw,value=${{ steps.semantic.outputs.new_release_version }},enable=${{ steps.semantic.outputs.new_release_published == 'true' }}
-            type=raw,value=v${{ steps.semantic.outputs.new_release_version }},enable=${{ steps.semantic.outputs.new_release_published == 'true' }}
+            type=raw,value=${{ needs.semantic-release-dry-run.outputs.new_release_version }},enable=${{ needs.semantic-release-dry-run.outputs.new_release_published == 'true' }}
+            type=raw,value=v${{ needs.semantic-release-dry-run.outputs.new_release_version }},enable=${{ needs.semantic-release-dry-run.outputs.new_release_published == 'true' }}
 
       - name: Build and push Docker image
         id: build
@@ -394,11 +402,11 @@ jobs:
       - name: Verify Docker tags
         run: |
           echo "Verifying Docker image tags..."
-          if [ "${{ steps.semantic.outputs.new_release_published }}" == "true" ]; then
-            echo "New release published: ${{ steps.semantic.outputs.new_release_version }}"
+          if [ "${{ needs.semantic-release-dry-run.outputs.new_release_published }}" == "true" ]; then
+            echo "New release published: ${{ needs.semantic-release-dry-run.outputs.new_release_version }}"
             echo "Checking for Docker tags:"
-            echo "- ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.semantic.outputs.new_release_version }}"
-            echo "- ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ steps.semantic.outputs.new_release_version }}"
+            echo "- ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.semantic-release-dry-run.outputs.new_release_version }}"
+            echo "- ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ needs.semantic-release-dry-run.outputs.new_release_version }}"
             echo "- ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
           else
             echo "No new release published"
@@ -581,6 +589,37 @@ jobs:
   #         min-versions-to-keep: 10
   #         delete-only-untagged-versions: true
 
+  semantic-release-publish:
+    name: Semantic Release Publish
+    runs-on: ubicloud-standard-2-arm
+    needs: [build, security-scan, deploy, performance-test]
+    if: success() && needs.semantic-release-dry-run.outputs.new_release_published == 'true'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Run semantic-release publish
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          branches: main
+          dry_run: false
+          extra_plugins: |
+            @semantic-release/git
+            @semantic-release/github
+            @semantic-release/changelog
+            @semantic-release/exec
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   notify:
     name: Deployment Notification
     runs-on: ubicloud-standard-2-arm
@@ -590,8 +629,10 @@ jobs:
         # security,
         # build,
         # security-scan,
+        semantic-release-dry-run,
         deploy,
         performance-test,
+        semantic-release-publish,
         # cleanup,
       ]
     if: always()
@@ -625,15 +666,28 @@ jobs:
 
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### 📋 Deployment Details:" >> $GITHUB_STEP_SUMMARY
-          echo "- **Image:** N/A (build disabled)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Image:** ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.semantic-release-dry-run.outputs.new_release_published == 'true' && format('v{0}', needs.semantic-release-dry-run.outputs.new_release_version) || github.sha }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Environment:** ${{ github.event.inputs.environment || 'dev' }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Version:** N/A (build disabled)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version:** ${{ needs.semantic-release-dry-run.outputs.new_release_published == 'true' && format('v{0}', needs.semantic-release-dry-run.outputs.new_release_version) || github.sha }}" >> $GITHUB_STEP_SUMMARY
           echo "- **GitOps:** ArgoCD" >> $GITHUB_STEP_SUMMARY
           echo "- **Registry:** GitHub Container Registry" >> $GITHUB_STEP_SUMMARY
           echo "- **Architecture:** Hetzner Cloud + k3s" >> $GITHUB_STEP_SUMMARY
           echo "- **Region:** Singapore (ap-southeast)" >> $GITHUB_STEP_SUMMARY
 
-          # Release Info - Temporarily commented out (build disabled)
+          # Semantic Release Info
+          if [ "${{ needs.semantic-release-dry-run.outputs.new_release_published }}" == "true" ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### 📦 Release Information:" >> $GITHUB_STEP_SUMMARY
+            echo "- **New Release:** v${{ needs.semantic-release-dry-run.outputs.new_release_version }}" >> $GITHUB_STEP_SUMMARY
+            echo "- **GitHub Release:** Created" >> $GITHUB_STEP_SUMMARY
+            echo "- **Docker Tags:** ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ needs.semantic-release-dry-run.outputs.new_release_version }}, ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.semantic-release-dry-run.outputs.new_release_version }}" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### 📦 Release Information:" >> $GITHUB_STEP_SUMMARY
+            echo "- **New Release:** None (no version bump)" >> $GITHUB_STEP_SUMMARY
+            echo "- **GitHub Release:** Skipped" >> $GITHUB_STEP_SUMMARY
+            echo "- **Docker Tags:** ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}, ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main" >> $GITHUB_STEP_SUMMARY
+          fi
 
       - name: Send Slack Notification
         if: always() && env.SLACK_WEBHOOK_URL
@@ -656,7 +710,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "*Environment:* ${{ github.event.inputs.environment || 'dev' }}\\n*Version:* N/A (build disabled)\\n*Image:* N/A (build disabled)\\n*Status:* ${{ needs.deploy.result == 'success' && '✅ Success' || '❌ Failed' }}\\n*Triggered by:* @${{ github.actor }}\\n*Semantic Release:* ⏭️ Skipped (build disabled)"
+                    "text": "*Environment:* ${{ github.event.inputs.environment || 'dev' }}\\n*Version:* ${{ needs.semantic-release-dry-run.outputs.new_release_published == 'true' && format('v{0}', needs.semantic-release-dry-run.outputs.new_release_version) || github.sha }}\\n*Image:* ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.semantic-release-dry-run.outputs.new_release_published == 'true' && format('v{0}', needs.semantic-release-dry-run.outputs.new_release_version) || github.sha }}\\n*Status:* ${{ needs.deploy.result == 'success' && '✅ Success' || '❌ Failed' }}\\n*Triggered by:* @${{ github.actor }}\\n*Semantic Release:* ${{ needs.semantic-release-dry-run.outputs.new_release_published == 'true' && format('✅ v{0}', needs.semantic-release-dry-run.outputs.new_release_version) || '⏭️ Skipped (no version bump)' }}"
                   }
                 }
               ]
