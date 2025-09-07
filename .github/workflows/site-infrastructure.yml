@@ -110,7 +110,6 @@ jobs:
         working-directory: ${{ env.TF_WORKING_DIR }}
         env:
           AWS_REGION: ${{ env.INFRA_REGION }}
-          TF_VAR_ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           TF_VAR_stripe_webhook_secret: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
           TF_VAR_cloudflare_account_id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -137,7 +136,6 @@ jobs:
         working-directory: ${{ env.TF_WORKING_DIR }}
         env:
           AWS_REGION: ${{ env.INFRA_REGION }}
-          TF_VAR_ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           TF_VAR_stripe_webhook_secret: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
           TF_VAR_cloudflare_account_id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}

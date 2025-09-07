@@ -50,9 +50,7 @@ Create an IAM policy that allows ESO to read SSM parameters:
         "ssm:GetParameters",
         "ssm:GetParametersByPath"
       ],
-      "Resource": [
-        "arn:aws:ssm:*:*:parameter/site/*"
-      ]
+      "Resource": ["arn:aws:ssm:*:*:parameter/site/*"]
     }
   ]
 }

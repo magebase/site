@@ -79,12 +79,14 @@ This directory contains Kubernetes manifests for deploying Magebase to Hetzner C
 ### Setting up Secrets
 
 1. **Generate your secrets**:
+
    ```bash
    cd k8s
    ./generate-secrets.sh
    ```
 
 2. **Update the secrets file**:
+
    - Edit `k8s/base/secrets.yaml`
    - Replace the placeholder base64 values with your actual encoded secrets
    - The `generate-secrets.sh` script will output the correct base64 encoded values
@@ -100,6 +102,7 @@ This directory contains Kubernetes manifests for deploying Magebase to Hetzner C
 ### Troubleshooting Secret Errors
 
 If you encounter "illegal base64 data at input byte 0" errors:
+
 1. Ensure all secret values in `secrets.yaml` are properly base64 encoded
 2. Verify that no secret values are empty
 3. Use the `generate-secrets.sh` script to create properly encoded values

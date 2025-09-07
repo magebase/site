@@ -3,46 +3,11 @@ variable "environment" {
   type        = string
 }
 
-variable "secret_key_base" {
-  description = "Rails secret key base"
-  type        = string
-  sensitive   = true
-  default     = ""
-}
 
 variable "ruby_llm_api_key" {
   description = "RubyLLM API key"
   type        = string
   sensitive   = true
-  default     = ""
-}
-
-variable "aws_s3_access_key_id" {
-  description = "AWS S3 access key ID for database backups"
-  type        = string
-  sensitive   = true
-  default     = ""
-}
-
-variable "aws_s3_secret_access_key" {
-  description = "AWS S3 secret access key for database backups"
-  type        = string
-  sensitive   = true
-  default     = ""
-}
-
-variable "aws_ses_access_key_id" {
-  description = "AWS SES access key ID"
-  type        = string
-  sensitive   = true
-  default     = ""
-}
-
-variable "aws_ses_secret_access_key" {
-  description = "AWS SES secret access key"
-  type        = string
-  sensitive   = true
-  default     = ""
 }
 
 variable "image_registry" {
@@ -73,18 +38,6 @@ variable "rails_env" {
   description = "Rails environment"
   type        = string
   default     = "development"
-}
-
-variable "rails_log_to_stdout" {
-  description = "Whether to log to stdout"
-  type        = string
-  default     = "true"
-}
-
-variable "rails_serve_static_files" {
-  description = "Whether to serve static files"
-  type        = string
-  default     = "true"
 }
 
 variable "rails_master_key" {

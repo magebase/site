@@ -102,45 +102,6 @@ module "aws_ses_users" {
   account_id  = var.management_account_id
 }
 
-# SSM Parameters Module
-module "ssm_parameters" {
-  source = "./modules/ssm-parameters"
-
-  environment = var.environment
-
-  # Application Secrets
-  secret_key_base  = var.secret_key_base
-  ruby_llm_api_key = var.ruby_llm_api_key
-
-  # AWS Credentials
-  aws_ses_access_key_id     = var.aws_ses_access_key_id
-  aws_ses_secret_access_key = var.aws_ses_secret_access_key
-  aws_s3_access_key_id      = var.aws_s3_access_key_id
-  aws_s3_secret_access_key  = var.aws_s3_secret_access_key
-
-  # Docker Configuration
-  image_registry = var.image_registry
-  image_name     = var.image_name
-  image_tag      = var.image_tag
-
-  # Domain Configuration
-  domain = var.domain
-
-  # Rails Configuration
-  rails_env                = var.rails_env
-  rails_log_to_stdout      = var.rails_log_to_stdout
-  rails_serve_static_files = var.rails_serve_static_files
-  rails_master_key         = var.rails_master_key
-
-  # Cloudflare R2
-  cloudflare_r2_access_key_id     = var.cloudflare_r2_access_key_id
-  cloudflare_r2_secret_access_key = var.cloudflare_r2_secret_access_key
-
-  # Support Configuration
-  support_email     = var.support_email
-  cloudflare_region = var.cloudflare_region
-}
-
 # AWS Organization Outputs (moved to separate org-sso step)
 # output "development_account_id" {
 #   description = "AWS Account ID for the development account"

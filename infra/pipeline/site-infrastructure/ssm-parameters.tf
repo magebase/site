@@ -1,17 +1,7 @@
-terraform {
-  required_version = ">= 1.8.0"
-
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
-
+# SSM Parameters Configuration
+# This file contains all SSM parameters for the application
 
 resource "aws_ssm_parameter" "ruby_llm_api_key" {
-
   name  = "/site/${var.environment}/api/ruby-llm-api-key"
   type  = "SecureString"
   value = var.ruby_llm_api_key
