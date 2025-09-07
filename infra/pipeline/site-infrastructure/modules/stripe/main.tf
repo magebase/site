@@ -563,20 +563,25 @@ resource "stripe_product" "payment_processing" {
 resource "stripe_price" "payment_processing_free" {
   currency       = "usd"
   product        = stripe_product.payment_processing.id
-  unit_amount    = 0
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
 
   metadata = {
-    tier                 = "free"
-    target_businesses    = "Small businesses,Startups,Low-volume merchants"
-    monthly_transactions = "Up to 1,000"
-    features_included    = "Self-managed Stripe integration,Basic fraud detection,Standard PCI compliance"
-    limitations          = "No dedicated support,No custom integrations,Limited reporting"
-    support_level        = "No ongoing support available - self-managed, self-serviced tier"
-    management_type      = "Self-managed and self-serviced"
-    upgrade_path         = "Basic tier recommended for growing businesses"
-    phase                = "mrr"
+    tier              = "free"
+    target_businesses = "Small businesses,Startups,Low-volume merchants"
+    features_included = "Self-managed Stripe integration,Stripe PCI compliance"
+    limitations       = "No dedicated support,No custom integrations,Limited reporting"
+    support_level     = "No ongoing support available - self-managed, self-serviced tier"
+    management_type   = "Self-managed and self-serviced"
+    upgrade_path      = "Basic tier recommended for growing businesses"
+    phase             = "mrr"
   }
 }
 
@@ -652,9 +657,16 @@ resource "stripe_price" "payment_processing_premium" {
 resource "stripe_price" "payment_processing_custom" {
   currency       = "usd"
   product        = stripe_product.payment_processing.id
-  unit_amount    = 0
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier               = "custom"
     target_businesses  = "Enterprise,High-volume,Specialized industries"
@@ -772,9 +784,16 @@ resource "stripe_product" "analytics_tracking" {
 resource "stripe_price" "analytics_free" {
   currency       = "usd"
   product        = stripe_product.analytics_tracking.id
-  unit_amount    = 0
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier              = "free"
     target_businesses = "Small SaaS,Content sites,E-commerce stores"
@@ -864,9 +883,16 @@ resource "stripe_price" "analytics_premium" {
 resource "stripe_price" "analytics_custom" {
   currency       = "usd"
   product        = stripe_product.analytics_tracking.id
-  unit_amount    = 0
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier     = "custom"
     features = "Custom pricing based on data volume and specific analytics requirements"
@@ -976,9 +1002,16 @@ resource "stripe_product" "ai_ml_features" {
 resource "stripe_price" "ai_ml_free" {
   currency       = "usd"
   product        = stripe_product.ai_ml_features.id
-  unit_amount    = 0
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier              = "free"
     target_businesses = "Small businesses,Startups,Basic AI needs"
@@ -1048,9 +1081,16 @@ resource "stripe_price" "ai_ml_premium" {
 resource "stripe_price" "ai_ml_custom" {
   currency       = "usd"
   product        = stripe_product.ai_ml_features.id
-  unit_amount    = 0
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier     = "custom"
     features = "Custom pricing based on model complexity, data volume, and specific AI/ML requirements"
@@ -1143,9 +1183,16 @@ resource "stripe_product" "blockchain_integration" {
 resource "stripe_price" "blockchain_free" {
   currency       = "usd"
   product        = stripe_product.blockchain_integration.id
-  unit_amount    = 0 # Free tier - self-managed
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier              = "free"
     target_businesses = "Small businesses,Startups,Basic blockchain needs"
@@ -1215,9 +1262,16 @@ resource "stripe_price" "blockchain_premium" {
 resource "stripe_price" "blockchain_custom" {
   currency       = "usd"
   product        = stripe_product.blockchain_integration.id
-  unit_amount    = 0 # Custom pricing
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier     = "custom"
     features = "Custom pricing based on blockchain complexity and network requirements"
@@ -1245,7 +1299,15 @@ resource "stripe_price" "gambling_free" {
   product        = stripe_product.gambling_igaming.id
   unit_amount    = 0 # Free tier - self-managed
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier              = "free"
     target_businesses = "Small gaming businesses,Startups,Basic gaming platforms"
@@ -1317,7 +1379,15 @@ resource "stripe_price" "gambling_custom" {
   product        = stripe_product.gambling_igaming.id
   unit_amount    = 0 # Custom pricing
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier     = "custom"
     features = "Custom pricing based on gaming complexity and regulatory requirements"
@@ -1345,7 +1415,15 @@ resource "stripe_price" "real_time_free" {
   product        = stripe_product.real_time_features.id
   unit_amount    = 0 # Free tier - self-managed
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier              = "free"
     target_businesses = "Small applications,Startups,Basic real-time needs"
@@ -1417,7 +1495,15 @@ resource "stripe_price" "real_time_custom" {
   product        = stripe_product.real_time_features.id
   unit_amount    = 0 # Custom pricing
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier     = "custom"
     features = "Custom pricing based on real-time feature complexity and traffic volume"
@@ -1445,7 +1531,15 @@ resource "stripe_price" "marketing_free" {
   product        = stripe_product.automated_digital_marketing.id
   unit_amount    = 0 # Free tier - self-managed
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier              = "free"
     target_businesses = "Small businesses,Startups,Basic marketing needs"
@@ -1517,7 +1611,15 @@ resource "stripe_price" "marketing_custom" {
   product        = stripe_product.automated_digital_marketing.id
   unit_amount    = 0 # Custom pricing
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier     = "custom"
     features = "Custom pricing based on ad spend volume and marketing complexity"
@@ -1545,7 +1647,15 @@ resource "stripe_price" "autoblogger_free" {
   product        = stripe_product.autoblogger.id
   unit_amount    = 0 # Free tier - self-managed
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier              = "free"
     target_businesses = "Small businesses,Startups,Basic content needs"
@@ -1617,7 +1727,15 @@ resource "stripe_price" "autoblogger_custom" {
   product        = stripe_product.autoblogger.id
   unit_amount    = 0 # Custom pricing
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier     = "custom"
     features = "Custom pricing based on content volume and specific blogging requirements"
@@ -1645,7 +1763,15 @@ resource "stripe_price" "publisher_free" {
   product        = stripe_product.publisher.id
   unit_amount    = 0 # Free tier - self-managed
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier              = "free"
     target_businesses = "Small publishers,Startups,Basic ad monetization needs"
@@ -1661,9 +1787,14 @@ resource "stripe_price" "publisher_free" {
 resource "stripe_price" "publisher_basic" {
   currency       = "usd"
   product        = stripe_product.publisher.id
-  unit_amount    = 0 # Revenue share - 10%
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    up_to = null
+  }
+
+  tiers_mode = "volume"
 
   metadata = {
     tier          = "basic"
@@ -1676,9 +1807,14 @@ resource "stripe_price" "publisher_basic" {
 resource "stripe_price" "publisher_standard" {
   currency       = "usd"
   product        = stripe_product.publisher.id
-  unit_amount    = 0 # Revenue share - 12%
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    up_to = null
+  }
+
+  tiers_mode = "volume"
 
   metadata = {
     tier          = "standard"
@@ -1691,9 +1827,14 @@ resource "stripe_price" "publisher_standard" {
 resource "stripe_price" "publisher_premium" {
   currency       = "usd"
   product        = stripe_product.publisher.id
-  unit_amount    = 0 # Revenue share - 15%
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    up_to = null
+  }
+
+  tiers_mode = "volume"
 
   metadata = {
     tier          = "premium"
@@ -1708,7 +1849,15 @@ resource "stripe_price" "publisher_custom" {
   product        = stripe_product.publisher.id
   unit_amount    = 0 # Custom pricing
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier     = "custom"
     features = "Custom revenue share percentage based on ad revenue volume and specific requirements"
@@ -1736,7 +1885,15 @@ resource "stripe_price" "support_chatbot_free" {
   product        = stripe_product.customer_support_chatbot.id
   unit_amount    = 0 # Free tier - self-managed
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier              = "free"
     target_businesses = "Small businesses,Startups,Basic customer support needs"
@@ -1808,7 +1965,15 @@ resource "stripe_price" "support_chatbot_custom" {
   product        = stripe_product.customer_support_chatbot.id
   unit_amount    = 0 # Custom pricing
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier     = "custom"
     features = "Custom pricing based on conversation volume and support complexity"
@@ -1836,7 +2001,15 @@ resource "stripe_price" "sales_chatbot_free" {
   product        = stripe_product.sales_chatbot.id
   unit_amount    = 0 # Free tier - self-managed
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier              = "free"
     target_businesses = "Small businesses,Startups,Basic sales needs"
@@ -1908,7 +2081,15 @@ resource "stripe_price" "sales_chatbot_custom" {
   product        = stripe_product.sales_chatbot.id
   unit_amount    = 0 # Custom pricing
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier     = "custom"
     features = "Custom pricing based on sales volume and lead complexity"
@@ -1936,7 +2117,15 @@ resource "stripe_price" "crm_free" {
   product        = stripe_product.crm_system.id
   unit_amount    = 0 # Free tier - self-managed
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier              = "free"
     target_businesses = "Small businesses,Startups,Basic CRM needs"
@@ -2008,7 +2197,15 @@ resource "stripe_price" "crm_custom" {
   product        = stripe_product.crm_system.id
   unit_amount    = 0 # Custom pricing
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier     = "custom"
     features = "Custom pricing based on user count and integration complexity"
@@ -2041,7 +2238,15 @@ resource "stripe_price" "maintenance_retainer_free" {
   product        = stripe_product.general_maintenance_retainer.id
   unit_amount    = 0 # Free tier - self-managed
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier                = "free"
     target_businesses   = "Small businesses,Startups,Simple web applications"
@@ -2137,7 +2342,15 @@ resource "stripe_price" "maintenance_retainer_custom" {
   product        = stripe_product.general_maintenance_retainer.id
   unit_amount    = 0 # Custom pricing
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier                = "custom"
     target_businesses   = "Large enterprises,Complex multi-system environments,Highly specialized applications"
@@ -2174,7 +2387,15 @@ resource "stripe_price" "api_free" {
   product        = stripe_product.api_development.id
   unit_amount    = 0 # Free tier - self-managed
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier              = "free"
     target_businesses = "Small businesses,Startups,Basic API needs"
@@ -2246,7 +2467,15 @@ resource "stripe_price" "api_custom" {
   product        = stripe_product.api_development.id
   unit_amount    = 0 # Custom pricing
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier     = "custom"
     features = "Custom pricing based on API complexity and usage volume"
@@ -2274,7 +2503,15 @@ resource "stripe_price" "app_store_free" {
   product        = stripe_product.app_store_management.id
   unit_amount    = 0 # Free tier - self-managed
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier              = "free"
     target_businesses = "Small businesses,Startups,Basic mobile apps"
@@ -2346,7 +2583,15 @@ resource "stripe_price" "app_store_custom" {
   product        = stripe_product.app_store_management.id
   unit_amount    = 0 # Custom pricing
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier     = "custom"
     features = "Custom pricing based on app complexity and platform requirements"
@@ -2374,7 +2619,15 @@ resource "stripe_price" "blog_cms_free" {
   product        = stripe_product.blog_cms.id
   unit_amount    = 0 # Free tier - self-managed
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier              = "free"
     target_businesses = "Small businesses,Startups,Basic content needs"
@@ -2446,7 +2699,15 @@ resource "stripe_price" "blog_cms_custom" {
   product        = stripe_product.blog_cms.id
   unit_amount    = 0 # Custom pricing
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier     = "custom"
     features = "Custom pricing based on content volume and CMS complexity"
@@ -2474,7 +2735,15 @@ resource "stripe_price" "i18n_free" {
   product        = stripe_product.internationalization.id
   unit_amount    = 0 # Free tier - self-managed
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier              = "free"
     target_businesses = "Small businesses,Startups,Basic internationalization needs"
@@ -2546,7 +2815,15 @@ resource "stripe_price" "i18n_custom" {
   product        = stripe_product.internationalization.id
   unit_amount    = 0 # Custom pricing
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier     = "custom"
     features = "Custom pricing based on language count and localization complexity"
@@ -2574,7 +2851,15 @@ resource "stripe_price" "sso_free" {
   product        = stripe_product.sso_social_login.id
   unit_amount    = 0 # Free tier - self-managed
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier              = "free"
     target_businesses = "Small businesses,Startups,Basic authentication needs"
@@ -2646,7 +2931,15 @@ resource "stripe_price" "sso_custom" {
   product        = stripe_product.sso_social_login.id
   unit_amount    = 0 # Custom pricing
   active         = true
-  billing_scheme = "per_unit"
+  billing_scheme = "tiered"
+
+  tiers {
+    unit_amount = 0
+    up_to       = null
+  }
+
+  tiers_mode = "volume"
+
   metadata = {
     tier     = "custom"
     features = "Custom pricing based on provider count and authentication complexity"
