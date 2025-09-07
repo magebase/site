@@ -473,23 +473,23 @@ jobs:
           fi
 
       - name: Run Trivy vulnerability scanner (Table output)
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@0.28.0
         with:
           scan-type: 'image'
           scan-ref: ${{ steps.scan-image.outputs.image }}
           format: 'table'
           severity: 'CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN'
-          exit-code: 0
+          exit-code: '0'
           ignore-unfixed: false
 
       - name: Run Trivy vulnerability scanner (SARIF output)
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@0.28.0
         with:
           scan-type: 'image'
           scan-ref: ${{ steps.scan-image.outputs.image }}
           format: 'sarif'
           severity: 'CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN'
-          exit-code: 0
+          exit-code: '0'
           ignore-unfixed: false
           output: 'trivy-results.sarif'
 
