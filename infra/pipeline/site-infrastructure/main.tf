@@ -104,5 +104,6 @@ module "aws_ses_users" {
 
 # Stripe Configuration
 module "stripe" {
-  source = "./modules/stripe"
+  source         = "./modules/stripe"
+  stripe_api_key = var.stripe_api_key
 }

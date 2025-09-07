@@ -126,3 +126,9 @@ variable "cloudflare_region" {
     error_message = "Cloudflare region must be either 'EU' or 'US'"
   }
 }
+
+variable "stripe_api_key" {
+  description = "API key for Stripe integration"
+  type        = string
+  sensitive   = true
+}
