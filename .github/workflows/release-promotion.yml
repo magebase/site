@@ -3,9 +3,19 @@ name: Environment Promotion Pipeline
 on:
   workflow_dispatch:
     inputs:
-      source_environment:
-        description: 'Source environment to promote from'
+      deployment_type:
+        description: 'Type of deployment action'
         required: true
+        default: 'promote'
+        type: choice
+        options:
+          - promote
+          - deploy-to-qa
+          - deploy-to-uat
+          - deploy-to-prod
+      source_environment:
+        description: 'Source environment to promote from (only for promote type)'
+        required: false
         default: 'dev'
         type: choice
         options:
@@ -13,8 +23,8 @@ on:
           - qa
           - uat
       target_environment:
-        description: 'Target environment to promote to'
-        required: true
+        description: 'Target environment to promote to (only for promote type)'
+        required: false
         default: 'qa'
         type: choice
         options:
@@ -22,17 +32,25 @@ on:
           - uat
           - prod
       release_version:
-        description: 'Release version to promote (e.g., v1.2.3)'
+        description: 'Release version to promote/deploy (e.g., v1.2.3)'
         required: true
         type: string
       create_pr:
-        description: 'Create a pull request for the promotion'
+        description: 'Create a pull request for the promotion (only for promote type)'
         required: false
         default: true
         type: boolean
+  release:
+    types: [published]
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+    paths:
+      - 'k8s/**'
 
 concurrency:
-  group: promotion-${{ github.event.inputs.source_environment }}-${{ github.event.inputs.target_environment }}
+  group: promotion-${{ github.event_name }}-${{ github.event.inputs.source_environment || 'direct' }}-${{ github.event.inputs.target_environment || github.event.inputs.deployment_type || 'release' }}
   cancel-in-progress: false
 
 permissions:
@@ -49,6 +67,7 @@ jobs:
   validate-promotion:
     name: Validate Promotion Request
     runs-on: ubicloud-standard-2-arm
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deployment_type == 'promote'
     outputs:
       valid_promotion: ${{ steps.validate.outputs.valid }}
       release_branch: ${{ steps.validate.outputs.release_branch }}
@@ -103,7 +122,7 @@ jobs:
     name: Create Release Branch
     runs-on: ubicloud-standard-2-arm
     needs: validate-promotion
-    if: needs.validate-promotion.outputs.valid == 'true'
+    if: needs.validate-promotion.outputs.valid == 'true' && github.event_name == 'workflow_dispatch' && github.event.inputs.deployment_type == 'promote'
 
     steps:
       - name: Checkout code
@@ -136,7 +155,7 @@ jobs:
     name: Update Kubernetes Configuration
     runs-on: ubicloud-standard-2-arm
     needs: [validate-promotion, create-release-branch]
-    if: needs.validate-promotion.outputs.valid == 'true'
+    if: needs.validate-promotion.outputs.valid == 'true' && github.event_name == 'workflow_dispatch' && github.event.inputs.deployment_type == 'promote'
 
     steps:
       - name: Checkout release branch
@@ -233,7 +252,7 @@ jobs:
     name: Create Promotion Pull Request
     runs-on: ubicloud-standard-2-arm
     needs: [validate-promotion, update-k8s-config]
-    if: needs.validate-promotion.outputs.valid == 'true' && github.event.inputs.create_pr == 'true'
+    if: needs.validate-promotion.outputs.valid == 'true' && github.event_name == 'workflow_dispatch' && github.event.inputs.deployment_type == 'promote' && github.event.inputs.create_pr == 'true'
 
     steps:
       - name: Checkout release branch
@@ -315,3 +334,167 @@ jobs:
           1. Review the changes in this PR
           2. Approve and merge when ready
           3. The main deployment workflow will handle the actual deployment to $TARGET_ENV"
+
+  handle-release:
+    name: Handle New Release
+    runs-on: ubicloud-standard-2-arm
+    if: github.event_name == 'release' && github.event.action == 'published'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Extract release information
+        id: release-info
+        run: |
+          RELEASE_TAG="${{ github.event.release.tag_name }}"
+          RELEASE_VERSION="$RELEASE_TAG"
+          IMAGE_TAG="${RELEASE_TAG#v}"
+
+          echo "release_version=$RELEASE_VERSION" >> $GITHUB_OUTPUT
+          echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
+          echo "Triggered by release: $RELEASE_TAG"
+
+      - name: Trigger promotion to QA
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'release-promotion.yml',
+              ref: 'main',
+              inputs: {
+                deployment_type: 'promote',
+                source_environment: 'dev',
+                target_environment: 'qa',
+                release_version: '${{ steps.release-info.outputs.release_version }}',
+                create_pr: 'true'
+              }
+            })
+
+  handle-pr-merge:
+    name: Handle Promotion PR Merge
+    runs-on: ubicloud-standard-2-arm
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+
+      - name: Extract deployment information
+        id: deploy-info
+        run: |
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          PR_BODY="${{ github.event.pull_request.body }}"
+
+          # Extract target environment from PR title (format: "🚀 Promote v1.2.3 to qa")
+          if [[ $PR_TITLE =~ "Promote v[0-9]+\.[0-9]+\.[0-9]+ to (qa|uat|prod)" ]]; then
+            TARGET_ENV="${BASH_REMATCH[1]}"
+            echo "target_environment=$TARGET_ENV" >> $GITHUB_OUTPUT
+            echo "Deploying to: $TARGET_ENV"
+          else
+            echo "Could not extract target environment from PR title: $PR_TITLE"
+            exit 1
+          fi
+
+          # Extract release version from PR title
+          if [[ $PR_TITLE =~ "Promote (v[0-9]+\.[0-9]+\.[0-9]+)" ]]; then
+            RELEASE_VERSION="${BASH_REMATCH[1]}"
+            IMAGE_TAG="${RELEASE_VERSION#v}"
+            echo "release_version=$RELEASE_VERSION" >> $GITHUB_OUTPUT
+            echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Deploy to target environment
+        run: |
+          TARGET_ENV="${{ steps.deploy-info.outputs.target_environment }}"
+          IMAGE_TAG="${{ steps.deploy-info.outputs.image_tag }}"
+          RELEASE_VERSION="${{ steps.deploy-info.outputs.release_version }}"
+
+          echo "🚀 Starting deployment to $TARGET_ENV"
+          echo "Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$IMAGE_TAG"
+          echo "Release: $RELEASE_VERSION"
+
+          # Trigger deployment via repository dispatch to base-infra
+          curl -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.TRIGGER_WORKFLOW_TOKEN }}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/magebase/base-infra/dispatches \
+            -d "{\"event_type\":\"deploy-application\", \"client_payload\":{\"repository\":\"${{ github.repository }}\",\"tag_name\":\"$RELEASE_VERSION\", \"to_environment\": \"$TARGET_ENV\", \"regions\": [\"fsn1\"]}}"
+
+          echo "✅ Deployment triggered for $TARGET_ENV"
+
+  trigger-infra-workflow:
+    name: Trigger Infrastructure Workflow
+    runs-on: ubicloud-standard-2-arm
+    if: github.event_name == 'release' && github.event.action == 'published'
+
+    steps:
+      - name: Send Repository Dispatch
+        run: |
+          curl -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.TRIGGER_WORKFLOW_TOKEN }}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/magebase/base-infra/dispatches \
+            -d '{"event_type":"trigger-workflow", "client_payload":{"repository":"${{ github.repository }}","tag_name":"${{ github.event.release.tag_name }}", "to_environment": "dev", "regions": ["fsn1"]}}'
+
+  handle-direct-deployment:
+    name: Handle Direct Deployment
+    runs-on: ubicloud-standard-2-arm
+    if: github.event_name == 'workflow_dispatch' && (github.event.inputs.deployment_type == 'deploy-to-qa' || github.event.inputs.deployment_type == 'deploy-to-uat' || github.event.inputs.deployment_type == 'deploy-to-prod')
+
+    steps:
+      - name: Determine target environment
+        id: env-info
+        run: |
+          DEPLOYMENT_TYPE="${{ github.event.inputs.deployment_type }}"
+          RELEASE_VERSION="${{ github.event.inputs.release_version }}"
+          IMAGE_TAG="${RELEASE_VERSION#v}"
+
+          case "$DEPLOYMENT_TYPE" in
+            "deploy-to-qa")
+              TARGET_ENV="qa"
+              ;;
+            "deploy-to-uat")
+              TARGET_ENV="uat"
+              ;;
+            "deploy-to-prod")
+              TARGET_ENV="prod"
+              ;;
+            *)
+              echo "Invalid deployment type: $DEPLOYMENT_TYPE"
+              exit 1
+              ;;
+          esac
+
+          echo "target_environment=$TARGET_ENV" >> $GITHUB_OUTPUT
+          echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
+          echo "release_version=$RELEASE_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Deploy directly to environment
+        run: |
+          TARGET_ENV="${{ steps.env-info.outputs.target_environment }}"
+          IMAGE_TAG="${{ steps.env-info.outputs.image_tag }}"
+          RELEASE_VERSION="${{ steps.env-info.outputs.release_version }}"
+
+          echo "🚀 Direct deployment to $TARGET_ENV"
+          echo "Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$IMAGE_TAG"
+          echo "Release: $RELEASE_VERSION"
+
+          # Trigger deployment via repository dispatch to base-infra
+          curl -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.TRIGGER_WORKFLOW_TOKEN }}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/magebase/base-infra/dispatches \
+            -d "{\"event_type\":\"deploy-application\", \"client_payload\":{\"repository\":\"${{ github.repository }}\",\"tag_name\":\"$RELEASE_VERSION\", \"to_environment\": \"$TARGET_ENV\", \"regions\": [\"fsn1\"]}}"
+
+          echo "✅ Direct deployment triggered for $TARGET_ENV"
