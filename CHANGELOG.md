@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/magebase/site/compare/v1.0.0...v1.0.1) (2025-09-07)
+
+
+### Bug Fixes
+
+* correct container registry image path ([69f4802](https://github.com/magebase/site/commit/69f4802a4002bd8032fc21a506594b9b7bb2df7d))
+* correct container registry name to magebase/site ([0d8df29](https://github.com/magebase/site/commit/0d8df2963aa14c3865cfec2da62c60f221666ce2))
+
 # 1.0.0 (2025-09-07)
 
 
