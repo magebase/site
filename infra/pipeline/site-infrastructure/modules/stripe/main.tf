@@ -128,9 +128,6 @@ resource "stripe_portal_configuration" "portal_configuration" {
         prices  = [stripe_price.sso_free.id, stripe_price.sso_basic.id, stripe_price.sso_standard.id, stripe_price.sso_premium.id, stripe_price.sso_custom.id]
       }
     }
-    subscription_pause {
-      enabled = false
-    }
   }
   metadata = {
     company_name     = var.company_name
