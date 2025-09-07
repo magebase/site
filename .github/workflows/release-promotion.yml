@@ -159,6 +159,12 @@ jobs:
           if [ -n "$EXISTING_PR" ]; then
             echo "PR #$EXISTING_PR already exists for $RELEASE_BRANCH"
           else
+            # Create environment-promotion label if it doesn't exist
+            if ! gh label list | grep -q "environment-promotion"; then
+              echo "Creating environment-promotion label"
+              gh label create "environment-promotion" --color "0052CC" --description "Environment promotion PRs"
+            fi
+
             # Create new PR
             PR_TITLE="🚀 Promote $RELEASE_VERSION to QA"
             PR_BODY=$(cat <<EOF
@@ -190,7 +196,7 @@ jobs:
               --body "$PR_BODY" \
               --head "$RELEASE_BRANCH" \
               --base "main" \
-              --label "environment-promotion,qa"
+              --label "environment-promotion"
 
             echo "✅ Created PR for QA promotion"
           fi
@@ -366,6 +372,12 @@ jobs:
           if [ -n "$EXISTING_PR" ]; then
             echo "PR #$EXISTING_PR already exists for $RELEASE_BRANCH"
           else
+            # Create environment-promotion label if it doesn't exist
+            if ! gh label list | grep -q "environment-promotion"; then
+              echo "Creating environment-promotion label"
+              gh label create "environment-promotion" --color "0052CC" --description "Environment promotion PRs"
+            fi
+
             # Create new PR
             PR_TITLE="🚀 Promote $RELEASE_VERSION to $NEXT_ENV"
             PR_BODY=$(cat <<EOF
@@ -397,7 +409,7 @@ jobs:
               --body "$PR_BODY" \
               --head "$RELEASE_BRANCH" \
               --base "main" \
-              --label "environment-promotion,$NEXT_ENV"
+              --label "environment-promotion"
 
             echo "✅ Created PR for $NEXT_ENV promotion"
           fi
@@ -405,6 +417,7 @@ jobs:
   trigger-infra-workflow:
     name: Trigger Infrastructure Workflow
     runs-on: ubicloud-standard-2-arm
+    needs: [handle-release]
     if: github.event_name == 'release' && github.event.action == 'published'
 
     steps:
