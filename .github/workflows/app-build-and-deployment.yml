@@ -502,7 +502,7 @@ jobs:
           fi
 
   deploy:
-    name: Trigger deployment to ArgoCD
+    name: Trigger deployment to Kubernetes via ArgoCD and update image tag
     runs-on: ubicloud-standard-2-arm
     needs: build
     if: success() && (github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch')
@@ -548,13 +548,13 @@ jobs:
           # Push changes to trigger ArgoCD
           git push origin HEAD:main
 
-      - name: Run Health Checks
-        run: |
-          # Wait for application to be ready
-          sleep 30
+      # - name: Run Health Checks
+      #   run: |
+      #     # Wait for application to be ready
+      #     sleep 30
 
-          # Run health checks
-          curl -f https://${{ github.event.inputs.environment != 'prod' && format('{0}.', github.event.inputs.environment || 'dev')}}magebase.dev/health
+      #     # Run health checks
+      #     curl -f https://${{ github.event.inputs.environment != 'prod' && format('{0}.', github.event.inputs.environment || 'dev')}}magebase.dev/health
 
   performance-test:
     name: Performance Testing

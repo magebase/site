@@ -63,18 +63,11 @@ RUN bundle install && rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
 
-# Verify Rails application is properly set up
-RUN bundle exec rails --version
-
-# Initialize Rails application before precompiling assets
-# First ensure we're in the correct directory and Rails is properly initialized
-RUN ls -la && pwd && bundle exec rails about || echo "Rails not fully initialized yet"
-
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE_DUMMY=1 RAILS_ENV=production bundle exec rails assets:precompile
+RUN SECRET_KEY_BASE_DUMMY=1 RAILS_MASTER_KEY=dummy_key_for_build RAILS_ENV=production bundle exec rails assets:precompile
 
 # Prepare database after assets are compiled (when Rails is fully set up)
-RUN bundle exec rails db:prepare || echo "Database preparation deferred to runtime"
+RUN SECRET_KEY_BASE_DUMMY=1 RAILS_MASTER_KEY=dummy_key_for_build RAILS_ENV=production bundle exec rails db:prepare || echo "Database preparation deferred to runtime"
 
 
 
