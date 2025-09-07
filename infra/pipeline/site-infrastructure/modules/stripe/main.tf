@@ -5,7 +5,7 @@ terraform {
   required_providers {
     stripe = {
       source  = "lukasaron/stripe"
-      version = "~> 1.0"
+      version = "~> 3.3.3"
     }
   }
 }
@@ -144,13 +144,11 @@ resource "stripe_price" "devops_starter" {
   metadata = {
     tier                    = "starter"
     target_businesses       = "PaaS clients,Small applications,Prototypes,MVPs,Personal projects"
-    monthly_active_users    = "Up to 1k"
-    monthly_deployments     = "Up to 5"
     features_included       = "24/7 uptime monitoring,Automatic restarts,Basic error alerts,Email support only,Basic security patches"
     infrastructure_included = "Shared hosting environment,Basic auto-scaling (up to 3 instances),Standard backup (weekly)"
     response_time           = "< 48 hours"
     uptime_sla              = "99.0%"
-    support_level           = "Email support only"
+    support_level           = "Discord, Email support only"
     included_tools          = "Basic uptime monitoring,Simple deployment dashboard"
     business_value          = "Guaranteed uptime,Hands-off hosting,No server management worries"
     scaling_note            = "For higher resource usage or custom requirements, upgrade to Standard tier required"
