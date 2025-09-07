@@ -1,3 +1,20 @@
+# [1.1.0](https://github.com/magebase/site/compare/v1.0.5...v1.1.0) (2025-09-07)
+
+
+### Bug Fixes
+
+* ensure performance tests pass before deployment and require all jobs success ([aed73ca](https://github.com/magebase/site/commit/aed73ca9eafbd5f66e104967865e080a34f284cb))
+* ensure performance tests pass before deployment and require all jobs successgit add . ([2965293](https://github.com/magebase/site/commit/2965293f319943f0177eab60cf16f91650b72578))
+* realease ([2ae03ea](https://github.com/magebase/site/commit/2ae03ead59804d9d38b42bf2648e3d6e7d06cf24))
+* remove unused QuotePdfGenerator service causing prawn LoadError in CI ([ce7cead](https://github.com/magebase/site/commit/ce7ceadb54c989c5497c1d94de65cd067abd1b6b))
+* update Trivy security scan to show all vulnerabilities without failing ([615becd](https://github.com/magebase/site/commit/615becdeca4f3c5acf0b64857e4fcb495fc7b12a))
+
+
+### Features
+
+* add clear GHCR image link display in semantic-release-publish job ([742a1dd](https://github.com/magebase/site/commit/742a1dd57a1018f5aced23799aa21ac50e770242))
+* implement environment promotion system ([f943b3a](https://github.com/magebase/site/commit/f943b3a8d4ff212e9c9b1fcaf04464feb9cfd3b5))
+
 ## [1.0.5](https://github.com/magebase/site/compare/v1.0.4...v1.0.5) (2025-09-07)
 
 
