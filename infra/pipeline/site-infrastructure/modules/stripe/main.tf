@@ -41,7 +41,7 @@ resource "stripe_portal_configuration" "portal_configuration" {
         options = ["too_expensive", "missing_features", "switched_service", "unused", "customer_service", "too_complex", "low_quality", "other"]
       }
       mode               = "immediately"
-      proration_behavior = "always_invoice"
+      proration_behavior = "create_prorations"
     }
     subscription_update {
       enabled                 = true
