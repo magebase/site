@@ -1,45 +1,6 @@
 name: Environment Promotion Pipeline
 
 on:
-  workflow_dispatch:
-    inputs:
-      deployment_type:
-        description: 'Type of deployment action'
-        required: true
-        default: 'promote'
-        type: choice
-        options:
-          - promote
-          - deploy-to-qa
-          - deploy-to-uat
-          - deploy-to-prod
-      source_environment:
-        description: 'Source environment to promote from (only for promote type)'
-        required: false
-        default: 'dev'
-        type: choice
-        options:
-          - dev
-          - qa
-          - uat
-      target_environment:
-        description: 'Target environment to promote to (only for promote type)'
-        required: false
-        default: 'qa'
-        type: choice
-        options:
-          - qa
-          - uat
-          - prod
-      release_version:
-        description: 'Release version to promote/deploy (e.g., v1.2.3)'
-        required: true
-        type: string
-      create_pr:
-        description: 'Create a pull request for the promotion (only for promote type)'
-        required: false
-        default: true
-        type: boolean
   release:
     types: [published]
   pull_request:
@@ -50,7 +11,7 @@ on:
       - 'k8s/**'
 
 concurrency:
-  group: promotion-${{ github.event_name }}-${{ github.event.inputs.source_environment || 'direct' }}-${{ github.event.inputs.target_environment || github.event.inputs.deployment_type || 'release' }}
+  group: promotion-${{ github.event_name }}-${{ github.event.pull_request.title || github.event.release.tag_name || 'unknown' }}
   cancel-in-progress: false
 
 permissions:
@@ -64,65 +25,10 @@ env:
   IMAGE_NAME: magebase/site
 
 jobs:
-  validate-promotion:
-    name: Validate Promotion Request
+  handle-release:
+    name: Handle New Release
     runs-on: ubicloud-standard-2-arm
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deployment_type == 'promote'
-    outputs:
-      valid_promotion: ${{ steps.validate.outputs.valid }}
-      release_branch: ${{ steps.validate.outputs.release_branch }}
-      image_tag: ${{ steps.validate.outputs.image_tag }}
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Validate promotion logic
-        id: validate
-        run: |
-          SOURCE_ENV="${{ github.event.inputs.source_environment }}"
-          TARGET_ENV="${{ github.event.inputs.target_environment }}"
-          RELEASE_VERSION="${{ github.event.inputs.release_version }}"
-
-          echo "Validating promotion from $SOURCE_ENV to $TARGET_ENV with version $RELEASE_VERSION"
-
-          # Validate environment progression
-          case "$SOURCE_ENV-$TARGET_ENV" in
-            "dev-qa"|"qa-uat"|"uat-prod")
-              echo "✅ Valid environment progression"
-              ;;
-            *)
-              echo "❌ Invalid environment progression: $SOURCE_ENV → $TARGET_ENV"
-              echo "valid=false" >> $GITHUB_OUTPUT
-              exit 1
-              ;;
-          esac
-
-          # Validate release version format
-          if [[ ! $RELEASE_VERSION =~ ^v[0-9]+\.[0-9]+\.[0-9]+ ]]; then
-            echo "❌ Invalid release version format: $RELEASE_VERSION (expected: v1.2.3)"
-            echo "valid=false" >> $GITHUB_OUTPUT
-            exit 1
-          fi
-
-          # Create release branch name
-          RELEASE_BRANCH="release/${RELEASE_VERSION}"
-          echo "release_branch=$RELEASE_BRANCH" >> $GITHUB_OUTPUT
-
-          # Set image tag (remove 'v' prefix for Docker tag)
-          IMAGE_TAG="${RELEASE_VERSION#v}"
-          echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
-
-          echo "valid=true" >> $GITHUB_OUTPUT
-          echo "✅ Promotion validation successful"
-
-  create-release-branch:
-    name: Create Release Branch
-    runs-on: ubicloud-standard-2-arm
-    needs: validate-promotion
-    if: needs.validate-promotion.outputs.valid == 'true' && github.event_name == 'workflow_dispatch' && github.event.inputs.deployment_type == 'promote'
+    if: github.event_name == 'release' && github.event.action == 'published'
 
     steps:
       - name: Checkout code
@@ -136,9 +42,21 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Create and checkout release branch
+      - name: Extract release information
+        id: release-info
         run: |
-          RELEASE_BRANCH="${{ needs.validate-promotion.outputs.release_branch }}"
+          RELEASE_TAG="${{ github.event.release.tag_name }}"
+          RELEASE_VERSION="$RELEASE_TAG"
+          IMAGE_TAG="${RELEASE_TAG#v}"
+
+          echo "release_version=$RELEASE_VERSION" >> $GITHUB_OUTPUT
+          echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
+          echo "Triggered by release: $RELEASE_TAG"
+
+      - name: Create release branch for QA promotion
+        run: |
+          RELEASE_VERSION="${{ steps.release-info.outputs.release_version }}"
+          RELEASE_BRANCH="release/${RELEASE_VERSION}"
 
           # Check if branch already exists
           if git ls-remote --heads origin $RELEASE_BRANCH | grep $RELEASE_BRANCH; then
@@ -151,36 +69,17 @@ jobs:
             git push -u origin $RELEASE_BRANCH
           fi
 
-  update-k8s-config:
-    name: Update Kubernetes Configuration
-    runs-on: ubicloud-standard-2-arm
-    needs: [validate-promotion, create-release-branch]
-    if: needs.validate-promotion.outputs.valid == 'true' && github.event_name == 'workflow_dispatch' && github.event.inputs.deployment_type == 'promote'
-
-    steps:
-      - name: Checkout release branch
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ needs.validate-promotion.outputs.release_branch }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Configure Git
+      - name: Update QA k8s configuration
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          IMAGE_TAG="${{ steps.release-info.outputs.image_tag }}"
+          RELEASE_VERSION="${{ steps.release-info.outputs.release_version }}"
 
-      - name: Update target environment k8s configuration
-        run: |
-          TARGET_ENV="${{ github.event.inputs.target_environment }}"
-          IMAGE_TAG="${{ needs.validate-promotion.outputs.image_tag }}"
-          RELEASE_VERSION="${{ github.event.inputs.release_version }}"
+          echo "Updating QA environment with image tag: $IMAGE_TAG"
 
-          echo "Updating $TARGET_ENV environment with image tag: $IMAGE_TAG"
-
-          # Create target environment overlay if it doesn't exist
-          TARGET_OVERLAY_DIR="k8s/overlays/$TARGET_ENV"
+          # Create QA overlay if it doesn't exist
+          TARGET_OVERLAY_DIR="k8s/overlays/qa"
           if [ ! -d "$TARGET_OVERLAY_DIR" ]; then
-            echo "Creating overlay directory for $TARGET_ENV"
+            echo "Creating overlay directory for QA"
             mkdir -p "$TARGET_OVERLAY_DIR"
 
             # Create kustomization.yaml
@@ -192,7 +91,7 @@ jobs:
             - ../../base
 
           patchesStrategicMerge:
-            - ${TARGET_ENV}-patches.yaml
+            - qa-patches.yaml
 
           configMapGenerator:
             - name: magebase-config
@@ -213,7 +112,7 @@ jobs:
           EOF
 
             # Create environment-specific patches
-            cat > "$TARGET_OVERLAY_DIR/${TARGET_ENV}-patches.yaml" << 'EOF'
+            cat > "$TARGET_OVERLAY_DIR/qa-patches.yaml" << 'EOF'
           apiVersion: apps/v1
           kind: Deployment
           metadata:
@@ -227,11 +126,11 @@ jobs:
                     image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${IMAGE_TAG}
           EOF
 
-            echo "✅ Created k8s overlay for $TARGET_ENV"
+            echo "✅ Created k8s overlay for QA"
           else
             echo "Overlay directory exists, updating image tag"
             # Update existing overlay with new image tag
-            sed -i "s|image:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${IMAGE_TAG}|g" "$TARGET_OVERLAY_DIR/${TARGET_ENV}-patches.yaml"
+            sed -i "s|image:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${IMAGE_TAG}|g" "$TARGET_OVERLAY_DIR/qa-patches.yaml"
           fi
 
           # Stage and commit changes
@@ -239,140 +138,61 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "chore: promote ${RELEASE_VERSION} to ${TARGET_ENV} environment
+            git commit -m "chore: promote ${RELEASE_VERSION} to QA environment
 
-          - Updated k8s configuration for ${TARGET_ENV}
+          - Updated k8s configuration for QA
           - Image tag: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${IMAGE_TAG}
-          - Source environment: ${{ github.event.inputs.source_environment }}
-          - Target environment: ${TARGET_ENV}"
-            git push origin ${{ needs.validate-promotion.outputs.release_branch }}
+          - Source environment: dev
+          - Target environment: qa"
+            git push origin HEAD
           fi
 
-  create-promotion-pr:
-    name: Create Promotion Pull Request
-    runs-on: ubicloud-standard-2-arm
-    needs: [validate-promotion, update-k8s-config]
-    if: needs.validate-promotion.outputs.valid == 'true' && github.event_name == 'workflow_dispatch' && github.event.inputs.deployment_type == 'promote' && github.event.inputs.create_pr == 'true'
-
-    steps:
-      - name: Checkout release branch
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ needs.validate-promotion.outputs.release_branch }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create pull request
+      - name: Create promotion PR to QA
         run: |
-          TARGET_ENV="${{ github.event.inputs.target_environment }}"
-          SOURCE_ENV="${{ github.event.inputs.source_environment }}"
-          RELEASE_VERSION="${{ github.event.inputs.release_version }}"
-          RELEASE_BRANCH="${{ needs.validate-promotion.outputs.release_branch }}"
+          RELEASE_VERSION="${{ steps.release-info.outputs.release_version }}"
+          RELEASE_BRANCH="release/${RELEASE_VERSION}"
 
           # Check if PR already exists
           EXISTING_PR=$(gh pr list --head "$RELEASE_BRANCH" --json number --jq '.[0].number')
 
           if [ -n "$EXISTING_PR" ]; then
             echo "PR #$EXISTING_PR already exists for $RELEASE_BRANCH"
-            echo "pr_number=$EXISTING_PR" >> $GITHUB_OUTPUT
           else
             # Create new PR
-            PR_TITLE="🚀 Promote $RELEASE_VERSION to $TARGET_ENV"
+            PR_TITLE="🚀 Promote $RELEASE_VERSION to QA"
             PR_BODY=$(cat <<EOF
           ## 🚀 Environment Promotion
 
           **Release:** $RELEASE_VERSION
-          **From:** $SOURCE_ENV
-          **To:** $TARGET_ENV
-          **Image:** \`${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.validate-promotion.outputs.image_tag }}\`
+          **From:** dev
+          **To:** QA
+          **Image:** \`${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.release-info.outputs.image_tag }}\`
 
           ### Changes
-          - Updated Kubernetes configuration for $TARGET_ENV environment
+          - Updated Kubernetes configuration for QA environment
           - Image tag updated to match release version
-          - Ready for deployment to $TARGET_ENV
+          - Ready for deployment to QA
 
           ### Checklist
           - [ ] Code review completed
-          - [ ] Tests passing in $SOURCE_ENV
+          - [ ] Tests passing in dev
           - [ ] Performance validated
           - [ ] Security scan passed
-          - [ ] Ready for $TARGET_ENV deployment
+          - [ ] Ready for QA deployment
 
           /cc @magebase/dev-team
           EOF
           )
 
-            PR_NUMBER=$(gh pr create \
+            gh pr create \
               --title "$PR_TITLE" \
               --body "$PR_BODY" \
               --head "$RELEASE_BRANCH" \
               --base "main" \
-              --label "environment-promotion,$TARGET_ENV")
+              --label "environment-promotion,qa"
 
-            echo "Created PR: $PR_NUMBER"
-            echo "pr_number=$(echo $PR_NUMBER | grep -o '#[0-9]*' | tr -d '#')" >> $GITHUB_OUTPUT
+            echo "✅ Created PR for QA promotion"
           fi
-
-      - name: Add PR comment with deployment info
-        if: steps.create-pr.outputs.pr_number
-        run: |
-          TARGET_ENV="${{ github.event.inputs.target_environment }}"
-          RELEASE_VERSION="${{ github.event.inputs.release_version }}"
-
-          gh pr comment ${{ steps.create-pr.outputs.pr_number }} --body "**Deployment Information**
-
-          **Environment:** $TARGET_ENV
-          **Release:** $RELEASE_VERSION
-          **Image:** \`${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.validate-promotion.outputs.image_tag }}\`
-
-          **URLs**
-          - **Dev:** https://dev.magebase.dev
-          - **QA:** https://qa.magebase.dev
-          - **UAT:** https://uat.magebase.dev
-          - **Prod:** https://magebase.dev
-
-          **Next Steps**
-          1. Review the changes in this PR
-          2. Approve and merge when ready
-          3. The main deployment workflow will handle the actual deployment to $TARGET_ENV"
-
-  handle-release:
-    name: Handle New Release
-    runs-on: ubicloud-standard-2-arm
-    if: github.event_name == 'release' && github.event.action == 'published'
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Extract release information
-        id: release-info
-        run: |
-          RELEASE_TAG="${{ github.event.release.tag_name }}"
-          RELEASE_VERSION="$RELEASE_TAG"
-          IMAGE_TAG="${RELEASE_TAG#v}"
-
-          echo "release_version=$RELEASE_VERSION" >> $GITHUB_OUTPUT
-          echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
-          echo "Triggered by release: $RELEASE_TAG"
-
-      - name: Trigger promotion to QA
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: 'release-promotion.yml',
-              ref: 'main',
-              inputs: {
-                deployment_type: 'promote',
-                source_environment: 'dev',
-                target_environment: 'qa',
-                release_version: '${{ steps.release-info.outputs.release_version }}',
-                create_pr: 'true'
-              }
-            })
-
   handle-pr-merge:
     name: Handle Promotion PR Merge
     runs-on: ubicloud-standard-2-arm
@@ -383,6 +203,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.merge_commit_sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Extract deployment information
         id: deploy-info
@@ -429,6 +255,152 @@ jobs:
 
           echo "✅ Deployment triggered for $TARGET_ENV"
 
+      - name: Create next promotion PR
+        run: |
+          TARGET_ENV="${{ steps.deploy-info.outputs.target_environment }}"
+          RELEASE_VERSION="${{ steps.deploy-info.outputs.release_version }}"
+          IMAGE_TAG="${{ steps.deploy-info.outputs.image_tag }}"
+          RELEASE_BRANCH="release/${RELEASE_VERSION}"
+
+          # Determine next environment in the chain
+          case "$TARGET_ENV" in
+            "qa")
+              NEXT_ENV="uat"
+              NEXT_SOURCE="qa"
+              ;;
+            "uat")
+              NEXT_ENV="prod"
+              NEXT_SOURCE="uat"
+              ;;
+            "prod")
+              echo "✅ Final deployment to production completed"
+              exit 0
+              ;;
+            *)
+              echo "Unknown target environment: $TARGET_ENV"
+              exit 1
+              ;;
+          esac
+
+          echo "Creating promotion PR for $NEXT_SOURCE → $NEXT_ENV"
+
+          # Checkout the existing release branch
+          git checkout $RELEASE_BRANCH
+          git pull origin $RELEASE_BRANCH
+
+          # Update next environment k8s configuration
+          TARGET_OVERLAY_DIR="k8s/overlays/$NEXT_ENV"
+          if [ ! -d "$TARGET_OVERLAY_DIR" ]; then
+            echo "Creating overlay directory for $NEXT_ENV"
+            mkdir -p "$TARGET_OVERLAY_DIR"
+
+            # Create kustomization.yaml
+            cat > "$TARGET_OVERLAY_DIR/kustomization.yaml" << 'EOF'
+          apiVersion: kustomize.config.k8s.io/v1beta1
+          kind: Kustomization
+
+          resources:
+            - ../../base
+
+          patchesStrategicMerge:
+            - ${NEXT_ENV}-patches.yaml
+
+          configMapGenerator:
+            - name: magebase-config
+              behavior: replace
+              literals:
+                - RAILS_ENV=production
+                - RAILS_LOG_TO_STDOUT=true
+                - RAILS_SERVE_STATIC_FILES=true
+
+          secretGenerator:
+            - name: magebase-secrets
+              behavior: replace
+              literals:
+                - secret-key-base=${SECRET_KEY_BASE}
+                - ruby-llm-api-key=${RUBY_LLM_API_KEY}
+                - aws-ses-access-key-id=${AWS_SES_ACCESS_KEY_ID}
+                - aws-ses-secret-access-key=${AWS_SES_SECRET_ACCESS_KEY}
+          EOF
+
+            # Create environment-specific patches
+            cat > "$TARGET_OVERLAY_DIR/${NEXT_ENV}-patches.yaml" << 'EOF'
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: magebase-app
+            namespace: magebase
+          spec:
+            template:
+              spec:
+                containers:
+                  - name: magebase
+                    image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${IMAGE_TAG}
+          EOF
+
+            echo "✅ Created k8s overlay for $NEXT_ENV"
+          else
+            echo "Overlay directory exists, updating image tag"
+            # Update existing overlay with new image tag
+            sed -i "s|image:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${IMAGE_TAG}|g" "$TARGET_OVERLAY_DIR/${NEXT_ENV}-patches.yaml"
+          fi
+
+          # Stage and commit changes
+          git add k8s/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: promote ${RELEASE_VERSION} to ${NEXT_ENV} environment
+
+          - Updated k8s configuration for ${NEXT_ENV}
+          - Image tag: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${IMAGE_TAG}
+          - Source environment: ${NEXT_SOURCE}
+          - Target environment: ${NEXT_ENV}"
+            git push origin HEAD
+          fi
+
+          # Create promotion PR
+          EXISTING_PR=$(gh pr list --head "$RELEASE_BRANCH" --json number --jq '.[0].number')
+
+          if [ -n "$EXISTING_PR" ]; then
+            echo "PR #$EXISTING_PR already exists for $RELEASE_BRANCH"
+          else
+            # Create new PR
+            PR_TITLE="🚀 Promote $RELEASE_VERSION to $NEXT_ENV"
+            PR_BODY=$(cat <<EOF
+          ## 🚀 Environment Promotion
+
+          **Release:** $RELEASE_VERSION
+          **From:** $NEXT_SOURCE
+          **To:** $NEXT_ENV
+          **Image:** \`${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${IMAGE_TAG}\`
+
+          ### Changes
+          - Updated Kubernetes configuration for $NEXT_ENV environment
+          - Image tag updated to match release version
+          - Ready for deployment to $NEXT_ENV
+
+          ### Checklist
+          - [ ] Code review completed
+          - [ ] Tests passing in $NEXT_SOURCE
+          - [ ] Performance validated
+          - [ ] Security scan passed
+          - [ ] Ready for $NEXT_ENV deployment
+
+          /cc @magebase/dev-team
+          EOF
+          )
+
+            gh pr create \
+              --title "$PR_TITLE" \
+              --body "$PR_BODY" \
+              --head "$RELEASE_BRANCH" \
+              --base "main" \
+              --label "environment-promotion,$NEXT_ENV"
+
+            echo "✅ Created PR for $NEXT_ENV promotion"
+          fi
+
   trigger-infra-workflow:
     name: Trigger Infrastructure Workflow
     runs-on: ubicloud-standard-2-arm
@@ -444,57 +416,3 @@ jobs:
             -H "X-GitHub-Api-Version: 2022-11-28" \
             https://api.github.com/repos/magebase/base-infra/dispatches \
             -d '{"event_type":"trigger-workflow", "client_payload":{"repository":"${{ github.repository }}","tag_name":"${{ github.event.release.tag_name }}", "to_environment": "dev", "regions": ["fsn1"]}}'
-
-  handle-direct-deployment:
-    name: Handle Direct Deployment
-    runs-on: ubicloud-standard-2-arm
-    if: github.event_name == 'workflow_dispatch' && (github.event.inputs.deployment_type == 'deploy-to-qa' || github.event.inputs.deployment_type == 'deploy-to-uat' || github.event.inputs.deployment_type == 'deploy-to-prod')
-
-    steps:
-      - name: Determine target environment
-        id: env-info
-        run: |
-          DEPLOYMENT_TYPE="${{ github.event.inputs.deployment_type }}"
-          RELEASE_VERSION="${{ github.event.inputs.release_version }}"
-          IMAGE_TAG="${RELEASE_VERSION#v}"
-
-          case "$DEPLOYMENT_TYPE" in
-            "deploy-to-qa")
-              TARGET_ENV="qa"
-              ;;
-            "deploy-to-uat")
-              TARGET_ENV="uat"
-              ;;
-            "deploy-to-prod")
-              TARGET_ENV="prod"
-              ;;
-            *)
-              echo "Invalid deployment type: $DEPLOYMENT_TYPE"
-              exit 1
-              ;;
-          esac
-
-          echo "target_environment=$TARGET_ENV" >> $GITHUB_OUTPUT
-          echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
-          echo "release_version=$RELEASE_VERSION" >> $GITHUB_OUTPUT
-
-      - name: Deploy directly to environment
-        run: |
-          TARGET_ENV="${{ steps.env-info.outputs.target_environment }}"
-          IMAGE_TAG="${{ steps.env-info.outputs.image_tag }}"
-          RELEASE_VERSION="${{ steps.env-info.outputs.release_version }}"
-
-          echo "🚀 Direct deployment to $TARGET_ENV"
-          echo "Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$IMAGE_TAG"
-          echo "Release: $RELEASE_VERSION"
-
-          # Trigger deployment via repository dispatch to base-infra
-          curl -L \
-            -X POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${{ secrets.TRIGGER_WORKFLOW_TOKEN }}" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/magebase/base-infra/dispatches \
-            -d "{\"event_type\":\"deploy-application\", \"client_payload\":{\"repository\":\"${{ github.repository }}\",\"tag_name\":\"$RELEASE_VERSION\", \"to_environment\": \"$TARGET_ENV\", \"regions\": [\"fsn1\"]}}"
-
-          echo "✅ Direct deployment triggered for $TARGET_ENV"
