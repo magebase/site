@@ -48,6 +48,9 @@ env:
   TF_WORKING_DIR: infra/pipeline/site-infrastructure
   INFRA_REGION: ap-southeast-1
   SSO_REGION: us-east-1
+  TF_VAR_google_studio_api_key: ${{ secrets.GOOGLE_STUDIO_API_KEY }}
+  TF_VAR_anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+  TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
 
 jobs:
   site-infrastructure:
@@ -102,6 +105,9 @@ jobs:
           TF_VAR_environment_account_id: ${{ vars.MANAGEMENT_ACCOUNT_ID }}
           TF_VAR_cloudflare_region: ${{ vars.CF_REGION || 'EU' }}
           TF_VAR_environment: ${{ github.event.inputs.environment || 'dev' }}
+          TF_VAR_google_studio_api_key: ${{ secrets.GOOGLE_STUDIO_API_KEY }}
+          TF_VAR_anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
         run: |
           ENVIRONMENT="${{ steps.get-env.outputs.environment }}"
 
@@ -120,6 +126,9 @@ jobs:
           TF_VAR_environment_account_id: ${{ vars.MANAGEMENT_ACCOUNT_ID }}
           TF_VAR_cloudflare_region: ${{ vars.CF_REGION || 'EU' }}
           TF_VAR_environment: ${{ github.event.inputs.environment || 'dev' }}
+          TF_VAR_google_studio_api_key: ${{ secrets.GOOGLE_STUDIO_API_KEY }}
+          TF_VAR_anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
         run: |
           ENVIRONMENT="${{ steps.get-env.outputs.environment }}"
           echo "📋 Planning infrastructure for $ENVIRONMENT environment..."
@@ -146,6 +155,9 @@ jobs:
           TF_VAR_environment_account_id: ${{ vars.MANAGEMENT_ACCOUNT_ID }}
           TF_VAR_cloudflare_region: ${{ vars.CF_REGION || 'EU' }}
           TF_VAR_environment: ${{ github.event.inputs.environment || 'dev' }}
+          TF_VAR_google_studio_api_key: ${{ secrets.GOOGLE_STUDIO_API_KEY }}
+          TF_VAR_anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
         run: |
           ENVIRONMENT="${{ steps.get-env.outputs.environment }}"
           echo "🚀 Applying infrastructure for $ENVIRONMENT environment..."
@@ -314,6 +326,9 @@ jobs:
           TF_VAR_environment_account_id: ${{ vars.MANAGEMENT_ACCOUNT_ID }}
           TF_VAR_cloudflare_region: ${{ vars.CF_REGION || 'EU' }}
           TF_VAR_environment: ${{ github.event.inputs.environment || 'dev' }}
+          TF_VAR_google_studio_api_key: ${{ secrets.GOOGLE_STUDIO_API_KEY }}
+          TF_VAR_anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
         run: |
           ENVIRONMENT="${{ steps.get-env.outputs.environment }}"
           echo "🗑️ Destroying infrastructure for $ENVIRONMENT environment..."
