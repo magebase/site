@@ -101,7 +101,7 @@ jobs:
 
       - name: Run semantic-release dry run
         id: semantic
-        uses: cycjimmy/semantic-release-action@v4
+        uses: cycjimmy/semantic-release-action@v5
         with:
           branches: main
           dry_run: true
@@ -642,7 +642,7 @@ jobs:
 
       - name: Run semantic-release publish
         id: semantic
-        uses: cycjimmy/semantic-release-action@v4
+        uses: cycjimmy/semantic-release-action@v5
         with:
           branches: main
           dry_run: false
