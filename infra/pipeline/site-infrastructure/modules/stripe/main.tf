@@ -561,11 +561,10 @@ resource "stripe_product" "payment_processing" {
 }
 
 resource "stripe_price" "payment_processing_free" {
-  currency       = "usd"
-  product        = stripe_product.payment_processing.id
-  unit_amount    = 0
-  active         = true
-  billing_scheme = "per_unit"
+  currency    = "usd"
+  product     = stripe_product.payment_processing.id
+  unit_amount = 0
+  active      = true
 
   metadata = {
     tier              = "free"
@@ -775,11 +774,10 @@ resource "stripe_product" "analytics_tracking" {
 }
 
 resource "stripe_price" "analytics_free" {
-  currency       = "usd"
-  product        = stripe_product.analytics_tracking.id
-  unit_amount    = 0
-  active         = true
-  billing_scheme = "per_unit"
+  currency    = "usd"
+  product     = stripe_product.analytics_tracking.id
+  unit_amount = 0
+  active      = true
 
   metadata = {
     tier              = "free"
@@ -986,11 +984,10 @@ resource "stripe_product" "ai_ml_features" {
 }
 
 resource "stripe_price" "ai_ml_free" {
-  currency       = "usd"
-  product        = stripe_product.ai_ml_features.id
-  unit_amount    = 0
-  active         = true
-  billing_scheme = "per_unit"
+  currency    = "usd"
+  product     = stripe_product.ai_ml_features.id
+  unit_amount = 0
+  active      = true
 
   metadata = {
     tier              = "free"
@@ -1160,11 +1157,10 @@ resource "stripe_product" "blockchain_integration" {
 }
 
 resource "stripe_price" "blockchain_free" {
-  currency       = "usd"
-  product        = stripe_product.blockchain_integration.id
-  unit_amount    = 0
-  active         = true
-  billing_scheme = "per_unit"
+  currency    = "usd"
+  product     = stripe_product.blockchain_integration.id
+  unit_amount = 0
+  active      = true
 
   metadata = {
     tier              = "free"
@@ -1267,11 +1263,10 @@ resource "stripe_product" "gambling_igaming" {
 }
 
 resource "stripe_price" "gambling_free" {
-  currency       = "usd"
-  product        = stripe_product.gambling_igaming.id
-  unit_amount    = 0
-  active         = true
-  billing_scheme = "per_unit"
+  currency    = "usd"
+  product     = stripe_product.gambling_igaming.id
+  unit_amount = 0
+  active      = true
 
   metadata = {
     tier              = "free"
@@ -1374,11 +1369,10 @@ resource "stripe_product" "real_time_features" {
 }
 
 resource "stripe_price" "real_time_free" {
-  currency       = "usd"
-  product        = stripe_product.real_time_features.id
-  unit_amount    = 0
-  active         = true
-  billing_scheme = "per_unit"
+  currency    = "usd"
+  product     = stripe_product.real_time_features.id
+  unit_amount = 0
+  active      = true
 
   metadata = {
     tier              = "free"
@@ -1481,11 +1475,10 @@ resource "stripe_product" "automated_digital_marketing" {
 }
 
 resource "stripe_price" "marketing_free" {
-  currency       = "usd"
-  product        = stripe_product.automated_digital_marketing.id
-  unit_amount    = 0
-  active         = true
-  billing_scheme = "per_unit"
+  currency    = "usd"
+  product     = stripe_product.automated_digital_marketing.id
+  unit_amount = 0
+  active      = true
 
   metadata = {
     tier              = "free"
@@ -1588,11 +1581,10 @@ resource "stripe_product" "autoblogger" {
 }
 
 resource "stripe_price" "autoblogger_free" {
-  currency       = "usd"
-  product        = stripe_product.autoblogger.id
-  unit_amount    = 0
-  active         = true
-  billing_scheme = "per_unit"
+  currency    = "usd"
+  product     = stripe_product.autoblogger.id
+  unit_amount = 0
+  active      = true
 
   metadata = {
     tier              = "free"
@@ -1695,11 +1687,10 @@ resource "stripe_product" "publisher" {
 }
 
 resource "stripe_price" "publisher_free" {
-  currency       = "usd"
-  product        = stripe_product.publisher.id
-  unit_amount    = 0
-  active         = true
-  billing_scheme = "per_unit"
+  currency    = "usd"
+  product     = stripe_product.publisher.id
+  unit_amount = 0
+  active      = true
 
   metadata = {
     tier              = "free"
@@ -1805,11 +1796,10 @@ resource "stripe_product" "customer_support_chatbot" {
 }
 
 resource "stripe_price" "support_chatbot_free" {
-  currency       = "usd"
-  product        = stripe_product.customer_support_chatbot.id
-  unit_amount    = 0
-  active         = true
-  billing_scheme = "per_unit"
+  currency    = "usd"
+  product     = stripe_product.customer_support_chatbot.id
+  unit_amount = 0
+  active      = true
 
   metadata = {
     tier              = "free"
@@ -1912,11 +1902,10 @@ resource "stripe_product" "sales_chatbot" {
 }
 
 resource "stripe_price" "sales_chatbot_free" {
-  currency       = "usd"
-  product        = stripe_product.sales_chatbot.id
-  unit_amount    = 0
-  active         = true
-  billing_scheme = "per_unit"
+  currency    = "usd"
+  product     = stripe_product.sales_chatbot.id
+  unit_amount = 0
+  active      = true
 
   metadata = {
     tier              = "free"
@@ -2019,11 +2008,10 @@ resource "stripe_product" "crm_system" {
 }
 
 resource "stripe_price" "crm_free" {
-  currency       = "usd"
-  product        = stripe_product.crm_system.id
-  unit_amount    = 0
-  active         = true
-  billing_scheme = "per_unit"
+  currency    = "usd"
+  product     = stripe_product.crm_system.id
+  unit_amount = 0
+  active      = true
 
   metadata = {
     tier              = "free"
@@ -2131,11 +2119,10 @@ resource "stripe_product" "general_maintenance_retainer" {
 }
 
 resource "stripe_price" "maintenance_retainer_free" {
-  currency       = "usd"
-  product        = stripe_product.general_maintenance_retainer.id
-  unit_amount    = 0
-  active         = true
-  billing_scheme = "per_unit"
+  currency    = "usd"
+  product     = stripe_product.general_maintenance_retainer.id
+  unit_amount = 0
+  active      = true
 
   metadata = {
     tier                = "free"
@@ -2271,11 +2258,10 @@ resource "stripe_product" "api_development" {
 }
 
 resource "stripe_price" "api_free" {
-  currency       = "usd"
-  product        = stripe_product.api_development.id
-  unit_amount    = 0
-  active         = true
-  billing_scheme = "per_unit"
+  currency    = "usd"
+  product     = stripe_product.api_development.id
+  unit_amount = 0
+  active      = true
 
   metadata = {
     tier              = "free"
@@ -2378,11 +2364,10 @@ resource "stripe_product" "app_store_management" {
 }
 
 resource "stripe_price" "app_store_free" {
-  currency       = "usd"
-  product        = stripe_product.app_store_management.id
-  unit_amount    = 0
-  active         = true
-  billing_scheme = "per_unit"
+  currency    = "usd"
+  product     = stripe_product.app_store_management.id
+  unit_amount = 0
+  active      = true
 
   metadata = {
     tier              = "free"
@@ -2485,11 +2470,10 @@ resource "stripe_product" "blog_cms" {
 }
 
 resource "stripe_price" "blog_cms_free" {
-  currency       = "usd"
-  product        = stripe_product.blog_cms.id
-  unit_amount    = 0
-  active         = true
-  billing_scheme = "per_unit"
+  currency    = "usd"
+  product     = stripe_product.blog_cms.id
+  unit_amount = 0
+  active      = true
 
   metadata = {
     tier              = "free"
@@ -2592,11 +2576,10 @@ resource "stripe_product" "internationalization" {
 }
 
 resource "stripe_price" "i18n_free" {
-  currency       = "usd"
-  product        = stripe_product.internationalization.id
-  unit_amount    = 0
-  active         = true
-  billing_scheme = "per_unit"
+  currency    = "usd"
+  product     = stripe_product.internationalization.id
+  unit_amount = 0
+  active      = true
 
   metadata = {
     tier              = "free"
@@ -2699,11 +2682,10 @@ resource "stripe_product" "sso_social_login" {
 }
 
 resource "stripe_price" "sso_free" {
-  currency       = "usd"
-  product        = stripe_product.sso_social_login.id
-  unit_amount    = 0
-  active         = true
-  billing_scheme = "per_unit"
+  currency    = "usd"
+  product     = stripe_product.sso_social_login.id
+  unit_amount = 0
+  active      = true
 
   metadata = {
     tier              = "free"
