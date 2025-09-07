@@ -6,60 +6,60 @@ import {
   Award,
   Shield,
   CheckCircle,
-} from "lucide-react";
+} from 'lucide-react';
 
 export function SocialProofSection() {
   const stats = [
     {
       icon: Star,
-      label: "4.9/5 Rating",
-      value: "50+ Reviews",
-      color: "from-yellow-400 to-orange-400",
+      label: '4.9/5 Rating',
+      value: '50+ Reviews',
+      color: 'from-yellow-400 to-orange-400',
     },
     {
       icon: Users,
-      label: "Happy Clients",
-      value: "50+ Projects",
-      color: "from-blue-400 to-purple-400",
+      label: 'Happy Clients',
+      value: '50+ Projects',
+      color: 'from-blue-400 to-purple-400',
     },
     {
       icon: Clock,
-      label: "On-Time Delivery",
-      value: "98%",
-      color: "from-green-400 to-emerald-400",
+      label: 'On-Time Delivery',
+      value: '98%',
+      color: 'from-green-400 to-emerald-400',
     },
     {
       icon: TrendingUp,
-      label: "Growth",
-      value: "300% Avg",
-      color: "from-purple-400 to-pink-400",
+      label: 'Growth',
+      value: '300% Avg',
+      color: 'from-purple-400 to-pink-400',
     },
   ];
 
   const testimonials = [
     {
-      name: "Sarah Johnson",
-      company: "TechStart Inc.",
-      text: "Delivered exactly what they promised, on time and within budget.",
+      name: 'Sarah Johnson',
+      company: 'TechStart Inc.',
+      text: 'Delivered exactly what they promised, on time and within budget.',
       rating: 5,
-      avatar: "SJ",
-      gradient: "from-blue-500 to-purple-500",
+      avatar: 'SJ',
+      gradient: 'from-blue-500 to-purple-500',
     },
     {
-      name: "Mike Chen",
-      company: "GrowthCo",
-      text: "The AI-powered planning saved us weeks of back-and-forth.",
+      name: 'Mike Chen',
+      company: 'GrowthCo',
+      text: 'The AI-powered planning saved us weeks of back-and-forth.',
       rating: 5,
-      avatar: "MC",
-      gradient: "from-emerald-500 to-teal-500",
+      avatar: 'MC',
+      gradient: 'from-emerald-500 to-teal-500',
     },
     {
-      name: "Emily Rodriguez",
-      company: "InnovateLab",
-      text: "Professional team that actually understands business needs.",
+      name: 'Emily Rodriguez',
+      company: 'InnovateLab',
+      text: 'Professional team that actually understands business needs.',
       rating: 5,
-      avatar: "ER",
-      gradient: "from-orange-500 to-red-500",
+      avatar: 'ER',
+      gradient: 'from-orange-500 to-red-500',
     },
   ];
 

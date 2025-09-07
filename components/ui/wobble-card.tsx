@@ -1,7 +1,7 @@
-"use client";
-import React, { useState } from "react";
-import { motion } from "motion/react";
-import { cn } from "@/lib/utils";
+'use client';
+import React, { useState } from 'react';
+import { motion } from 'motion/react';
+import { cn } from '@/lib/utils';
 
 export const WobbleCard = ({
   children,
@@ -33,29 +33,29 @@ export const WobbleCard = ({
       style={{
         transform: isHovering
           ? `translate3d(${mousePosition.x}px, ${mousePosition.y}px, 0) scale3d(1, 1, 1)`
-          : "translate3d(0px, 0px, 0) scale3d(1, 1, 1)",
-        transition: "transform 0.1s ease-out",
+          : 'translate3d(0px, 0px, 0) scale3d(1, 1, 1)',
+        transition: 'transform 0.1s ease-out',
       }}
       className={cn(
-        "mx-auto w-full bg-indigo-800  relative rounded-2xl overflow-hidden",
-        containerClassName,
+        'mx-auto w-full bg-indigo-800  relative rounded-2xl overflow-hidden',
+        containerClassName
       )}
     >
       <div
         className="relative  h-full [background-image:radial-gradient(88%_100%_at_top,rgba(255,255,255,0.5),rgba(255,255,255,0))]  sm:mx-0 sm:rounded-2xl overflow-hidden"
         style={{
           boxShadow:
-            "0 10px 32px rgba(34, 42, 53, 0.12), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.05), 0 4px 6px rgba(34, 42, 53, 0.08), 0 24px 108px rgba(47, 48, 55, 0.10)",
+            '0 10px 32px rgba(34, 42, 53, 0.12), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.05), 0 4px 6px rgba(34, 42, 53, 0.08), 0 24px 108px rgba(47, 48, 55, 0.10)',
         }}
       >
         <motion.div
           style={{
             transform: isHovering
               ? `translate3d(${-mousePosition.x}px, ${-mousePosition.y}px, 0) scale3d(1.03, 1.03, 1)`
-              : "translate3d(0px, 0px, 0) scale3d(1, 1, 1)",
-            transition: "transform 0.1s ease-out",
+              : 'translate3d(0px, 0px, 0) scale3d(1, 1, 1)',
+            transition: 'transform 0.1s ease-out',
           }}
-          className={cn("h-full px-4 py-20 sm:px-10", className)}
+          className={cn('h-full px-4 py-20 sm:px-10', className)}
         >
           <Noise />
           {children}
@@ -72,7 +72,7 @@ const Noise = () => {
       style={{
         backgroundImage:
           "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")",
-        backgroundSize: "30%",
+        backgroundSize: '30%',
       }}
     ></div>
   );

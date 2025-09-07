@@ -1,6 +1,6 @@
-import { createInertiaApp } from "@inertiajs/react";
-import { createElement, ReactNode } from "react";
-import { createRoot, hydrateRoot } from "react-dom/client"; // Add hydrateRoot here
+import { createInertiaApp } from '@inertiajs/react';
+import { createElement, ReactNode } from 'react';
+import { createRoot, hydrateRoot } from 'react-dom/client'; // Add hydrateRoot here
 
 // Temporary type definition, until @inertiajs/react provides one
 type ResolvedComponent = {
@@ -19,8 +19,8 @@ createInertiaApp({
   // see https://inertia-rails.dev/guide/progress-indicators
   // progress: false,
 
-  resolve: (name) => {
-    const pages = import.meta.glob<ResolvedComponent>("../pages/**/*.tsx", {
+  resolve: name => {
+    const pages = import.meta.glob<ResolvedComponent>('../pages/**/*.tsx', {
       eager: true,
     });
     const page = pages[`../pages/${name}.tsx`];
@@ -39,7 +39,7 @@ createInertiaApp({
 
   setup({ el, App, props }) {
     if (el) {
-      if (import.meta.env.MODE === "production") {
+      if (import.meta.env.MODE === 'production') {
         // Add hydrateRoot here
         hydrateRoot(el, createElement(App, props)); // Add hydrateRoot here
       } else {
@@ -47,9 +47,9 @@ createInertiaApp({
       }
     } else {
       console.error(
-        "Missing root element.\n\n" +
-          "If you see this error, it probably means you load Inertia.js on non-Inertia pages.\n" +
-          'Consider moving <%= vite_typescript_tag "inertia" %> to the Inertia-specific layout instead.',
+        'Missing root element.\n\n' +
+          'If you see this error, it probably means you load Inertia.js on non-Inertia pages.\n' +
+          'Consider moving <%= vite_typescript_tag "inertia" %> to the Inertia-specific layout instead.'
       );
     }
   },

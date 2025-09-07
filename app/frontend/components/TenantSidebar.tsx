@@ -1,4 +1,4 @@
-import { Link, usePage } from "@inertiajs/react";
+import { Link, usePage } from '@inertiajs/react';
 import {
   Sidebar,
   SidebarContent,
@@ -10,8 +10,8 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "./ui/sidebar";
-import { Home, FileText, Plus, CreditCard, LogOut, User } from "lucide-react";
+} from './ui/sidebar';
+import { Home, FileText, Plus, CreditCard, LogOut, User } from 'lucide-react';
 
 interface TenantSidebarProps {
   tenant: {
@@ -25,22 +25,22 @@ export function TenantSidebar({ tenant }: TenantSidebarProps) {
 
   const menuItems = [
     {
-      title: "Dashboard",
+      title: 'Dashboard',
       url: `/${tenant.subdomain}/dashboard`,
       icon: Home,
     },
     {
-      title: "Change Requests",
+      title: 'Change Requests',
       url: `/${tenant.subdomain}/change_requests`,
       icon: Plus,
     },
     {
-      title: "Documents",
+      title: 'Documents',
       url: `/${tenant.subdomain}/documents`,
       icon: FileText,
     },
     {
-      title: "Billing",
+      title: 'Billing',
       url: `/${tenant.subdomain}/billing`,
       icon: CreditCard,
     },
@@ -67,7 +67,7 @@ export function TenantSidebar({ tenant }: TenantSidebarProps) {
           <SidebarGroupLabel>Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {menuItems.map((item) => (
+              {menuItems.map(item => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild isActive={url === item.url}>
                     <Link href={item.url}>

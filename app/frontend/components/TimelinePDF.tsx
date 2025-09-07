@@ -1,135 +1,135 @@
-import React from "react";
-import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import React from 'react';
+import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
   page: {
-    flexDirection: "column",
-    backgroundColor: "#ffffff",
+    flexDirection: 'column',
+    backgroundColor: '#ffffff',
     padding: 40,
-    fontFamily: "Helvetica",
+    fontFamily: 'Helvetica',
   },
   header: {
     marginBottom: 30,
     paddingBottom: 20,
-    borderBottom: "2px solid #e2e8f0",
+    borderBottom: '2px solid #e2e8f0',
   },
   logoSection: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 15,
   },
   logo: {
     fontSize: 28,
-    fontWeight: "bold",
-    color: "#1e293b",
+    fontWeight: 'bold',
+    color: '#1e293b',
   },
   companyInfo: {
     fontSize: 10,
-    color: "#64748b",
-    textAlign: "right",
+    color: '#64748b',
+    textAlign: 'right',
   },
   title: {
     fontSize: 24,
-    fontWeight: "bold",
-    color: "#1e293b",
+    fontWeight: 'bold',
+    color: '#1e293b',
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 14,
-    color: "#64748b",
+    color: '#64748b',
     marginBottom: 5,
   },
   projectMeta: {
     fontSize: 10,
-    color: "#475569",
+    color: '#475569',
   },
   section: {
     marginBottom: 25,
   },
   sectionTitle: {
     fontSize: 16,
-    fontWeight: "bold",
-    color: "#1e293b",
+    fontWeight: 'bold',
+    color: '#1e293b',
     marginBottom: 12,
-    textTransform: "uppercase",
+    textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
   overviewCard: {
-    backgroundColor: "#f8fafc",
-    border: "1px solid #e2e8f0",
+    backgroundColor: '#f8fafc',
+    border: '1px solid #e2e8f0',
     borderRadius: 8,
     padding: 15,
     marginBottom: 20,
   },
   overviewRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginBottom: 8,
   },
   overviewLabel: {
     fontSize: 11,
-    color: "#64748b",
-    fontWeight: "bold",
+    color: '#64748b',
+    fontWeight: 'bold',
   },
   overviewValue: {
     fontSize: 12,
-    color: "#1e293b",
-    fontWeight: "bold",
+    color: '#1e293b',
+    fontWeight: 'bold',
   },
   milestone: {
-    backgroundColor: "#ffffff",
-    border: "1px solid #e2e8f0",
+    backgroundColor: '#ffffff',
+    border: '1px solid #e2e8f0',
     borderRadius: 8,
     padding: 15,
     marginBottom: 15,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.05,
     shadowRadius: 2,
   },
   milestoneHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 8,
   },
   milestoneTitle: {
     fontSize: 14,
-    fontWeight: "bold",
-    color: "#1e293b",
+    fontWeight: 'bold',
+    color: '#1e293b',
   },
   milestoneStatus: {
     fontSize: 9,
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 12,
-    color: "#ffffff",
-    fontWeight: "bold",
-    textTransform: "uppercase",
+    color: '#ffffff',
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
   statusPending: {
-    backgroundColor: "#f59e0b", // amber-500
+    backgroundColor: '#f59e0b', // amber-500
   },
   statusInProgress: {
-    backgroundColor: "#3b82f6", // blue-500
+    backgroundColor: '#3b82f6', // blue-500
   },
   statusCompleted: {
-    backgroundColor: "#10b981", // emerald-500
+    backgroundColor: '#10b981', // emerald-500
   },
   statusOverdue: {
-    backgroundColor: "#ef4444", // red-500
+    backgroundColor: '#ef4444', // red-500
   },
   milestoneDescription: {
     fontSize: 11,
-    color: "#475569",
+    color: '#475569',
     marginBottom: 8,
     lineHeight: 1.4,
   },
   milestoneDetail: {
     fontSize: 10,
-    color: "#64748b",
+    color: '#64748b',
     marginBottom: 3,
   },
   deliverablesList: {
@@ -138,59 +138,59 @@ const styles = StyleSheet.create({
   },
   deliverableItem: {
     fontSize: 10,
-    color: "#475569",
+    color: '#475569',
     marginBottom: 2,
   },
   summarySection: {
-    backgroundColor: "#f8fafc",
-    border: "1px solid #e2e8f0",
+    backgroundColor: '#f8fafc',
+    border: '1px solid #e2e8f0',
     borderRadius: 8,
     padding: 15,
     marginTop: 20,
   },
   summaryTitle: {
     fontSize: 14,
-    fontWeight: "bold",
-    color: "#1e293b",
+    fontWeight: 'bold',
+    color: '#1e293b',
     marginBottom: 10,
-    textTransform: "uppercase",
+    textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
   summaryRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginBottom: 6,
   },
   summaryLabel: {
     fontSize: 11,
-    color: "#64748b",
+    color: '#64748b',
   },
   summaryValue: {
     fontSize: 11,
-    color: "#1e293b",
-    fontWeight: "bold",
+    color: '#1e293b',
+    fontWeight: 'bold',
   },
   bold: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   footer: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 30,
     left: 40,
     right: 40,
-    textAlign: "center",
-    borderTop: "1px solid #e2e8f0",
+    textAlign: 'center',
+    borderTop: '1px solid #e2e8f0',
     paddingTop: 15,
   },
   footerText: {
     fontSize: 9,
-    color: "#64748b",
+    color: '#64748b',
     marginBottom: 2,
-    textAlign: "center",
+    textAlign: 'center',
   },
   footerLink: {
-    color: "#3b82f6",
-    textDecoration: "underline",
+    color: '#3b82f6',
+    textDecoration: 'underline',
   },
 });
 
@@ -239,26 +239,26 @@ interface TimelinePDFProps {
 
 const TimelinePDF: React.FC<TimelinePDFProps> = ({
   quoteRequest,
-  companyName = "Magebase",
-  companyWebsite = "www.magebase.dev",
-  companyEmail = "hello@magebase.dev",
-  companyPhone = "+1 (555) 123-4567",
+  companyName = 'Magebase',
+  companyWebsite = 'www.magebase.dev',
+  companyEmail = 'hello@magebase.dev',
+  companyPhone = '+1 (555) 123-4567',
 }) => {
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
     });
   };
 
   const getStatusStyle = (status: string) => {
     switch (status) {
-      case "completed":
+      case 'completed':
         return styles.statusCompleted;
-      case "in_progress":
+      case 'in_progress':
         return styles.statusInProgress;
-      case "overdue":
+      case 'overdue':
         return styles.statusOverdue;
       default:
         return styles.statusPending;
@@ -267,9 +267,9 @@ const TimelinePDF: React.FC<TimelinePDFProps> = ({
 
   const formatStatus = (status: string) => {
     return status
-      .split("_")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+      .split('_')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
   };
 
   return (
@@ -299,19 +299,19 @@ const TimelinePDF: React.FC<TimelinePDFProps> = ({
             <View style={styles.overviewRow}>
               <Text style={styles.overviewLabel}>Total Estimated Cost:</Text>
               <Text style={styles.overviewValue}>
-                ${quoteRequest.estimated_cost?.toLocaleString() || "TBD"}
+                ${quoteRequest.estimated_cost?.toLocaleString() || 'TBD'}
               </Text>
             </View>
             <View style={styles.overviewRow}>
               <Text style={styles.overviewLabel}>Deposit Required:</Text>
               <Text style={styles.overviewValue}>
-                ${quoteRequest.deposit_amount?.toLocaleString() || "TBD"}
+                ${quoteRequest.deposit_amount?.toLocaleString() || 'TBD'}
               </Text>
             </View>
             <View style={styles.overviewRow}>
               <Text style={styles.overviewLabel}>Monthly Retainer:</Text>
               <Text style={styles.overviewValue}>
-                ${quoteRequest.monthly_retainer?.toLocaleString() || "TBD"}
+                ${quoteRequest.monthly_retainer?.toLocaleString() || 'TBD'}
               </Text>
             </View>
           </View>
@@ -323,9 +323,9 @@ const TimelinePDF: React.FC<TimelinePDFProps> = ({
           {quoteRequest.project_milestones
             .sort(
               (a, b) =>
-                (a.milestone_data?.order || 0) - (b.milestone_data?.order || 0),
+                (a.milestone_data?.order || 0) - (b.milestone_data?.order || 0)
             )
-            .map((milestone) => (
+            .map(milestone => (
               <View key={milestone.id} style={styles.milestone}>
                 <View style={styles.milestoneHeader}>
                   <Text style={styles.milestoneTitle}>{milestone.name}</Text>
@@ -367,7 +367,7 @@ const TimelinePDF: React.FC<TimelinePDFProps> = ({
                             <Text key={index} style={styles.deliverableItem}>
                               • {deliverable}
                             </Text>
-                          ),
+                          )
                         )}
                       </View>
                     </View>
@@ -392,7 +392,7 @@ const TimelinePDF: React.FC<TimelinePDFProps> = ({
               <Text style={styles.summaryValue}>
                 {
                   quoteRequest.project_milestones.filter(
-                    (m) => m.status === "completed",
+                    m => m.status === 'completed'
                   ).length
                 }
               </Text>
@@ -402,7 +402,7 @@ const TimelinePDF: React.FC<TimelinePDFProps> = ({
               <Text style={styles.summaryValue}>
                 {
                   quoteRequest.project_milestones.filter(
-                    (m) => m.status === "in_progress",
+                    m => m.status === 'in_progress'
                   ).length
                 }
               </Text>
@@ -412,7 +412,7 @@ const TimelinePDF: React.FC<TimelinePDFProps> = ({
               <Text style={styles.summaryValue}>
                 {
                   quoteRequest.project_milestones.filter(
-                    (m) => m.status === "pending",
+                    m => m.status === 'pending'
                   ).length
                 }
               </Text>
@@ -427,7 +427,7 @@ const TimelinePDF: React.FC<TimelinePDFProps> = ({
             Software Development Services
           </Text>
           <Text style={styles.footerText}>
-            <Text style={styles.footerLink}>{companyWebsite}</Text> |{" "}
+            <Text style={styles.footerLink}>{companyWebsite}</Text> |{' '}
             {companyEmail} | {companyPhone}
           </Text>
           <Text style={styles.footerText}>

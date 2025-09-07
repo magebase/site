@@ -1,9 +1,9 @@
-import { useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import { Toaster } from "../components/ui/sonner";
+import { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import { Toaster } from '../components/ui/sonner';
 
 interface PageLayoutProps {
   user?: {
@@ -25,7 +25,7 @@ export default function PageLayout({
   useEffect(() => {
     AOS.init({
       duration: 400,
-      easing: "ease-out-cubic",
+      easing: 'ease-out-cubic',
       once: true,
       offset: 10,
       delay: 0,
@@ -37,10 +37,10 @@ export default function PageLayout({
     }
     if (description) {
       const metaDescription = document.querySelector(
-        'meta[name="description"]',
+        'meta[name="description"]'
       );
       if (metaDescription) {
-        metaDescription.setAttribute("content", description);
+        metaDescription.setAttribute('content', description);
       }
     }
   }, [title, description]);

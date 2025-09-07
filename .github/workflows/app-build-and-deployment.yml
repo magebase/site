@@ -4,37 +4,37 @@ on:
   push:
     branches: [main]
     paths:
-      - "app/**"
-      - "config/**"
-      - "db/**"
-      - "lib/**"
-      - "Gemfile*"
-      - "package.json"
-      - "package-lock.json"
-      - "Dockerfile"
-      - "docker-compose.yml"
-      - "k8s/deployment.yaml"
-      - ".github/workflows/rails-deployment.yml"
+      - 'app/**'
+      - 'config/**'
+      - 'db/**'
+      - 'lib/**'
+      - 'Gemfile*'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'Dockerfile'
+      - 'docker-compose.yml'
+      - 'k8s/deployment.yaml'
+      - '.github/workflows/rails-deployment.yml'
   pull_request:
     branches: [main]
     paths:
-      - "app/**"
-      - "config/**"
-      - "db/**"
-      - "lib/**"
-      - "Gemfile*"
-      - "package.json"
-      - "package-lock.json"
-      - "Dockerfile"
-      - "docker-compose.yml"
-      - ".github/workflows/rails-deployment.yml"
-      - "k8s/**"
+      - 'app/**'
+      - 'config/**'
+      - 'db/**'
+      - 'lib/**'
+      - 'Gemfile*'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'Dockerfile'
+      - 'docker-compose.yml'
+      - '.github/workflows/rails-deployment.yml'
+      - 'k8s/**'
   workflow_dispatch:
     inputs:
       environment:
-        description: "Environment to deploy application to"
+        description: 'Environment to deploy application to'
         required: true
-        default: "dev"
+        default: 'dev'
         type: choice
         options:
           - dev
@@ -42,16 +42,16 @@ on:
           - uat
           - prod
       release_type:
-        description: "Release type (major, minor, patch)"
+        description: 'Release type (major, minor, patch)'
         required: false
-        default: "patch"
+        default: 'patch'
         type: choice
         options:
           - patch
           - minor
           - major
       skip_tests:
-        description: "Skip running tests (not recommended)"
+        description: 'Skip running tests (not recommended)'
         required: false
         default: false
         type: boolean
@@ -122,8 +122,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
-          cache: "npm"
+          node-version: '18'
+          cache: 'npm'
 
       - name: Install system dependencies
         run: |
@@ -225,8 +225,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
-          cache: "npm"
+          node-version: '18'
+          cache: 'npm'
 
       - name: Install dependencies
         run: |
@@ -454,17 +454,17 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-          scan-type: "image"
+          scan-type: 'image'
           scan-ref: ${{ steps.scan-image.outputs.image }}
-          format: "sarif"
-          output: "trivy-results.sarif"
+          format: 'sarif'
+          output: 'trivy-results.sarif'
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
         if: always() && github.event.repository.private == false
         continue-on-error: true
         with:
-          sarif_file: "trivy-results.sarif"
+          sarif_file: 'trivy-results.sarif'
 
       - name: Check SARIF upload status
         if: always()

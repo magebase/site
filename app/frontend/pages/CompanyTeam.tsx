@@ -1,6 +1,6 @@
-import PageLayout from "../components/PageLayout";
-import { Button } from "../components/ui/button";
-import { Card, CardContent } from "../components/ui/card";
+import PageLayout from '../components/PageLayout';
+import { Button } from '../components/ui/button';
+import { Card, CardContent } from '../components/ui/card';
 import {
   ArrowRight,
   Mail,
@@ -8,7 +8,7 @@ import {
   Twitter,
   Github,
   Users,
-} from "lucide-react";
+} from 'lucide-react';
 
 interface TeamMember {
   id: number;
@@ -58,7 +58,7 @@ export default function CompanyTeam({ teamMembers, user }: CompanyTeamProps) {
         <div className="max-w-7xl mx-auto">
           {teamMembers.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {teamMembers.map((member) => (
+              {teamMembers.map(member => (
                 <Card
                   key={member.id}
                   className="group hover:shadow-lg transition-shadow duration-300"
@@ -148,7 +148,7 @@ export default function CompanyTeam({ teamMembers, user }: CompanyTeamProps) {
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                onClick={() => (window.location.href = "/careers")}
+                onClick={() => (window.location.href = '/careers')}
               >
                 Join Our Team
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -171,7 +171,7 @@ export default function CompanyTeam({ teamMembers, user }: CompanyTeamProps) {
           <Button
             size="lg"
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-            onClick={() => (window.location.href = "/careers")}
+            onClick={() => (window.location.href = '/careers')}
           >
             View Open Positions
             <ArrowRight className="w-4 h-4 ml-2" />
@@ -191,7 +191,7 @@ export default function CompanyTeam({ teamMembers, user }: CompanyTeamProps) {
           <Button
             size="lg"
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-            onClick={() => (window.location.href = "/#quote-form")}
+            onClick={() => (window.location.href = '/#quote-form')}
           >
             Start Your Project
             <ArrowRight className="w-4 h-4 ml-2" />

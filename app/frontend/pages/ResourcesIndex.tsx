@@ -1,11 +1,11 @@
-import PageLayout from "../components/PageLayout";
-import { Button } from "../components/ui/button";
+import PageLayout from '../components/PageLayout';
+import { Button } from '../components/ui/button';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
+} from '../components/ui/card';
 import {
   ArrowRight,
   BookOpen,
@@ -13,7 +13,7 @@ import {
   Users,
   Video,
   FileText,
-} from "lucide-react";
+} from 'lucide-react';
 
 interface ResourcesIndexProps {
   user?: {
@@ -26,44 +26,44 @@ interface ResourcesIndexProps {
 export default function ResourcesIndex({ user }: ResourcesIndexProps) {
   const resources = [
     {
-      title: "Documentation",
+      title: 'Documentation',
       description:
-        "Comprehensive guides and API documentation to help you build with our platform.",
+        'Comprehensive guides and API documentation to help you build with our platform.',
       icon: BookOpen,
-      href: "/documentation",
-      color: "from-blue-600 to-purple-600",
+      href: '/documentation',
+      color: 'from-blue-600 to-purple-600',
     },
     {
-      title: "Help Center",
+      title: 'Help Center',
       description:
-        "Find answers to common questions and get support for your projects.",
+        'Find answers to common questions and get support for your projects.',
       icon: HelpCircle,
-      href: "/help-center",
-      color: "from-green-600 to-blue-600",
+      href: '/help-center',
+      color: 'from-green-600 to-blue-600',
     },
     {
-      title: "Community",
+      title: 'Community',
       description:
-        "Connect with other developers, share knowledge, and get inspired by the community.",
+        'Connect with other developers, share knowledge, and get inspired by the community.',
       icon: Users,
-      href: "/community",
-      color: "from-purple-600 to-pink-600",
+      href: '/community',
+      color: 'from-purple-600 to-pink-600',
     },
     {
-      title: "Webinars",
+      title: 'Webinars',
       description:
-        "Watch expert-led sessions on the latest technologies and best practices.",
+        'Watch expert-led sessions on the latest technologies and best practices.',
       icon: Video,
-      href: "/webinars",
-      color: "from-orange-600 to-red-600",
+      href: '/webinars',
+      color: 'from-orange-600 to-red-600',
     },
     {
-      title: "Templates",
+      title: 'Templates',
       description:
-        "Download pre-built templates and boilerplates to accelerate your development.",
+        'Download pre-built templates and boilerplates to accelerate your development.',
       icon: FileText,
-      href: "/templates",
-      color: "from-indigo-600 to-purple-600",
+      href: '/templates',
+      color: 'from-indigo-600 to-purple-600',
     },
   ];
 
@@ -90,7 +90,7 @@ export default function ResourcesIndex({ user }: ResourcesIndexProps) {
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {resources.map((resource) => {
+            {resources.map(resource => {
               const IconComponent = resource.icon;
               return (
                 <Card
@@ -144,7 +144,7 @@ export default function ResourcesIndex({ user }: ResourcesIndexProps) {
                 variant="link"
                 className="text-blue-600 hover:text-blue-800"
                 onClick={() =>
-                  (window.location.href = "/resources/documentation/api")
+                  (window.location.href = '/resources/documentation/api')
                 }
               >
                 View API Reference
@@ -161,7 +161,7 @@ export default function ResourcesIndex({ user }: ResourcesIndexProps) {
               <Button
                 variant="link"
                 className="text-blue-600 hover:text-blue-800"
-                onClick={() => (window.location.href = "/resources/help")}
+                onClick={() => (window.location.href = '/resources/help')}
               >
                 Get Help
               </Button>
@@ -177,7 +177,7 @@ export default function ResourcesIndex({ user }: ResourcesIndexProps) {
               <Button
                 variant="link"
                 className="text-blue-600 hover:text-blue-800"
-                onClick={() => (window.location.href = "/resources/community")}
+                onClick={() => (window.location.href = '/resources/community')}
               >
                 Join Discussion
               </Button>
@@ -193,7 +193,7 @@ export default function ResourcesIndex({ user }: ResourcesIndexProps) {
               <Button
                 variant="link"
                 className="text-blue-600 hover:text-blue-800"
-                onClick={() => (window.location.href = "/resources/webinars")}
+                onClick={() => (window.location.href = '/resources/webinars')}
               >
                 Watch Videos
               </Button>
@@ -214,7 +214,7 @@ export default function ResourcesIndex({ user }: ResourcesIndexProps) {
           <Button
             size="lg"
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-            onClick={() => (window.location.href = "/contact")}
+            onClick={() => (window.location.href = '/contact')}
           >
             Contact Support
             <ArrowRight className="w-4 h-4 ml-2" />

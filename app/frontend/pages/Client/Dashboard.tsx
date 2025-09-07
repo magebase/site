@@ -1,13 +1,13 @@
-import { Head } from "@inertiajs/react";
+import { Head } from '@inertiajs/react';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../../components/ui/card";
-import { Button } from "../../components/ui/button";
-import { Badge } from "../../components/ui/badge";
+} from '../../components/ui/card';
+import { Button } from '../../components/ui/button';
+import { Badge } from '../../components/ui/badge';
 import {
   FileText,
   Download,
@@ -16,7 +16,7 @@ import {
   DollarSign,
   Clock,
   ExternalLink,
-} from "lucide-react";
+} from 'lucide-react';
 
 interface ClientDashboardProps {
   quoteRequests: Array<{
@@ -61,25 +61,25 @@ export default function ClientDashboard({
 }: ClientDashboardProps) {
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "quoted":
-        return "bg-green-100 text-green-800";
-      case "contracted":
-        return "bg-blue-100 text-blue-800";
-      case "deposit_paid":
-        return "bg-purple-100 text-purple-800";
-      case "in_development":
-        return "bg-orange-100 text-orange-800";
-      case "completed":
-        return "bg-gray-100 text-gray-800";
+      case 'quoted':
+        return 'bg-green-100 text-green-800';
+      case 'contracted':
+        return 'bg-blue-100 text-blue-800';
+      case 'deposit_paid':
+        return 'bg-purple-100 text-purple-800';
+      case 'in_development':
+        return 'bg-orange-100 text-orange-800';
+      case 'completed':
+        return 'bg-gray-100 text-gray-800';
       default:
-        return "bg-yellow-100 text-yellow-800";
+        return 'bg-yellow-100 text-yellow-800';
     }
   };
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
     }).format(amount);
   };
 
@@ -88,11 +88,11 @@ export default function ClientDashboard({
   };
 
   const downloadQuotePdf = (quoteRequestId: number) => {
-    window.open(`/quote_requests/${quoteRequestId}/generate_pdf`, "_blank");
+    window.open(`/quote_requests/${quoteRequestId}/generate_pdf`, '_blank');
   };
 
   const downloadTimelinePdf = (quoteRequestId: number) => {
-    window.open(`/quote_requests/${quoteRequestId}/timeline_pdf`, "_blank");
+    window.open(`/quote_requests/${quoteRequestId}/timeline_pdf`, '_blank');
   };
 
   return (
@@ -151,7 +151,7 @@ export default function ClientDashboard({
                 </CardContent>
               </Card>
             ) : (
-              quoteRequests.map((quote) => (
+              quoteRequests.map(quote => (
                 <Card
                   key={quote.id}
                   className="hover:shadow-md transition-shadow"
@@ -164,12 +164,12 @@ export default function ClientDashboard({
                         </CardTitle>
                         <CardDescription>
                           {quote.client.company_name ||
-                            quote.client.contact_name}{" "}
+                            quote.client.contact_name}{' '}
                           • {quote.client.email}
                         </CardDescription>
                       </div>
                       <Badge className={getStatusColor(quote.status)}>
-                        {quote.status.replace("_", " ")}
+                        {quote.status.replace('_', ' ')}
                       </Badge>
                     </div>
                   </CardHeader>
@@ -224,13 +224,11 @@ export default function ClientDashboard({
                                   className="text-xs"
                                 >
                                   {feature.name ===
-                                  "5_high_converting_seo_marketing_pages"
-                                    ? "5 High Converting, SEO Optimized Marketing Pages"
+                                  '5_high_converting_seo_marketing_pages'
+                                    ? '5 High Converting, SEO Optimized Marketing Pages'
                                     : feature.name
-                                        .replace(/_/g, " ")
-                                        .replace(/\b\w/g, (l) =>
-                                          l.toUpperCase(),
-                                        )}
+                                        .replace(/_/g, ' ')
+                                        .replace(/\b\w/g, l => l.toUpperCase())}
                                 </Badge>
                               ))}
                             {quote.selected_features.length > 5 && (

@@ -1,15 +1,15 @@
-import PageLayout from "../components/PageLayout";
-import MarketingPageTemplate from "../components/marketing/MarketingPageTemplate";
-import { getUseCaseBySlug } from "../data/useCaseData";
+import PageLayout from '../components/PageLayout';
+import MarketingPageTemplate from '../components/marketing/MarketingPageTemplate';
+import { getUseCaseBySlug } from '../data/useCaseData';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
-import { Badge } from "../components/ui/badge";
-import { Clock, Users, Target, CheckCircle } from "lucide-react";
+} from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
+import { Clock, Users, Target, CheckCircle } from 'lucide-react';
 
 interface UseCasePageProps {
   slug: string;
@@ -67,7 +67,7 @@ export default function UseCasePage({ slug, user }: UseCasePageProps) {
               Why Choose Our {useCase.title} Solution?
             </h2>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Comprehensive development approach tailored to{" "}
+              Comprehensive development approach tailored to{' '}
               {useCase.targetAudience.toLowerCase()}
             </p>
           </div>
@@ -93,11 +93,11 @@ export default function UseCasePage({ slug, user }: UseCasePageProps) {
                     <span className="text-gray-600">Complexity Level</span>
                     <Badge
                       variant={
-                        useCase.complexity === "Low"
-                          ? "default"
-                          : useCase.complexity === "Medium"
-                            ? "secondary"
-                            : "destructive"
+                        useCase.complexity === 'Low'
+                          ? 'default'
+                          : useCase.complexity === 'Medium'
+                            ? 'secondary'
+                            : 'destructive'
                       }
                     >
                       {useCase.complexity}
@@ -176,7 +176,7 @@ export default function UseCasePage({ slug, user }: UseCasePageProps) {
               <CardHeader>
                 <CardTitle>Expected Success Metrics</CardTitle>
                 <CardDescription>
-                  Measurable outcomes you can expect from our{" "}
+                  Measurable outcomes you can expect from our{' '}
                   {useCase.title.toLowerCase()} solution
                 </CardDescription>
               </CardHeader>

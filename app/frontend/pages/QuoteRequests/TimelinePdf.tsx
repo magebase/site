@@ -1,11 +1,11 @@
-import { Head } from "@inertiajs/react";
-import { usePDF } from "@react-pdf/renderer";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Download, ArrowLeft } from "lucide-react";
-import { Link } from "@inertiajs/react";
-import TimelinePDF from "@/components/TimelinePDF";
-import { useEffect } from "react";
+import { Head } from '@inertiajs/react';
+import { usePDF } from '@react-pdf/renderer';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Download, ArrowLeft } from 'lucide-react';
+import { Link } from '@inertiajs/react';
+import TimelinePDF from '@/components/TimelinePDF';
+import { useEffect } from 'react';
 
 interface TimelineItem {
   day: number;
@@ -63,11 +63,11 @@ export default function TimelinePdf({ quote_request }: Props) {
   useEffect(() => {
     // Trigger download automatically when PDF is ready
     if (instance.url && !instance.loading && !instance.error) {
-      const link = document.createElement("a");
+      const link = document.createElement('a');
       link.href = instance.url;
       link.download = `${quote_request.project_name.replace(
         /\s+/g,
-        "_",
+        '_'
       )}_timeline.pdf`;
       document.body.appendChild(link);
       link.click();
@@ -82,11 +82,11 @@ export default function TimelinePdf({ quote_request }: Props) {
 
   const handleDownload = () => {
     if (instance.url) {
-      const link = document.createElement("a");
+      const link = document.createElement('a');
       link.href = instance.url;
       link.download = `${quote_request.project_name.replace(
         /\s+/g,
-        "_",
+        '_'
       )}_timeline.pdf`;
       document.body.appendChild(link);
       link.click();

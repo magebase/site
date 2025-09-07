@@ -8,46 +8,46 @@ import {
   CheckCircle,
   ArrowRight,
   Clock,
-} from "lucide-react";
-import { CardHoverEffect } from "../ui/card-hover-effect";
-import { SparklesCore } from "../ui/sparkles";
-import { WobbleCard } from "../ui/wobble-card";
+} from 'lucide-react';
+import { CardHoverEffect } from '../ui/card-hover-effect';
+import { SparklesCore } from '../ui/sparkles';
+import { WobbleCard } from '../ui/wobble-card';
 
 export function FeaturesSection() {
   const features = [
     {
-      title: "AI-Powered Estimation",
+      title: 'AI-Powered Estimation',
       description:
-        "AI analyzes your project requirements to provide accurate timelines and pricing with detailed project breakdowns. Save time with our intelligent estimation system.",
-      link: "#",
+        'AI analyzes your project requirements to provide accurate timelines and pricing with detailed project breakdowns. Save time with our intelligent estimation system.',
+      link: '#',
       icon: <Zap className="w-6 h-6 text-blue-500" />,
     },
     {
-      title: "Reliable Delivery",
+      title: 'Reliable Delivery',
       description:
-        "AI-calculated delivery estimates with priority-based scheduling to ensure your project is completed efficiently. Focus on quality and timely delivery.",
-      link: "#",
+        'AI-calculated delivery estimates with priority-based scheduling to ensure your project is completed efficiently. Focus on quality and timely delivery.',
+      link: '#',
       icon: <Truck className="w-6 h-6 text-orange-500" />,
     },
     {
-      title: "Secure Cloud Infrastructure",
+      title: 'Secure Cloud Infrastructure',
       description:
-        "Deployed on secure, scalable cloud platforms with built-in security features and compliance with industry standards. Enterprise-grade security included.",
-      link: "#",
+        'Deployed on secure, scalable cloud platforms with built-in security features and compliance with industry standards. Enterprise-grade security included.',
+      link: '#',
       icon: <Shield className="w-6 h-6 text-purple-500" />,
     },
     {
-      title: "Modern Tech Stack",
+      title: 'Modern Tech Stack',
       description:
-        "Development using modern technologies and frameworks, delivering robust and maintainable web applications. Years of proven expertise.",
-      link: "#",
+        'Development using modern technologies and frameworks, delivering robust and maintainable web applications. Years of proven expertise.',
+      link: '#',
       icon: <Wrench className="w-6 h-6 text-indigo-500" />,
     },
     {
-      title: "Transparent Milestone Billing",
+      title: 'Transparent Milestone Billing',
       description:
-        "Clear pricing breakdown with milestone-based payments, no hidden fees, and detailed cost explanations. No hidden fees ever.",
-      link: "#",
+        'Clear pricing breakdown with milestone-based payments, no hidden fees, and detailed cost explanations. No hidden fees ever.',
+      link: '#',
       icon: <DollarSign className="w-6 h-6 text-emerald-500" />,
     },
   ];
@@ -83,7 +83,7 @@ export function FeaturesSection() {
           >
             Everything you need to
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              {" "}
+              {' '}
               launch faster
             </span>
           </h2>

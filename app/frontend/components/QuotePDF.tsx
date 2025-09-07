@@ -1,182 +1,182 @@
-import React from "react";
-import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import React from 'react';
+import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
   page: {
-    flexDirection: "column",
-    backgroundColor: "#ffffff",
+    flexDirection: 'column',
+    backgroundColor: '#ffffff',
     padding: 40,
-    fontFamily: "Helvetica",
+    fontFamily: 'Helvetica',
   },
   header: {
     marginBottom: 30,
     borderBottom: 3,
-    borderBottomColor: "#1f2937", // gray-800
+    borderBottomColor: '#1f2937', // gray-800
     paddingBottom: 20,
-    backgroundColor: "#f8fafc", // slate-50
+    backgroundColor: '#f8fafc', // slate-50
     padding: 20,
     borderRadius: 8,
   },
   logoSection: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 15,
   },
   logo: {
     fontSize: 28,
-    fontWeight: "bold",
-    color: "#1f2937", // gray-800
+    fontWeight: 'bold',
+    color: '#1f2937', // gray-800
   },
   companyInfo: {
     fontSize: 10,
-    color: "#6b7280", // gray-500
-    textAlign: "right",
+    color: '#6b7280', // gray-500
+    textAlign: 'right',
   },
   title: {
     fontSize: 32,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 8,
-    color: "#1f2937", // gray-800
-    textAlign: "center",
+    color: '#1f2937', // gray-800
+    textAlign: 'center',
   },
   subtitle: {
     fontSize: 16,
-    color: "#6b7280", // gray-500
-    textAlign: "center",
+    color: '#6b7280', // gray-500
+    textAlign: 'center',
     marginBottom: 10,
   },
   quoteNumber: {
     fontSize: 12,
-    color: "#3b82f6", // blue-500
-    textAlign: "center",
-    fontWeight: "bold",
+    color: '#3b82f6', // blue-500
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
   section: {
     marginBottom: 25,
     padding: 20,
-    backgroundColor: "#ffffff",
+    backgroundColor: '#ffffff',
     border: 1,
-    borderColor: "#e5e7eb", // gray-200
+    borderColor: '#e5e7eb', // gray-200
     borderRadius: 8,
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 15,
-    color: "#1f2937", // gray-800
+    color: '#1f2937', // gray-800
     borderBottom: 2,
-    borderBottomColor: "#3b82f6", // blue-500
+    borderBottomColor: '#3b82f6', // blue-500
     paddingBottom: 5,
   },
   text: {
     fontSize: 11,
     marginBottom: 8,
     lineHeight: 1.6,
-    color: "#374151", // gray-700
+    color: '#374151', // gray-700
   },
   bold: {
-    fontWeight: "bold",
-    color: "#1f2937", // gray-800
+    fontWeight: 'bold',
+    color: '#1f2937', // gray-800
   },
   table: {
     marginTop: 15,
     marginBottom: 20,
     border: 1,
-    borderColor: "#e5e7eb", // gray-200
+    borderColor: '#e5e7eb', // gray-200
     borderRadius: 6,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   tableRow: {
-    flexDirection: "row",
+    flexDirection: 'row',
     borderBottomWidth: 1,
-    borderBottomColor: "#e5e7eb", // gray-200
+    borderBottomColor: '#e5e7eb', // gray-200
   },
   tableHeader: {
-    backgroundColor: "#f3f4f6", // gray-100
+    backgroundColor: '#f3f4f6', // gray-100
     borderBottom: 2,
-    borderBottomColor: "#d1d5db", // gray-300
+    borderBottomColor: '#d1d5db', // gray-300
   },
   tableCell: {
     flex: 1,
     fontSize: 10,
     padding: 12,
-    color: "#374151", // gray-700
+    color: '#374151', // gray-700
   },
   tableHeaderCell: {
-    fontWeight: "bold",
-    color: "#1f2937", // gray-800
+    fontWeight: 'bold',
+    color: '#1f2937', // gray-800
   },
   total: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginTop: 15,
-    textAlign: "right",
-    color: "#1f2937", // gray-800
-    backgroundColor: "#f3f4f6", // gray-100
+    textAlign: 'right',
+    color: '#1f2937', // gray-800
+    backgroundColor: '#f3f4f6', // gray-100
     padding: 15,
     borderRadius: 6,
     border: 2,
-    borderColor: "#3b82f6", // blue-500
+    borderColor: '#3b82f6', // blue-500
   },
   pricingCard: {
-    backgroundColor: "#f8fafc", // slate-50
+    backgroundColor: '#f8fafc', // slate-50
     border: 1,
-    borderColor: "#e2e8f0", // slate-200
+    borderColor: '#e2e8f0', // slate-200
     borderRadius: 8,
     padding: 15,
     marginBottom: 15,
   },
   pricingLabel: {
     fontSize: 12,
-    color: "#6b7280", // gray-500
+    color: '#6b7280', // gray-500
     marginBottom: 2,
   },
   pricingValue: {
     fontSize: 18,
-    fontWeight: "bold",
-    color: "#1f2937", // gray-800
+    fontWeight: 'bold',
+    color: '#1f2937', // gray-800
   },
   termsSection: {
-    backgroundColor: "#f8fafc", // slate-50
+    backgroundColor: '#f8fafc', // slate-50
     border: 1,
-    borderColor: "#e2e8f0", // slate-200
+    borderColor: '#e2e8f0', // slate-200
     borderRadius: 8,
     padding: 15,
     marginTop: 20,
   },
   termsTitle: {
     fontSize: 14,
-    fontWeight: "bold",
-    color: "#1e293b", // slate-800
+    fontWeight: 'bold',
+    color: '#1e293b', // slate-800
     marginBottom: 10,
-    textTransform: "uppercase",
+    textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
   termsText: {
     fontSize: 10,
-    color: "#475569", // slate-600
+    color: '#475569', // slate-600
     lineHeight: 1.4,
     marginBottom: 4,
   },
   footer: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 30,
     left: 40,
     right: 40,
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 9,
-    color: "#6b7280", // gray-500
+    color: '#6b7280', // gray-500
     borderTop: 1,
-    borderTopColor: "#e5e7eb", // gray-200
+    borderTopColor: '#e5e7eb', // gray-200
     paddingTop: 15,
   },
   footerText: {
     marginBottom: 3,
   },
   footerLink: {
-    color: "#3b82f6", // blue-500
-    textDecoration: "none",
+    color: '#3b82f6', // blue-500
+    textDecoration: 'none',
   },
 });
 
@@ -218,23 +218,23 @@ interface QuotePDFProps {
 
 const QuotePDF: React.FC<QuotePDFProps> = ({
   quoteRequest,
-  companyName = "Magebase",
-  companyWebsite = "www.magebase.dev",
-  companyEmail = "hello@magebase.dev",
-  companyPhone = "+1 (555) 123-4567",
+  companyName = 'Magebase',
+  companyWebsite = 'www.magebase.dev',
+  companyEmail = 'hello@magebase.dev',
+  companyPhone = '+1 (555) 123-4567',
 }) => {
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
     }).format(amount || 0);
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
     });
   };
 
@@ -285,11 +285,11 @@ const QuotePDF: React.FC<QuotePDFProps> = ({
             <Text style={styles.sectionTitle}>Client Information</Text>
             <Text style={styles.text}>
               <Text style={styles.bold}>Company: </Text>
-              {quoteRequest.client.company_name || "N/A"}
+              {quoteRequest.client.company_name || 'N/A'}
             </Text>
             <Text style={styles.text}>
               <Text style={styles.bold}>Contact: </Text>
-              {quoteRequest.client.contact_name || "N/A"}
+              {quoteRequest.client.contact_name || 'N/A'}
             </Text>
             <Text style={styles.text}>
               <Text style={styles.bold}>Email: </Text>
@@ -306,7 +306,7 @@ const QuotePDF: React.FC<QuotePDFProps> = ({
               <Text style={styles.tableCell}>Feature</Text>
               <Text style={styles.tableCell}>Cost</Text>
             </View>
-            {quoteRequest.selected_features.map((feature) => (
+            {quoteRequest.selected_features.map(feature => (
               <View key={feature.id} style={styles.tableRow}>
                 <Text style={styles.tableCell}>{feature.name}</Text>
                 <Text style={styles.tableCell}>
@@ -322,8 +322,8 @@ const QuotePDF: React.FC<QuotePDFProps> = ({
           <Text style={styles.sectionTitle}>Pricing Summary</Text>
           <View
             style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
+              flexDirection: 'row',
+              justifyContent: 'space-between',
               gap: 15,
             }}
           >
@@ -382,12 +382,12 @@ const QuotePDF: React.FC<QuotePDFProps> = ({
             required to begin work.
           </Text>
           <Text style={styles.termsText}>
-            • Monthly retainer payments of{" "}
+            • Monthly retainer payments of{' '}
             {formatCurrency(quoteRequest.monthly_retainer)} will be billed
             ongoing.
           </Text>
           <Text style={styles.termsText}>
-            • All work is subject to our standard terms of service available at{" "}
+            • All work is subject to our standard terms of service available at{' '}
             {companyWebsite}/terms.
           </Text>
           <Text style={styles.termsText}>
@@ -403,7 +403,7 @@ const QuotePDF: React.FC<QuotePDFProps> = ({
             Software Development Services
           </Text>
           <Text style={styles.footerText}>
-            <Text style={styles.footerLink}>{companyWebsite}</Text> |{" "}
+            <Text style={styles.footerLink}>{companyWebsite}</Text> |{' '}
             {companyEmail} | {companyPhone}
           </Text>
           <Text style={styles.footerText}>

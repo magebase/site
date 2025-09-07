@@ -1,13 +1,13 @@
-import PageLayout from "../components/PageLayout";
-import { Button } from "../components/ui/button";
+import PageLayout from '../components/PageLayout';
+import { Button } from '../components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
-import { ArrowRight, Code, Smartphone, Zap, Shield } from "lucide-react";
+} from '../components/ui/card';
+import { ArrowRight, Code, Smartphone, Zap, Shield } from 'lucide-react';
 
 interface Service {
   id: number;
@@ -29,11 +29,11 @@ interface ServicesIndexProps {
 }
 
 const iconMap = {
-  "web-development": Code,
-  "mobile-apps": Smartphone,
-  "api-development": Zap,
-  "ai-integration": Zap,
-  "security-compliance": Shield,
+  'web-development': Code,
+  'mobile-apps': Smartphone,
+  'api-development': Zap,
+  'ai-integration': Zap,
+  'security-compliance': Shield,
 };
 
 export default function ServicesIndex({ services, user }: ServicesIndexProps) {
@@ -71,7 +71,7 @@ export default function ServicesIndex({ services, user }: ServicesIndexProps) {
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service) => {
+            {services.map(service => {
               const IconComponent =
                 iconMap[service.icon as keyof typeof iconMap] || Code;
               return (
@@ -88,7 +88,7 @@ export default function ServicesIndex({ services, user }: ServicesIndexProps) {
                     </CardTitle>
                     <CardDescription className="text-gray-600">
                       {service.excerpt ||
-                        service.description.substring(0, 150) + "..."}
+                        service.description.substring(0, 150) + '...'}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -122,7 +122,7 @@ export default function ServicesIndex({ services, user }: ServicesIndexProps) {
           <Button
             size="lg"
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-            onClick={() => (window.location.href = "/#quote-form")}
+            onClick={() => (window.location.href = '/#quote-form')}
           >
             Get Your Quote Now
             <ArrowRight className="w-4 h-4 ml-2" />

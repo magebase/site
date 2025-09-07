@@ -1,12 +1,12 @@
-import PageLayout from "../components/PageLayout";
-import { Button } from "../components/ui/button";
+import PageLayout from '../components/PageLayout';
+import { Button } from '../components/ui/button';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
-import { ArrowRight, MapPin, Clock, DollarSign } from "lucide-react";
+} from '../components/ui/card';
+import { ArrowRight, MapPin, Clock, DollarSign } from 'lucide-react';
 
 interface Career {
   id: number;
@@ -60,7 +60,7 @@ export default function CompanyCareers({ careers, user }: CompanyCareersProps) {
 
           {careers.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {careers.map((career) => (
+              {careers.map(career => (
                 <Card
                   key={career.id}
                   className="group hover:shadow-lg transition-shadow duration-300"
@@ -129,7 +129,7 @@ export default function CompanyCareers({ careers, user }: CompanyCareersProps) {
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                onClick={() => (window.location.href = "/#contact")}
+                onClick={() => (window.location.href = '/#contact')}
               >
                 Get In Touch
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -202,7 +202,7 @@ export default function CompanyCareers({ careers, user }: CompanyCareersProps) {
           <Button
             size="lg"
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-            onClick={() => (window.location.href = "/#contact")}
+            onClick={() => (window.location.href = '/#contact')}
           >
             Contact Us
             <ArrowRight className="w-4 h-4 ml-2" />

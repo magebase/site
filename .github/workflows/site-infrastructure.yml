@@ -8,19 +8,19 @@ on:
   push:
     branches: [main]
     paths:
-      - "infra/pipeline/site-infrastructure/**"
-      - ".github/workflows/site-infrastructure.yml"
+      - 'infra/pipeline/site-infrastructure/**'
+      - '.github/workflows/site-infrastructure.yml'
   pull_request:
     branches: [main]
     paths:
-      - "infra/pipeline/site-infrastructure/**"
-      - ".github/workflows/site-infrastructure.yml"
+      - 'infra/pipeline/site-infrastructure/**'
+      - '.github/workflows/site-infrastructure.yml'
   workflow_dispatch:
     inputs:
       environment:
-        description: "Environment to deploy infrastructure to"
+        description: 'Environment to deploy infrastructure to'
         required: true
-        default: "dev"
+        default: 'dev'
         type: choice
         options:
           - dev
@@ -28,9 +28,9 @@ on:
           - uat
           - prod
       action:
-        description: "Action to perform"
+        description: 'Action to perform'
         required: true
-        default: "plan"
+        default: 'plan'
         type: choice
         options:
           - plan
@@ -44,7 +44,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  TF_VERSION: "1.8.0"
+  TF_VERSION: '1.8.0'
   TF_WORKING_DIR: infra/pipeline/site-infrastructure
   INFRA_REGION: ap-southeast-1
   SSO_REGION: us-east-1

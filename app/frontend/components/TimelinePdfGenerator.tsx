@@ -1,6 +1,6 @@
-import React from "react";
-import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
-import { format } from "date-fns";
+import React from 'react';
+import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+import { format } from 'date-fns';
 
 // Register fonts if needed
 // Font.register({
@@ -13,63 +13,63 @@ import { format } from "date-fns";
 
 const styles = StyleSheet.create({
   page: {
-    flexDirection: "column",
-    backgroundColor: "#ffffff",
+    flexDirection: 'column',
+    backgroundColor: '#ffffff',
     padding: 40,
-    fontFamily: "Helvetica",
+    fontFamily: 'Helvetica',
   },
   header: {
     marginBottom: 30,
     borderBottomWidth: 2,
-    borderBottomColor: "#2563eb",
-    borderBottomStyle: "solid",
+    borderBottomColor: '#2563eb',
+    borderBottomStyle: 'solid',
     paddingBottom: 20,
   },
   title: {
     fontSize: 24,
-    fontWeight: "bold",
-    color: "#1f2937",
+    fontWeight: 'bold',
+    color: '#1f2937',
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 14,
-    color: "#6b7280",
+    color: '#6b7280',
     marginBottom: 4,
   },
   clientInfo: {
     fontSize: 12,
-    color: "#374151",
+    color: '#374151',
   },
   timelineContainer: {
     flex: 1,
   },
   timelineItem: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginBottom: 25,
-    alignItems: "flex-start",
+    alignItems: 'flex-start',
   },
   dayCircle: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: "#2563eb",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: '#2563eb',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginRight: 20,
     marginTop: 5,
   },
   dayNumber: {
-    color: "#ffffff",
+    color: '#ffffff',
     fontSize: 14,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   timelineConnector: {
-    position: "absolute",
+    position: 'absolute',
     left: 20,
     top: 45,
     width: 2,
     height: 60,
-    backgroundColor: "#dbeafe",
+    backgroundColor: '#dbeafe',
   },
   contentContainer: {
     flex: 1,
@@ -77,33 +77,33 @@ const styles = StyleSheet.create({
   },
   dayTitle: {
     fontSize: 18,
-    fontWeight: "bold",
-    color: "#1f2937",
+    fontWeight: 'bold',
+    color: '#1f2937',
     marginBottom: 8,
   },
   scopeText: {
     fontSize: 12,
-    color: "#374151",
+    color: '#374151',
     lineHeight: 1.5,
     marginBottom: 12,
   },
   deliverablesTitle: {
     fontSize: 14,
-    fontWeight: "bold",
-    color: "#1f2937",
+    fontWeight: 'bold',
+    color: '#1f2937',
     marginBottom: 6,
   },
   deliverableItem: {
     fontSize: 11,
-    color: "#4b5563",
+    color: '#4b5563',
     marginBottom: 3,
-    flexDirection: "row",
-    alignItems: "flex-start",
+    flexDirection: 'row',
+    alignItems: 'flex-start',
   },
   bullet: {
     width: 4,
     height: 4,
-    backgroundColor: "#2563eb",
+    backgroundColor: '#2563eb',
     borderRadius: 2,
     marginRight: 8,
     marginTop: 4,
@@ -112,29 +112,29 @@ const styles = StyleSheet.create({
     marginTop: 40,
     paddingTop: 20,
     borderTopWidth: 1,
-    borderTopColor: "#e5e7eb",
-    borderTopStyle: "solid",
+    borderTopColor: '#e5e7eb',
+    borderTopStyle: 'solid',
   },
   footerText: {
     fontSize: 10,
-    color: "#9ca3af",
-    textAlign: "center",
+    color: '#9ca3af',
+    textAlign: 'center',
   },
   summarySection: {
     marginBottom: 30,
-    backgroundColor: "#f9fafb",
+    backgroundColor: '#f9fafb',
     padding: 20,
     borderRadius: 8,
   },
   summaryTitle: {
     fontSize: 16,
-    fontWeight: "bold",
-    color: "#1f2937",
+    fontWeight: 'bold',
+    color: '#1f2937',
     marginBottom: 12,
   },
   summaryGrid: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   summaryItem: {
     flex: 1,
@@ -142,13 +142,13 @@ const styles = StyleSheet.create({
   },
   summaryLabel: {
     fontSize: 12,
-    color: "#6b7280",
+    color: '#6b7280',
     marginBottom: 4,
   },
   summaryValue: {
     fontSize: 14,
-    fontWeight: "bold",
-    color: "#1f2937",
+    fontWeight: 'bold',
+    color: '#1f2937',
   },
 });
 
@@ -200,11 +200,11 @@ const TimelinePdfGenerator: React.FC<Props> = ({ quote_request }) => {
           <Text style={styles.title}>{quote_request.project_name}</Text>
           <Text style={styles.subtitle}>Project Timeline & Deliverables</Text>
           <Text style={styles.clientInfo}>
-            Client: {quote_request.client.company_name} | Contact:{" "}
+            Client: {quote_request.client.company_name} | Contact:{' '}
             {quote_request.client.contact_name}
           </Text>
           <Text style={styles.clientInfo}>
-            Generated: {format(new Date(), "MMMM dd, yyyy")}
+            Generated: {format(new Date(), 'MMMM dd, yyyy')}
           </Text>
         </View>
 
@@ -223,7 +223,7 @@ const TimelinePdfGenerator: React.FC<Props> = ({ quote_request }) => {
             <View style={styles.summaryItem}>
               <Text style={styles.summaryLabel}>Estimated Cost</Text>
               <Text style={styles.summaryValue}>
-                ${quote_request.estimated_cost?.toLocaleString() || "TBD"}
+                ${quote_request.estimated_cost?.toLocaleString() || 'TBD'}
               </Text>
             </View>
           </View>

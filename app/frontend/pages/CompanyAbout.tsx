@@ -1,6 +1,6 @@
-import PageLayout from "../components/PageLayout";
-import { Button } from "../components/ui/button";
-import { ArrowRight, Users, Target, Award } from "lucide-react";
+import PageLayout from '../components/PageLayout';
+import { Button } from '../components/ui/button';
+import { ArrowRight, Users, Target, Award } from 'lucide-react';
 
 interface Page {
   id: number;
@@ -128,7 +128,7 @@ export default function CompanyAbout({ page, user }: CompanyAboutProps) {
           <Button
             size="lg"
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-            onClick={() => (window.location.href = "/#quote-form")}
+            onClick={() => (window.location.href = '/#quote-form')}
           >
             Start Your Project
             <ArrowRight className="w-4 h-4 ml-2" />

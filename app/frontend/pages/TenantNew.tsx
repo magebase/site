@@ -1,15 +1,15 @@
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, useForm } from '@inertiajs/react';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
-import { Label } from "../components/ui/label";
-import { ArrowLeft, Building } from "lucide-react";
+} from '../components/ui/card';
+import { Button } from '../components/ui/button';
+import { Input } from '../components/ui/input';
+import { Label } from '../components/ui/label';
+import { ArrowLeft, Building } from 'lucide-react';
 
 interface TenantNewProps {
   errors?: Record<string, string>;
@@ -17,18 +17,18 @@ interface TenantNewProps {
 
 export default function TenantNew({ errors }: TenantNewProps) {
   const { data, setData, post, processing } = useForm({
-    name: "",
-    subdomain: "",
+    name: '',
+    subdomain: '',
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    post("/tenants");
+    post('/tenants');
   };
 
   const handleSubdomainChange = (value: string) => {
     // Auto-generate subdomain from name
-    const subdomain = value.toLowerCase().replace(/[^a-z0-9]/g, "");
+    const subdomain = value.toLowerCase().replace(/[^a-z0-9]/g, '');
     setData({ ...data, name: value, subdomain });
   };
 
@@ -84,8 +84,8 @@ export default function TenantNew({ errors }: TenantNewProps) {
                     value={data.subdomain}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       setData(
-                        "subdomain",
-                        e.target.value.toLowerCase().replace(/[^a-z0-9]/g, ""),
+                        'subdomain',
+                        e.target.value.toLowerCase().replace(/[^a-z0-9]/g, '')
                       )
                     }
                     placeholder="myawesomeproject"
@@ -107,7 +107,7 @@ export default function TenantNew({ errors }: TenantNewProps) {
                     disabled={processing}
                     className="flex-1"
                   >
-                    {processing ? "Creating..." : "Create Tenant"}
+                    {processing ? 'Creating...' : 'Create Tenant'}
                   </Button>
                   <Button type="button" variant="outline" asChild>
                     <Link href="/">

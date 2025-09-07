@@ -1,6 +1,6 @@
-import { Link } from "@inertiajs/react";
-import { ArrowLeft, Chrome } from "lucide-react";
-import { Button } from "../../components/ui/button";
+import { Link } from '@inertiajs/react';
+import { ArrowLeft, Chrome } from 'lucide-react';
+import { Button } from '../../components/ui/button';
 
 interface SignInProps {
   title: string;
@@ -9,7 +9,7 @@ interface SignInProps {
 export default function SignIn({}: SignInProps) {
   const handleGoogleSignIn = () => {
     // Redirect to Google OAuth
-    window.location.href = "/users/auth/google_oauth2";
+    window.location.href = '/users/auth/google_oauth2';
   };
 
   return (
@@ -80,11 +80,11 @@ export default function SignIn({}: SignInProps) {
 
             <div className="text-center">
               <p className="text-sm text-gray-600">
-                By signing in, you agree to our{" "}
+                By signing in, you agree to our{' '}
                 <Link href="#" className="text-blue-600 hover:text-blue-500">
                   Terms of Service
-                </Link>{" "}
-                and{" "}
+                </Link>{' '}
+                and{' '}
                 <Link href="#" className="text-blue-600 hover:text-blue-500">
                   Privacy Policy
                 </Link>
@@ -95,7 +95,7 @@ export default function SignIn({}: SignInProps) {
 
         <div className="mt-8 text-center">
           <p className="text-sm text-gray-600">
-            Don't have an account?{" "}
+            Don't have an account?{' '}
             <span className="text-blue-600 font-medium">
               Google OAuth will create one for you
             </span>

@@ -1,14 +1,14 @@
-import { Head, Link } from "@inertiajs/react";
-import { TenantSidebar } from "../../../components/TenantSidebar";
+import { Head, Link } from '@inertiajs/react';
+import { TenantSidebar } from '../../../components/TenantSidebar';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../../../components/ui/card";
-import { Button } from "../../../components/ui/button";
-import { FileText, Plus, Download, Upload, Calendar, User } from "lucide-react";
+} from '../../../components/ui/card';
+import { Button } from '../../../components/ui/button';
+import { FileText, Plus, Download, Upload, Calendar, User } from 'lucide-react';
 
 interface DocumentsIndexProps {
   tenant: {
@@ -58,7 +58,7 @@ export default function DocumentsIndex({
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {documents.map((document) => (
+                {documents.map(document => (
                   <Card
                     key={document.id}
                     className="hover:shadow-md transition-shadow"

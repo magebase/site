@@ -1,5 +1,5 @@
-import { Shield, Clock, CheckCircle, Award, ArrowRight } from "lucide-react";
-import { Button } from "../ui/button";
+import { Shield, Clock, CheckCircle, Award, ArrowRight } from 'lucide-react';
+import { Button } from '../ui/button';
 
 interface GuaranteeSectionProps {
   onQuoteFormClick?: () => void;
@@ -9,27 +9,27 @@ export function GuaranteeSection({ onQuoteFormClick }: GuaranteeSectionProps) {
   const guarantees = [
     {
       icon: Clock,
-      title: "Quick Delivery",
+      title: 'Quick Delivery',
       description:
-        "Your project will be developed efficiently with clear timelines and regular updates.",
+        'Your project will be developed efficiently with clear timelines and regular updates.',
     },
     {
       icon: Shield,
-      title: "Quality Assurance",
+      title: 'Quality Assurance',
       description:
-        "Every line of code is tested, reviewed, and optimized for performance.",
+        'Every line of code is tested, reviewed, and optimized for performance.',
     },
     {
       icon: CheckCircle,
-      title: "Satisfaction Guarantee",
+      title: 'Satisfaction Guarantee',
       description:
         "Not happy with the results? We'll work with you until you're satisfied.",
     },
     {
       icon: Award,
-      title: "Expert Team",
+      title: 'Expert Team',
       description:
-        "Senior developers with extensive experience in modern web technologies.",
+        'Senior developers with extensive experience in modern web technologies.',
     },
   ];
 

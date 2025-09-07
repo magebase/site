@@ -1,13 +1,13 @@
-import PageLayout from "../components/PageLayout";
-import { Button } from "../components/ui/button";
-import { Badge } from "../components/ui/badge";
+import PageLayout from '../components/PageLayout';
+import { Button } from '../components/ui/button';
+import { Badge } from '../components/ui/badge';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
+} from '../components/ui/card';
 import {
   ArrowRight,
   ChevronRight,
@@ -18,314 +18,314 @@ import {
   Briefcase,
   Gamepad2,
   Building2,
-} from "lucide-react";
-import { Link } from "@inertiajs/react";
+} from 'lucide-react';
+import { Link } from '@inertiajs/react';
 
 // Use case data organized by categories (from UseCasesMegaMenu)
 const useCaseCategories = {
-  "Business Tools": {
+  'Business Tools': {
     icon: Building2,
-    color: "from-blue-500 to-blue-600",
-    bgColor: "bg-blue-50",
-    textColor: "text-blue-700",
-    borderColor: "border-blue-200",
+    color: 'from-blue-500 to-blue-600',
+    bgColor: 'bg-blue-50',
+    textColor: 'text-blue-700',
+    borderColor: 'border-blue-200',
     items: [
       {
-        slug: "small-business-branded-site",
-        title: "Small Business Branded Site",
-        subtitle: "Professional online presence",
-        description: "Custom websites for local businesses and startups",
+        slug: 'small-business-branded-site',
+        title: 'Small Business Branded Site',
+        subtitle: 'Professional online presence',
+        description: 'Custom websites for local businesses and startups',
       },
       {
-        slug: "digital-marketing-agency-site",
-        title: "Digital Marketing Agency Site",
-        subtitle: "Showcase your expertise",
-        description: "Portfolio websites for marketing agencies",
+        slug: 'digital-marketing-agency-site',
+        title: 'Digital Marketing Agency Site',
+        subtitle: 'Showcase your expertise',
+        description: 'Portfolio websites for marketing agencies',
       },
       {
-        slug: "business-management-software",
-        title: "Business Management Software",
-        subtitle: "Streamline operations",
-        description: "Custom software for business processes",
+        slug: 'business-management-software',
+        title: 'Business Management Software',
+        subtitle: 'Streamline operations',
+        description: 'Custom software for business processes',
       },
       {
-        slug: "customer-relationship-management",
-        title: "Customer Relationship Management",
-        subtitle: "Manage customer relationships",
-        description: "CRM systems for better customer engagement",
+        slug: 'customer-relationship-management',
+        title: 'Customer Relationship Management',
+        subtitle: 'Manage customer relationships',
+        description: 'CRM systems for better customer engagement',
       },
       {
-        slug: "project-management-tool",
-        title: "Project Management Tool",
-        subtitle: "Organize and track projects",
-        description: "Custom project management solutions",
+        slug: 'project-management-tool',
+        title: 'Project Management Tool',
+        subtitle: 'Organize and track projects',
+        description: 'Custom project management solutions',
       },
       {
-        slug: "internal-tool",
-        title: "Internal Tool",
-        subtitle: "Custom business applications",
-        description: "Tailored software for internal use",
+        slug: 'internal-tool',
+        title: 'Internal Tool',
+        subtitle: 'Custom business applications',
+        description: 'Tailored software for internal use',
       },
     ],
   },
-  "Online Commerce": {
+  'Online Commerce': {
     icon: ShoppingCart,
-    color: "from-green-500 to-green-600",
-    bgColor: "bg-green-50",
-    textColor: "text-green-700",
-    borderColor: "border-green-200",
+    color: 'from-green-500 to-green-600',
+    bgColor: 'bg-green-50',
+    textColor: 'text-green-700',
+    borderColor: 'border-green-200',
     items: [
       {
-        slug: "e-commerce",
-        title: "E-commerce Solutions",
-        subtitle: "Online stores and marketplaces",
-        description: "Complete e-commerce platforms",
+        slug: 'e-commerce',
+        title: 'E-commerce Solutions',
+        subtitle: 'Online stores and marketplaces',
+        description: 'Complete e-commerce platforms',
       },
       {
-        slug: "subscription-box-service",
-        title: "Subscription Box Service",
-        subtitle: "Recurring revenue platforms",
-        description: "Subscription-based e-commerce",
+        slug: 'subscription-box-service',
+        title: 'Subscription Box Service',
+        subtitle: 'Recurring revenue platforms',
+        description: 'Subscription-based e-commerce',
       },
       {
-        slug: "marketplace-platform",
-        title: "Marketplace Platform",
-        subtitle: "Multi-vendor marketplaces",
-        description: "Connect buyers and sellers",
+        slug: 'marketplace-platform',
+        title: 'Marketplace Platform',
+        subtitle: 'Multi-vendor marketplaces',
+        description: 'Connect buyers and sellers',
       },
     ],
   },
-  "Health & Medical": {
+  'Health & Medical': {
     icon: Heart,
-    color: "from-red-500 to-red-600",
-    bgColor: "bg-red-50",
-    textColor: "text-red-700",
-    borderColor: "border-red-200",
+    color: 'from-red-500 to-red-600',
+    bgColor: 'bg-red-50',
+    textColor: 'text-red-700',
+    borderColor: 'border-red-200',
     items: [
       {
-        slug: "healthcare-management-system",
-        title: "Healthcare Management System",
-        subtitle: "Medical practice management",
-        description: "Comprehensive healthcare solutions",
+        slug: 'healthcare-management-system',
+        title: 'Healthcare Management System',
+        subtitle: 'Medical practice management',
+        description: 'Comprehensive healthcare solutions',
       },
       {
-        slug: "telemedicine",
-        title: "Telemedicine",
-        subtitle: "Remote healthcare delivery",
-        description: "Virtual consultation platforms",
+        slug: 'telemedicine',
+        title: 'Telemedicine',
+        subtitle: 'Remote healthcare delivery',
+        description: 'Virtual consultation platforms',
       },
       {
-        slug: "fitness-wellness",
-        title: "Fitness & Wellness",
-        subtitle: "Health and fitness apps",
-        description: "Wellness tracking and management",
+        slug: 'fitness-wellness',
+        title: 'Fitness & Wellness',
+        subtitle: 'Health and fitness apps',
+        description: 'Wellness tracking and management',
       },
       {
-        slug: "doctor-s-office",
+        slug: 'doctor-s-office',
         title: "Doctor's Office",
-        subtitle: "Medical practice websites",
-        description: "Healthcare provider websites",
+        subtitle: 'Medical practice websites',
+        description: 'Healthcare provider websites',
       },
       {
-        slug: "veterinary-clinic",
-        title: "Veterinary Clinic",
-        subtitle: "Animal healthcare management",
-        description: "Veterinary practice solutions",
+        slug: 'veterinary-clinic',
+        title: 'Veterinary Clinic',
+        subtitle: 'Animal healthcare management',
+        description: 'Veterinary practice solutions',
       },
     ],
   },
-  "Service Management": {
+  'Service Management': {
     icon: Users,
-    color: "from-purple-500 to-purple-600",
-    bgColor: "bg-purple-50",
-    textColor: "text-purple-700",
-    borderColor: "border-purple-200",
+    color: 'from-purple-500 to-purple-600',
+    bgColor: 'bg-purple-50',
+    textColor: 'text-purple-700',
+    borderColor: 'border-purple-200',
     items: [
       {
-        slug: "food-delivery",
-        title: "Food Delivery",
-        subtitle: "Restaurant delivery platforms",
-        description: "Food ordering and delivery systems",
+        slug: 'food-delivery',
+        title: 'Food Delivery',
+        subtitle: 'Restaurant delivery platforms',
+        description: 'Food ordering and delivery systems',
       },
       {
-        slug: "equipment-hire",
-        title: "Equipment Hire",
-        subtitle: "Equipment rental platforms",
-        description: "Rental and booking systems",
+        slug: 'equipment-hire',
+        title: 'Equipment Hire',
+        subtitle: 'Equipment rental platforms',
+        description: 'Rental and booking systems',
       },
       {
-        slug: "service-booking",
-        title: "Service Booking",
-        subtitle: "Appointment scheduling",
-        description: "Service provider booking systems",
+        slug: 'service-booking',
+        title: 'Service Booking',
+        subtitle: 'Appointment scheduling',
+        description: 'Service provider booking systems',
       },
       {
-        slug: "logistics-delivery",
-        title: "Logistics & Delivery",
-        subtitle: "Supply chain management",
-        description: "Logistics and delivery solutions",
+        slug: 'logistics-delivery',
+        title: 'Logistics & Delivery',
+        subtitle: 'Supply chain management',
+        description: 'Logistics and delivery solutions',
       },
       {
-        slug: "appointment-scheduling",
-        title: "Appointment Scheduling",
-        subtitle: "Booking management",
-        description: "Appointment booking platforms",
+        slug: 'appointment-scheduling',
+        title: 'Appointment Scheduling',
+        subtitle: 'Booking management',
+        description: 'Appointment booking platforms',
       },
       {
-        slug: "tradesperson-service-app",
-        title: "Tradesperson Service App",
-        subtitle: "Service provider platforms",
-        description: "Connect tradespeople with customers",
+        slug: 'tradesperson-service-app',
+        title: 'Tradesperson Service App',
+        subtitle: 'Service provider platforms',
+        description: 'Connect tradespeople with customers',
       },
       {
-        slug: "property-management-system",
-        title: "Property Management System",
-        subtitle: "Rental property management",
-        description: "Property management solutions",
+        slug: 'property-management-system',
+        title: 'Property Management System',
+        subtitle: 'Rental property management',
+        description: 'Property management solutions',
       },
     ],
   },
-  "Finance & Banking": {
+  'Finance & Banking': {
     icon: Briefcase,
-    color: "from-yellow-500 to-yellow-600",
-    bgColor: "bg-yellow-50",
-    textColor: "text-yellow-700",
-    borderColor: "border-yellow-200",
+    color: 'from-yellow-500 to-yellow-600',
+    bgColor: 'bg-yellow-50',
+    textColor: 'text-yellow-700',
+    borderColor: 'border-yellow-200',
     items: [
       {
-        slug: "financial-services-or-banking",
-        title: "Financial Services/Banking",
-        subtitle: "Banking and finance platforms",
-        description: "Financial service applications",
+        slug: 'financial-services-or-banking',
+        title: 'Financial Services/Banking',
+        subtitle: 'Banking and finance platforms',
+        description: 'Financial service applications',
       },
       {
-        slug: "cryptocurrency-exchange",
-        title: "Cryptocurrency Exchange",
-        subtitle: "Crypto trading platforms",
-        description: "Digital currency exchange systems",
+        slug: 'cryptocurrency-exchange',
+        title: 'Cryptocurrency Exchange',
+        subtitle: 'Crypto trading platforms',
+        description: 'Digital currency exchange systems',
       },
       {
-        slug: "neo-banks-fintech-apps",
-        title: "Neo-banks/FinTech Apps",
-        subtitle: "Modern banking solutions",
-        description: "Next-generation financial apps",
+        slug: 'neo-banks-fintech-apps',
+        title: 'Neo-banks/FinTech Apps',
+        subtitle: 'Modern banking solutions',
+        description: 'Next-generation financial apps',
       },
     ],
   },
-  "Gaming & Media": {
+  'Gaming & Media': {
     icon: Gamepad2,
-    color: "from-pink-500 to-pink-600",
-    bgColor: "bg-pink-50",
-    textColor: "text-pink-700",
-    borderColor: "border-pink-200",
+    color: 'from-pink-500 to-pink-600',
+    bgColor: 'bg-pink-50',
+    textColor: 'text-pink-700',
+    borderColor: 'border-pink-200',
     items: [
       {
-        slug: "gambling-or-igaming",
-        title: "Gambling/iGaming",
-        subtitle: "Online gaming platforms",
-        description: "Casino and betting applications",
+        slug: 'gambling-or-igaming',
+        title: 'Gambling/iGaming',
+        subtitle: 'Online gaming platforms',
+        description: 'Casino and betting applications',
       },
       {
-        slug: "video-gaming",
-        title: "Video Gaming",
-        subtitle: "Gaming applications",
-        description: "Video game platforms and tools",
+        slug: 'video-gaming',
+        title: 'Video Gaming',
+        subtitle: 'Gaming applications',
+        description: 'Video game platforms and tools',
       },
       {
-        slug: "streaming-service",
-        title: "Streaming Service",
-        subtitle: "Video/audio streaming",
-        description: "Media streaming platforms",
+        slug: 'streaming-service',
+        title: 'Streaming Service',
+        subtitle: 'Video/audio streaming',
+        description: 'Media streaming platforms',
       },
     ],
   },
-  "Learning & Community": {
+  'Learning & Community': {
     icon: Users,
-    color: "from-indigo-500 to-indigo-600",
-    bgColor: "bg-indigo-50",
-    textColor: "text-indigo-700",
-    borderColor: "border-indigo-200",
+    color: 'from-indigo-500 to-indigo-600',
+    bgColor: 'bg-indigo-50',
+    textColor: 'text-indigo-700',
+    borderColor: 'border-indigo-200',
     items: [
       {
-        slug: "educational",
-        title: "Educational",
-        subtitle: "Learning management systems",
-        description: "Education and training platforms",
+        slug: 'educational',
+        title: 'Educational',
+        subtitle: 'Learning management systems',
+        description: 'Education and training platforms',
       },
       {
-        slug: "e-learning",
-        title: "E-learning",
-        subtitle: "Online learning platforms",
-        description: "Digital education solutions",
+        slug: 'e-learning',
+        title: 'E-learning',
+        subtitle: 'Online learning platforms',
+        description: 'Digital education solutions',
       },
       {
-        slug: "learning-management-system",
-        title: "Learning Management System",
-        subtitle: "Course management",
-        description: "Comprehensive LMS solutions",
+        slug: 'learning-management-system',
+        title: 'Learning Management System',
+        subtitle: 'Course management',
+        description: 'Comprehensive LMS solutions',
       },
       {
-        slug: "social-networking",
-        title: "Social Networking",
-        subtitle: "Social media platforms",
-        description: "Community and social applications",
+        slug: 'social-networking',
+        title: 'Social Networking',
+        subtitle: 'Social media platforms',
+        description: 'Community and social applications',
       },
       {
-        slug: "community-forum",
-        title: "Community Forum",
-        subtitle: "Discussion platforms",
-        description: "Online community solutions",
+        slug: 'community-forum',
+        title: 'Community Forum',
+        subtitle: 'Discussion platforms',
+        description: 'Online community solutions',
       },
     ],
   },
-  "Specialized Solutions": {
+  'Specialized Solutions': {
     icon: Zap,
-    color: "from-gray-500 to-gray-600",
-    bgColor: "bg-gray-50",
-    textColor: "text-gray-700",
-    borderColor: "border-gray-200",
+    color: 'from-gray-500 to-gray-600',
+    bgColor: 'bg-gray-50',
+    textColor: 'text-gray-700',
+    borderColor: 'border-gray-200',
     items: [
       {
-        slug: "ride-sharing",
-        title: "Ride-Sharing",
-        subtitle: "Transportation platforms",
-        description: "Ride-sharing and transportation apps",
+        slug: 'ride-sharing',
+        title: 'Ride-Sharing',
+        subtitle: 'Transportation platforms',
+        description: 'Ride-sharing and transportation apps',
       },
       {
-        slug: "event-management-system",
-        title: "Event Management System",
-        subtitle: "Event planning and management",
-        description: "Event organization platforms",
+        slug: 'event-management-system',
+        title: 'Event Management System',
+        subtitle: 'Event planning and management',
+        description: 'Event organization platforms',
       },
       {
-        slug: "content-management-system",
-        title: "Content Management System",
-        subtitle: "Content creation and publishing",
-        description: "CMS for content management",
+        slug: 'content-management-system',
+        title: 'Content Management System',
+        subtitle: 'Content creation and publishing',
+        description: 'CMS for content management',
       },
       {
-        slug: "inventory-management-system",
-        title: "Inventory Management System",
-        subtitle: "Stock and inventory control",
-        description: "Inventory tracking solutions",
+        slug: 'inventory-management-system',
+        title: 'Inventory Management System',
+        subtitle: 'Stock and inventory control',
+        description: 'Inventory tracking solutions',
       },
       {
-        slug: "job-board",
-        title: "Job Board",
-        subtitle: "Employment platforms",
-        description: "Job posting and recruitment",
+        slug: 'job-board',
+        title: 'Job Board',
+        subtitle: 'Employment platforms',
+        description: 'Job posting and recruitment',
       },
       {
-        slug: "review-rating",
-        title: "Review & Rating",
-        subtitle: "Feedback and review systems",
-        description: "Review and rating platforms",
+        slug: 'review-rating',
+        title: 'Review & Rating',
+        subtitle: 'Feedback and review systems',
+        description: 'Review and rating platforms',
       },
       {
-        slug: "custom-application",
-        title: "Custom Application",
-        subtitle: "Tailored software solutions",
-        description: "Custom-built applications",
+        slug: 'custom-application',
+        title: 'Custom Application',
+        subtitle: 'Tailored software solutions',
+        description: 'Custom-built applications',
       },
     ],
   },
@@ -362,7 +362,7 @@ export default function UseCasesIndex({ user }: UseCasesIndexProps) {
               <Button
                 size="lg"
                 className="bg-white text-blue-600 hover:bg-blue-50"
-                onClick={() => (window.location.href = "/#quote-form")}
+                onClick={() => (window.location.href = '/#quote-form')}
               >
                 Get Your Custom Quote
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -423,14 +423,14 @@ export default function UseCasesIndex({ user }: UseCasesIndexProps) {
                       </h3>
                     </div>
                     <p className="text-gray-600 max-w-2xl mx-auto">
-                      Specialized software solutions for{" "}
+                      Specialized software solutions for{' '}
                       {category.toLowerCase()} businesses
                     </p>
                   </div>
 
                   {/* Use Cases Grid */}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {data.items.map((item) => (
+                    {data.items.map(item => (
                       <Card
                         key={item.slug}
                         className={`group hover:shadow-xl transition-all duration-300 border-0 shadow-lg hover:-translate-y-1 ${data.bgColor} ${data.borderColor} border`}
@@ -488,7 +488,7 @@ export default function UseCasesIndex({ user }: UseCasesIndexProps) {
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-                onClick={() => (window.location.href = "/#quote-form")}
+                onClick={() => (window.location.href = '/#quote-form')}
               >
                 Get Custom Quote
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -496,7 +496,7 @@ export default function UseCasesIndex({ user }: UseCasesIndexProps) {
               <Button
                 size="lg"
                 variant="outline"
-                onClick={() => (window.location.href = "/contact")}
+                onClick={() => (window.location.href = '/contact')}
               >
                 Contact Our Team
               </Button>
@@ -520,7 +520,7 @@ export default function UseCasesIndex({ user }: UseCasesIndexProps) {
               <Button
                 size="lg"
                 variant="secondary"
-                onClick={() => (window.location.href = "/#quote-form")}
+                onClick={() => (window.location.href = '/#quote-form')}
               >
                 Get Your Free Quote
                 <ArrowRight className="ml-2 h-4 w-4" />

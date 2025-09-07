@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { Head } from "@inertiajs/react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+import { useState } from 'react';
+import { Head } from '@inertiajs/react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
 import {
   CheckCircle,
   Clock,
@@ -15,8 +15,8 @@ import {
   Calendar,
   CreditCard,
   Download,
-} from "lucide-react";
-import { toast } from "sonner";
+} from 'lucide-react';
+import { toast } from 'sonner';
 
 interface QuoteRequest {
   id: number;
@@ -55,13 +55,13 @@ export default function ProposalShow({
     setIsAccepting(true);
     try {
       const response = await fetch(`/proposals/${proposal_token}/accept`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-Token":
+          'Content-Type': 'application/json',
+          'X-CSRF-Token':
             document
               .querySelector('meta[name="csrf-token"]')
-              ?.getAttribute("content") || "",
+              ?.getAttribute('content') || '',
         },
       });
 
@@ -69,17 +69,17 @@ export default function ProposalShow({
 
       if (data.success) {
         toast.success(
-          "Quote accepted successfully! Contract has been generated.",
+          'Quote accepted successfully! Contract has been generated.'
         );
         // Redirect to contract or success page
-        window.location.href = "/";
+        window.location.href = '/';
       } else {
         toast.error(
-          data.message || "Failed to accept quote. Please try again.",
+          data.message || 'Failed to accept quote. Please try again.'
         );
       }
     } catch (error) {
-      toast.error("An error occurred. Please try again.");
+      toast.error('An error occurred. Please try again.');
     } finally {
       setIsAccepting(false);
     }
@@ -95,58 +95,58 @@ export default function ProposalShow({
     // Default phases if no project plan data
     return [
       {
-        name: "Discovery & Planning",
-        duration: "1-2 weeks",
+        name: 'Discovery & Planning',
+        duration: '1-2 weeks',
         cost: Math.round(quote_request.estimated_cost * 0.15),
         deliverables: [
-          "Requirements analysis",
-          "Technical specification",
-          "Project roadmap",
-          "Timeline planning",
+          'Requirements analysis',
+          'Technical specification',
+          'Project roadmap',
+          'Timeline planning',
         ],
       },
       {
-        name: "Design",
-        duration: "2-3 weeks",
+        name: 'Design',
+        duration: '2-3 weeks',
         cost: Math.round(quote_request.estimated_cost * 0.2),
         deliverables: [
-          "UI/UX wireframes",
-          "Design mockups",
-          "User flow diagrams",
-          "Design system",
+          'UI/UX wireframes',
+          'Design mockups',
+          'User flow diagrams',
+          'Design system',
         ],
       },
       {
-        name: "Development",
-        duration: "6-8 weeks",
+        name: 'Development',
+        duration: '6-8 weeks',
         cost: Math.round(quote_request.estimated_cost * 0.5),
         deliverables: [
-          "Core functionality",
-          "API development",
-          "Database setup",
-          "Testing implementation",
+          'Core functionality',
+          'API development',
+          'Database setup',
+          'Testing implementation',
         ],
       },
       {
-        name: "Testing & QA",
-        duration: "2-3 weeks",
+        name: 'Testing & QA',
+        duration: '2-3 weeks',
         cost: Math.round(quote_request.estimated_cost * 0.1),
         deliverables: [
-          "Unit testing",
-          "Integration testing",
-          "User acceptance testing",
-          "Performance optimization",
+          'Unit testing',
+          'Integration testing',
+          'User acceptance testing',
+          'Performance optimization',
         ],
       },
       {
-        name: "Launch & Deployment",
-        duration: "1-2 weeks",
+        name: 'Launch & Deployment',
+        duration: '1-2 weeks',
         cost: Math.round(quote_request.estimated_cost * 0.05),
         deliverables: [
-          "Production deployment",
-          "Final testing",
-          "Documentation",
-          "Training session",
+          'Production deployment',
+          'Final testing',
+          'Documentation',
+          'Training session',
         ],
       },
     ];
@@ -183,12 +183,12 @@ export default function ProposalShow({
               <div className="flex items-center gap-1">
                 <Calendar className="w-4 h-4" />
                 <span>
-                  Estimated:{" "}
+                  Estimated:{' '}
                   {phases.reduce(
                     (sum, phase) =>
-                      sum + parseInt(phase.duration.split("-")[1]),
-                    0,
-                  )}{" "}
+                      sum + parseInt(phase.duration.split('-')[1]),
+                    0
+                  )}{' '}
                   weeks
                 </span>
               </div>
@@ -242,7 +242,7 @@ export default function ProposalShow({
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {quote_request.selected_features.map((feature) => (
+                {quote_request.selected_features.map(feature => (
                   <div key={feature.id} className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
                     <span className="text-gray-700">{feature.name}</span>
@@ -415,7 +415,7 @@ export default function ProposalShow({
                 className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold px-8 py-3"
               >
                 <CreditCard className="w-5 h-5 mr-2" />
-                {isAccepting ? "Processing..." : "Accept Quote & Sign Contract"}
+                {isAccepting ? 'Processing...' : 'Accept Quote & Sign Contract'}
               </Button>
               <Button
                 variant="outline"
@@ -436,13 +436,13 @@ export default function ProposalShow({
           <div className="text-center mt-12 pt-8 border-t border-gray-200">
             <p className="text-gray-600 mb-2">Questions about this proposal?</p>
             <p className="text-sm text-gray-500">
-              Contact us at{" "}
+              Contact us at{' '}
               <a
                 href="mailto:hello@magebase.site"
                 className="text-blue-600 hover:underline"
               >
                 hello@magebase.site
-              </a>{" "}
+              </a>{' '}
               or call +61 412 345 678
             </p>
           </div>

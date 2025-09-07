@@ -1,7 +1,7 @@
-import PageLayout from "../components/PageLayout";
-import { Button } from "../components/ui/button";
-import { Card, CardContent } from "../components/ui/card";
-import { ArrowRight, Shield, FileText } from "lucide-react";
+import PageLayout from '../components/PageLayout';
+import { Button } from '../components/ui/button';
+import { Card, CardContent } from '../components/ui/card';
+import { ArrowRight, Shield, FileText } from 'lucide-react';
 
 interface LegalSecurityProps {
   page: {
@@ -19,11 +19,11 @@ interface LegalSecurityProps {
 export default function LegalSecurity({ page, user }: LegalSecurityProps) {
   // Provide default values if page is null
   const pageData = page || {
-    title: "Security Information",
+    title: 'Security Information',
     content:
-      "<h1>Security Information</h1><p>Learn about our security practices and how we protect your data and applications.</p>",
+      '<h1>Security Information</h1><p>Learn about our security practices and how we protect your data and applications.</p>',
     excerpt:
-      "Learn about our security practices and how we protect your data and applications.",
+      'Learn about our security practices and how we protect your data and applications.',
   };
 
   return (
@@ -181,7 +181,7 @@ export default function LegalSecurity({ page, user }: LegalSecurityProps) {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => (window.location.href = "/privacy-policy")}
+                  onClick={() => (window.location.href = '/privacy-policy')}
                 >
                   View Privacy
                 </Button>
@@ -200,7 +200,7 @@ export default function LegalSecurity({ page, user }: LegalSecurityProps) {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => (window.location.href = "/terms-of-service")}
+                  onClick={() => (window.location.href = '/terms-of-service')}
                 >
                   View Terms
                 </Button>
@@ -219,7 +219,7 @@ export default function LegalSecurity({ page, user }: LegalSecurityProps) {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => (window.location.href = "/cookie-policy")}
+                  onClick={() => (window.location.href = '/cookie-policy')}
                 >
                   View Policy
                 </Button>
@@ -242,7 +242,7 @@ export default function LegalSecurity({ page, user }: LegalSecurityProps) {
           <Button
             size="lg"
             className="bg-gradient-to-r from-gray-600 to-slate-600 hover:from-gray-700 hover:to-slate-700 text-white"
-            onClick={() => (window.location.href = "/#contact")}
+            onClick={() => (window.location.href = '/#contact')}
           >
             Contact Security Team
             <ArrowRight className="w-4 h-4 ml-2" />

@@ -1,11 +1,11 @@
-import PageLayout from "../components/PageLayout";
-import { Button } from "../components/ui/button";
+import PageLayout from '../components/PageLayout';
+import { Button } from '../components/ui/button';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
+} from '../components/ui/card';
 import {
   ArrowRight,
   Video,
@@ -13,7 +13,7 @@ import {
   Clock,
   User,
   Download,
-} from "lucide-react";
+} from 'lucide-react';
 
 interface Webinar {
   id: number;
@@ -49,7 +49,7 @@ export default function ResourcesWebinarDetail({
       title={`${webinar.title} | Webinar`}
       description={`${webinar.title} - ${webinar.description.substring(
         0,
-        150,
+        150
       )}...`}
     >
       {/* Hero Section */}
@@ -59,11 +59,11 @@ export default function ResourcesWebinarDetail({
             <span
               className={`px-3 py-1 text-sm rounded-full ${
                 webinar.is_upcoming
-                  ? "bg-green-100 text-green-800"
-                  : "bg-blue-100 text-blue-800"
+                  ? 'bg-green-100 text-green-800'
+                  : 'bg-blue-100 text-blue-800'
               }`}
             >
-              {webinar.is_upcoming ? "Upcoming" : "Recorded"}
+              {webinar.is_upcoming ? 'Upcoming' : 'Recorded'}
             </span>
             <span className="px-3 py-1 bg-gray-100 text-gray-800 text-sm rounded-full">
               Webinar
@@ -81,7 +81,7 @@ export default function ResourcesWebinarDetail({
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700"
-                onClick={() => window.open(webinar.registration_url, "_blank")}
+                onClick={() => window.open(webinar.registration_url, '_blank')}
               >
                 Register Now
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -90,7 +90,7 @@ export default function ResourcesWebinarDetail({
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                onClick={() => window.open(webinar.recording_url, "_blank")}
+                onClick={() => window.open(webinar.recording_url, '_blank')}
               >
                 Watch Recording
                 <Video className="w-4 h-4 ml-2" />
@@ -100,7 +100,7 @@ export default function ResourcesWebinarDetail({
               size="lg"
               variant="outline"
               className="border-orange-600 text-orange-600 hover:bg-orange-50"
-              onClick={() => (window.location.href = "/webinars")}
+              onClick={() => (window.location.href = '/webinars')}
             >
               View All Webinars
               <ArrowRight className="w-4 h-4 ml-2" />
@@ -153,7 +153,7 @@ export default function ResourcesWebinarDetail({
                     <Button
                       className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
                       onClick={() =>
-                        window.open(webinar.recording_url, "_blank")
+                        window.open(webinar.recording_url, '_blank')
                       }
                     >
                       Watch Full Recording
@@ -176,7 +176,7 @@ export default function ResourcesWebinarDetail({
                           variant="outline"
                           className="w-full justify-start"
                           onClick={() =>
-                            window.open(webinar.slides_url, "_blank")
+                            window.open(webinar.slides_url, '_blank')
                           }
                         >
                           <Download className="w-4 h-4 mr-2" />
@@ -202,15 +202,15 @@ export default function ResourcesWebinarDetail({
                     <p className="font-medium flex items-center">
                       <Calendar className="w-4 h-4 mr-2" />
                       {new Date(webinar.scheduled_at).toLocaleDateString(
-                        "en-US",
+                        'en-US',
                         {
-                          weekday: "long",
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        },
+                          weekday: 'long',
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        }
                       )}
                     </p>
                   </div>
@@ -229,10 +229,10 @@ export default function ResourcesWebinarDetail({
                     <p className="text-sm text-gray-600">Status</p>
                     <p
                       className={`font-medium ${
-                        webinar.is_upcoming ? "text-green-600" : "text-blue-600"
+                        webinar.is_upcoming ? 'text-green-600' : 'text-blue-600'
                       }`}
                     >
-                      {webinar.is_upcoming ? "Upcoming" : "Recorded"}
+                      {webinar.is_upcoming ? 'Upcoming' : 'Recorded'}
                     </p>
                   </div>
                 </CardContent>
@@ -248,7 +248,7 @@ export default function ResourcesWebinarDetail({
                     variant="outline"
                     className="w-full"
                     onClick={() =>
-                      (window.location.href = "/resources/webinars")
+                      (window.location.href = '/resources/webinars')
                     }
                   >
                     View All Webinars
@@ -267,19 +267,19 @@ export default function ResourcesWebinarDetail({
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             {webinar.is_upcoming
               ? "Don't Miss This Webinar"
-              : "Enjoyed This Webinar?"}
+              : 'Enjoyed This Webinar?'}
           </h2>
           <p className="text-xl text-gray-300 mb-8">
             {webinar.is_upcoming
-              ? "Register now to secure your spot and get notified when it starts."
-              : "Check out our other webinars and continue learning with our community."}
+              ? 'Register now to secure your spot and get notified when it starts.'
+              : 'Check out our other webinars and continue learning with our community.'}
           </p>
           <Button
             size="lg"
             className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white"
-            onClick={() => (window.location.href = "/resources/webinars")}
+            onClick={() => (window.location.href = '/resources/webinars')}
           >
-            {webinar.is_upcoming ? "Register for More" : "Watch More Webinars"}
+            {webinar.is_upcoming ? 'Register for More' : 'Watch More Webinars'}
             <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </div>

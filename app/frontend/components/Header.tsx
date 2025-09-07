@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import { Zap, FileText, LogIn, LogOut, Menu, X } from "lucide-react";
-import { Link } from "@inertiajs/react";
-import { AnnouncementBar } from "./landing/AnnouncementBar";
-import BusinessUseCasesMegaMenu from "./BusinessUseCasesMegaMenu";
-import ServicesUseCasesMegaMenu from "./ServicesUseCasesMegaMenu";
+import React, { useState, useEffect } from 'react';
+import { Zap, FileText, LogIn, LogOut, Menu, X } from 'lucide-react';
+import { Link } from '@inertiajs/react';
+import { AnnouncementBar } from './landing/AnnouncementBar';
+import BusinessUseCasesMegaMenu from './BusinessUseCasesMegaMenu';
+import ServicesUseCasesMegaMenu from './ServicesUseCasesMegaMenu';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,7 +14,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
+} from '@/components/ui/navigation-menu';
 
 interface HeaderProps {
   user?: {
@@ -30,26 +30,26 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
 
   const navItems = [
     {
-      name: "Business Apps",
-      link: "/use-cases",
+      name: 'Business Apps',
+      link: '/use-cases',
       hasMegaMenu: true,
-      megaMenuType: "business",
+      megaMenuType: 'business',
     },
     {
-      name: "Service Solutions",
-      link: "/use-cases",
+      name: 'Service Solutions',
+      link: '/use-cases',
       hasMegaMenu: true,
-      megaMenuType: "services",
+      megaMenuType: 'services',
     },
-    { name: "Blog", link: "/blog" },
+    { name: 'Blog', link: '/blog' },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const toggleMobileMenu = () => {
@@ -58,12 +58,12 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
 
   const handleSignOut = () => {
     // This will be handled by Rails/Devise
-    window.location.href = "/users/sign_out";
+    window.location.href = '/users/sign_out';
   };
 
   const scrollToQuoteForm = () => {
-    const element = document.getElementById("quote-form");
-    element?.scrollIntoView({ behavior: "smooth" });
+    const element = document.getElementById('quote-form');
+    element?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -71,8 +71,8 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
       <header
         className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? "top-0 bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200/50"
-            : "top-0 bg-white/90 backdrop-blur-sm"
+            ? 'top-0 bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200/50'
+            : 'top-0 bg-white/90 backdrop-blur-sm'
         }`}
       >
         {/* Announcement Bar */}
@@ -80,7 +80,7 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
           data-aos="fade-down"
           data-aos-duration="600"
           className={` fixed top-0 transition-all duration-600 ${
-            isScrolled ? "transform -translate-y-full" : "relative"
+            isScrolled ? 'transform -translate-y-full' : 'relative'
           }`}
         >
           <AnnouncementBar />
@@ -117,7 +117,7 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
                       <NavigationMenuTrigger className="text-gray-700 hover:text-blue-600 font-medium text-sm transition-colors duration-200">
                         {item.name}
                       </NavigationMenuTrigger>
-                      {item.megaMenuType === "business" ? (
+                      {item.megaMenuType === 'business' ? (
                         <BusinessUseCasesMegaMenu />
                       ) : (
                         <ServicesUseCasesMegaMenu />
@@ -137,7 +137,7 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
                         </Link>
                       </NavigationMenuLink>
                     </NavigationMenuItem>
-                  ),
+                  )
                 )}
               </NavigationMenuList>
             </NavigationMenu>
@@ -260,7 +260,7 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
                   <>
                     <button
                       onClick={() => {
-                        window.location.href = "/signin";
+                        window.location.href = '/signin';
                         toggleMobileMenu();
                       }}
                       className="flex items-center gap-3 py-3 px-4 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-200 w-full text-left"

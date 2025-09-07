@@ -1,45 +1,45 @@
-import { useState } from "react";
-import { ChevronDown, HelpCircle, MessageCircle } from "lucide-react";
+import { useState } from 'react';
+import { ChevronDown, HelpCircle, MessageCircle } from 'lucide-react';
 
 export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const faqs = [
     {
-      question: "How quickly can you deliver a project?",
+      question: 'How quickly can you deliver a project?',
       answer:
-        "Project timelines vary based on complexity, but we typically deliver MVPs within 4-8 weeks and full applications within 3-6 months. Our AI-powered planning helps us provide accurate estimates upfront.",
-      gradient: "from-blue-500 to-purple-500",
+        'Project timelines vary based on complexity, but we typically deliver MVPs within 4-8 weeks and full applications within 3-6 months. Our AI-powered planning helps us provide accurate estimates upfront.',
+      gradient: 'from-blue-500 to-purple-500',
     },
     {
-      question: "Do you provide ongoing maintenance?",
+      question: 'Do you provide ongoing maintenance?',
       answer:
-        "Yes, we offer comprehensive maintenance packages including bug fixes, security updates, performance optimization, and feature enhancements. All plans include 24/7 monitoring and support.",
-      gradient: "from-emerald-500 to-teal-500",
+        'Yes, we offer comprehensive maintenance packages including bug fixes, security updates, performance optimization, and feature enhancements. All plans include 24/7 monitoring and support.',
+      gradient: 'from-emerald-500 to-teal-500',
     },
     {
-      question: "What technologies do you work with?",
+      question: 'What technologies do you work with?',
       answer:
-        "We specialize in modern web technologies including React, Next.js, Node.js, Python, and cloud platforms like AWS and Vercel. We stay current with the latest frameworks and best practices.",
-      gradient: "from-orange-500 to-red-500",
+        'We specialize in modern web technologies including React, Next.js, Node.js, Python, and cloud platforms like AWS and Vercel. We stay current with the latest frameworks and best practices.',
+      gradient: 'from-orange-500 to-red-500',
     },
     {
-      question: "Do you offer project management?",
+      question: 'Do you offer project management?',
       answer:
-        "Yes, all projects include dedicated project management with regular updates, milestone reviews, and transparent communication throughout the development process. We use agile methodologies to keep you informed.",
-      gradient: "from-purple-500 to-pink-500",
+        'Yes, all projects include dedicated project management with regular updates, milestone reviews, and transparent communication throughout the development process. We use agile methodologies to keep you informed.',
+      gradient: 'from-purple-500 to-pink-500',
     },
     {
-      question: "What makes your pricing transparent?",
+      question: 'What makes your pricing transparent?',
       answer:
-        "We provide detailed breakdowns of all costs upfront with no hidden fees. Our AI-powered estimation gives you accurate pricing based on your specific requirements, timeline, and complexity.",
-      gradient: "from-green-500 to-emerald-500",
+        'We provide detailed breakdowns of all costs upfront with no hidden fees. Our AI-powered estimation gives you accurate pricing based on your specific requirements, timeline, and complexity.',
+      gradient: 'from-green-500 to-emerald-500',
     },
     {
-      question: "Do you work with startups and enterprises?",
+      question: 'Do you work with startups and enterprises?',
       answer:
         "Absolutely! We work with businesses of all sizes, from early-stage startups to large enterprises. Our flexible approach adapts to your company's size, culture, and development needs.",
-      gradient: "from-indigo-500 to-blue-500",
+      gradient: 'from-indigo-500 to-blue-500',
     },
   ];
 
@@ -77,7 +77,7 @@ export function FAQSection() {
           >
             Got Questions?
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              {" "}
+              {' '}
               We've Got Answers
             </span>
           </h2>
@@ -137,7 +137,7 @@ export function FAQSection() {
                   </div>
                   <ChevronDown
                     className={`w-5 h-5 text-gray-500 transition-transform duration-300 flex-shrink-0 ${
-                      openIndex === index ? "rotate-180" : ""
+                      openIndex === index ? 'rotate-180' : ''
                     }`}
                     data-aos="fade-left"
                     data-aos-duration="600"
@@ -148,8 +148,8 @@ export function FAQSection() {
                 <div
                   className={`overflow-hidden transition-all duration-300 ${
                     openIndex === index
-                      ? "max-h-96 opacity-100"
-                      : "max-h-0 opacity-0"
+                      ? 'max-h-96 opacity-100'
+                      : 'max-h-0 opacity-0'
                   }`}
                 >
                   <div

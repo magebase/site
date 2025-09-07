@@ -1,8 +1,8 @@
-import { Head } from "@inertiajs/react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { AlertTriangle, Home } from "lucide-react";
-import { Link } from "@inertiajs/react";
+import { Head } from '@inertiajs/react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { AlertTriangle, Home } from 'lucide-react';
+import { Link } from '@inertiajs/react';
 
 export default function Expired() {
   return (
@@ -42,7 +42,7 @@ export default function Expired() {
                 </Button>
 
                 <div className="text-sm text-gray-500">
-                  Need help? Contact us at{" "}
+                  Need help? Contact us at{' '}
                   <a
                     href="mailto:hello@magebase.site"
                     className="text-blue-600 hover:text-blue-500"

@@ -9,8 +9,8 @@ import {
   Award,
   Sparkles,
   Rocket,
-} from "lucide-react";
-import { SparklesCore } from "../ui/sparkles";
+} from 'lucide-react';
+import { SparklesCore } from '../ui/sparkles';
 
 interface FinalCTASectionProps {
   onQuoteFormClick: () => void;
@@ -54,7 +54,7 @@ export function FinalCTASection({ onQuoteFormClick }: FinalCTASectionProps) {
         >
           Get your personalized
           <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-            {" "}
+            {' '}
             quote in seconds
           </span>
           <br />
@@ -312,23 +312,23 @@ export function FinalCTASection({ onQuoteFormClick }: FinalCTASectionProps) {
           {[
             {
               icon: CheckCircle,
-              text: "Professional Team",
-              color: "text-green-400",
+              text: 'Professional Team',
+              color: 'text-green-400',
             },
             {
               icon: CheckCircle,
-              text: "Quality Assurance",
-              color: "text-blue-400",
+              text: 'Quality Assurance',
+              color: 'text-blue-400',
             },
             {
               icon: CheckCircle,
-              text: "Fast Delivery",
-              color: "text-purple-400",
+              text: 'Fast Delivery',
+              color: 'text-purple-400',
             },
             {
               icon: CheckCircle,
-              text: "24/7 Support",
-              color: "text-orange-400",
+              text: '24/7 Support',
+              color: 'text-orange-400',
             },
           ].map((item, index) => (
             <div

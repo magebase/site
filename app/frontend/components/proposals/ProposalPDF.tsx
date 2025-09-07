@@ -1,5 +1,5 @@
-import React from "react";
-import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
+import React from 'react';
+import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
 interface ProposalPDFProps {
   quote_request: any;
@@ -8,8 +8,8 @@ interface ProposalPDFProps {
 
 const styles = StyleSheet.create({
   page: {
-    flexDirection: "column",
-    backgroundColor: "#ffffff",
+    flexDirection: 'column',
+    backgroundColor: '#ffffff',
     padding: 40,
   },
   section: {
@@ -18,33 +18,33 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 24,
-    textAlign: "center",
+    textAlign: 'center',
     marginBottom: 20,
-    color: "#2563eb",
+    color: '#2563eb',
   },
   subheader: {
     fontSize: 18,
     marginBottom: 10,
-    color: "#1f2937",
+    color: '#1f2937',
   },
   text: {
     fontSize: 12,
     marginBottom: 5,
-    color: "#374151",
+    color: '#374151',
   },
   table: {
-    width: "auto",
+    width: 'auto',
     marginBottom: 10,
   },
   tableRow: {
-    margin: "auto",
-    flexDirection: "row",
+    margin: 'auto',
+    flexDirection: 'row',
   },
   tableCol: {
-    width: "25%",
+    width: '25%',
   },
   tableCell: {
-    margin: "auto",
+    margin: 'auto',
     marginTop: 5,
     fontSize: 10,
   },
@@ -53,28 +53,28 @@ const styles = StyleSheet.create({
 export const ProposalPDF: React.FC<ProposalPDFProps> = ({ quote_request }) => {
   const phases = [
     {
-      name: "Discovery & Planning",
-      duration: "1-2 weeks",
+      name: 'Discovery & Planning',
+      duration: '1-2 weeks',
       cost: Math.round(quote_request.estimated_cost * 0.15),
     },
     {
-      name: "Design",
-      duration: "2-3 weeks",
+      name: 'Design',
+      duration: '2-3 weeks',
       cost: Math.round(quote_request.estimated_cost * 0.2),
     },
     {
-      name: "Development",
-      duration: "6-8 weeks",
+      name: 'Development',
+      duration: '6-8 weeks',
       cost: Math.round(quote_request.estimated_cost * 0.5),
     },
     {
-      name: "Testing & QA",
-      duration: "2-3 weeks",
+      name: 'Testing & QA',
+      duration: '2-3 weeks',
       cost: Math.round(quote_request.estimated_cost * 0.1),
     },
     {
-      name: "Launch & Deployment",
-      duration: "1-2 weeks",
+      name: 'Launch & Deployment',
+      duration: '1-2 weeks',
       cost: Math.round(quote_request.estimated_cost * 0.05),
     },
   ];
@@ -89,7 +89,7 @@ export const ProposalPDF: React.FC<ProposalPDFProps> = ({ quote_request }) => {
           <Text style={styles.subheader}>{quote_request.project_name}</Text>
 
           <Text style={styles.text}>
-            Client:{" "}
+            Client:{' '}
             {quote_request.client?.company_name ||
               quote_request.client?.contact_name}
           </Text>
@@ -145,7 +145,7 @@ export const ProposalPDF: React.FC<ProposalPDFProps> = ({ quote_request }) => {
               <Text key={index} style={styles.text}>
                 • {feature.name}
               </Text>
-            ),
+            )
           )}
         </View>
 

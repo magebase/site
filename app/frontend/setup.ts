@@ -1,6 +1,6 @@
-import { expect, afterEach, vi } from "vitest";
-import { cleanup } from "@testing-library/react";
-import * as matchers from "@testing-library/jest-dom/matchers";
+import { expect, afterEach, vi } from 'vitest';
+import { cleanup } from '@testing-library/react';
+import * as matchers from '@testing-library/jest-dom/matchers';
 
 // extends Vitest's expect method with methods from react-testing-library
 expect.extend(matchers);
@@ -12,10 +12,10 @@ const ResizeObserverMock = vi.fn(() => ({
   disconnect: vi.fn(),
 }));
 
-vi.stubGlobal("ResizeObserver", ResizeObserverMock);
+vi.stubGlobal('ResizeObserver', ResizeObserverMock);
 
 // Mock PointerEvent and related APIs for Radix UI
-Object.defineProperty(window, "PointerEvent", {
+Object.defineProperty(window, 'PointerEvent', {
   writable: true,
   value: class PointerEvent extends Event {
     constructor(type: string, eventInitDict?: PointerEventInit) {
@@ -24,25 +24,25 @@ Object.defineProperty(window, "PointerEvent", {
   },
 });
 
-Object.defineProperty(window.HTMLElement.prototype, "hasPointerCapture", {
+Object.defineProperty(window.HTMLElement.prototype, 'hasPointerCapture', {
   writable: true,
   value: vi.fn(() => false),
 });
 
-Object.defineProperty(window.HTMLElement.prototype, "setPointerCapture", {
+Object.defineProperty(window.HTMLElement.prototype, 'setPointerCapture', {
   writable: true,
   value: vi.fn(),
 });
 
-Object.defineProperty(window.HTMLElement.prototype, "releasePointerCapture", {
+Object.defineProperty(window.HTMLElement.prototype, 'releasePointerCapture', {
   writable: true,
   value: vi.fn(),
 });
 
 // Mock matchMedia
-Object.defineProperty(window, "matchMedia", {
+Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: vi.fn().mockImplementation((query) => ({
+  value: vi.fn().mockImplementation(query => ({
     matches: false,
     media: query,
     onchange: null,
@@ -61,23 +61,23 @@ const IntersectionObserverMock = vi.fn(() => ({
   disconnect: vi.fn(),
 }));
 
-vi.stubGlobal("IntersectionObserver", IntersectionObserverMock);
+vi.stubGlobal('IntersectionObserver', IntersectionObserverMock);
 
 // Mock requestAnimationFrame
-globalThis.requestAnimationFrame = vi.fn((cb) => setTimeout(cb, 16));
-globalThis.cancelAnimationFrame = vi.fn((id) => clearTimeout(id));
+globalThis.requestAnimationFrame = vi.fn(cb => setTimeout(cb, 16));
+globalThis.cancelAnimationFrame = vi.fn(id => clearTimeout(id));
 
 // Mock getComputedStyle
-Object.defineProperty(window, "getComputedStyle", {
+Object.defineProperty(window, 'getComputedStyle', {
   writable: true,
   value: vi.fn(() => ({
-    getPropertyValue: vi.fn(() => ""),
+    getPropertyValue: vi.fn(() => ''),
     setProperty: vi.fn(),
   })),
 });
 
 // Mock scrollIntoView
-Object.defineProperty(window.Element.prototype, "scrollIntoView", {
+Object.defineProperty(window.Element.prototype, 'scrollIntoView', {
   writable: true,
   value: vi.fn(),
 });

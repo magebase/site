@@ -109,11 +109,11 @@ spec:
                   key: aws-ses-secret-access-key
           resources:
             requests:
-              memory: "512Mi"
-              cpu: "250m"
+              memory: '512Mi'
+              cpu: '250m'
             limits:
-              memory: "1Gi"
-              cpu: "500m"
+              memory: '1Gi'
+              cpu: '500m'
           livenessProbe:
             httpGet:
               path: /health
@@ -147,7 +147,7 @@ metadata:
   name: magebase-ingress
   namespace: magebase
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    cert-manager.io/cluster-issuer: 'letsencrypt-prod'
 spec:
   ingressClassName: traefik
   tls:

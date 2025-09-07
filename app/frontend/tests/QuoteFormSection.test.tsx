@@ -1,19 +1,19 @@
-import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
-import QuoteFormSection from "../components/landing/QuoteFormSection";
+import { describe, it, expect } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import QuoteFormSection from '../components/landing/QuoteFormSection';
 
-describe("QuoteFormSection", () => {
-  it("renders the velocity field", () => {
+describe('QuoteFormSection', () => {
+  it('renders the velocity field', () => {
     render(<QuoteFormSection />);
     expect(screen.getByLabelText(/velocity/i)).toBeInTheDocument();
   });
 
-  it("does not render the timeline field", () => {
+  it('does not render the timeline field', () => {
     render(<QuoteFormSection />);
     expect(screen.queryByLabelText(/timeline/i)).not.toBeInTheDocument();
   });
 
-  it("renders the form with required fields", () => {
+  it('renders the form with required fields', () => {
     render(<QuoteFormSection />);
 
     // Check that required fields are present
@@ -26,7 +26,7 @@ describe("QuoteFormSection", () => {
 
     // Check that the main heading is present
     expect(
-      screen.getByText(/get your custom quote in 60 seconds/i),
+      screen.getByText(/get your custom quote in 60 seconds/i)
     ).toBeInTheDocument();
   });
 });

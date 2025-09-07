@@ -1,14 +1,14 @@
-import { Head } from "@inertiajs/react";
-import { TenantSidebar } from "../../../components/TenantSidebar";
+import { Head } from '@inertiajs/react';
+import { TenantSidebar } from '../../../components/TenantSidebar';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../../../components/ui/card";
-import { Button } from "../../../components/ui/button";
-import { CreditCard, Calendar, DollarSign, ExternalLink } from "lucide-react";
+} from '../../../components/ui/card';
+import { Button } from '../../../components/ui/button';
+import { CreditCard, Calendar, DollarSign, ExternalLink } from 'lucide-react';
 
 interface BillingIndexProps {
   tenant: {
@@ -76,7 +76,7 @@ export default function BillingIndex({
                       </span>
                       <span className="font-semibold">
                         {new Date(
-                          billingInfo.next_billing_date,
+                          billingInfo.next_billing_date
                         ).toLocaleDateString()}
                       </span>
                     </div>

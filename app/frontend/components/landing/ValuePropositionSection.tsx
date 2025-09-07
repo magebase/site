@@ -5,8 +5,8 @@ import {
   Target,
   Rocket,
   Shield,
-} from "lucide-react";
-import { Button } from "../ui/button";
+} from 'lucide-react';
+import { Button } from '../ui/button';
 
 interface ValuePropositionSectionProps {
   onQuoteFormClick?: () => void;
@@ -18,27 +18,27 @@ export function ValuePropositionSection({
   const benefits = [
     {
       icon: Rocket,
-      title: "Quick Project Delivery",
+      title: 'Quick Project Delivery',
       description:
-        "Efficient development process to get your project completed and launched.",
+        'Efficient development process to get your project completed and launched.',
     },
     {
       icon: Target,
-      title: "AI-Powered Planning",
+      title: 'AI-Powered Planning',
       description:
-        "Intelligent project planning that saves time and reduces back-and-forth",
+        'Intelligent project planning that saves time and reduces back-and-forth',
     },
     {
       icon: Shield,
-      title: "Professional Standards",
+      title: 'Professional Standards',
       description:
-        "Development following industry best practices and quality standards",
+        'Development following industry best practices and quality standards',
     },
     {
       icon: Zap,
-      title: "Modern Technology",
+      title: 'Modern Technology',
       description:
-        "Development using current technologies and frameworks for robust applications",
+        'Development using current technologies and frameworks for robust applications',
     },
   ];
 

@@ -1,12 +1,12 @@
-import PageLayout from "../components/PageLayout";
-import { Button } from "../components/ui/button";
+import PageLayout from '../components/PageLayout';
+import { Button } from '../components/ui/button';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
-import { Input } from "../components/ui/input";
+} from '../components/ui/card';
+import { Input } from '../components/ui/input';
 import {
   ArrowRight,
   Search,
@@ -15,7 +15,7 @@ import {
   Download,
   Lightbulb,
   AlertTriangle,
-} from "lucide-react";
+} from 'lucide-react';
 
 interface ResourcesDocumentationProps {
   page: {
@@ -39,51 +39,51 @@ export default function ResourcesDocumentation({
 }: ResourcesDocumentationProps) {
   // Provide default values if page is null
   const pageData = {
-    title: page?.title || "Documentation",
+    title: page?.title || 'Documentation',
     content:
       page?.content ||
-      "<h1>Documentation</h1><p>Comprehensive documentation for all our services and APIs.</p><h2>Getting Started</h2><p>Quick start guides to help you get up and running with our platform.</p><h2>API Reference</h2><p>Detailed API documentation with examples and code samples.</p><h2>SDKs & Libraries</h2><p>Download our SDKs and libraries for popular programming languages.</p><h2>Best Practices</h2><p>Learn best practices for integrating with our platform.</p><h2>Troubleshooting</h2><p>Common issues and their solutions.</p>",
+      '<h1>Documentation</h1><p>Comprehensive documentation for all our services and APIs.</p><h2>Getting Started</h2><p>Quick start guides to help you get up and running with our platform.</p><h2>API Reference</h2><p>Detailed API documentation with examples and code samples.</p><h2>SDKs & Libraries</h2><p>Download our SDKs and libraries for popular programming languages.</p><h2>Best Practices</h2><p>Learn best practices for integrating with our platform.</p><h2>Troubleshooting</h2><p>Common issues and their solutions.</p>',
     excerpt:
       page?.excerpt ||
-      "Access comprehensive documentation for all our services and APIs.",
-    meta_title: page?.meta_title || "Documentation | Magebase",
+      'Access comprehensive documentation for all our services and APIs.',
+    meta_title: page?.meta_title || 'Documentation | Magebase',
     meta_description:
       page?.meta_description ||
-      "Access comprehensive documentation for all our services and APIs.",
+      'Access comprehensive documentation for all our services and APIs.',
   };
 
   const docCategories = [
     {
-      title: "Getting Started",
+      title: 'Getting Started',
       description:
-        "Quick start guides to help you get up and running with our platform",
+        'Quick start guides to help you get up and running with our platform',
       icon: BookOpen,
-      href: "#getting-started",
+      href: '#getting-started',
     },
     {
-      title: "API Reference",
-      description: "Detailed API documentation with examples and code samples",
+      title: 'API Reference',
+      description: 'Detailed API documentation with examples and code samples',
       icon: Code,
-      href: "#api-reference",
+      href: '#api-reference',
     },
     {
-      title: "SDKs & Libraries",
+      title: 'SDKs & Libraries',
       description:
-        "Download our SDKs and libraries for popular programming languages",
+        'Download our SDKs and libraries for popular programming languages',
       icon: Download,
-      href: "#sdks-libraries",
+      href: '#sdks-libraries',
     },
     {
-      title: "Best Practices",
-      description: "Learn best practices for integrating with our platform",
+      title: 'Best Practices',
+      description: 'Learn best practices for integrating with our platform',
       icon: Lightbulb,
-      href: "#best-practices",
+      href: '#best-practices',
     },
     {
-      title: "Troubleshooting",
-      description: "Common issues and their solutions",
+      title: 'Troubleshooting',
+      description: 'Common issues and their solutions',
       icon: AlertTriangle,
-      href: "#troubleshooting",
+      href: '#troubleshooting',
     },
   ];
 
@@ -135,7 +135,7 @@ export default function ResourcesDocumentation({
                 onClick={() => {
                   const element = document.querySelector(category.href);
                   if (element) {
-                    element.scrollIntoView({ behavior: "smooth" });
+                    element.scrollIntoView({ behavior: 'smooth' });
                   }
                 }}
               >
@@ -190,7 +190,7 @@ export default function ResourcesDocumentation({
           <Button
             size="lg"
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-            onClick={() => (window.location.href = "/resources/help-center")}
+            onClick={() => (window.location.href = '/resources/help-center')}
           >
             Visit Help Center
             <ArrowRight className="w-4 h-4 ml-2" />

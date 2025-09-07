@@ -1,7 +1,7 @@
-import PageLayout from "../components/PageLayout";
-import { Button } from "../components/ui/button";
-import { Card, CardContent } from "../components/ui/card";
-import { ArrowRight, Shield, FileText } from "lucide-react";
+import PageLayout from '../components/PageLayout';
+import { Button } from '../components/ui/button';
+import { Card, CardContent } from '../components/ui/card';
+import { ArrowRight, Shield, FileText } from 'lucide-react';
 
 interface LegalCookiePolicyProps {
   page: {
@@ -23,11 +23,11 @@ export default function LegalCookiePolicy({
   // Provide default values if page is null
   // Provide default values and merge with page data to handle null fields
   const pageData = {
-    title: "Cookie Policy",
+    title: 'Cookie Policy',
     content:
-      "<h1>Cookie Policy</h1><p>This Cookie Policy explains how we use cookies and similar technologies on our website.</p>",
+      '<h1>Cookie Policy</h1><p>This Cookie Policy explains how we use cookies and similar technologies on our website.</p>',
     excerpt:
-      "Learn about how we use cookies and similar technologies on our website.",
+      'Learn about how we use cookies and similar technologies on our website.',
     ...page,
   };
 
@@ -86,7 +86,7 @@ export default function LegalCookiePolicy({
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => (window.location.href = "/privacy-policy")}
+                  onClick={() => (window.location.href = '/privacy-policy')}
                 >
                   View Privacy
                 </Button>
@@ -105,7 +105,7 @@ export default function LegalCookiePolicy({
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => (window.location.href = "/terms-of-service")}
+                  onClick={() => (window.location.href = '/terms-of-service')}
                 >
                   View Terms
                 </Button>
@@ -124,7 +124,7 @@ export default function LegalCookiePolicy({
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => (window.location.href = "/gdpr")}
+                  onClick={() => (window.location.href = '/gdpr')}
                 >
                   Learn More
                 </Button>
@@ -147,7 +147,7 @@ export default function LegalCookiePolicy({
           <Button
             size="lg"
             className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white"
-            onClick={() => (window.location.href = "/#contact")}
+            onClick={() => (window.location.href = '/#contact')}
           >
             Contact Us
             <ArrowRight className="w-4 h-4 ml-2" />

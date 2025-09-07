@@ -1,18 +1,18 @@
-import PageLayout from "../components/PageLayout";
-import { Button } from "../components/ui/button";
+import PageLayout from '../components/PageLayout';
+import { Button } from '../components/ui/button';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
+} from '../components/ui/card';
 import {
   ArrowRight,
   MapPin,
   Clock,
   DollarSign,
   CheckCircle,
-} from "lucide-react";
+} from 'lucide-react';
 
 interface Career {
   id: number;
@@ -86,8 +86,8 @@ export default function CompanyCareerDetail({
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
             onClick={() =>
               document
-                .getElementById("application-form")
-                ?.scrollIntoView({ behavior: "smooth" })
+                .getElementById('application-form')
+                ?.scrollIntoView({ behavior: 'smooth' })
             }
           >
             Apply Now
@@ -109,7 +109,7 @@ export default function CompanyCareerDetail({
                 </CardHeader>
                 <CardContent>
                   <div className="prose prose-gray max-w-none">
-                    {career.description.split("\n").map((paragraph, index) => (
+                    {career.description.split('\n').map((paragraph, index) => (
                       <p key={index}>{paragraph}</p>
                     ))}
                   </div>
@@ -124,7 +124,7 @@ export default function CompanyCareerDetail({
                 <CardContent>
                   <div className="space-y-3">
                     {career.requirements
-                      .split("\n")
+                      .split('\n')
                       .map((requirement, index) => (
                         <div key={index} className="flex items-start">
                           <CheckCircle className="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" />
@@ -142,7 +142,7 @@ export default function CompanyCareerDetail({
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    {career.benefits.split("\n").map((benefit, index) => (
+                    {career.benefits.split('\n').map((benefit, index) => (
                       <div key={index} className="flex items-start">
                         <CheckCircle className="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" />
                         <span>{benefit}</span>
@@ -188,8 +188,8 @@ export default function CompanyCareerDetail({
                 className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
                 onClick={() =>
                   document
-                    .getElementById("application-form")
-                    ?.scrollIntoView({ behavior: "smooth" })
+                    .getElementById('application-form')
+                    ?.scrollIntoView({ behavior: 'smooth' })
                 }
               >
                 Apply for this Position

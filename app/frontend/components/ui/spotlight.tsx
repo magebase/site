@@ -7,7 +7,7 @@ export const Spotlight = ({ className, fill }: SpotlightProps) => {
   return (
     <svg
       className={`animate-pulse absolute inset-0 h-full w-full ${
-        className || ""
+        className || ''
       }`}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 3787 2842"
@@ -20,7 +20,7 @@ export const Spotlight = ({ className, fill }: SpotlightProps) => {
           rx="1924.71"
           ry="273.501"
           transform="matrix(-0.822377 -0.568943 -0.568943 0.822377 3631.88 2291.09)"
-          fill={fill || "white"}
+          fill={fill || 'white'}
           fillOpacity="0.21"
         ></ellipse>
       </g>

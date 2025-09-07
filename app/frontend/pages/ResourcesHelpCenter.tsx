@@ -1,12 +1,12 @@
-import PageLayout from "../components/PageLayout";
-import { Button } from "../components/ui/button";
+import PageLayout from '../components/PageLayout';
+import { Button } from '../components/ui/button';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
-import { Input } from "../components/ui/input";
+} from '../components/ui/card';
+import { Input } from '../components/ui/input';
 import {
   ArrowRight,
   Search,
@@ -14,7 +14,7 @@ import {
   FileText,
   Video,
   Users,
-} from "lucide-react";
+} from 'lucide-react';
 
 interface ResourcesHelpCenterProps {
   page: {
@@ -35,37 +35,37 @@ export default function ResourcesHelpCenter({
 }: ResourcesHelpCenterProps) {
   // Provide default values if page is null
   const pageData = page || {
-    title: "Help Center",
+    title: 'Help Center',
     content:
-      "<h1>Help Center</h1><p>Get the help you need with our comprehensive documentation, guides, and support resources.</p>",
+      '<h1>Help Center</h1><p>Get the help you need with our comprehensive documentation, guides, and support resources.</p>',
     excerpt:
-      "Get comprehensive help and support with our detailed documentation and guides.",
+      'Get comprehensive help and support with our detailed documentation and guides.',
   };
 
   const helpCategories = [
     {
-      title: "Frequently Asked Questions",
-      description: "Find answers to the most common questions",
+      title: 'Frequently Asked Questions',
+      description: 'Find answers to the most common questions',
       icon: MessageCircle,
-      href: "#faq",
+      href: '#faq',
     },
     {
-      title: "Guides & Tutorials",
-      description: "Step-by-step guides to help you succeed",
+      title: 'Guides & Tutorials',
+      description: 'Step-by-step guides to help you succeed',
       icon: FileText,
-      href: "#guides",
+      href: '#guides',
     },
     {
-      title: "Video Tutorials",
-      description: "Watch our video guides and walkthroughs",
+      title: 'Video Tutorials',
+      description: 'Watch our video guides and walkthroughs',
       icon: Video,
-      href: "#videos",
+      href: '#videos',
     },
     {
-      title: "Community Support",
-      description: "Get help from our community of developers",
+      title: 'Community Support',
+      description: 'Get help from our community of developers',
       icon: Users,
-      href: "#community",
+      href: '#community',
     },
   ];
 
@@ -107,7 +107,7 @@ export default function ResourcesHelpCenter({
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {helpCategories.map((category) => {
+            {helpCategories.map(category => {
               const IconComponent = category.icon;
               return (
                 <Card
@@ -133,7 +133,7 @@ export default function ResourcesHelpCenter({
                       onClick={() =>
                         document
                           .querySelector(category.href)
-                          ?.scrollIntoView({ behavior: "smooth" })
+                          ?.scrollIntoView({ behavior: 'smooth' })
                       }
                     >
                       Explore
@@ -227,7 +227,7 @@ export default function ResourcesHelpCenter({
             <Button
               size="lg"
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-              onClick={() => (window.location.href = "/#contact")}
+              onClick={() => (window.location.href = '/#contact')}
             >
               Contact Support
               <ArrowRight className="w-4 h-4 ml-2" />
@@ -236,7 +236,7 @@ export default function ResourcesHelpCenter({
               size="lg"
               variant="outline"
               className="border-white text-white hover:bg-white hover:text-gray-900"
-              onClick={() => (window.location.href = "/community")}
+              onClick={() => (window.location.href = '/community')}
             >
               Ask Community
               <Users className="w-4 h-4 ml-2" />

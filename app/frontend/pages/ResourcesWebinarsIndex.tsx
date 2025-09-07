@@ -1,12 +1,12 @@
-import PageLayout from "../components/PageLayout";
-import { Button } from "../components/ui/button";
+import PageLayout from '../components/PageLayout';
+import { Button } from '../components/ui/button';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
-import { ArrowRight, Video, Calendar, Clock, User } from "lucide-react";
+} from '../components/ui/card';
+import { ArrowRight, Video, Calendar, Clock, User } from 'lucide-react';
 
 interface Webinar {
   id: number;
@@ -34,8 +34,8 @@ export default function ResourcesWebinarsIndex({
   webinars,
   user,
 }: ResourcesWebinarsIndexProps) {
-  const upcomingWebinars = webinars.filter((w) => w.is_upcoming);
-  const pastWebinars = webinars.filter((w) => !w.is_upcoming);
+  const upcomingWebinars = webinars.filter(w => w.is_upcoming);
+  const pastWebinars = webinars.filter(w => !w.is_upcoming);
 
   return (
     <PageLayout
@@ -66,7 +66,7 @@ export default function ResourcesWebinarsIndex({
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {upcomingWebinars.map((webinar) => (
+              {upcomingWebinars.map(webinar => (
                 <Card
                   key={webinar.id}
                   className="group hover:shadow-xl transition-all duration-300"
@@ -98,13 +98,13 @@ export default function ResourcesWebinarsIndex({
                       <div className="flex items-center text-sm text-gray-600">
                         <Calendar className="w-4 h-4 mr-2" />
                         {new Date(webinar.scheduled_at).toLocaleDateString(
-                          "en-US",
+                          'en-US',
                           {
-                            weekday: "long",
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          },
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                          }
                         )}
                       </div>
                       <div className="flex items-center text-sm text-gray-600">
@@ -116,7 +116,7 @@ export default function ResourcesWebinarsIndex({
                     <Button
                       className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
                       onClick={() =>
-                        window.open(webinar.registration_url, "_blank")
+                        window.open(webinar.registration_url, '_blank')
                       }
                     >
                       Register Now
@@ -139,7 +139,7 @@ export default function ResourcesWebinarsIndex({
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {pastWebinars.map((webinar) => (
+              {pastWebinars.map(webinar => (
                 <Card
                   key={webinar.id}
                   className="group hover:shadow-lg transition-shadow duration-300"
@@ -171,12 +171,12 @@ export default function ResourcesWebinarsIndex({
                       <div className="flex items-center text-sm text-gray-600">
                         <Calendar className="w-4 h-4 mr-2" />
                         {new Date(webinar.scheduled_at).toLocaleDateString(
-                          "en-US",
+                          'en-US',
                           {
-                            year: "numeric",
-                            month: "short",
-                            day: "numeric",
-                          },
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                          }
                         )}
                       </div>
                       <div className="flex items-center text-sm text-gray-600">
@@ -283,7 +283,7 @@ export default function ResourcesWebinarsIndex({
           <Button
             size="lg"
             className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white"
-            onClick={() => (window.location.href = "/contact")}
+            onClick={() => (window.location.href = '/contact')}
           >
             Become a Speaker
             <ArrowRight className="w-4 h-4 ml-2" />

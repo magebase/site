@@ -1,47 +1,47 @@
-import { Search, Code, Rocket, ArrowRight } from "lucide-react";
+import { Search, Code, Rocket, ArrowRight } from 'lucide-react';
 
 export function HowItWorksSection() {
   const steps = [
     {
       icon: Search,
-      title: "Discovery & Planning",
+      title: 'Discovery & Planning',
       description:
-        "We analyze your business needs, review your requirements, and create a detailed project roadmap with AI-powered insights.",
-      gradient: "from-blue-500 to-purple-500",
-      bgGradient: "from-blue-50 to-purple-50",
+        'We analyze your business needs, review your requirements, and create a detailed project roadmap with AI-powered insights.',
+      gradient: 'from-blue-500 to-purple-500',
+      bgGradient: 'from-blue-50 to-purple-50',
       features: [
-        "AI Project Analysis",
-        "Detailed Roadmap",
-        "Requirements Gathering",
-        "Timeline Planning",
+        'AI Project Analysis',
+        'Detailed Roadmap',
+        'Requirements Gathering',
+        'Timeline Planning',
       ],
     },
     {
       icon: Code,
-      title: "Agile Development",
+      title: 'Agile Development',
       description:
-        "Our expert team builds your solution using modern technologies, with regular updates and transparent communication throughout.",
-      gradient: "from-emerald-500 to-teal-500",
-      bgGradient: "from-emerald-50 to-teal-50",
+        'Our expert team builds your solution using modern technologies, with regular updates and transparent communication throughout.',
+      gradient: 'from-emerald-500 to-teal-500',
+      bgGradient: 'from-emerald-50 to-teal-50',
       features: [
-        "Modern Tech Stack",
-        "Daily Updates",
-        "Code Reviews",
-        "Quality Assurance",
+        'Modern Tech Stack',
+        'Daily Updates',
+        'Code Reviews',
+        'Quality Assurance',
       ],
     },
     {
       icon: Rocket,
-      title: "Launch & Support",
+      title: 'Launch & Support',
       description:
-        "We deploy your application, provide comprehensive testing, and offer ongoing support to ensure your success.",
-      gradient: "from-orange-500 to-red-500",
-      bgGradient: "from-orange-50 to-red-50",
+        'We deploy your application, provide comprehensive testing, and offer ongoing support to ensure your success.',
+      gradient: 'from-orange-500 to-red-500',
+      bgGradient: 'from-orange-50 to-red-50',
       features: [
-        "Production Deployment",
-        "Performance Testing",
-        "24/7 Support",
-        "Maintenance Plans",
+        'Production Deployment',
+        'Performance Testing',
+        '24/7 Support',
+        'Maintenance Plans',
       ],
     },
   ];
@@ -76,7 +76,7 @@ export function HowItWorksSection() {
           >
             From Concept to
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              {" "}
+              {' '}
               Launch
             </span>
           </h2>

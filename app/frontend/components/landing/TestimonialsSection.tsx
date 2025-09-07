@@ -1,49 +1,49 @@
-import { Star, Quote } from "lucide-react";
+import { Star, Quote } from 'lucide-react';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "../ui/carousel";
+} from '../ui/carousel';
 
 export function TestimonialsSection() {
   const testimonials = [
     {
-      name: "John Smith",
-      company: "TechCorp",
-      text: "Magebase delivered our e-commerce platform on time and it exceeded our expectations. Great communication and professional team!",
+      name: 'John Smith',
+      company: 'TechCorp',
+      text: 'Magebase delivered our e-commerce platform on time and it exceeded our expectations. Great communication and professional team!',
       rating: 5,
-      avatar: "JS",
-      gradient: "from-blue-500 to-purple-500",
-      role: "CEO",
+      avatar: 'JS',
+      gradient: 'from-blue-500 to-purple-500',
+      role: 'CEO',
     },
     {
-      name: "Sarah Johnson",
-      company: "StartupXYZ",
-      text: "Transparent pricing and modern development practices. Will definitely work with them again for our mobile app. The team was very knowledgeable!",
+      name: 'Sarah Johnson',
+      company: 'StartupXYZ',
+      text: 'Transparent pricing and modern development practices. Will definitely work with them again for our mobile app. The team was very knowledgeable!',
       rating: 5,
-      avatar: "SJ",
-      gradient: "from-emerald-500 to-teal-500",
-      role: "Founder",
+      avatar: 'SJ',
+      gradient: 'from-emerald-500 to-teal-500',
+      role: 'Founder',
     },
     {
-      name: "Mike Chen",
-      company: "InnovateLab",
-      text: "Excellent web application development. Quick response time and well-structured code. Highly recommended for any software project!",
+      name: 'Mike Chen',
+      company: 'InnovateLab',
+      text: 'Excellent web application development. Quick response time and well-structured code. Highly recommended for any software project!',
       rating: 5,
-      avatar: "MC",
-      gradient: "from-orange-500 to-red-500",
-      role: "CTO",
+      avatar: 'MC',
+      gradient: 'from-orange-500 to-red-500',
+      role: 'CTO',
     },
     {
-      name: "Lisa Rodriguez",
-      company: "DataFlow",
-      text: "Outstanding service! The application launched exactly when promised and the pricing was very competitive. Great company to work with.",
+      name: 'Lisa Rodriguez',
+      company: 'DataFlow',
+      text: 'Outstanding service! The application launched exactly when promised and the pricing was very competitive. Great company to work with.',
       rating: 5,
-      avatar: "LR",
-      gradient: "from-purple-500 to-pink-500",
-      role: "Director",
+      avatar: 'LR',
+      gradient: 'from-purple-500 to-pink-500',
+      role: 'Director',
     },
   ];
 
@@ -77,7 +77,7 @@ export function TestimonialsSection() {
           >
             What Our
             <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              {" "}
+              {' '}
               Clients Say
             </span>
           </h2>

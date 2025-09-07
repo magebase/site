@@ -8,59 +8,59 @@ import {
   Github,
   Twitter,
   Linkedin,
-} from "lucide-react";
-import { Link } from "@inertiajs/react";
+} from 'lucide-react';
+import { Link } from '@inertiajs/react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
     services: [
-      { name: "Web Development", href: "/#web-apps" },
-      { name: "Mobile Apps", href: "/#mobile-apps" },
-      { name: "API Development", href: "/#api-development" },
-      { name: "AI Integration", href: "/#ai-integration" },
-      { name: "Security & Compliance", href: "/#security" },
+      { name: 'Web Development', href: '/#web-apps' },
+      { name: 'Mobile Apps', href: '/#mobile-apps' },
+      { name: 'API Development', href: '/#api-development' },
+      { name: 'AI Integration', href: '/#ai-integration' },
+      { name: 'Security & Compliance', href: '/#security' },
     ],
     company: [
-      { name: "About Us", href: "/about" },
-      { name: "Our Team", href: "/team" },
-      { name: "Careers", href: "/careers" },
-      { name: "Blog", href: "/blog" },
-      { name: "Case Studies", href: "/case-studies" },
+      { name: 'About Us', href: '/about' },
+      { name: 'Our Team', href: '/team' },
+      { name: 'Careers', href: '/careers' },
+      { name: 'Blog', href: '/blog' },
+      { name: 'Case Studies', href: '/case-studies' },
     ],
     resources: [
-      { name: "Help Center", href: "/help-center" },
-      { name: "Community", href: "/community" },
-      { name: "Webinars", href: "/webinars" },
+      { name: 'Help Center', href: '/help-center' },
+      { name: 'Community', href: '/community' },
+      { name: 'Webinars', href: '/webinars' },
     ],
     legal: [
-      { name: "Privacy Policy", href: "/privacy-policy" },
-      { name: "Terms of Service", href: "/terms-of-service" },
-      { name: "Cookie Policy", href: "/cookie-policy" },
-      { name: "GDPR", href: "/gdpr" },
-      { name: "Security", href: "/security" },
+      { name: 'Privacy Policy', href: '/privacy-policy' },
+      { name: 'Terms of Service', href: '/terms-of-service' },
+      { name: 'Cookie Policy', href: '/cookie-policy' },
+      { name: 'GDPR', href: '/gdpr' },
+      { name: 'Security', href: '/security' },
     ],
   };
 
   const socialLinks = [
     {
-      name: "Twitter",
-      href: "https://twitter.com/magebase",
+      name: 'Twitter',
+      href: 'https://twitter.com/magebase',
       icon: Twitter,
-      color: "hover:text-blue-400",
+      color: 'hover:text-blue-400',
     },
     {
-      name: "LinkedIn",
-      href: "https://linkedin.com/company/magebase",
+      name: 'LinkedIn',
+      href: 'https://linkedin.com/company/magebase',
       icon: Linkedin,
-      color: "hover:text-blue-600",
+      color: 'hover:text-blue-600',
     },
     {
-      name: "GitHub",
-      href: "https://github.com/magebase",
+      name: 'GitHub',
+      href: 'https://github.com/magebase',
       icon: Github,
-      color: "hover:text-gray-300",
+      color: 'hover:text-gray-300',
     },
   ];
 
@@ -88,7 +88,7 @@ export default function Footer() {
             <div className="lg:col-span-2">
               <div
                 className="flex items-center gap-4 mb-6 group cursor-pointer"
-                onClick={() => (window.location.href = "/")}
+                onClick={() => (window.location.href = '/')}
               >
                 <div className="relative">
                   <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
@@ -142,7 +142,7 @@ export default function Footer() {
 
               {/* Social Links */}
               <div className="flex gap-4">
-                {socialLinks.map((social) => (
+                {socialLinks.map(social => (
                   <a
                     key={social.name}
                     href={social.href}
@@ -163,7 +163,7 @@ export default function Footer() {
                 <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400"></div>
               </h4>
               <ul className="space-y-3">
-                {footerLinks.services.map((link) => (
+                {footerLinks.services.map(link => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
@@ -184,7 +184,7 @@ export default function Footer() {
                 <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-green-400 to-blue-400"></div>
               </h4>
               <ul className="space-y-3">
-                {footerLinks.company.map((link) => (
+                {footerLinks.company.map(link => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
@@ -205,7 +205,7 @@ export default function Footer() {
                 <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400"></div>
               </h4>
               <ul className="space-y-3">
-                {footerLinks.resources.map((link) => (
+                {footerLinks.resources.map(link => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
@@ -226,7 +226,7 @@ export default function Footer() {
                 <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-orange-400 to-red-400"></div>
               </h4>
               <ul className="space-y-3">
-                {footerLinks.legal.map((link) => (
+                {footerLinks.legal.map(link => (
                   <li key={link.name}>
                     <Link
                       href={link.href}

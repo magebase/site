@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { Head, Link } from "@inertiajs/react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import AOS from "aos";
-import "aos/dist/aos.css";
-import { Calendar, User, ArrowRight } from "lucide-react";
+import React, { useEffect } from 'react';
+import { Head, Link } from '@inertiajs/react';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { Calendar, User, ArrowRight } from 'lucide-react';
 
 interface BlogPost {
   id: number;
@@ -27,10 +27,10 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ blogPosts }) => {
   }, []);
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-AU", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
+    return new Date(dateString).toLocaleDateString('en-AU', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
     });
   };
 

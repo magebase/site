@@ -1,12 +1,12 @@
-import PageLayout from "../components/PageLayout";
-import { Button } from "../components/ui/button";
+import PageLayout from '../components/PageLayout';
+import { Button } from '../components/ui/button';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
-import { ArrowRight, TrendingUp, Users, Target } from "lucide-react";
+} from '../components/ui/card';
+import { ArrowRight, TrendingUp, Users, Target } from 'lucide-react';
 
 interface CaseStudy {
   id: number;
@@ -58,7 +58,7 @@ export default function CaseStudiesIndex({
         <div className="max-w-7xl mx-auto">
           {caseStudies.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {caseStudies.map((study) => (
+              {caseStudies.map(study => (
                 <Card
                   key={study.id}
                   className="group hover:shadow-xl transition-all duration-300 overflow-hidden"
@@ -103,7 +103,7 @@ export default function CaseStudiesIndex({
                       <div className="flex items-center text-sm text-green-600">
                         <TrendingUp className="w-4 h-4 mr-2" />
                         <span className="line-clamp-1">
-                          {study.results.split(".")[0]}
+                          {study.results.split('.')[0]}
                         </span>
                       </div>
                     </div>
@@ -137,7 +137,7 @@ export default function CaseStudiesIndex({
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                onClick={() => (window.location.href = "/#contact")}
+                onClick={() => (window.location.href = '/#contact')}
               >
                 Start Your Project
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -194,7 +194,7 @@ export default function CaseStudiesIndex({
           <Button
             size="lg"
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-            onClick={() => (window.location.href = "/#quote-form")}
+            onClick={() => (window.location.href = '/#quote-form')}
           >
             Start Your Project
             <ArrowRight className="w-4 h-4 ml-2" />

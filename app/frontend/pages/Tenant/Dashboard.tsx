@@ -1,15 +1,15 @@
-import { Head } from "@inertiajs/react";
-import { TenantSidebar } from "../../components/TenantSidebar";
+import { Head } from '@inertiajs/react';
+import { TenantSidebar } from '../../components/TenantSidebar';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../../components/ui/card";
-import { Badge } from "../../components/ui/badge";
-import { Button } from "../../components/ui/button";
-import { FileText, Plus, Clock, AlertCircle } from "lucide-react";
+} from '../../components/ui/card';
+import { Badge } from '../../components/ui/badge';
+import { Button } from '../../components/ui/button';
+import { FileText, Plus, Clock, AlertCircle } from 'lucide-react';
 
 interface TenantDashboardProps {
   tenant: {
@@ -45,31 +45,31 @@ export default function TenantDashboard({
 }: TenantDashboardProps) {
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "completed":
-        return "bg-green-100 text-green-800";
-      case "in_progress":
-        return "bg-blue-100 text-blue-800";
-      case "pending":
-        return "bg-yellow-100 text-yellow-800";
-      case "cancelled":
-        return "bg-red-100 text-red-800";
+      case 'completed':
+        return 'bg-green-100 text-green-800';
+      case 'in_progress':
+        return 'bg-blue-100 text-blue-800';
+      case 'pending':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'cancelled':
+        return 'bg-red-100 text-red-800';
       default:
-        return "bg-gray-100 text-gray-800";
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case "urgent":
-        return "bg-red-100 text-red-800";
-      case "high":
-        return "bg-orange-100 text-orange-800";
-      case "medium":
-        return "bg-yellow-100 text-yellow-800";
-      case "low":
-        return "bg-green-100 text-green-800";
+      case 'urgent':
+        return 'bg-red-100 text-red-800';
+      case 'high':
+        return 'bg-orange-100 text-orange-800';
+      case 'medium':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'low':
+        return 'bg-green-100 text-green-800';
       default:
-        return "bg-gray-100 text-gray-800";
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
@@ -105,9 +105,9 @@ export default function TenantDashboard({
                     </div>
                     <p className="text-xs text-muted-foreground">
                       {
-                        changeRequests.filter((cr) => cr.status === "pending")
+                        changeRequests.filter(cr => cr.status === 'pending')
                           .length
-                      }{" "}
+                      }{' '}
                       pending
                     </p>
                   </CardContent>
@@ -165,7 +165,7 @@ export default function TenantDashboard({
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {changeRequests.slice(0, 5).map((request) => (
+                      {changeRequests.slice(0, 5).map(request => (
                         <div
                           key={request.id}
                           className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
@@ -176,7 +176,7 @@ export default function TenantDashboard({
                             </h4>
                             <p className="text-xs text-gray-500 mt-1">
                               {new Date(
-                                request.created_at,
+                                request.created_at
                               ).toLocaleDateString()}
                             </p>
                           </div>
@@ -187,7 +187,7 @@ export default function TenantDashboard({
                               {request.priority}
                             </Badge>
                             <Badge className={getStatusColor(request.status)}>
-                              {request.status.replace("_", " ")}
+                              {request.status.replace('_', ' ')}
                             </Badge>
                           </div>
                         </div>
@@ -219,7 +219,7 @@ export default function TenantDashboard({
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {documents.slice(0, 5).map((document) => (
+                      {documents.slice(0, 5).map(document => (
                         <div
                           key={document.id}
                           className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
@@ -231,9 +231,9 @@ export default function TenantDashboard({
                                 {document.name}
                               </h4>
                               <p className="text-xs text-gray-500">
-                                {document.file_type} •{" "}
+                                {document.file_type} •{' '}
                                 {new Date(
-                                  document.created_at,
+                                  document.created_at
                                 ).toLocaleDateString()}
                               </p>
                             </div>

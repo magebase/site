@@ -1,6 +1,6 @@
-"use client";
-import React from "react";
-import { cn } from "../../lib/utils";
+'use client';
+import React from 'react';
+import { cn } from '../../lib/utils';
 
 export const BackgroundBeams = ({
   className,
@@ -13,8 +13,8 @@ export const BackgroundBeams = ({
   return (
     <div
       className={cn(
-        "relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background",
-        className,
+        'relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background',
+        className
       )}
       {...props}
     >

@@ -1,7 +1,7 @@
-import PageLayout from "../components/PageLayout";
-import { Button } from "../components/ui/button";
-import { Card, CardContent } from "../components/ui/card";
-import { ArrowRight, FileText, Shield } from "lucide-react";
+import PageLayout from '../components/PageLayout';
+import { Button } from '../components/ui/button';
+import { Card, CardContent } from '../components/ui/card';
+import { ArrowRight, FileText, Shield } from 'lucide-react';
 
 interface LegalTermsOfServiceProps {
   page: {
@@ -22,11 +22,11 @@ export default function LegalTermsOfService({
 }: LegalTermsOfServiceProps) {
   // Provide default values if page is null
   const pageData = page || {
-    title: "Terms of Service",
+    title: 'Terms of Service',
     content:
-      "<h1>Terms of Service</h1><p>These Terms of Service govern your use of our services and website.</p>",
+      '<h1>Terms of Service</h1><p>These Terms of Service govern your use of our services and website.</p>',
     excerpt:
-      "Read our terms of service that govern your use of our services and website.",
+      'Read our terms of service that govern your use of our services and website.',
   };
 
   return (
@@ -84,7 +84,7 @@ export default function LegalTermsOfService({
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => (window.location.href = "/privacy-policy")}
+                  onClick={() => (window.location.href = '/privacy-policy')}
                 >
                   View Privacy
                 </Button>
@@ -103,7 +103,7 @@ export default function LegalTermsOfService({
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => (window.location.href = "/cookie-policy")}
+                  onClick={() => (window.location.href = '/cookie-policy')}
                 >
                   View Policy
                 </Button>
@@ -122,7 +122,7 @@ export default function LegalTermsOfService({
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => (window.location.href = "/gdpr")}
+                  onClick={() => (window.location.href = '/gdpr')}
                 >
                   Learn More
                 </Button>
@@ -145,7 +145,7 @@ export default function LegalTermsOfService({
           <Button
             size="lg"
             className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white"
-            onClick={() => (window.location.href = "/#contact")}
+            onClick={() => (window.location.href = '/#contact')}
           >
             Contact Legal Team
             <ArrowRight className="w-4 h-4 ml-2" />

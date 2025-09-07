@@ -1,21 +1,21 @@
-import { useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import { AnnouncementBar } from "../components/landing/AnnouncementBar";
-import { HeroSection } from "../components/landing/HeroSection";
-import { SocialProofSection } from "../components/landing/SocialProofSection";
-import { ValuePropositionSection } from "../components/landing/ValuePropositionSection";
-import { UseCasesSection } from "../components/landing/UseCasesSection";
-import { AppleCardsSection } from "../components/landing/AppleCardsSection";
-import QuoteFormSection from "../components/landing/QuoteFormSection";
-import { HowItWorksSection } from "../components/landing/HowItWorksSection";
-import { FeaturesSection } from "../components/landing/FeaturesSection";
-import { TestimonialsSection } from "../components/landing/TestimonialsSection";
-import { GuaranteeSection } from "../components/landing/GuaranteeSection";
-import { FAQSection } from "../components/landing/FAQSection";
-import { FinalCTASection } from "../components/landing/FinalCTASection";
+import { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import { AnnouncementBar } from '../components/landing/AnnouncementBar';
+import { HeroSection } from '../components/landing/HeroSection';
+import { SocialProofSection } from '../components/landing/SocialProofSection';
+import { ValuePropositionSection } from '../components/landing/ValuePropositionSection';
+import { UseCasesSection } from '../components/landing/UseCasesSection';
+import { AppleCardsSection } from '../components/landing/AppleCardsSection';
+import QuoteFormSection from '../components/landing/QuoteFormSection';
+import { HowItWorksSection } from '../components/landing/HowItWorksSection';
+import { FeaturesSection } from '../components/landing/FeaturesSection';
+import { TestimonialsSection } from '../components/landing/TestimonialsSection';
+import { GuaranteeSection } from '../components/landing/GuaranteeSection';
+import { FAQSection } from '../components/landing/FAQSection';
+import { FinalCTASection } from '../components/landing/FinalCTASection';
 
 interface LandingProps {
   user?: {
@@ -27,14 +27,14 @@ interface LandingProps {
 
 export default function Landing({ user }: LandingProps) {
   const scrollToQuoteForm = () => {
-    const element = document.getElementById("quote-form");
-    element?.scrollIntoView({ behavior: "smooth" });
+    const element = document.getElementById('quote-form');
+    element?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
     AOS.init({
       duration: 400,
-      easing: "ease-out-cubic",
+      easing: 'ease-out-cubic',
       once: true,
       offset: 10,
       delay: 0,

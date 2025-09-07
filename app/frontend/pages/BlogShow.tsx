@@ -1,9 +1,9 @@
-import { useEffect } from "react";
-import { Head } from "@inertiajs/react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import { useEffect } from 'react';
+import { Head } from '@inertiajs/react';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 interface BlogPost {
   id: number;
@@ -26,10 +26,10 @@ export default function BlogShow({ blogPost }: BlogShowProps) {
   }, []);
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-AU", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
+    return new Date(dateString).toLocaleDateString('en-AU', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
     });
   };
 

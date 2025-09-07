@@ -1,10 +1,10 @@
-import { Head, Link, router } from "@inertiajs/react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { format } from "date-fns";
-import { Download, Calendar, ChevronRight, FileText } from "lucide-react";
-import { useState } from "react";
+import { Head, Link, router } from '@inertiajs/react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { format } from 'date-fns';
+import { Download, Calendar, ChevronRight, FileText } from 'lucide-react';
+import { useState } from 'react';
 
 interface QuoteRequest {
   id: number;
@@ -46,20 +46,20 @@ export default function Show({ quote_request }: Props) {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "draft":
-        return "bg-gray-500";
-      case "quoted":
-        return "bg-blue-500";
-      case "contracted":
-        return "bg-green-500";
-      case "deposit_paid":
-        return "bg-yellow-500";
-      case "in_development":
-        return "bg-purple-500";
-      case "completed":
-        return "bg-green-600";
+      case 'draft':
+        return 'bg-gray-500';
+      case 'quoted':
+        return 'bg-blue-500';
+      case 'contracted':
+        return 'bg-green-500';
+      case 'deposit_paid':
+        return 'bg-yellow-500';
+      case 'in_development':
+        return 'bg-purple-500';
+      case 'completed':
+        return 'bg-green-600';
       default:
-        return "bg-gray-500";
+        return 'bg-gray-500';
     }
   };
 
@@ -71,7 +71,7 @@ export default function Show({ quote_request }: Props) {
   };
 
   const handleDownloadCSV = () => {
-    window.open(`/quote_requests/${quote_request.id}/timeline_csv`, "_blank");
+    window.open(`/quote_requests/${quote_request.id}/timeline_csv`, '_blank');
   };
 
   const handleViewFullPDF = () => {
@@ -96,7 +96,7 @@ export default function Show({ quote_request }: Props) {
             <Badge
               className={`${getStatusColor(quote_request.status)} text-white`}
             >
-              {quote_request.status.replace("_", " ")}
+              {quote_request.status.replace('_', ' ')}
             </Badge>
             <Link href="/quote_requests">
               <Button variant="outline">Back to Quotes</Button>
@@ -129,7 +129,7 @@ export default function Show({ quote_request }: Props) {
                     <p className="text-gray-700">
                       {format(
                         new Date(quote_request.created_at),
-                        "MMM dd, yyyy",
+                        'MMM dd, yyyy'
                       )}
                     </p>
                   </div>
@@ -144,15 +144,15 @@ export default function Show({ quote_request }: Props) {
               </CardHeader>
               <CardContent>
                 <div className="grid gap-3 md:grid-cols-2">
-                  {quote_request.selected_features.map((feature) => (
+                  {quote_request.selected_features.map(feature => (
                     <div key={feature.id} className="p-3 border rounded-lg">
                       <h4 className="font-semibold text-gray-900">
                         {feature.name ===
-                        "5_high_converting_seo_marketing_pages"
-                          ? "5 High Converting, SEO Optimized Marketing Pages"
+                        '5_high_converting_seo_marketing_pages'
+                          ? '5 High Converting, SEO Optimized Marketing Pages'
                           : feature.name
-                              .replace(/_/g, " ")
-                              .replace(/\b\w/g, (l) => l.toUpperCase())}
+                              .replace(/_/g, ' ')
+                              .replace(/\b\w/g, l => l.toUpperCase())}
                       </h4>
                       <p className="text-sm text-gray-600 mt-1">
                         {feature.description}
@@ -332,7 +332,7 @@ export default function Show({ quote_request }: Props) {
                       <p className="text-3xl font-bold text-blue-600 mt-2">
                         $
                         {quote_request.estimated_cost?.toLocaleString() ||
-                          "TBD"}
+                          'TBD'}
                       </p>
                       <p className="text-sm text-gray-600 mt-1">
                         One-time payment

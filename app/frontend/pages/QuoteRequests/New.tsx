@@ -1,24 +1,24 @@
-import { Head, Link, router, useForm } from "@inertiajs/react";
-import { Button } from "../../components/ui/button";
+import { Head, Link, router, useForm } from '@inertiajs/react';
+import { Button } from '../../components/ui/button';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "../../components/ui/card";
-import { Input } from "../../components/ui/input";
-import { Textarea } from "../../components/ui/textarea";
-import { Label } from "../../components/ui/label";
-import { Checkbox } from "../../components/ui/checkbox";
+} from '../../components/ui/card';
+import { Input } from '../../components/ui/input';
+import { Textarea } from '../../components/ui/textarea';
+import { Label } from '../../components/ui/label';
+import { Checkbox } from '../../components/ui/checkbox';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../components/ui/select";
-import { useState, useEffect } from "react";
-import { ArrowLeft, Send } from "lucide-react";
+} from '../../components/ui/select';
+import { useState, useEffect } from 'react';
+import { ArrowLeft, Send } from 'lucide-react';
 
 interface Feature {
   id: number;
@@ -43,12 +43,12 @@ interface Props {
 
 export default function New({ quote_request, features }: Props) {
   const { data, setData, post, processing, errors } = useForm({
-    project_name: quote_request.project_name || "",
-    project_description: quote_request.project_description || "",
-    use_case: quote_request.use_case || "",
-    client_name: "",
-    client_email: "",
-    client_phone: "",
+    project_name: quote_request.project_name || '',
+    project_description: quote_request.project_description || '',
+    use_case: quote_request.use_case || '',
+    client_name: '',
+    client_email: '',
+    client_phone: '',
     feature_ids: [] as number[],
   });
 
@@ -60,7 +60,7 @@ export default function New({ quote_request, features }: Props) {
   // Automatically include marketing pages feature
   useEffect(() => {
     const marketingPagesFeature = features.find(
-      (f) => f.name === "5_high_converting_seo_marketing_pages",
+      f => f.name === '5_high_converting_seo_marketing_pages'
     );
     if (
       marketingPagesFeature &&
@@ -68,7 +68,7 @@ export default function New({ quote_request, features }: Props) {
     ) {
       const newFeatures = [...selectedFeatures, marketingPagesFeature.id];
       setSelectedFeatures(newFeatures);
-      setData("feature_ids", newFeatures);
+      setData('feature_ids', newFeatures);
       calculatePricing(newFeatures, data.use_case);
     }
   }, [features]);
@@ -78,47 +78,47 @@ export default function New({ quote_request, features }: Props) {
     if (checked) {
       newSelectedFeatures = [...selectedFeatures, featureId];
     } else {
-      newSelectedFeatures = selectedFeatures.filter((id) => id !== featureId);
+      newSelectedFeatures = selectedFeatures.filter(id => id !== featureId);
     }
     setSelectedFeatures(newSelectedFeatures);
-    setData("feature_ids", newSelectedFeatures);
+    setData('feature_ids', newSelectedFeatures);
     calculatePricing(newSelectedFeatures, data.use_case);
   };
 
   const calculatePricing = (featureIds: number[], useCase: string) => {
-    const selectedFeatureObjects = features.filter((f) =>
-      featureIds.includes(f.id),
+    const selectedFeatureObjects = features.filter(f =>
+      featureIds.includes(f.id)
     );
     const baseCosts = {
-      "E-commerce Platform": 15000,
-      "Social Networking App": 20000,
-      "Tenant Management System": 18000,
-      "Fitness Tracking App": 16000,
-      "Casino/Gaming Application": 25000,
-      "Sports Betting Platform": 30000,
-      "Neo-bank/FinTech App": 35000,
-      "Generator Hire Service": 12000,
-      "Tradesperson Service App": 14000,
+      'E-commerce Platform': 15000,
+      'Social Networking App': 20000,
+      'Tenant Management System': 18000,
+      'Fitness Tracking App': 16000,
+      'Casino/Gaming Application': 25000,
+      'Sports Betting Platform': 30000,
+      'Neo-bank/FinTech App': 35000,
+      'Generator Hire Service': 12000,
+      'Tradesperson Service App': 14000,
       "Doctor's Office": 18000,
-      "Veterinary Clinic": 16000,
+      'Veterinary Clinic': 16000,
       Dispensary: 20000,
-      "Digital Marketing Agency": 15000,
-      "Educational Platform": 22000,
-      "Logistics and Delivery App": 17000,
-      "Event Management System": 16000,
-      "Marketplace Platform": 24000,
-      "SaaS Application": 28000,
+      'Digital Marketing Agency': 15000,
+      'Educational Platform': 22000,
+      'Logistics and Delivery App': 17000,
+      'Event Management System': 16000,
+      'Marketplace Platform': 24000,
+      'SaaS Application': 28000,
       Other: 15000,
     };
 
     let baseCost = baseCosts[useCase as keyof typeof baseCosts] || 15000;
     const featureCost = selectedFeatureObjects.reduce(
       (sum, feature) => sum + feature.base_cost,
-      0,
+      0
     );
     const complexityMultiplier = Math.min(
       1 + selectedFeatureObjects.length * 0.1,
-      1.8,
+      1.8
     );
 
     const totalCost = (baseCost + featureCost) * complexityMultiplier;
@@ -132,9 +132,9 @@ export default function New({ quote_request, features }: Props) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    post("/quote_requests", {
+    post('/quote_requests', {
       onSuccess: () => {
-        router.visit("/quote_requests");
+        router.visit('/quote_requests');
       },
     });
   };
@@ -147,29 +147,29 @@ export default function New({ quote_request, features }: Props) {
       acc[feature.category].push(feature);
       return acc;
     },
-    {} as Record<string, Feature[]>,
+    {} as Record<string, Feature[]>
   );
 
   const useCaseOptions = [
-    "E-commerce Platform",
-    "Social Networking App",
-    "Tenant Management System",
-    "Fitness Tracking App",
-    "Casino/Gaming Application",
-    "Sports Betting Platform",
-    "Neo-bank/FinTech App",
-    "Generator Hire Service",
-    "Tradesperson Service App",
+    'E-commerce Platform',
+    'Social Networking App',
+    'Tenant Management System',
+    'Fitness Tracking App',
+    'Casino/Gaming Application',
+    'Sports Betting Platform',
+    'Neo-bank/FinTech App',
+    'Generator Hire Service',
+    'Tradesperson Service App',
     "Doctor's Office",
-    "Veterinary Clinic",
-    "Dispensary",
-    "Digital Marketing Agency",
-    "Educational Platform",
-    "Logistics and Delivery App",
-    "Event Management System",
-    "Marketplace Platform",
-    "SaaS Application",
-    "Other",
+    'Veterinary Clinic',
+    'Dispensary',
+    'Digital Marketing Agency',
+    'Educational Platform',
+    'Logistics and Delivery App',
+    'Event Management System',
+    'Marketplace Platform',
+    'SaaS Application',
+    'Other',
   ];
 
   return (
@@ -203,7 +203,7 @@ export default function New({ quote_request, features }: Props) {
                   <Input
                     id="client_name"
                     value={data.client_name}
-                    onChange={(e) => setData("client_name", e.target.value)}
+                    onChange={e => setData('client_name', e.target.value)}
                     placeholder="Enter company or client name"
                   />
                   {errors.client_name && (
@@ -218,7 +218,7 @@ export default function New({ quote_request, features }: Props) {
                     id="client_email"
                     type="email"
                     value={data.client_email}
-                    onChange={(e) => setData("client_email", e.target.value)}
+                    onChange={e => setData('client_email', e.target.value)}
                     placeholder="Enter email address"
                   />
                   {errors.client_email && (
@@ -233,7 +233,7 @@ export default function New({ quote_request, features }: Props) {
                 <Input
                   id="client_phone"
                   value={data.client_phone}
-                  onChange={(e) => setData("client_phone", e.target.value)}
+                  onChange={e => setData('client_phone', e.target.value)}
                   placeholder="Enter phone number"
                 />
               </div>
@@ -251,7 +251,7 @@ export default function New({ quote_request, features }: Props) {
                 <Input
                   id="project_name"
                   value={data.project_name}
-                  onChange={(e) => setData("project_name", e.target.value)}
+                  onChange={e => setData('project_name', e.target.value)}
                   placeholder="Enter project name"
                   required
                 />
@@ -266,8 +266,8 @@ export default function New({ quote_request, features }: Props) {
                 <Label htmlFor="use_case">Use Case</Label>
                 <Select
                   value={data.use_case}
-                  onValueChange={(value) => {
-                    setData("use_case", value);
+                  onValueChange={value => {
+                    setData('use_case', value);
                     calculatePricing(selectedFeatures, value);
                   }}
                 >
@@ -275,7 +275,7 @@ export default function New({ quote_request, features }: Props) {
                     <SelectValue placeholder="Select a use case" />
                   </SelectTrigger>
                   <SelectContent>
-                    {useCaseOptions.map((option) => (
+                    {useCaseOptions.map(option => (
                       <SelectItem key={option} value={option}>
                         {option}
                       </SelectItem>
@@ -292,9 +292,7 @@ export default function New({ quote_request, features }: Props) {
                 <Textarea
                   id="project_description"
                   value={data.project_description}
-                  onChange={(e) =>
-                    setData("project_description", e.target.value)
-                  }
+                  onChange={e => setData('project_description', e.target.value)}
                   placeholder="Describe your project requirements, goals, and any specific features you need..."
                   rows={4}
                   required
@@ -323,7 +321,7 @@ export default function New({ quote_request, features }: Props) {
                     <div key={category}>
                       <h3 className="text-lg font-semibold mb-3">{category}</h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {categoryFeatures.map((feature) => (
+                        {categoryFeatures.map(feature => (
                           <div
                             key={feature.id}
                             className="flex items-start space-x-3 p-3 border rounded-lg"
@@ -331,10 +329,10 @@ export default function New({ quote_request, features }: Props) {
                             <Checkbox
                               id={`feature-${feature.id}`}
                               checked={selectedFeatures.includes(feature.id)}
-                              onCheckedChange={(checked) =>
+                              onCheckedChange={checked =>
                                 handleFeatureToggle(
                                   feature.id,
-                                  checked as boolean,
+                                  checked as boolean
                                 )
                               }
                             />
@@ -344,11 +342,11 @@ export default function New({ quote_request, features }: Props) {
                                 className="font-medium cursor-pointer"
                               >
                                 {feature.name ===
-                                "5_high_converting_seo_marketing_pages"
-                                  ? "5 High Converting, SEO Optimized Marketing Pages"
+                                '5_high_converting_seo_marketing_pages'
+                                  ? '5 High Converting, SEO Optimized Marketing Pages'
                                   : feature.name
-                                      .replace(/_/g, " ")
-                                      .replace(/\b\w/g, (l) => l.toUpperCase())}
+                                      .replace(/_/g, ' ')
+                                      .replace(/\b\w/g, l => l.toUpperCase())}
                               </Label>
                               <p className="text-sm text-gray-600 mt-1">
                                 {feature.description}
@@ -363,7 +361,7 @@ export default function New({ quote_request, features }: Props) {
                         ))}
                       </div>
                     </div>
-                  ),
+                  )
                 )}
               </div>
             </CardContent>
@@ -412,7 +410,7 @@ export default function New({ quote_request, features }: Props) {
           <div className="flex justify-end">
             <Button type="submit" disabled={processing} className="min-w-32">
               {processing ? (
-                "Creating..."
+                'Creating...'
               ) : (
                 <>
                   <Send className="w-4 h-4 mr-2" />

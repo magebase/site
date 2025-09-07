@@ -1,97 +1,97 @@
-import { InfiniteMovingCards } from "../ui/infinite-moving-cards";
+import { InfiniteMovingCards } from '../ui/infinite-moving-cards';
 
 export function InfiniteTechnologiesSection() {
   const technologies = [
     {
-      image: "https://commons.wikimedia.org/wiki/File:React-icon.svg",
-      name: "React",
-      alt: "React Logo",
+      image: 'https://commons.wikimedia.org/wiki/File:React-icon.svg',
+      name: 'React',
+      alt: 'React Logo',
     },
     {
-      image: "https://en.wikipedia.org/wiki/File:Ruby_On_Rails_Logo.svg",
-      name: "Ruby on Rails",
-      alt: "Ruby on Rails Logo",
+      image: 'https://en.wikipedia.org/wiki/File:Ruby_On_Rails_Logo.svg',
+      name: 'Ruby on Rails',
+      alt: 'Ruby on Rails Logo',
     },
     {
-      image: "https://seeklogo.com/vector-logo/428028/github-actions",
-      name: "GitHub Actions",
-      alt: "GitHub Actions Logo",
+      image: 'https://seeklogo.com/vector-logo/428028/github-actions',
+      name: 'GitHub Actions',
+      alt: 'GitHub Actions Logo',
     },
     {
-      image: "https://commons.wikimedia.org/wiki/File:Kubernetes_logo.svg",
-      name: "Kubernetes",
-      alt: "Kubernetes Logo",
-    },
-    {
-      image:
-        "https://commons.wikimedia.org/wiki/File:Amazon_Web_Services_Logo.svg",
-      name: "AWS",
-      alt: "Amazon Web Services Logo",
-    },
-    {
-      image: "https://commons.wikimedia.org/wiki/File:Cloudflare_Logo.svg",
-      name: "Cloudflare",
-      alt: "Cloudflare Logo",
-    },
-    {
-      image: "https://commons.wikimedia.org/wiki/File:Terraform_Logo.svg",
-      name: "Terraform",
-      alt: "Terraform Logo",
-    },
-    {
-      image: "https://www.docker.com/company/newsroom/media-resources/",
-      name: "Docker",
-      alt: "Docker Logo",
-    },
-    {
-      image: "https://commons.wikimedia.org/wiki/File:Logo_PostgreSQL.png",
-      name: "PostgreSQL",
-      alt: "PostgreSQL Logo",
-    },
-    {
-      image: "https://techicons.dev/icons/argocd",
-      name: "ArgoCD",
-      alt: "ArgoCD Logo",
-    },
-    {
-      image: "https://commons.wikimedia.org/wiki/File:Grafana_logo.png",
-      name: "Grafana",
-      alt: "Grafana Logo",
+      image: 'https://commons.wikimedia.org/wiki/File:Kubernetes_logo.svg',
+      name: 'Kubernetes',
+      alt: 'Kubernetes Logo',
     },
     {
       image:
-        "https://images.seeklogo.com/logo-png/43/1/vitest-logo-png_seeklogo-434979.png",
-      name: "Vitest",
-      alt: "Vitest Logo",
+        'https://commons.wikimedia.org/wiki/File:Amazon_Web_Services_Logo.svg',
+      name: 'AWS',
+      alt: 'Amazon Web Services Logo',
     },
     {
-      image: "https://logo.svgcdn.com/d/rspec-original-wordmark.png",
-      name: "RSpec",
-      alt: "RSpec Logo",
+      image: 'https://commons.wikimedia.org/wiki/File:Cloudflare_Logo.svg',
+      name: 'Cloudflare',
+      alt: 'Cloudflare Logo',
+    },
+    {
+      image: 'https://commons.wikimedia.org/wiki/File:Terraform_Logo.svg',
+      name: 'Terraform',
+      alt: 'Terraform Logo',
+    },
+    {
+      image: 'https://www.docker.com/company/newsroom/media-resources/',
+      name: 'Docker',
+      alt: 'Docker Logo',
+    },
+    {
+      image: 'https://commons.wikimedia.org/wiki/File:Logo_PostgreSQL.png',
+      name: 'PostgreSQL',
+      alt: 'PostgreSQL Logo',
+    },
+    {
+      image: 'https://techicons.dev/icons/argocd',
+      name: 'ArgoCD',
+      alt: 'ArgoCD Logo',
+    },
+    {
+      image: 'https://commons.wikimedia.org/wiki/File:Grafana_logo.png',
+      name: 'Grafana',
+      alt: 'Grafana Logo',
     },
     {
       image:
-        "https://images.seeklogo.com/logo-png/43/1/playwright-logo-png_seeklogo-435674.png",
-      name: "Playwright",
-      alt: "Playwright Logo",
+        'https://images.seeklogo.com/logo-png/43/1/vitest-logo-png_seeklogo-434979.png',
+      name: 'Vitest',
+      alt: 'Vitest Logo',
+    },
+    {
+      image: 'https://logo.svgcdn.com/d/rspec-original-wordmark.png',
+      name: 'RSpec',
+      alt: 'RSpec Logo',
     },
     {
       image:
-        "https://images.seeklogo.com/logo-png/29/1/stripe-logo-png_seeklogo-290635.png",
-      name: "Stripe",
-      alt: "Stripe Logo",
+        'https://images.seeklogo.com/logo-png/43/1/playwright-logo-png_seeklogo-435674.png',
+      name: 'Playwright',
+      alt: 'Playwright Logo',
     },
     {
       image:
-        "https://images.seeklogo.com/logo-png/24/1/paypal-logo-png_seeklogo-249214.png",
-      name: "PayPal",
-      alt: "PayPal Logo",
+        'https://images.seeklogo.com/logo-png/29/1/stripe-logo-png_seeklogo-290635.png',
+      name: 'Stripe',
+      alt: 'Stripe Logo',
     },
     {
       image:
-        "https://images.seeklogo.com/logo-png/26/1/shopify-logo-png_seeklogo-267188.png",
-      name: "Shopify",
-      alt: "Shopify Logo",
+        'https://images.seeklogo.com/logo-png/24/1/paypal-logo-png_seeklogo-249214.png',
+      name: 'PayPal',
+      alt: 'PayPal Logo',
+    },
+    {
+      image:
+        'https://images.seeklogo.com/logo-png/26/1/shopify-logo-png_seeklogo-267188.png',
+      name: 'Shopify',
+      alt: 'Shopify Logo',
     },
   ];
 

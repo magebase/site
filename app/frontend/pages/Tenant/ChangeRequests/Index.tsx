@@ -1,15 +1,15 @@
-import { Head, Link } from "@inertiajs/react";
-import { TenantSidebar } from "../../../components/TenantSidebar";
+import { Head, Link } from '@inertiajs/react';
+import { TenantSidebar } from '../../../components/TenantSidebar';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../../../components/ui/card";
-import { Badge } from "../../../components/ui/badge";
-import { Button } from "../../../components/ui/button";
-import { Plus, Calendar, User } from "lucide-react";
+} from '../../../components/ui/card';
+import { Badge } from '../../../components/ui/badge';
+import { Button } from '../../../components/ui/button';
+import { Plus, Calendar, User } from 'lucide-react';
 
 interface ChangeRequestsIndexProps {
   tenant: {
@@ -36,31 +36,31 @@ export default function ChangeRequestsIndex({
 }: ChangeRequestsIndexProps) {
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "completed":
-        return "bg-green-100 text-green-800";
-      case "in_progress":
-        return "bg-blue-100 text-blue-800";
-      case "pending":
-        return "bg-yellow-100 text-yellow-800";
-      case "cancelled":
-        return "bg-red-100 text-red-800";
+      case 'completed':
+        return 'bg-green-100 text-green-800';
+      case 'in_progress':
+        return 'bg-blue-100 text-blue-800';
+      case 'pending':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'cancelled':
+        return 'bg-red-100 text-red-800';
       default:
-        return "bg-gray-100 text-gray-800";
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case "urgent":
-        return "bg-red-100 text-red-800";
-      case "high":
-        return "bg-orange-100 text-orange-800";
-      case "medium":
-        return "bg-yellow-100 text-yellow-800";
-      case "low":
-        return "bg-green-100 text-green-800";
+      case 'urgent':
+        return 'bg-red-100 text-red-800';
+      case 'high':
+        return 'bg-orange-100 text-orange-800';
+      case 'medium':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'low':
+        return 'bg-green-100 text-green-800';
       default:
-        return "bg-gray-100 text-gray-800";
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
@@ -90,7 +90,7 @@ export default function ChangeRequestsIndex({
               </div>
 
               <div className="space-y-4">
-                {changeRequests.map((request) => (
+                {changeRequests.map(request => (
                   <Card
                     key={request.id}
                     className="hover:shadow-md transition-shadow"
@@ -112,7 +112,7 @@ export default function ChangeRequestsIndex({
                             {request.priority}
                           </Badge>
                           <Badge className={getStatusColor(request.status)}>
-                            {request.status.replace("_", " ")}
+                            {request.status.replace('_', ' ')}
                           </Badge>
                         </div>
                       </div>
@@ -128,7 +128,7 @@ export default function ChangeRequestsIndex({
                             <Calendar className="h-4 w-4" />
                             <span>
                               {new Date(
-                                request.created_at,
+                                request.created_at
                               ).toLocaleDateString()}
                             </span>
                           </div>

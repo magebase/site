@@ -11,11 +11,11 @@ spec:
         - name: magebase
           resources:
             requests:
-              memory: "1Gi"
-              cpu: "500m"
+              memory: '1Gi'
+              cpu: '500m'
             limits:
-              memory: "2Gi"
-              cpu: "1000m"
+              memory: '2Gi'
+              cpu: '1000m'
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
@@ -28,17 +28,17 @@ spec:
     size: 50Gi
   postgresql:
     parameters:
-      max_connections: "200"
-      shared_buffers: "1GB"
-      effective_cache_size: "4GB"
-      maintenance_work_mem: "256MB"
+      max_connections: '200'
+      shared_buffers: '1GB'
+      effective_cache_size: '4GB'
+      maintenance_work_mem: '256MB'
   resources:
     requests:
-      memory: "1Gi"
-      cpu: "500m"
+      memory: '1Gi'
+      cpu: '500m'
     limits:
-      memory: "2Gi"
-      cpu: "1000m"
+      memory: '2Gi'
+      cpu: '1000m'
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress

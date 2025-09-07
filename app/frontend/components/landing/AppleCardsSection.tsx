@@ -1,12 +1,12 @@
-import { Carousel, Card } from "../ui/apple-cards-carousel";
-import { Code, Smartphone, Globe, Zap, Shield, Users } from "lucide-react";
+import { Carousel, Card } from '../ui/apple-cards-carousel';
+import { Code, Smartphone, Globe, Zap, Shield, Users } from 'lucide-react';
 
 export function AppleCardsSection() {
   const cards = [
     {
-      src: "/images/apple-cards/web-applications.jpg",
-      title: "Web Applications",
-      category: "Full-Stack Development",
+      src: '/images/apple-cards/web-applications.jpg',
+      title: 'Web Applications',
+      category: 'Full-Stack Development',
       content: (
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-4">
@@ -45,9 +45,9 @@ export function AppleCardsSection() {
       ),
     },
     {
-      src: "/images/apple-cards/mobile-apps.jpg",
-      title: "Mobile Apps",
-      category: "iOS & Android Development",
+      src: '/images/apple-cards/mobile-apps.jpg',
+      title: 'Mobile Apps',
+      category: 'iOS & Android Development',
       content: (
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-4">
@@ -88,9 +88,9 @@ export function AppleCardsSection() {
       ),
     },
     {
-      src: "/images/apple-cards/api-development.jpg",
-      title: "API Development",
-      category: "Backend & Microservices",
+      src: '/images/apple-cards/api-development.jpg',
+      title: 'API Development',
+      category: 'Backend & Microservices',
       content: (
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-4">
@@ -129,9 +129,9 @@ export function AppleCardsSection() {
       ),
     },
     {
-      src: "/images/apple-cards/ai-integration.jpg",
-      title: "AI Integration",
-      category: "Machine Learning & Automation",
+      src: '/images/apple-cards/ai-integration.jpg',
+      title: 'AI Integration',
+      category: 'Machine Learning & Automation',
       content: (
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-4">
@@ -172,9 +172,9 @@ export function AppleCardsSection() {
       ),
     },
     {
-      src: "/images/apple-cards/security-compliance.jpg",
-      title: "Security & Compliance",
-      category: "Enterprise-Grade Security",
+      src: '/images/apple-cards/security-compliance.jpg',
+      title: 'Security & Compliance',
+      category: 'Enterprise-Grade Security',
       content: (
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-4">
@@ -213,9 +213,9 @@ export function AppleCardsSection() {
       ),
     },
     {
-      src: "/images/apple-cards/team-collaboration.jpg",
-      title: "Team Collaboration",
-      category: "Agile Development Process",
+      src: '/images/apple-cards/team-collaboration.jpg',
+      title: 'Team Collaboration',
+      category: 'Agile Development Process',
       content: (
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-4">
@@ -280,7 +280,7 @@ export function AppleCardsSection() {
             data-aos-duration="600"
             data-aos-delay="200"
           >
-            Our{" "}
+            Our{' '}
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Expertise
             </span>

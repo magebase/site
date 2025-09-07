@@ -1,7 +1,7 @@
-import PageLayout from "../components/PageLayout";
-import { Button } from "../components/ui/button";
-import { Card, CardContent } from "../components/ui/card";
-import { ArrowRight, Shield, FileText } from "lucide-react";
+import PageLayout from '../components/PageLayout';
+import { Button } from '../components/ui/button';
+import { Card, CardContent } from '../components/ui/card';
+import { ArrowRight, Shield, FileText } from 'lucide-react';
 
 interface LegalGdprProps {
   page: {
@@ -19,11 +19,11 @@ interface LegalGdprProps {
 export default function LegalGdpr({ page, user }: LegalGdprProps) {
   // Provide default values if page is null
   const pageData = page || {
-    title: "GDPR Compliance",
+    title: 'GDPR Compliance',
     content:
-      "<h1>GDPR Compliance</h1><p>We are committed to protecting your personal data and complying with GDPR regulations.</p>",
+      '<h1>GDPR Compliance</h1><p>We are committed to protecting your personal data and complying with GDPR regulations.</p>',
     excerpt:
-      "Learn about our GDPR compliance and how we protect your personal data.",
+      'Learn about our GDPR compliance and how we protect your personal data.',
   };
 
   return (
@@ -164,7 +164,7 @@ export default function LegalGdpr({ page, user }: LegalGdprProps) {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => (window.location.href = "/privacy-policy")}
+                  onClick={() => (window.location.href = '/privacy-policy')}
                 >
                   View Privacy
                 </Button>
@@ -183,7 +183,7 @@ export default function LegalGdpr({ page, user }: LegalGdprProps) {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => (window.location.href = "/terms-of-service")}
+                  onClick={() => (window.location.href = '/terms-of-service')}
                 >
                   View Terms
                 </Button>
@@ -202,7 +202,7 @@ export default function LegalGdpr({ page, user }: LegalGdprProps) {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => (window.location.href = "/cookie-policy")}
+                  onClick={() => (window.location.href = '/cookie-policy')}
                 >
                   View Policy
                 </Button>
@@ -225,7 +225,7 @@ export default function LegalGdpr({ page, user }: LegalGdprProps) {
           <Button
             size="lg"
             className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
-            onClick={() => (window.location.href = "/#contact")}
+            onClick={() => (window.location.href = '/#contact')}
           >
             Contact DPO
             <ArrowRight className="w-4 h-4 ml-2" />

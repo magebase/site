@@ -11,17 +11,17 @@ spec:
     storageClass: hcloud-volumes
   postgresql:
     parameters:
-      max_connections: "100"
-      shared_buffers: "256MB"
-      effective_cache_size: "1GB"
-      maintenance_work_mem: "64MB"
-      checkpoint_completion_target: "0.9"
-      wal_buffers: "16MB"
-      default_statistics_target: "100"
-      ssl: "on"
-      ssl_cert_file: "/controller/certificates/tls.crt"
-      ssl_key_file: "/controller/certificates/tls.key"
-      ssl_ca_file: "/controller/certificates/ca.crt"
+      max_connections: '100'
+      shared_buffers: '256MB'
+      effective_cache_size: '1GB'
+      maintenance_work_mem: '64MB'
+      checkpoint_completion_target: '0.9'
+      wal_buffers: '16MB'
+      default_statistics_target: '100'
+      ssl: 'on'
+      ssl_cert_file: '/controller/certificates/tls.crt'
+      ssl_key_file: '/controller/certificates/tls.key'
+      ssl_ca_file: '/controller/certificates/ca.crt'
     pg_hba:
       - hostssl all all 10.0.0.0/8 md5
       - hostssl all all 172.16.0.0/12 md5
@@ -34,7 +34,7 @@ spec:
   backup:
     barmanObjectStore:
       destinationPath: s3://magebase-postgres-backups/
-      endpointURL: "${CLOUDFLARE_R2_ENDPOINT}"
+      endpointURL: '${CLOUDFLARE_R2_ENDPOINT}'
       s3Credentials:
         accessKeyId:
           name: cloudflare-r2-credentials
@@ -45,7 +45,7 @@ spec:
       wal:
         compression: gzip
         maxParallel: 8
-    retentionPolicy: "30d"
+    retentionPolicy: '30d'
     target: prefer-standby
   monitoring:
     enablePodMonitor: true
@@ -54,11 +54,11 @@ spec:
       key: queries
   resources:
     requests:
-      memory: "512Mi"
-      cpu: "250m"
+      memory: '512Mi'
+      cpu: '250m'
     limits:
-      memory: "1Gi"
-      cpu: "500m"
+      memory: '1Gi'
+      cpu: '500m'
 ---
 apiVersion: v1
 kind: Secret
@@ -70,8 +70,8 @@ stringData:
   # Using stringData to avoid base64 decoding errors when placeholders haven't been substituted yet.
   # Provide RAW (non-base64) values via pipeline env vars CLOUDFLARE_R2_ACCESS_KEY / CLOUDFLARE_R2_SECRET_KEY.
   # If your pipeline currently supplies *_B64 variables, switch to raw versions or remove this comment and adjust substitution.
-  access_key_id: "${CLOUDFLARE_R2_ACCESS_KEY}"
-  secret_access_key: "${CLOUDFLARE_R2_SECRET_KEY}"
+  access_key_id: '${CLOUDFLARE_R2_ACCESS_KEY}'
+  secret_access_key: '${CLOUDFLARE_R2_SECRET_KEY}'
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
@@ -79,7 +79,7 @@ metadata:
   name: magebase-db-backup
   namespace: magebase
 spec:
-  schedule: "0 2 * * *"
+  schedule: '0 2 * * *'
   backupOwnerReference: self
   cluster:
     name: magebase-db

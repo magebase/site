@@ -1,8 +1,8 @@
-import { Head, Link } from "@inertiajs/react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { format } from "date-fns";
+import { Head, Link } from '@inertiajs/react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { format } from 'date-fns';
 
 interface QuoteRequest {
   id: number;
@@ -26,20 +26,20 @@ interface Props {
 export default function Index({ quote_requests }: Props) {
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "draft":
-        return "bg-gray-500";
-      case "quoted":
-        return "bg-blue-500";
-      case "contracted":
-        return "bg-green-500";
-      case "deposit_paid":
-        return "bg-yellow-500";
-      case "in_development":
-        return "bg-purple-500";
-      case "completed":
-        return "bg-green-600";
+      case 'draft':
+        return 'bg-gray-500';
+      case 'quoted':
+        return 'bg-blue-500';
+      case 'contracted':
+        return 'bg-green-500';
+      case 'deposit_paid':
+        return 'bg-yellow-500';
+      case 'in_development':
+        return 'bg-purple-500';
+      case 'completed':
+        return 'bg-green-600';
       default:
-        return "bg-gray-500";
+        return 'bg-gray-500';
     }
   };
 
@@ -63,7 +63,7 @@ export default function Index({ quote_requests }: Props) {
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {quote_requests.map((quote) => (
+          {quote_requests.map(quote => (
             <Card key={quote.id} className="hover:shadow-lg transition-shadow">
               <CardHeader>
                 <div className="flex justify-between items-start">
@@ -73,7 +73,7 @@ export default function Index({ quote_requests }: Props) {
                   <Badge
                     className={`${getStatusColor(quote.status)} text-white`}
                   >
-                    {quote.status.replace("_", " ")}
+                    {quote.status.replace('_', ' ')}
                   </Badge>
                 </div>
                 <p className="text-sm text-gray-600">
@@ -87,12 +87,12 @@ export default function Index({ quote_requests }: Props) {
                 <div className="flex justify-between items-center text-sm text-gray-500 mb-4">
                   <span>{quote.use_case}</span>
                   <span>
-                    ${quote.estimated_cost?.toLocaleString() || "TBD"}
+                    ${quote.estimated_cost?.toLocaleString() || 'TBD'}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-xs text-gray-500">
-                    {format(new Date(quote.created_at), "MMM dd, yyyy")}
+                    {format(new Date(quote.created_at), 'MMM dd, yyyy')}
                   </span>
                   <Link href={`/quote_requests/${quote.id}`}>
                     <Button variant="outline" size="sm">

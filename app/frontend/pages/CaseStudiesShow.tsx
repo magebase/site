@@ -1,12 +1,12 @@
-import PageLayout from "../components/PageLayout";
-import { Button } from "../components/ui/button";
+import PageLayout from '../components/PageLayout';
+import { Button } from '../components/ui/button';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
-import { ArrowRight, TrendingUp, Target, CheckCircle } from "lucide-react";
+} from '../components/ui/card';
+import { ArrowRight, TrendingUp, Target, CheckCircle } from 'lucide-react';
 
 interface CaseStudy {
   id: number;
@@ -68,8 +68,8 @@ export default function CaseStudiesShow({
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
             onClick={() =>
               document
-                .getElementById("results")
-                ?.scrollIntoView({ behavior: "smooth" })
+                .getElementById('results')
+                ?.scrollIntoView({ behavior: 'smooth' })
             }
           >
             View Results
@@ -107,7 +107,7 @@ export default function CaseStudiesShow({
                 </CardHeader>
                 <CardContent>
                   <div className="prose prose-gray max-w-none">
-                    {caseStudy.challenge.split("\n").map((paragraph, index) => (
+                    {caseStudy.challenge.split('\n').map((paragraph, index) => (
                       <p key={index}>{paragraph}</p>
                     ))}
                   </div>
@@ -124,7 +124,7 @@ export default function CaseStudiesShow({
                 </CardHeader>
                 <CardContent>
                   <div className="prose prose-gray max-w-none">
-                    {caseStudy.solution.split("\n").map((paragraph, index) => (
+                    {caseStudy.solution.split('\n').map((paragraph, index) => (
                       <p key={index}>{paragraph}</p>
                     ))}
                   </div>
@@ -141,7 +141,7 @@ export default function CaseStudiesShow({
                 </CardHeader>
                 <CardContent>
                   <div className="prose prose-gray max-w-none">
-                    {caseStudy.results.split("\n").map((paragraph, index) => (
+                    {caseStudy.results.split('\n').map((paragraph, index) => (
                       <p key={index}>{paragraph}</p>
                     ))}
                   </div>
@@ -169,12 +169,12 @@ export default function CaseStudiesShow({
                     <p className="text-sm text-gray-600">Published</p>
                     <p className="font-medium">
                       {new Date(caseStudy.published_at).toLocaleDateString(
-                        "en-US",
+                        'en-US',
                         {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        },
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                        }
                       )}
                     </p>
                   </div>
@@ -210,7 +210,7 @@ export default function CaseStudiesShow({
               <Button
                 size="lg"
                 className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                onClick={() => (window.location.href = "/#quote-form")}
+                onClick={() => (window.location.href = '/#quote-form')}
               >
                 Start Similar Project
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -232,7 +232,7 @@ export default function CaseStudiesShow({
           <Button
             size="lg"
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-            onClick={() => (window.location.href = "/case-studies")}
+            onClick={() => (window.location.href = '/case-studies')}
           >
             View All Case Studies
             <ArrowRight className="w-4 h-4 ml-2" />
@@ -252,7 +252,7 @@ export default function CaseStudiesShow({
           <Button
             size="lg"
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-            onClick={() => (window.location.href = "/#quote-form")}
+            onClick={() => (window.location.href = '/#quote-form')}
           >
             Start Your Project
             <ArrowRight className="w-4 h-4 ml-2" />

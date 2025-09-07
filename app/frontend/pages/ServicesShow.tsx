@@ -1,6 +1,6 @@
-import PageLayout from "../components/PageLayout";
-import { Button } from "../components/ui/button";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import PageLayout from '../components/PageLayout';
+import { Button } from '../components/ui/button';
+import { ArrowRight, CheckCircle } from 'lucide-react';
 
 interface Service {
   id: number;
@@ -47,7 +47,7 @@ export default function ServicesShow({ service, user }: ServicesShowProps) {
             <Button
               size="lg"
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-              onClick={() => (window.location.href = "/#quote-form")}
+              onClick={() => (window.location.href = '/#quote-form')}
             >
               Get Started
               <ArrowRight className="w-4 h-4 ml-2" />
@@ -55,7 +55,7 @@ export default function ServicesShow({ service, user }: ServicesShowProps) {
             <Button
               size="lg"
               variant="outline"
-              onClick={() => (window.location.href = "/services")}
+              onClick={() => (window.location.href = '/services')}
             >
               View All Services
             </Button>
@@ -123,13 +123,13 @@ export default function ServicesShow({ service, user }: ServicesShowProps) {
             Ready to Get Started?
           </h2>
           <p className="text-xl text-gray-300 mb-8">
-            Get a personalized quote for your {service.title.toLowerCase()}{" "}
+            Get a personalized quote for your {service.title.toLowerCase()}{' '}
             project.
           </p>
           <Button
             size="lg"
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-            onClick={() => (window.location.href = "/#quote-form")}
+            onClick={() => (window.location.href = '/#quote-form')}
           >
             Get Your Quote Now
             <ArrowRight className="w-4 h-4 ml-2" />

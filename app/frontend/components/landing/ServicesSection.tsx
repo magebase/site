@@ -1,11 +1,11 @@
-import { Zap, Shield } from "lucide-react";
+import { Zap, Shield } from 'lucide-react';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "../ui/carousel";
+} from '../ui/carousel';
 
 export function ServicesSection() {
   return (

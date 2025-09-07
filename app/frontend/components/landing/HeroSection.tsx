@@ -1,8 +1,8 @@
-import { ArrowRight, CheckCircle, Phone, Zap } from "lucide-react";
-import { BackgroundBeams } from "../ui/background-beams";
-import { TypewriterEffect } from "../ui/typewriter-effect";
-import { Highlight } from "../ui/hero-highlight";
-import { FlipWords } from "../ui/flip-words";
+import { ArrowRight, CheckCircle, Phone, Zap } from 'lucide-react';
+import { BackgroundBeams } from '../ui/background-beams';
+import { TypewriterEffect } from '../ui/typewriter-effect';
+import { Highlight } from '../ui/hero-highlight';
+import { FlipWords } from '../ui/flip-words';
 
 interface HeroSectionProps {
   onQuoteFormClick: () => void;
@@ -24,10 +24,10 @@ export function HeroSection({ onQuoteFormClick }: HeroSectionProps) {
               Digital solutions for
               <FlipWords
                 words={[
-                  "modern businesses",
-                  "growing companies",
-                  "startups",
-                  "enterprises",
+                  'modern businesses',
+                  'growing companies',
+                  'startups',
+                  'enterprises',
                 ]}
                 duration={2000}
               />
@@ -42,14 +42,14 @@ export function HeroSection({ onQuoteFormClick }: HeroSectionProps) {
           >
             <TypewriterEffect
               words={[
-                { text: "Custom" },
-                { text: "software" },
-                { text: "development" },
-                { text: "that", className: "text-gray-600" },
-                { text: "drives", className: "text-gray-600" },
-                { text: "growth", className: "text-gray-600" },
-                { text: "and", className: "text-gray-600" },
-                { text: "innovation", className: "text-gray-600" },
+                { text: 'Custom' },
+                { text: 'software' },
+                { text: 'development' },
+                { text: 'that', className: 'text-gray-600' },
+                { text: 'drives', className: 'text-gray-600' },
+                { text: 'growth', className: 'text-gray-600' },
+                { text: 'and', className: 'text-gray-600' },
+                { text: 'innovation', className: 'text-gray-600' },
               ]}
               className="justify-center"
               cursorClassName="bg-gray-900"
@@ -62,7 +62,7 @@ export function HeroSection({ onQuoteFormClick }: HeroSectionProps) {
             data-aos-duration="800"
             data-aos-delay="400"
           >
-            Custom software development with{" "}
+            Custom software development with{' '}
             <Highlight>AI-powered project planning</Highlight>, transparent
             pricing, and guaranteed delivery timelines. Expert Ruby on Rails and
             React development.

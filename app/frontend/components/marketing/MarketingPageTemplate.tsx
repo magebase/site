@@ -1,13 +1,13 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { ArrowRight, CheckCircle } from "lucide-react";
+} from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { ArrowRight, CheckCircle } from 'lucide-react';
 
 interface MarketingPageTemplateProps {
   title: string;
@@ -68,7 +68,7 @@ function MarketingPageTemplate({
               Key Features
             </h2>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Everything you need to build a successful {title.toLowerCase()}{" "}
+              Everything you need to build a successful {title.toLowerCase()}{' '}
               solution
             </p>
           </div>
