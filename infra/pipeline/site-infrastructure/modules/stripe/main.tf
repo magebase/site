@@ -1289,7 +1289,6 @@ resource "stripe_product" "gambling_igaming" {
 resource "stripe_price" "gambling_free" {
   currency       = "usd"
   product        = stripe_product.gambling_igaming.id
-  unit_amount    = 0 # Free tier - self-managed
   active         = true
   billing_scheme = "tiered"
 
@@ -1368,7 +1367,6 @@ resource "stripe_price" "gambling_premium" {
 resource "stripe_price" "gambling_custom" {
   currency       = "usd"
   product        = stripe_product.gambling_igaming.id
-  unit_amount    = 0 # Custom pricing
   active         = true
   billing_scheme = "tiered"
 
@@ -1403,7 +1401,6 @@ resource "stripe_product" "real_time_features" {
 resource "stripe_price" "real_time_free" {
   currency       = "usd"
   product        = stripe_product.real_time_features.id
-  unit_amount    = 0 # Free tier - self-managed
   active         = true
   billing_scheme = "tiered"
 
@@ -1482,7 +1479,6 @@ resource "stripe_price" "real_time_premium" {
 resource "stripe_price" "real_time_custom" {
   currency       = "usd"
   product        = stripe_product.real_time_features.id
-  unit_amount    = 0 # Custom pricing
   active         = true
   billing_scheme = "tiered"
 
@@ -1517,7 +1513,6 @@ resource "stripe_product" "automated_digital_marketing" {
 resource "stripe_price" "marketing_free" {
   currency       = "usd"
   product        = stripe_product.automated_digital_marketing.id
-  unit_amount    = 0 # Free tier - self-managed
   active         = true
   billing_scheme = "tiered"
 
@@ -1596,7 +1591,6 @@ resource "stripe_price" "marketing_premium" {
 resource "stripe_price" "marketing_custom" {
   currency       = "usd"
   product        = stripe_product.automated_digital_marketing.id
-  unit_amount    = 0 # Custom pricing
   active         = true
   billing_scheme = "tiered"
 
@@ -1631,7 +1625,6 @@ resource "stripe_product" "autoblogger" {
 resource "stripe_price" "autoblogger_free" {
   currency       = "usd"
   product        = stripe_product.autoblogger.id
-  unit_amount    = 0 # Free tier - self-managed
   active         = true
   billing_scheme = "tiered"
 
@@ -1710,7 +1703,6 @@ resource "stripe_price" "autoblogger_premium" {
 resource "stripe_price" "autoblogger_custom" {
   currency       = "usd"
   product        = stripe_product.autoblogger.id
-  unit_amount    = 0 # Custom pricing
   active         = true
   billing_scheme = "tiered"
 
@@ -1745,7 +1737,6 @@ resource "stripe_product" "publisher" {
 resource "stripe_price" "publisher_free" {
   currency       = "usd"
   product        = stripe_product.publisher.id
-  unit_amount    = 0 # Free tier - self-managed
   active         = true
   billing_scheme = "tiered"
 
@@ -1827,7 +1818,6 @@ resource "stripe_price" "publisher_premium" {
 resource "stripe_price" "publisher_custom" {
   currency       = "usd"
   product        = stripe_product.publisher.id
-  unit_amount    = 0 # Custom pricing
   active         = true
   billing_scheme = "tiered"
 
@@ -1862,7 +1852,6 @@ resource "stripe_product" "customer_support_chatbot" {
 resource "stripe_price" "support_chatbot_free" {
   currency       = "usd"
   product        = stripe_product.customer_support_chatbot.id
-  unit_amount    = 0 # Free tier - self-managed
   active         = true
   billing_scheme = "tiered"
 
@@ -1941,7 +1930,6 @@ resource "stripe_price" "support_chatbot_premium" {
 resource "stripe_price" "support_chatbot_custom" {
   currency       = "usd"
   product        = stripe_product.customer_support_chatbot.id
-  unit_amount    = 0 # Custom pricing
   active         = true
   billing_scheme = "tiered"
 
@@ -1976,7 +1964,6 @@ resource "stripe_product" "sales_chatbot" {
 resource "stripe_price" "sales_chatbot_free" {
   currency       = "usd"
   product        = stripe_product.sales_chatbot.id
-  unit_amount    = 0 # Free tier - self-managed
   active         = true
   billing_scheme = "tiered"
 
@@ -2055,7 +2042,6 @@ resource "stripe_price" "sales_chatbot_premium" {
 resource "stripe_price" "sales_chatbot_custom" {
   currency       = "usd"
   product        = stripe_product.sales_chatbot.id
-  unit_amount    = 0 # Custom pricing
   active         = true
   billing_scheme = "tiered"
 
@@ -2090,7 +2076,6 @@ resource "stripe_product" "crm_system" {
 resource "stripe_price" "crm_free" {
   currency       = "usd"
   product        = stripe_product.crm_system.id
-  unit_amount    = 0 # Free tier - self-managed
   active         = true
   billing_scheme = "tiered"
 
@@ -2169,7 +2154,6 @@ resource "stripe_price" "crm_premium" {
 resource "stripe_price" "crm_custom" {
   currency       = "usd"
   product        = stripe_product.crm_system.id
-  unit_amount    = 0 # Custom pricing
   active         = true
   billing_scheme = "tiered"
 
@@ -2209,7 +2193,6 @@ resource "stripe_product" "general_maintenance_retainer" {
 resource "stripe_price" "maintenance_retainer_free" {
   currency       = "usd"
   product        = stripe_product.general_maintenance_retainer.id
-  unit_amount    = 0 # Free tier - self-managed
   active         = true
   billing_scheme = "tiered"
 
@@ -2312,7 +2295,6 @@ resource "stripe_price" "maintenance_retainer_premium" {
 resource "stripe_price" "maintenance_retainer_custom" {
   currency       = "usd"
   product        = stripe_product.general_maintenance_retainer.id
-  unit_amount    = 0 # Custom pricing
   active         = true
   billing_scheme = "tiered"
 
@@ -2356,7 +2338,6 @@ resource "stripe_product" "api_development" {
 resource "stripe_price" "api_free" {
   currency       = "usd"
   product        = stripe_product.api_development.id
-  unit_amount    = 0 # Free tier - self-managed
   active         = true
   billing_scheme = "tiered"
 
@@ -2435,7 +2416,6 @@ resource "stripe_price" "api_premium" {
 resource "stripe_price" "api_custom" {
   currency       = "usd"
   product        = stripe_product.api_development.id
-  unit_amount    = 0 # Custom pricing
   active         = true
   billing_scheme = "tiered"
 
@@ -2470,7 +2450,6 @@ resource "stripe_product" "app_store_management" {
 resource "stripe_price" "app_store_free" {
   currency       = "usd"
   product        = stripe_product.app_store_management.id
-  unit_amount    = 0 # Free tier - self-managed
   active         = true
   billing_scheme = "tiered"
 
@@ -2549,7 +2528,6 @@ resource "stripe_price" "app_store_premium" {
 resource "stripe_price" "app_store_custom" {
   currency       = "usd"
   product        = stripe_product.app_store_management.id
-  unit_amount    = 0 # Custom pricing
   active         = true
   billing_scheme = "tiered"
 
@@ -2584,7 +2562,6 @@ resource "stripe_product" "blog_cms" {
 resource "stripe_price" "blog_cms_free" {
   currency       = "usd"
   product        = stripe_product.blog_cms.id
-  unit_amount    = 0 # Free tier - self-managed
   active         = true
   billing_scheme = "tiered"
 
@@ -2663,7 +2640,6 @@ resource "stripe_price" "blog_cms_premium" {
 resource "stripe_price" "blog_cms_custom" {
   currency       = "usd"
   product        = stripe_product.blog_cms.id
-  unit_amount    = 0 # Custom pricing
   active         = true
   billing_scheme = "tiered"
 
@@ -2698,7 +2674,6 @@ resource "stripe_product" "internationalization" {
 resource "stripe_price" "i18n_free" {
   currency       = "usd"
   product        = stripe_product.internationalization.id
-  unit_amount    = 0 # Free tier - self-managed
   active         = true
   billing_scheme = "tiered"
 
@@ -2777,7 +2752,6 @@ resource "stripe_price" "i18n_premium" {
 resource "stripe_price" "i18n_custom" {
   currency       = "usd"
   product        = stripe_product.internationalization.id
-  unit_amount    = 0 # Custom pricing
   active         = true
   billing_scheme = "tiered"
 
@@ -2812,7 +2786,6 @@ resource "stripe_product" "sso_social_login" {
 resource "stripe_price" "sso_free" {
   currency       = "usd"
   product        = stripe_product.sso_social_login.id
-  unit_amount    = 0 # Free tier - self-managed
   active         = true
   billing_scheme = "tiered"
 
@@ -2891,7 +2864,6 @@ resource "stripe_price" "sso_premium" {
 resource "stripe_price" "sso_custom" {
   currency       = "usd"
   product        = stripe_product.sso_social_login.id
-  unit_amount    = 0 # Custom pricing
   active         = true
   billing_scheme = "tiered"
 
