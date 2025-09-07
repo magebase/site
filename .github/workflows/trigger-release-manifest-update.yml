@@ -1,4 +1,4 @@
-name: Trigger Realease Manifest Update
+name: Trigger Release Manifest Update
 on:
   release:
     types: [published]
