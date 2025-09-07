@@ -8,9 +8,24 @@ output "digital_marketing_product_id" {
   value       = stripe_product.digital_marketing_package.id
 }
 
-output "managed_devops_product_id" {
-  description = "Managed DevOps Product ID"
-  value       = stripe_product.managed_devops.id
+output "managed_devops_starter_product_id" {
+  description = "Managed DevOps Starter Product ID"
+  value       = stripe_product.managed_devops_starter.id
+}
+
+output "managed_devops_basic_product_id" {
+  description = "Managed DevOps Basic Product ID"
+  value       = stripe_product.managed_devops_basic.id
+}
+
+output "managed_devops_standard_product_id" {
+  description = "Managed DevOps Standard Product ID"
+  value       = stripe_product.managed_devops_standard.id
+}
+
+output "managed_devops_enterprise_product_id" {
+  description = "Managed DevOps Enterprise Product ID"
+  value       = stripe_product.managed_devops_enterprise.id
 }
 
 output "digital_marketing_basic_price_id" {
@@ -48,14 +63,34 @@ output "devops_enterprise_price_id" {
   value       = stripe_price.devops_enterprise.id
 }
 
-output "analytics_tracking_product_id" {
-  description = "Analytics Tracking Product ID"
-  value       = stripe_product.analytics_tracking.id
+output "analytics_tracking_basic_product_id" {
+  description = "Analytics Tracking Basic Product ID"
+  value       = stripe_product.analytics_tracking_basic.id
 }
 
-output "ai_ml_features_product_id" {
-  description = "AI/ML Features Product ID"
-  value       = stripe_product.ai_ml_features.id
+output "analytics_tracking_standard_product_id" {
+  description = "Analytics Tracking Standard Product ID"
+  value       = stripe_product.analytics_tracking_standard.id
+}
+
+output "analytics_tracking_premium_product_id" {
+  description = "Analytics Tracking Premium Product ID"
+  value       = stripe_product.analytics_tracking_premium.id
+}
+
+output "ai_ml_features_basic_product_id" {
+  description = "AI/ML Features Basic Product ID"
+  value       = stripe_product.ai_ml_features_basic.id
+}
+
+output "ai_ml_features_standard_product_id" {
+  description = "AI/ML Features Standard Product ID"
+  value       = stripe_product.ai_ml_features_standard.id
+}
+
+output "ai_ml_features_premium_product_id" {
+  description = "AI/ML Features Premium Product ID"
+  value       = stripe_product.ai_ml_features_premium.id
 }
 
 output "blockchain_integration_product_id" {

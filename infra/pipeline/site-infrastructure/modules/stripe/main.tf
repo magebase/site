@@ -19,198 +19,226 @@ provider "stripe" {
 locals {
   portal_products = {
     digital_marketing = {
-      product_id = stripe_product.digital_marketing_package.id
-      prices = [
-        stripe_price.digital_marketing_basic.id,
-        stripe_price.digital_marketing_standard.id,
-        stripe_price.digital_marketing_premium.id,
-        stripe_price.digital_marketing_basic_yearly.id,
-        stripe_price.digital_marketing_standard_yearly.id,
-        stripe_price.digital_marketing_premium_yearly.id
+      product_configs = [
+        {
+          product = stripe_product.digital_marketing_basic.id
+          prices  = [stripe_price.digital_marketing_basic.id, stripe_price.digital_marketing_basic_yearly.id]
+        },
+        {
+          product = stripe_product.digital_marketing_standard.id
+          prices  = [stripe_price.digital_marketing_standard.id, stripe_price.digital_marketing_standard_yearly.id]
+        },
+        {
+          product = stripe_product.digital_marketing_premium.id
+          prices  = [stripe_price.digital_marketing_premium.id, stripe_price.digital_marketing_premium_yearly.id]
+        }
       ]
       name = "Digital Marketing Package"
     }
     managed_devops = {
-      product_id = stripe_product.managed_devops.id
-      prices = [
-        stripe_price.devops_starter.id,
-        stripe_price.devops_basic.id,
-        stripe_price.devops_standard.id,
-        stripe_price.devops_enterprise.id,
-        stripe_price.devops_basic_yearly.id,
-        stripe_price.devops_standard_yearly.id,
-        stripe_price.devops_enterprise_yearly.id
+      product_configs = [
+        {
+          product = stripe_product.managed_devops_starter.id
+          prices  = [stripe_price.devops_starter.id]
+        },
+        {
+          product = stripe_product.managed_devops_basic.id
+          prices  = [stripe_price.devops_basic.id, stripe_price.devops_basic_yearly.id]
+        },
+        {
+          product = stripe_product.managed_devops_standard.id
+          prices  = [stripe_price.devops_standard.id, stripe_price.devops_standard_yearly.id]
+        },
+        {
+          product = stripe_product.managed_devops_enterprise.id
+          prices  = [stripe_price.devops_enterprise.id, stripe_price.devops_enterprise_yearly.id]
+        }
       ]
       name = "Managed DevOps"
     }
     payment_processing = {
-      product_id = stripe_product.payment_processing.id
-      prices = [
-        stripe_price.payment_processing_basic.id,
-        stripe_price.payment_processing_standard.id,
-        stripe_price.payment_processing_premium.id,
-        stripe_price.payment_processing_basic_yearly.id,
-        stripe_price.payment_processing_standard_yearly.id,
-        stripe_price.payment_processing_premium_yearly.id
+      product_configs = [
+        {
+          product = stripe_product.payment_processing_basic.id
+          prices  = [stripe_price.payment_processing_basic.id, stripe_price.payment_processing_basic_yearly.id]
+        },
+        {
+          product = stripe_product.payment_processing_standard.id
+          prices  = [stripe_price.payment_processing_standard.id, stripe_price.payment_processing_standard_yearly.id]
+        },
+        {
+          product = stripe_product.payment_processing_premium.id
+          prices  = [stripe_price.payment_processing_premium.id, stripe_price.payment_processing_premium_yearly.id]
+        }
       ]
       name = "Payment Processing"
     }
     analytics_tracking = {
-      product_id = stripe_product.analytics_tracking.id
-      prices = [
-        stripe_price.analytics_basic.id,
-        stripe_price.analytics_standard.id,
-        stripe_price.analytics_premium.id,
-        stripe_price.analytics_basic_yearly.id,
-        stripe_price.analytics_standard_yearly.id,
-        stripe_price.analytics_premium_yearly.id
+      product_configs = [
+        {
+          product = stripe_product.analytics_tracking_basic.id
+          prices  = [stripe_price.analytics_basic.id, stripe_price.analytics_basic_yearly.id]
+        },
+        {
+          product = stripe_product.analytics_tracking_standard.id
+          prices  = [stripe_price.analytics_standard.id, stripe_price.analytics_standard_yearly.id]
+        },
+        {
+          product = stripe_product.analytics_tracking_premium.id
+          prices  = [stripe_price.analytics_premium.id, stripe_price.analytics_premium_yearly.id]
+        }
       ]
       name = "Analytics Tracking"
     }
     ai_ml_features = {
-      product_id = stripe_product.ai_ml_features.id
-      prices = [
-        stripe_price.ai_ml_basic.id,
-        stripe_price.ai_ml_standard.id,
-        stripe_price.ai_ml_premium.id,
-        stripe_price.ai_ml_basic_yearly.id,
-        stripe_price.ai_ml_standard_yearly.id,
-        stripe_price.ai_ml_premium_yearly.id
+      product_configs = [
+        {
+          product = stripe_product.ai_ml_features_basic.id
+          prices  = [stripe_price.ai_ml_basic.id, stripe_price.ai_ml_basic_yearly.id]
+        },
+        {
+          product = stripe_product.ai_ml_features_standard.id
+          prices  = [stripe_price.ai_ml_standard.id, stripe_price.ai_ml_standard_yearly.id]
+        },
+        {
+          product = stripe_product.ai_ml_features_premium.id
+          prices  = [stripe_price.ai_ml_premium.id, stripe_price.ai_ml_premium_yearly.id]
+        }
       ]
       name = "AI/ML Features"
     }
     blockchain_integration = {
-      product_id = stripe_product.blockchain_integration.id
-      prices = [
-        stripe_price.blockchain_basic.id,
-        stripe_price.blockchain_standard.id,
-        stripe_price.blockchain_premium.id
+      product_configs = [
+        {
+          product = stripe_product.blockchain_integration.id
+          prices  = [stripe_price.blockchain_basic.id]
+        }
       ]
       name = "Blockchain Integration"
     }
     gambling_igaming = {
-      product_id = stripe_product.gambling_igaming.id
-      prices = [
-        stripe_price.gambling_basic.id,
-        stripe_price.gambling_standard.id,
-        stripe_price.gambling_premium.id
+      product_configs = [
+        {
+          product = stripe_product.gambling_igaming.id
+          prices  = [stripe_price.gambling_basic.id]
+        }
       ]
       name = "Gambling/iGaming"
     }
     real_time_features = {
-      product_id = stripe_product.real_time_features.id
-      prices = [
-        stripe_price.real_time_basic.id,
-        stripe_price.real_time_standard.id,
-        stripe_price.real_time_premium.id
+      product_configs = [
+        {
+          product = stripe_product.real_time_features.id
+          prices  = [stripe_price.real_time_basic.id]
+        }
       ]
       name = "Real-time Features"
     }
     automated_digital_marketing = {
-      product_id = stripe_product.automated_digital_marketing.id
-      prices = [
-        stripe_price.marketing_basic.id,
-        stripe_price.marketing_standard.id,
-        stripe_price.marketing_premium.id
+      product_configs = [
+        {
+          product = stripe_product.automated_digital_marketing.id
+          prices  = [stripe_price.marketing_basic.id]
+        }
       ]
       name = "Automated Digital Marketing"
     }
     autoblogger = {
-      product_id = stripe_product.autoblogger.id
-      prices = [
-        stripe_price.autoblogger_basic.id,
-        stripe_price.autoblogger_standard.id,
-        stripe_price.autoblogger_premium.id
+      product_configs = [
+        {
+          product = stripe_product.autoblogger.id
+          prices  = [stripe_price.autoblogger_basic.id]
+        }
       ]
       name = "Autoblogger"
     }
     publisher = {
-      product_id = stripe_product.publisher.id
-      prices = [
-        stripe_price.publisher_basic.id,
-        stripe_price.publisher_standard.id,
-        stripe_price.publisher_premium.id
+      product_configs = [
+        {
+          product = stripe_product.publisher.id
+          prices  = [stripe_price.publisher_basic.id]
+        }
       ]
       name = "Publisher"
     }
     customer_support_chatbot = {
-      product_id = stripe_product.customer_support_chatbot.id
-      prices = [
-        stripe_price.support_chatbot_basic.id,
-        stripe_price.support_chatbot_standard.id,
-        stripe_price.support_chatbot_premium.id
+      product_configs = [
+        {
+          product = stripe_product.customer_support_chatbot.id
+          prices  = [stripe_price.support_chatbot_basic.id]
+        }
       ]
       name = "Customer Support Chatbot"
     }
     sales_chatbot = {
-      product_id = stripe_product.sales_chatbot.id
-      prices = [
-        stripe_price.sales_chatbot_basic.id,
-        stripe_price.sales_chatbot_standard.id,
-        stripe_price.sales_chatbot_premium.id
+      product_configs = [
+        {
+          product = stripe_product.sales_chatbot.id
+          prices  = [stripe_price.sales_chatbot_basic.id]
+        }
       ]
       name = "Sales Chatbot"
     }
     crm_system = {
-      product_id = stripe_product.crm_system.id
-      prices = [
-        stripe_price.crm_basic.id,
-        stripe_price.crm_standard.id,
-        stripe_price.crm_premium.id
+      product_configs = [
+        {
+          product = stripe_product.crm_system.id
+          prices  = [stripe_price.crm_basic.id]
+        }
       ]
       name = "CRM System"
     }
     general_maintenance_retainer = {
-      product_id = stripe_product.general_maintenance_retainer.id
-      prices = [
-        stripe_price.maintenance_retainer_basic.id,
-        stripe_price.maintenance_retainer_standard.id,
-        stripe_price.maintenance_retainer_premium.id
+      product_configs = [
+        {
+          product = stripe_product.general_maintenance_retainer.id
+          prices  = [stripe_price.maintenance_retainer_basic.id]
+        }
       ]
       name = "General Maintenance Retainer"
     }
     api_development = {
-      product_id = stripe_product.api_development.id
-      prices = [
-        stripe_price.api_basic.id,
-        stripe_price.api_standard.id,
-        stripe_price.api_premium.id
+      product_configs = [
+        {
+          product = stripe_product.api_development.id
+          prices  = [stripe_price.api_basic.id]
+        }
       ]
       name = "API Development"
     }
     app_store_management = {
-      product_id = stripe_product.app_store_management.id
-      prices = [
-        stripe_price.app_store_basic.id,
-        stripe_price.app_store_standard.id,
-        stripe_price.app_store_premium.id
+      product_configs = [
+        {
+          product = stripe_product.app_store_management.id
+          prices  = [stripe_price.app_store_basic.id]
+        }
       ]
       name = "App Store Management"
     }
     blog_cms = {
-      product_id = stripe_product.blog_cms.id
-      prices = [
-        stripe_price.blog_cms_basic.id,
-        stripe_price.blog_cms_standard.id,
-        stripe_price.blog_cms_premium.id
+      product_configs = [
+        {
+          product = stripe_product.blog_cms.id
+          prices  = [stripe_price.blog_cms_basic.id]
+        }
       ]
       name = "Blog/CMS"
     }
     internationalization = {
-      product_id = stripe_product.internationalization.id
-      prices = [
-        stripe_price.i18n_basic.id,
-        stripe_price.i18n_standard.id,
-        stripe_price.i18n_premium.id
+      product_configs = [
+        {
+          product = stripe_product.internationalization.id
+          prices  = [stripe_price.i18n_basic.id]
+        }
       ]
       name = "Internationalization"
     }
     sso_social_login = {
-      product_id = stripe_product.sso_social_login.id
-      prices = [
-        stripe_price.sso_basic.id,
-        stripe_price.sso_standard.id,
-        stripe_price.sso_premium.id
+      product_configs = [
+        {
+          product = stripe_product.sso_social_login.id
+          prices  = [stripe_price.sso_basic.id]
+        }
       ]
       name = "SSO/Social Login"
     }
@@ -252,9 +280,12 @@ resource "stripe_portal_configuration" "product_portals" {
       enabled                 = true
       default_allowed_updates = ["price", "quantity", "promotion_code"]
       proration_behavior      = "always_invoice"
-      products {
-        product = each.value.product_id
-        prices  = each.value.prices
+      dynamic "products" {
+        for_each = each.value.product_configs
+        content {
+          product = products.value.product
+          prices  = products.value.prices
+        }
       }
     }
   }
@@ -290,36 +321,121 @@ resource "stripe_product" "digital_marketing_package" {
   }
 }
 
+# Digital Marketing Tier Products
+resource "stripe_product" "digital_marketing_basic" {
+  name        = "Digital Marketing Basic"
+  description = "Essential digital marketing services for growing businesses. Includes SEO optimization, social media management, and basic analytics reporting."
+  active      = true
+
+  metadata = {
+    category        = "marketing"
+    tier            = "basic"
+    type            = "tier_product"
+    phase           = "productization"
+    target_audience = "Small businesses,Startups"
+    features        = "SEO optimization,Social media management,Basic analytics,Monthly reporting"
+  }
+}
+
+resource "stripe_product" "digital_marketing_standard" {
+  name        = "Digital Marketing Standard"
+  description = "Comprehensive digital marketing package with advanced analytics, content marketing, and paid advertising management."
+  active      = true
+
+  metadata = {
+    category        = "marketing"
+    tier            = "standard"
+    type            = "tier_product"
+    phase           = "productization"
+    target_audience = "Growing businesses,SMEs"
+    features        = "Everything in Basic,Content marketing,Paid advertising,PPC campaigns,Advanced analytics"
+  }
+}
+
+resource "stripe_product" "digital_marketing_premium" {
+  name        = "Digital Marketing Premium"
+  description = "Enterprise-grade digital marketing with custom strategies, multi-channel campaigns, and dedicated account management."
+  active      = true
+
+  metadata = {
+    category        = "marketing"
+    tier            = "premium"
+    type            = "tier_product"
+    phase           = "productization"
+    target_audience = "Large businesses,Enterprise"
+    features        = "Everything in Standard,Dedicated account manager,Custom strategies,Multi-channel campaigns,Competitor analysis"
+  }
+}
+
 # =============================================================================
 # PHASE 2: PRODUCTIZATION - MRR AND TIERS
 # =============================================================================
 
-# Productized Services with Tiers
-resource "stripe_product" "managed_devops" {
-  name        = "Managed DevOps Services"
-  description = "Accelerate your development velocity and ensure rock-solid reliability with our enterprise-grade DevOps solutions. From CI/CD pipeline optimization and infrastructure automation to 24/7 monitoring and incident response, we handle the complexity so you can focus on building great products. Our DevOps engineers bring years of experience managing high-traffic applications and implementing best practices that scale."
+# DevOps Tier Products
+resource "stripe_product" "managed_devops_starter" {
+  name        = "Managed DevOps Starter"
+  description = "Basic DevOps services for small applications and prototypes. Includes 24/7 uptime monitoring, automatic restarts, and basic error alerts."
   active      = true
 
   metadata = {
     category          = "devops"
-    type              = "productized"
+    tier              = "starter"
+    type              = "tier_product"
     phase             = "productization"
-    target_businesses = "SaaS companies,E-commerce platforms,FinTech apps,High-growth startups"
-    technologies      = "Docker,Kubernetes,AWS,Hetzner"
-    monitoring_tools  = "Prometheus,Grafana,OpenTelemetry,ArgoCD"
-    security_features = "Vulnerability scanning,Compliance monitoring,Access control,Security audits"
-    uptime_sla        = "99.9% guaranteed"
-    response_time     = "< 15 minutes for critical alerts"
-    support_channels  = "24/7 phone,Email,Discord,Dedicated dashboard"
-    business_value    = "Reduce deployment time by 80%,Improve uptime reliability,Automate infrastructure costs,Enable rapid scaling"
-    typical_clients   = "Series A+ startups,Growing SaaS companies,Enterprise IT teams"
+    target_businesses = "PaaS clients,Small applications,Prototypes,MVPs,Personal projects"
+    features          = "24/7 uptime monitoring,Automatic restarts,Basic error alerts,Email support only,Basic security patches"
+  }
+}
+
+resource "stripe_product" "managed_devops_basic" {
+  name        = "Managed DevOps Basic"
+  description = "Essential DevOps services for early-stage startups and small SaaS companies. Includes CI/CD pipeline, monitoring, and basic support."
+  active      = true
+
+  metadata = {
+    category          = "devops"
+    tier              = "basic"
+    type              = "tier_product"
+    phase             = "productization"
+    target_businesses = "Early-stage startups,Small SaaS companies,Landing page businesses"
+    features          = "Basic CI/CD pipeline,GitHub Actions setup,Basic monitoring,20 hours support/month,Security updates,Daily backups"
+  }
+}
+
+resource "stripe_product" "managed_devops_standard" {
+  name        = "Managed DevOps Standard"
+  description = "Comprehensive DevOps services for growing SaaS companies. Includes advanced CI/CD, comprehensive monitoring, and dedicated support."
+  active      = true
+
+  metadata = {
+    category          = "devops"
+    tier              = "standard"
+    type              = "tier_product"
+    phase             = "productization"
+    target_businesses = "Growing SaaS companies,E-commerce platforms,Series A startups"
+    features          = "Advanced CI/CD with automated testing,Comprehensive monitoring,40 hours support/month,Automated security scanning,Load balancing"
+  }
+}
+
+resource "stripe_product" "managed_devops_enterprise" {
+  name        = "Managed DevOps Enterprise"
+  description = "Enterprise-grade DevOps services for mission-critical systems. Includes 24/7 monitoring, unlimited support, and advanced security features."
+  active      = true
+
+  metadata = {
+    category          = "devops"
+    tier              = "enterprise"
+    type              = "tier_product"
+    phase             = "productization"
+    target_businesses = "Enterprise companies,High-traffic platforms,Financial institutions,Mission-critical systems"
+    features          = "Enterprise CI/CD with advanced testing,24/7 monitoring & alerting,Unlimited support hours,Advanced security,Multi-region deployment"
   }
 }
 
 # Tiered Pricing for Digital Marketing
 resource "stripe_price" "digital_marketing_basic" {
   currency       = "usd"
-  product        = stripe_product.digital_marketing_package.id
+  product        = stripe_product.digital_marketing_basic.id
   unit_amount    = 250000 # $2,500.00 per month
   active         = true
   billing_scheme = "per_unit"
@@ -342,7 +458,7 @@ resource "stripe_price" "digital_marketing_basic" {
 
 resource "stripe_price" "digital_marketing_standard" {
   currency       = "usd"
-  product        = stripe_product.digital_marketing_package.id
+  product        = stripe_product.digital_marketing_standard.id
   unit_amount    = 500000 # $5,000.00 per month
   active         = true
   billing_scheme = "per_unit"
@@ -365,7 +481,7 @@ resource "stripe_price" "digital_marketing_standard" {
 
 resource "stripe_price" "digital_marketing_premium" {
   currency       = "usd"
-  product        = stripe_product.digital_marketing_package.id
+  product        = stripe_product.digital_marketing_premium.id
   unit_amount    = 1000000 # $10,000.00 per month
   active         = true
   billing_scheme = "per_unit"
@@ -389,7 +505,7 @@ resource "stripe_price" "digital_marketing_premium" {
 # Annual Pricing for Digital Marketing (20% discount)
 resource "stripe_price" "digital_marketing_basic_yearly" {
   currency       = "usd"
-  product        = stripe_product.digital_marketing_package.id
+  product        = stripe_product.digital_marketing_basic.id
   unit_amount    = 2400000 # $24,000.00 per year ($2,000/month equivalent)
   active         = true
   billing_scheme = "per_unit"
@@ -416,7 +532,7 @@ resource "stripe_price" "digital_marketing_basic_yearly" {
 
 resource "stripe_price" "digital_marketing_standard_yearly" {
   currency       = "usd"
-  product        = stripe_product.digital_marketing_package.id
+  product        = stripe_product.digital_marketing_standard.id
   unit_amount    = 4800000 # $48,000.00 per year ($4,000/month equivalent)
   active         = true
   billing_scheme = "per_unit"
@@ -443,7 +559,7 @@ resource "stripe_price" "digital_marketing_standard_yearly" {
 
 resource "stripe_price" "digital_marketing_premium_yearly" {
   currency       = "usd"
-  product        = stripe_product.digital_marketing_package.id
+  product        = stripe_product.digital_marketing_premium.id
   unit_amount    = 9600000 # $96,000.00 per year ($8,000/month equivalent)
   active         = true
   billing_scheme = "per_unit"
@@ -472,7 +588,7 @@ resource "stripe_price" "digital_marketing_premium_yearly" {
 
 resource "stripe_price" "devops_starter" {
   currency       = "usd"
-  product        = stripe_product.managed_devops.id
+  product        = stripe_product.managed_devops_starter.id
   unit_amount    = 7500 # $75.00 per month
   active         = true
   billing_scheme = "per_unit"
@@ -500,7 +616,7 @@ resource "stripe_price" "devops_starter" {
 # Tiered Pricing for DevOps
 resource "stripe_price" "devops_basic" {
   currency       = "usd"
-  product        = stripe_product.managed_devops.id
+  product        = stripe_product.managed_devops_basic.id
   unit_amount    = 100000 # $1,000.00 per month
   active         = true
   billing_scheme = "per_unit"
@@ -526,7 +642,7 @@ resource "stripe_price" "devops_basic" {
 
 resource "stripe_price" "devops_standard" {
   currency       = "usd"
-  product        = stripe_product.managed_devops.id
+  product        = stripe_product.managed_devops_standard.id
   unit_amount    = 600000 # $6,000.00 per month
   active         = true
   billing_scheme = "per_unit"
@@ -552,7 +668,7 @@ resource "stripe_price" "devops_standard" {
 
 resource "stripe_price" "devops_enterprise" {
   currency       = "usd"
-  product        = stripe_product.managed_devops.id
+  product        = stripe_product.managed_devops_enterprise.id
   unit_amount    = 1200000 # $12,000.00 per month
   active         = true
   billing_scheme = "per_unit"
@@ -579,7 +695,7 @@ resource "stripe_price" "devops_enterprise" {
 # Annual Pricing for DevOps (20% discount)
 resource "stripe_price" "devops_basic_yearly" {
   currency       = "usd"
-  product        = stripe_product.managed_devops.id
+  product        = stripe_product.managed_devops_basic.id
   unit_amount    = 960000 # $9,600.00 per year ($800/month equivalent)
   active         = true
   billing_scheme = "per_unit"
@@ -609,7 +725,7 @@ resource "stripe_price" "devops_basic_yearly" {
 
 resource "stripe_price" "devops_standard_yearly" {
   currency       = "usd"
-  product        = stripe_product.managed_devops.id
+  product        = stripe_product.managed_devops_standard.id
   unit_amount    = 5760000 # $57,600.00 per year ($4,800/month equivalent)
   active         = true
   billing_scheme = "per_unit"
@@ -639,7 +755,7 @@ resource "stripe_price" "devops_standard_yearly" {
 
 resource "stripe_price" "devops_enterprise_yearly" {
   currency       = "usd"
-  product        = stripe_product.managed_devops.id
+  product        = stripe_product.managed_devops_enterprise.id
   unit_amount    = 11520000 # $115,200.00 per year ($9,600/month equivalent)
   active         = true
   billing_scheme = "per_unit"
@@ -671,23 +787,60 @@ resource "stripe_price" "devops_enterprise_yearly" {
 # MRR SERVICES - HIGH AND MEDIUM PRIORITY FEATURES
 # =============================================================================
 
-# 1. Payment Processing
-resource "stripe_product" "payment_processing" {
-  name        = "Payment Processing Management"
-  description = "Enterprise-grade payment infrastructure that ensures secure, compliant, and seamless transactions for your business. Our comprehensive payment processing service handles everything from PCI DSS compliance and fraud prevention to multi-gateway integration and real-time transaction monitoring. Never worry about payment security, chargebacks, or regulatory compliance again - we manage it all while you focus on growing your business."
+# Payment Processing Tier Products
+resource "stripe_product" "payment_processing_basic" {
+  name        = "Payment Processing Basic"
+  description = "Essential payment processing services for small to medium businesses. Includes PCI DSS compliance, basic fraud prevention, and standard gateway integration."
   active      = true
 
   metadata = {
     category             = "payment"
-    type                 = "mrr_service"
+    tier                 = "basic"
+    type                 = "tier_product"
     priority             = "high"
-    ongoing_requirements = "PCI DSS compliance monitoring,Security updates,Payment gateway maintenance,Fraud detection,Transaction monitoring,Chargeback management"
-    mrr_justification    = "2-5% of transaction volume or fixed monthly fee ($500-$2,000) for compliance and security monitoring"
-    target_businesses    = "E-commerce,SaaS,Marketplaces,Subscription services"
-    compliance_standards = "PCI DSS Level 1,GDPR,HIPAA,SOC 2"
-    supported_gateways   = "Stripe,PayPal,Braintree,Adyen,Authorize.net"
-    security_features    = "Real-time fraud detection,3D Secure,Tokenization,Encryption"
-    monitoring_included  = "24/7 transaction monitoring,Automated alerts,Monthly compliance reports"
+    target_businesses    = "Small businesses,Startups,E-commerce stores"
+    compliance_standards = "PCI DSS Level 2,Basic fraud detection"
+    supported_gateways   = "Stripe,PayPal"
+    security_features    = "Basic fraud detection,Encryption"
+    monitoring_included  = "Basic transaction monitoring,Monthly reports"
+    phase                = "mrr"
+  }
+}
+
+resource "stripe_product" "payment_processing_standard" {
+  name        = "Payment Processing Standard"
+  description = "Comprehensive payment processing for growing businesses. Includes advanced fraud prevention, multi-gateway support, and dedicated account management."
+  active      = true
+
+  metadata = {
+    category             = "payment"
+    tier                 = "standard"
+    type                 = "tier_product"
+    priority             = "high"
+    target_businesses    = "Growing businesses,SMEs,Subscription services"
+    compliance_standards = "PCI DSS Level 1,Advanced fraud detection"
+    supported_gateways   = "Stripe,PayPal,Braintree,Adyen"
+    security_features    = "Advanced fraud detection,3D Secure,Tokenization"
+    monitoring_included  = "24/7 transaction monitoring,Automated alerts,Weekly reports"
+    phase                = "mrr"
+  }
+}
+
+resource "stripe_product" "payment_processing_premium" {
+  name        = "Payment Processing Premium"
+  description = "Enterprise-grade payment processing for high-volume businesses. Includes custom integrations, dedicated security team, and comprehensive compliance management."
+  active      = true
+
+  metadata = {
+    category             = "payment"
+    tier                 = "premium"
+    type                 = "tier_product"
+    priority             = "high"
+    target_businesses    = "Enterprise,High-volume merchants,Financial institutions"
+    compliance_standards = "PCI DSS Level 1,SOC 2,HIPAA,GDPR"
+    supported_gateways   = "All major gateways,Custom integrations"
+    security_features    = "Enterprise fraud detection,Custom security rules,Dedicated security team"
+    monitoring_included  = "Real-time monitoring,Dedicated dashboard,Custom reporting"
     phase                = "mrr"
   }
 }
@@ -712,7 +865,7 @@ resource "stripe_product" "payment_processing" {
 
 resource "stripe_price" "payment_processing_basic" {
   currency       = "usd"
-  product        = stripe_product.payment_processing.id
+  product        = stripe_product.payment_processing_basic.id
   unit_amount    = 50000 # $500.00 per month
   active         = true
   billing_scheme = "per_unit"
@@ -735,7 +888,7 @@ resource "stripe_price" "payment_processing_basic" {
 
 resource "stripe_price" "payment_processing_standard" {
   currency       = "usd"
-  product        = stripe_product.payment_processing.id
+  product        = stripe_product.payment_processing_standard.id
   unit_amount    = 125000 # $1,250.00 per month
   active         = true
   billing_scheme = "per_unit"
@@ -758,7 +911,7 @@ resource "stripe_price" "payment_processing_standard" {
 
 resource "stripe_price" "payment_processing_premium" {
   currency       = "usd"
-  product        = stripe_product.payment_processing.id
+  product        = stripe_product.payment_processing_premium.id
   unit_amount    = 200000 # $2,000.00 per month
   active         = true
   billing_scheme = "per_unit"
@@ -805,7 +958,7 @@ resource "stripe_price" "payment_processing_premium" {
 # Annual Pricing for Payment Processing (20% discount)
 resource "stripe_price" "payment_processing_basic_yearly" {
   currency       = "usd"
-  product        = stripe_product.payment_processing.id
+  product        = stripe_product.payment_processing_basic.id
   unit_amount    = 480000 # $4,800.00 per year ($400/month equivalent)
   active         = true
   billing_scheme = "per_unit"
@@ -832,7 +985,7 @@ resource "stripe_price" "payment_processing_basic_yearly" {
 
 resource "stripe_price" "payment_processing_standard_yearly" {
   currency       = "usd"
-  product        = stripe_product.payment_processing.id
+  product        = stripe_product.payment_processing_standard.id
   unit_amount    = 3000000 # $30,000.00 per year ($2,500/month equivalent)
   active         = true
   billing_scheme = "per_unit"
@@ -859,7 +1012,7 @@ resource "stripe_price" "payment_processing_standard_yearly" {
 
 resource "stripe_price" "payment_processing_premium_yearly" {
   currency       = "usd"
-  product        = stripe_product.payment_processing.id
+  product        = stripe_product.payment_processing_premium.id
   unit_amount    = 19200000 # $192,000.00 per year ($16,000/month equivalent)
   active         = true
   billing_scheme = "per_unit"
@@ -884,24 +1037,61 @@ resource "stripe_price" "payment_processing_premium_yearly" {
   }
 }
 
-# 2. Analytics Tracking/Dashboard
-resource "stripe_product" "analytics_tracking" {
-  name        = "Analytics Tracking & Dashboard Management"
-  description = "Transform your data into actionable business intelligence with our comprehensive analytics infrastructure. From real-time event tracking and custom dashboard creation to performance monitoring and automated reporting, we ensure your analytics stack delivers accurate, timely insights that drive data-informed decisions. Our experts handle everything from data pipeline optimization and schema updates to visualization enhancements and user behavior analysis."
+# Analytics Tracking Tier Products
+resource "stripe_product" "analytics_tracking_basic" {
+  name        = "Analytics Tracking Basic"
+  description = "Essential analytics tracking and basic dashboard management for small to medium businesses. Includes Google Analytics setup, basic event tracking, and standard reporting."
   active      = true
 
   metadata = {
-    category             = "analytics"
-    type                 = "mrr_service"
-    priority             = "high"
-    ongoing_requirements = "Data pipeline monitoring,Dashboard updates,Performance optimization,Data integrity checks,Custom reporting,Schema evolution,API maintenance"
-    mrr_justification    = "Fixed monthly fee ($300-$1,000) for data monitoring and dashboard maintenance"
-    target_businesses    = "SaaS companies,E-commerce,Content platforms,Subscription services"
-    analytics_tools      = "Google Analytics,Amplitude,Mixpanel,Segment,Custom dashboards"
-    data_sources         = "Web analytics,User behavior,Conversion funnels,Revenue tracking"
-    reporting_frequency  = "Real-time dashboards,Daily alerts,Weekly reports,Monthly insights"
-    data_retention       = "Customizable retention policies,Data archiving,Compliance management"
-    phase                = "mrr"
+    category            = "analytics"
+    tier                = "basic"
+    type                = "tier_product"
+    priority            = "high"
+    target_businesses   = "Small SaaS,E-commerce stores,Content sites"
+    monthly_pageviews   = "Up to 500k"
+    analytics_tools     = "Google Analytics,Basic dashboards"
+    data_sources        = "Web analytics,Basic user behavior"
+    reporting_frequency = "Monthly reports,Basic dashboards"
+    phase               = "mrr"
+  }
+}
+
+resource "stripe_product" "analytics_tracking_standard" {
+  name        = "Analytics Tracking Standard"
+  description = "Comprehensive analytics tracking with advanced dashboards and custom reporting for growing businesses. Includes multi-tool integration and automated insights."
+  active      = true
+
+  metadata = {
+    category            = "analytics"
+    tier                = "standard"
+    type                = "tier_product"
+    priority            = "high"
+    target_businesses   = "Growing SaaS,Mid-market companies"
+    monthly_pageviews   = "500k - 5M"
+    analytics_tools     = "Google Analytics,Amplitude,Mixpanel,Custom dashboards"
+    data_sources        = "Web analytics,User behavior,Conversion tracking"
+    reporting_frequency = "Weekly reports,Real-time dashboards,Automated alerts"
+    phase               = "mrr"
+  }
+}
+
+resource "stripe_product" "analytics_tracking_premium" {
+  name        = "Analytics Tracking Premium"
+  description = "Enterprise-grade analytics infrastructure with advanced data pipelines, custom visualizations, and predictive analytics for large-scale businesses."
+  active      = true
+
+  metadata = {
+    category            = "analytics"
+    tier                = "premium"
+    type                = "tier_product"
+    priority            = "high"
+    target_businesses   = "Enterprise,High-traffic platforms"
+    monthly_pageviews   = "5M+"
+    analytics_tools     = "All major tools,Custom data pipelines,Predictive analytics"
+    data_sources        = "Multi-channel data,Advanced user behavior,Revenue analytics"
+    reporting_frequency = "Real-time dashboards,Daily insights,Executive reporting"
+    phase               = "mrr"
   }
 }
 
@@ -926,7 +1116,7 @@ resource "stripe_product" "analytics_tracking" {
 
 resource "stripe_price" "analytics_basic" {
   currency       = "usd"
-  product        = stripe_product.analytics_tracking.id
+  product        = stripe_product.analytics_tracking_basic.id
   unit_amount    = 30000 # $300.00 per month
   active         = true
   billing_scheme = "per_unit"
@@ -949,7 +1139,7 @@ resource "stripe_price" "analytics_basic" {
 
 resource "stripe_price" "analytics_standard" {
   currency       = "usd"
-  product        = stripe_product.analytics_tracking.id
+  product        = stripe_product.analytics_tracking_standard.id
   unit_amount    = 65000 # $650.00 per month
   active         = true
   billing_scheme = "per_unit"
@@ -974,7 +1164,7 @@ resource "stripe_price" "analytics_standard" {
 
 resource "stripe_price" "analytics_premium" {
   currency       = "usd"
-  product        = stripe_product.analytics_tracking.id
+  product        = stripe_product.analytics_tracking_premium.id
   unit_amount    = 100000 # $1,000.00 per month
   active         = true
   billing_scheme = "per_unit"
@@ -1019,7 +1209,7 @@ resource "stripe_price" "analytics_premium" {
 # Annual Pricing for Analytics (20% discount)
 resource "stripe_price" "analytics_basic_yearly" {
   currency       = "usd"
-  product        = stripe_product.analytics_tracking.id
+  product        = stripe_product.analytics_tracking_basic.id
   unit_amount    = 360000 # $3,600.00 per year ($300/month equivalent)
   active         = true
   billing_scheme = "per_unit"
@@ -1046,7 +1236,7 @@ resource "stripe_price" "analytics_basic_yearly" {
 
 resource "stripe_price" "analytics_standard_yearly" {
   currency       = "usd"
-  product        = stripe_product.analytics_tracking.id
+  product        = stripe_product.analytics_tracking_standard.id
   unit_amount    = 780000 # $7,800.00 per year ($650/month equivalent)
   active         = true
   billing_scheme = "per_unit"
@@ -1073,7 +1263,7 @@ resource "stripe_price" "analytics_standard_yearly" {
 
 resource "stripe_price" "analytics_premium_yearly" {
   currency       = "usd"
-  product        = stripe_product.analytics_tracking.id
+  product        = stripe_product.analytics_tracking_premium.id
   unit_amount    = 9600000 # $96,000.00 per year ($8,000/month equivalent)
   active         = true
   billing_scheme = "per_unit"
@@ -1100,18 +1290,55 @@ resource "stripe_price" "analytics_premium_yearly" {
   }
 }
 
-# 3. AI/ML Features
-resource "stripe_product" "ai_ml_features" {
-  name        = "AI/ML Features Management"
-  description = "Comprehensive AI/ML management with model retraining, performance monitoring, API updates, and algorithm optimization"
+# AI/ML Features Tier Products
+resource "stripe_product" "ai_ml_features_basic" {
+  name        = "AI/ML Features Basic"
+  description = "Essential AI/ML management for small to medium businesses. Includes basic model monitoring, retraining, and API maintenance."
   active      = true
 
   metadata = {
-    category             = "ai_ml"
-    type                 = "mrr_service"
-    ongoing_requirements = "Model retraining, performance monitoring, API updates, data quality assurance, algorithm optimization"
-    mrr_justification    = "Fixed monthly fee ($1,000-$5,000) based on model complexity and data volume"
-    phase                = "mrr"
+    category          = "ai_ml"
+    tier              = "basic"
+    type              = "tier_product"
+    target_businesses = "Small businesses,Startups"
+    features          = "Monthly model performance monitoring,Basic retraining,API maintenance"
+    model_complexity  = "Simple models,Basic algorithms"
+    data_volume       = "Up to 1M records/month"
+    phase             = "mrr"
+  }
+}
+
+resource "stripe_product" "ai_ml_features_standard" {
+  name        = "AI/ML Features Standard"
+  description = "Comprehensive AI/ML management for growing businesses. Includes advanced model monitoring, regular retraining, and performance optimization."
+  active      = true
+
+  metadata = {
+    category          = "ai_ml"
+    tier              = "standard"
+    type              = "tier_product"
+    target_businesses = "Growing businesses,SMEs"
+    features          = "Weekly model performance monitoring,Advanced retraining,Performance optimization,Custom algorithms"
+    model_complexity  = "Complex models,Advanced algorithms"
+    data_volume       = "1M - 10M records/month"
+    phase             = "mrr"
+  }
+}
+
+resource "stripe_product" "ai_ml_features_premium" {
+  name        = "AI/ML Features Premium"
+  description = "Enterprise-grade AI/ML management with 24/7 monitoring, advanced algorithms, and dedicated ML engineering team."
+  active      = true
+
+  metadata = {
+    category          = "ai_ml"
+    tier              = "premium"
+    type              = "tier_product"
+    target_businesses = "Enterprise,High-volume platforms"
+    features          = "24/7 model monitoring,Daily retraining,Advanced algorithms,Dedicated ML team,Custom model development"
+    model_complexity  = "Enterprise models,Custom AI solutions"
+    data_volume       = "10M+ records/month"
+    phase             = "mrr"
   }
 }
 
@@ -1135,7 +1362,7 @@ resource "stripe_product" "ai_ml_features" {
 
 resource "stripe_price" "ai_ml_basic" {
   currency       = "usd"
-  product        = stripe_product.ai_ml_features.id
+  product        = stripe_product.ai_ml_features_basic.id
   unit_amount    = 100000 # $1,000.00 per month
   active         = true
   billing_scheme = "per_unit"
@@ -1153,7 +1380,7 @@ resource "stripe_price" "ai_ml_basic" {
 
 resource "stripe_price" "ai_ml_standard" {
   currency       = "usd"
-  product        = stripe_product.ai_ml_features.id
+  product        = stripe_product.ai_ml_features_standard.id
   unit_amount    = 250000 # $2,500.00 per month
   active         = true
   billing_scheme = "per_unit"
@@ -1171,7 +1398,7 @@ resource "stripe_price" "ai_ml_standard" {
 
 resource "stripe_price" "ai_ml_premium" {
   currency       = "usd"
-  product        = stripe_product.ai_ml_features.id
+  product        = stripe_product.ai_ml_features_premium.id
   unit_amount    = 500000 # $5,000.00 per month
   active         = true
   billing_scheme = "per_unit"
@@ -1209,7 +1436,7 @@ resource "stripe_price" "ai_ml_premium" {
 # Annual Pricing for AI/ML (20% discount)
 resource "stripe_price" "ai_ml_basic_yearly" {
   currency       = "usd"
-  product        = stripe_product.ai_ml_features.id
+  product        = stripe_product.ai_ml_features_basic.id
   unit_amount    = 1200000 # $12,000.00 per year ($1,000/month equivalent)
   active         = true
   billing_scheme = "per_unit"
@@ -1231,7 +1458,7 @@ resource "stripe_price" "ai_ml_basic_yearly" {
 
 resource "stripe_price" "ai_ml_standard_yearly" {
   currency       = "usd"
-  product        = stripe_product.ai_ml_features.id
+  product        = stripe_product.ai_ml_features_standard.id
   unit_amount    = 3000000 # $30,000.00 per year ($2,500/month equivalent)
   active         = true
   billing_scheme = "per_unit"
@@ -1253,7 +1480,7 @@ resource "stripe_price" "ai_ml_standard_yearly" {
 
 resource "stripe_price" "ai_ml_premium_yearly" {
   currency       = "usd"
-  product        = stripe_product.ai_ml_features.id
+  product        = stripe_product.ai_ml_features_premium.id
   unit_amount    = 48000000 # $480,000.00 per year ($40,000/month equivalent)
   active         = true
   billing_scheme = "per_unit"
