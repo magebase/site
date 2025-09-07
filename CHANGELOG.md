@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/magebase/site/compare/v1.0.4...v1.0.5) (2025-09-07)
+
+
+### Bug Fixes
+
+* prettier ([1406936](https://github.com/magebase/site/commit/1406936c2816cfe976c8616721daa8a8fa5ec9b2))
+
 ## [1.0.4](https://github.com/magebase/site/compare/v1.0.3...v1.0.4) (2025-09-07)
 
 
