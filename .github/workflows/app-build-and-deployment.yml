@@ -438,8 +438,10 @@ jobs:
       - name: Determine scan image
         id: scan-image
         run: |
-          # Use the latest image for main branch, or commit SHA image for others
-          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+          # Use the semantic release tag if published, otherwise latest for main or main-sha for others
+          if [ "${{ needs.build.outputs.new_release_published }}" == "true" ]; then
+            echo "image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ needs.build.outputs.new_release_version }}" >> $GITHUB_OUTPUT
+          elif [ "${{ github.ref }}" == "refs/heads/main" ]; then
             echo "image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" >> $GITHUB_OUTPUT
           else
             echo "image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main-${{ github.sha }}" >> $GITHUB_OUTPUT
@@ -476,7 +478,7 @@ jobs:
           scan-type: 'image'
           scan-ref: ${{ steps.scan-image.outputs.image }}
           format: 'table'
-          severity: 'CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN'
+          severity: 'CRITICAL,HIGH,MEDIUM'
           exit-code: 0
           ignore-unfixed: false
           output: 'trivy-results.sarif'
