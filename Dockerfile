@@ -67,7 +67,7 @@ RUN bundle install && \
 
 # Copy package files and install node modules
 COPY package.json package-lock.json ./
-RUN npm install --production && \
+RUN npm ci --production && \
     npm cache clean --force && \
     rm -rf ~/.npm
 
