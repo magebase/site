@@ -1,3 +1,11 @@
+## [1.2.1](https://github.com/magebase/site/compare/v1.2.0...v1.2.1) (2025-09-08)
+
+
+### Bug Fixes
+
+* change npm ci to npm install in Dockerfile ([9dce8a6](https://github.com/magebase/site/commit/9dce8a63bd0d8a7e919d4089a375aa9901fdb9f0))
+* resolve picomatch version mismatch ([51648d8](https://github.com/magebase/site/commit/51648d81ebd431fd817fd932e8374635ae92f190))
+
 # [1.2.0](https://github.com/magebase/site/compare/v1.1.1...v1.2.0) (2025-09-08)
 
 
