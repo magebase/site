@@ -1,3 +1,16 @@
+# [1.2.0](https://github.com/magebase/site/compare/v1.1.1...v1.2.0) (2025-09-08)
+
+
+### Bug Fixes
+
+* Docker build permissions and remove DATABASE_URL from Terraform ([4ae45d0](https://github.com/magebase/site/commit/4ae45d09b596013efce34917f1803ed946dabff8))
+* Docker build permissions error ([de55147](https://github.com/magebase/site/commit/de55147d8f7a0c783044348d962dfe0fa6e625b1))
+
+
+### Features
+
+* Replace acts_as_tenant with activerecord-multi-tenant ([9eefcbd](https://github.com/magebase/site/commit/9eefcbd1ee694ef8120d05f31d55c457a91b1b3a))
+
 # [1.1.0](https://github.com/magebase/site/compare/v1.0.5...v1.1.0) (2025-09-07)
 
 
