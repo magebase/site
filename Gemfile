@@ -59,7 +59,7 @@ gem "goldiloader", "~> 5.2"
 
 # Testing gems
 gem "database_cleaner", "~> 2.0"
-gem "factory_bot_rails", "~> 6.4"
+gem "factory_bot_rails", "~> 6.5"
 gem "vcr", "~> 6.2"
 
 group :development, :test do
