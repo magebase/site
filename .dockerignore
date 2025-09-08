@@ -108,3 +108,30 @@
 /.ruby-lsp/
 Gemfile.lock.bak
 /Dockerfile*
+
+# Additional optimizations
+# Ignore OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Ignore coverage reports
+/coverage/
+/.nyc_output/
+
+# Ignore lock files that aren't needed
+yarn.lock
+pnpm-lock.yaml
+
+# Ignore development databases
+*.sqlite3
+*.db
+
+# Ignore backup files
+*.bak
+*.backup
+*.old

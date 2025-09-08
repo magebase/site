@@ -4,7 +4,7 @@ on:
     types: [released]
 jobs:
   trigger:
-    runs-on: ubuntu-latest
+    runs-on: ubicloud-standard-2-arm
     steps:
       - name: Debug Release Event
         run: |
