@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  set_current_tenant_through_filter # Required to opt into this behavior
   before_action :authenticate_user!
 
   private
@@ -11,14 +10,14 @@ class ApplicationController < ActionController::Base
 
 
   def after_sign_in_path_for(resource)
-    # Check if user has tenants and redirect to the first one
-    if resource.tenants.any?
-      tenant = resource.tenants.first
-      tenant_dashboard_url(tenant)
-    else
+      # Check if user has tenants and redirect to the first one
+      # if resource.tenants.any?
+      #   tenant = resource.tenants.first
+      #   tenant_dashboard_url(tenant)
+      # else
       # If no tenants, redirect to client dashboard
       client_dashboard_path
-    end
+    # end
   end
 
   def tenant_dashboard_url(tenant)
