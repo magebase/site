@@ -29,17 +29,20 @@ module TenantPath
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_tenant_from_path
+    before_action :set_tenant_from_path_param
     helper_method :current_tenant
   end
 
   private
 
-  def set_tenant_from_path
+  def set_tenant_from_path_param
     tenant_name = params[:tenant_name]
     if tenant_name.present?
       @current_tenant = Tenant.find_by(name: tenant_name) || Tenant.find_by(subdomain: tenant_name)
-      unless @current_tenant
+      if @current_tenant
+        # Set the current tenant for multi_tenant
+        MultiTenant.current_tenant = @current_tenant
+      else
         redirect_to root_path, alert: "Tenant not found"
       end
     else

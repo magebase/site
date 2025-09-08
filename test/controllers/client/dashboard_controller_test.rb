@@ -6,7 +6,7 @@ class Client::DashboardControllerTest < ActionDispatch::IntegrationTest
     user = User.create!(email: "test@example.com", password: "password", name: "Test User")
     sign_in user
 
-    get client_dashboard_url
+    get "/client/dashboard"
     assert_response :success
   end
 end

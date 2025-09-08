@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_07_101717) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_08_052208) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -250,6 +250,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_07_101717) do
     t.bigint "tenant_id"
     t.string "proposal_token"
     t.string "slug"
+    t.datetime "quoted_at"
     t.index ["aasm_state"], name: "index_quote_requests_on_aasm_state"
     t.index ["client_id"], name: "index_quote_requests_on_client_id"
     t.index ["proposal_token"], name: "index_quote_requests_on_proposal_token", unique: true

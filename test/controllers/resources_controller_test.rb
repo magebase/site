@@ -2,34 +2,32 @@ require "test_helper"
 
 class ResourcesControllerTest < ActionDispatch::IntegrationTest
   test "community action retrieves seeded page without creating new one" do
-    # Ensure the page exists in DB (seeded) - create if not exists
-    page = Page.find_by(slug: "community")
-    if page.nil?
-      page = Page.create!(
-        title: "Community",
-        slug: "community",
-        content: "<h1>Join Our Developer Community</h1><p>Connect with developers from around the world.</p>",
-        excerpt: "Join our vibrant developer community.",
-        published: true,
-        page_type: "resources"
-      )
-    end
-    assert_not_nil page, "Community page should be seeded in the database"
+    tenant = Tenant.first || Tenant.create!(name: "Test Tenant", subdomain: "test", user: User.first || User.create!(email: "test@example.com", password: "password", name: "Test User"))
+    MultiTenant.current_tenant = tenant
+      page = Page.find_by(slug: "community")
+      if page.nil?
+        page = Page.create!(
+          title: "Community",
+          slug: "community",
+          content: "<h1>Join Our Developer Community</h1><p>Connect with developers from around the world.</p>",
+          excerpt: "Join our vibrant developer community.",
+          published: true,
+          page_type: "resources"
+        )
+      end
+      assert_not_nil page, "Community page should be seeded in the database"
 
-    # Count pages before
-    initial_count = Page.count
+      # Count pages before
+      initial_count = Page.count
 
-    # Call the action
-    get "/community"
+      # Call the action
+      get "/community"
 
-    # Assert no new page was created
-    assert_equal initial_count, Page.count, "No new page should be created"
+      # Assert no new page was created
+      assert_equal initial_count, Page.count, "No new page should be created"
 
-    # Assert the response is successful
-    assert_response :success
-
-    # Assert the page data is passed (you can check the inertia props if needed)
-    # For now, just check that it renders
+      # Assert the response is successful
+      assert_response :success
   end
 
   test "documentation route returns 404" do

@@ -25,6 +25,12 @@ class QuoteRequestsController < ApplicationController
   end
 
   def create
+    # Ensure tenant context is set
+    if MultiTenant.current_tenant.nil? && params[:quote_request][:tenant_id].present?
+      tenant = Tenant.find(params[:quote_request][:tenant_id])
+      MultiTenant.current_tenant = tenant
+    end
+
     # Handle client creation/finding with correct parameter names
     client_params = {
       client_name: params[:quote_request][:name] || params[:quote_request][:companyName],
@@ -48,13 +54,14 @@ class QuoteRequestsController < ApplicationController
       estimated_cost: params[:quote_request][:estimatedCost],
       inspiration: params[:quote_request][:inspiration],
       selected_languages: params[:quote_request][:selectedLanguages] || [],
-      selected_social_providers: params[:quote_request][:selectedSocialProviders] || []
+      selected_social_providers: params[:quote_request][:selectedSocialProviders] || [],
+      tenant_id: MultiTenant.current_tenant&.id
     }
     quote_request_data[:client_id] = client&.id
 
     @quote_request = QuoteRequest.new(quote_request_data)
 
-    # Associate selected features BEFORE saving to pass validation
+    # Associate selected features BEFORE validation
     if params[:quote_request][:selectedFeatures].present?
       feature_names = params[:quote_request][:selectedFeatures]
       features = Feature.where(name: feature_names)
@@ -187,8 +194,10 @@ class QuoteRequestsController < ApplicationController
         subdomain: subdomain
       )
 
-      # Associate the quote request with the tenant
-      @quote_request.update(tenant_id: tenant.id)
+      # Associate the quote request with the tenant (only if not already set)
+      if @quote_request.persisted? && @quote_request.tenant_id.nil?
+        @quote_request.update(tenant_id: tenant.id)
+      end
     end
   end
 

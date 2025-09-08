@@ -79,8 +79,8 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should be scoped to current tenant when multi-tenancy is active" do
-    MultiTenant.with(tenants(:one)) do
-      document = Document.new(
+    MultiTenant.current_tenant = tenants(:one)
+    document = Document.new(
         name: "Test Document",
         file_path: "/path/to/test.pdf",
         file_type: "application/pdf",
@@ -88,6 +88,5 @@ class DocumentTest < ActiveSupport::TestCase
       )
       assert document.valid?
       assert_equal tenants(:one), document.tenant
-    end
   end
 end

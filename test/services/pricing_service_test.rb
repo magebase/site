@@ -2,6 +2,9 @@ require "test_helper"
 
 class PricingServiceTest < ActiveSupport::TestCase
   setup do
+    @tenant = tenants(:one)
+    MultiTenant.current_tenant = @tenant
+
     @feature = Feature.create!(
       name: "User Authentication",
       description: "Secure user authentication system",
@@ -15,7 +18,8 @@ class PricingServiceTest < ActiveSupport::TestCase
       project_description: "A test project for pricing",
       use_case: "web_app",
       email: "test@example.com",
-      selected_features: [ @feature ]
+      selected_features: [ @feature ],
+      tenant: @tenant
     )
     @pricing_service = PricingService.new(@quote_request)
   end

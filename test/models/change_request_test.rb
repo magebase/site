@@ -66,14 +66,13 @@ class ChangeRequestTest < ActiveSupport::TestCase
   end
 
   test "should be scoped to current tenant when multi-tenancy is active" do
-    MultiTenant.with(tenants(:one)) do
-      change_request = ChangeRequest.new(
+    MultiTenant.current_tenant = tenants(:one)
+    change_request = ChangeRequest.new(
         title: "Test Change Request",
         description: "This is a test change request",
         user: users(:one)
       )
       assert change_request.valid?
       assert_equal tenants(:one), change_request.tenant
-    end
   end
 end

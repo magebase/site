@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   set_current_tenant_through_filter # Required to opt into this behavior
   before_action :authenticate_user!
-  before_action :set_current_tenant
 
   private
 
@@ -10,12 +9,6 @@ class ApplicationController < ActionController::Base
     # This can be customized based on your needs
   end
 
-  def set_current_tenant
-    # Set the current tenant for activerecord-multi-tenant
-    if defined?(current_tenant) && current_tenant
-      set_current_tenant(current_tenant)
-    end
-  end
 
   def after_sign_in_path_for(resource)
     # Check if user has tenants and redirect to the first one
