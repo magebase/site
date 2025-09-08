@@ -16,6 +16,7 @@
 #  project_name              :string
 #  project_plan_json         :jsonb
 #  proposal_token            :string
+#  quoted_at                 :datetime
 #  selected_features_json    :jsonb
 #  selected_languages        :jsonb
 #  selected_social_providers :jsonb
