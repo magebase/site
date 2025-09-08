@@ -6,7 +6,6 @@ metadata:
 
 resources:
   - deployment.yaml
-  - database.yaml
   - secrets.yaml
   - configmap.yaml
 

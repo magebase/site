@@ -24,6 +24,7 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: magebase/site
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  PR_TOKEN: ${{ secrets.PR_CREATION_TOKEN }}
 
 jobs:
   handle-release:
@@ -154,15 +155,15 @@ jobs:
           RELEASE_BRANCH="release/${RELEASE_VERSION}"
 
           # Check if PR already exists
-          EXISTING_PR=$(gh pr list --head "$RELEASE_BRANCH" --json number --jq '.[0].number')
+          EXISTING_PR=$(GH_TOKEN=${{ env.PR_TOKEN }} gh pr list --head "$RELEASE_BRANCH" --json number --jq '.[0].number')
 
           if [ -n "$EXISTING_PR" ]; then
             echo "PR #$EXISTING_PR already exists for $RELEASE_BRANCH"
           else
             # Create environment-promotion label if it doesn't exist
-            if ! gh label list | grep -q "environment-promotion"; then
+            if ! GH_TOKEN=${{ env.PR_TOKEN }} gh label list | grep -q "environment-promotion"; then
               echo "Creating environment-promotion label"
-              gh label create "environment-promotion" --color "0052CC" --description "Environment promotion PRs"
+              GH_TOKEN=${{ env.PR_TOKEN }} gh label create "environment-promotion" --color "0052CC" --description "Environment promotion PRs"
             fi
 
             # Create new PR
@@ -191,7 +192,7 @@ jobs:
           EOF
           )
 
-            gh pr create \
+            GH_TOKEN=${{ env.PR_TOKEN }} gh pr create \
               --title "$PR_TITLE" \
               --body "$PR_BODY" \
               --head "$RELEASE_BRANCH" \
@@ -367,15 +368,15 @@ jobs:
           fi
 
           # Create promotion PR
-          EXISTING_PR=$(gh pr list --head "$RELEASE_BRANCH" --json number --jq '.[0].number')
+          EXISTING_PR=$(GH_TOKEN=${{ env.PR_TOKEN }} gh pr list --head "$RELEASE_BRANCH" --json number --jq '.[0].number')
 
           if [ -n "$EXISTING_PR" ]; then
             echo "PR #$EXISTING_PR already exists for $RELEASE_BRANCH"
           else
             # Create environment-promotion label if it doesn't exist
-            if ! gh label list | grep -q "environment-promotion"; then
+            if ! GH_TOKEN=${{ env.PR_TOKEN }} gh label list | grep -q "environment-promotion"; then
               echo "Creating environment-promotion label"
-              gh label create "environment-promotion" --color "0052CC" --description "Environment promotion PRs"
+              GH_TOKEN=${{ env.PR_TOKEN }} gh label create "environment-promotion" --color "0052CC" --description "Environment promotion PRs"
             fi
 
             # Create new PR
@@ -404,7 +405,7 @@ jobs:
           EOF
           )
 
-            gh pr create \
+            GH_TOKEN=${{ env.PR_TOKEN }} gh pr create \
               --title "$PR_TITLE" \
               --body "$PR_BODY" \
               --head "$RELEASE_BRANCH" \

@@ -1,10 +1,9 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: serving.knative.dev/v1
+kind: Service
 metadata:
   name: magebase-app
   namespace: magebase
 spec:
-  replicas: 1
   template:
     spec:
       containers:
@@ -16,29 +15,12 @@ spec:
             limits:
               memory: '1Gi'
               cpu: '500m'
----
-apiVersion: postgresql.cnpg.io/v1
-kind: Cluster
-metadata:
-  name: magebase-db
-  namespace: magebase
-spec:
-  instances: 1
-  storage:
-    size: 20Gi
-  postgresql:
-    parameters:
-      max_connections: '150'
-      shared_buffers: '128MB'
-      effective_cache_size: '512MB'
-      maintenance_work_mem: '128MB'
-  resources:
-    requests:
-      memory: '512Mi'
-      cpu: '250m'
-    limits:
-      memory: '1Gi'
-      cpu: '500m'
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: site-uat-cluster-db-url
+                  key: DATABASE_URL
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress

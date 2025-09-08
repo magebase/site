@@ -99,6 +99,12 @@ variable "rails_env" {
   default     = "development"
 }
 
+variable "database_url" {
+  description = "Database connection URL"
+  type        = string
+  sensitive   = true
+}
+
 variable "cloudflare_r2_access_key_id" {
   description = "Cloudflare R2 Access Key ID"
   type        = string

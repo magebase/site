@@ -108,6 +108,19 @@ resource "aws_ssm_parameter" "rails_env" {
   }
 }
 
+# Database Configuration
+resource "aws_ssm_parameter" "database_url" {
+  name      = "/site/${var.environment}/database/url"
+  type      = "SecureString"
+  value     = var.database_url
+  overwrite = true
+  tags = {
+    Environment = var.environment
+    Project     = "site"
+    Service     = "database"
+  }
+}
+
 # Cloudflare R2 Configuration
 resource "aws_ssm_parameter" "cloudflare_r2_access_key_id" {
   name      = "/site/${var.environment}/cloudflare/r2-access-key-id"

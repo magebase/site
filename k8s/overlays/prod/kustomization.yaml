@@ -9,6 +9,7 @@ bases:
 
 patchesStrategicMerge:
   - configmap-patch.yaml
+  - prod-patches.yaml
 
 images:
   - name: magebase-app
