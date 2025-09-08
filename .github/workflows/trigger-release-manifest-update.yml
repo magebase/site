@@ -1,7 +1,7 @@
 name: Trigger Release Manifest Update
 on:
   release:
-    types: [published]
+    types: [released]
 jobs:
   trigger:
     runs-on: ubuntu-latest
