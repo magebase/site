@@ -24,7 +24,70 @@
 require "test_helper"
 
 class DocumentTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "should be valid with valid attributes" do
+    document = Document.new(
+      name: "Test Document",
+      file_path: "/path/to/test.pdf",
+      file_type: "application/pdf",
+      tenant: tenants(:one),
+      user: users(:one)
+    )
+    assert document.valid?
+  end
+
+  test "should validate presence of name" do
+    document = Document.new(
+      file_path: "/path/to/test.pdf",
+      file_type: "application/pdf",
+      tenant: tenants(:one),
+      user: users(:one)
+    )
+    assert_not document.valid?
+    assert_includes document.errors[:name], "can't be blank"
+  end
+
+  test "should validate presence of file_path" do
+    document = Document.new(
+      name: "Test Document",
+      file_type: "application/pdf",
+      tenant: tenants(:one),
+      user: users(:one)
+    )
+    assert_not document.valid?
+    assert_includes document.errors[:file_path], "can't be blank"
+  end
+
+  test "should validate presence of file_type" do
+    document = Document.new(
+      name: "Test Document",
+      file_path: "/path/to/test.pdf",
+      tenant: tenants(:one),
+      user: users(:one)
+    )
+    assert_not document.valid?
+    assert_includes document.errors[:file_type], "can't be blank"
+  end
+
+  test "should belong to tenant" do
+    document = documents(:one)
+    assert_instance_of Tenant, document.tenant
+  end
+
+  test "should belong to user" do
+    document = documents(:one)
+    assert_instance_of User, document.user
+  end
+
+  test "should be scoped to current tenant when multi-tenancy is active" do
+    MultiTenant.with(tenants(:one)) do
+      document = Document.new(
+        name: "Test Document",
+        file_path: "/path/to/test.pdf",
+        file_type: "application/pdf",
+        user: users(:one)
+      )
+      assert document.valid?
+      assert_equal tenants(:one), document.tenant
+    end
+  end
 end

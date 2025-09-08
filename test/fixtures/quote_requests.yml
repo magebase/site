@@ -6,14 +6,9 @@
 #
 #  id                        :bigint           not null, primary key
 #  aasm_state                :string           default("draft")
-#  admin_notes               :text
 #  ai_pricing_json           :jsonb
-#  approved_at               :datetime
-#  delivery_address          :text
 #  deposit_amount            :decimal(10, 2)
 #  email                     :string
-#  end_hire_date             :datetime
-#  equipment_type            :string
 #  estimated_cost            :decimal(10, 2)
 #  inspiration               :text
 #  monthly_retainer          :decimal(10, 2)
@@ -23,20 +18,14 @@
 #  project_name              :string
 #  project_plan_json         :jsonb
 #  proposal_token            :string
-#  quote_price               :decimal(, )
-#  quoted_at                 :datetime
-#  rental_duration           :string
 #  selected_features_json    :jsonb
 #  selected_languages        :jsonb
 #  selected_social_providers :jsonb
 #  slug                      :string
-#  special_requirements      :text
-#  start_hire_date           :datetime
 #  use_case                  :string
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  client_id                 :bigint
-#  stripe_invoice_id         :string
 #  tenant_id                 :bigint
 #
 # Indexes
@@ -55,21 +44,21 @@
 #  fk_rails_...  (tenant_id => tenants.id)
 #
 one:
-  name: MyString
-  email: MyString
-  phone: MyString
-  equipment_type: MyString
-  rental_duration: MyString
-  delivery_address: MyString
-  special_requirements: MyText
+  name: Test User 1
+  email: user1@example.com
+  phone: 123-456-7890
+  project_name: Test Project 1
+  project_description: This is a test project description
+  use_case: web_application
   aasm_state: draft
+  tenant: one
 
 two:
-  name: MyString
-  email: MyString
-  phone: MyString
-  equipment_type: MyString
-  rental_duration: MyString
-  delivery_address: MyString
-  special_requirements: MyText
+  name: Test User 2
+  email: user2@example.com
+  phone: 987-654-3210
+  project_name: Test Project 2
+  project_description: This is another test project description
+  use_case: mobile_application
   aasm_state: draft
+  tenant: two

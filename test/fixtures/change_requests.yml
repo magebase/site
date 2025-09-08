@@ -22,15 +22,18 @@
 #  fk_rails_...  (tenant_id => tenants.id)
 #  fk_rails_...  (user_id => users.id)
 #
-class ChangeRequest < ApplicationRecord
-  multi_tenant :tenant
-  belongs_to :tenant
-  belongs_to :user
+one:
+  title: Test Change Request 1
+  description: This is the first test change request
+  priority: high
+  status: pending
+  tenant: one
+  user: one
 
-  validates :title, presence: true
-  validates :description, presence: true
-
-  # TODO: Fix enum conflict with RailsAdmin
-  # enum status: { pending: 0, in_progress: 1, completed: 2, cancelled: 3 }
-  # enum priority: { low: 0, medium: 1, high: 2, urgent: 3 }
-end
+two:
+  title: Test Change Request 2
+  description: This is the second test change request
+  priority: medium
+  status: in_progress
+  tenant: two
+  user: two

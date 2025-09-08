@@ -52,7 +52,7 @@ gem "omniauth-google-oauth2", "~> 1.1"
 gem "ruby_llm", "~> 1.6"
 
 # Multi-tenancy
-gem "acts_as_tenant", "~> 1.0"
+gem "activerecord-multi-tenant", "~> 2.0"
 
 # N+1 query optimization
 gem "goldiloader", "~> 5.2"

@@ -25,7 +25,55 @@
 require "test_helper"
 
 class ChangeRequestTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "should be valid with valid attributes" do
+    change_request = ChangeRequest.new(
+      title: "Test Change Request",
+      description: "This is a test change request",
+      tenant: tenants(:one),
+      user: users(:one)
+    )
+    assert change_request.valid?
+  end
+
+  test "should validate presence of title" do
+    change_request = ChangeRequest.new(
+      description: "This is a test change request",
+      tenant: tenants(:one),
+      user: users(:one)
+    )
+    assert_not change_request.valid?
+    assert_includes change_request.errors[:title], "can't be blank"
+  end
+
+  test "should validate presence of description" do
+    change_request = ChangeRequest.new(
+      title: "Test Change Request",
+      tenant: tenants(:one),
+      user: users(:one)
+    )
+    assert_not change_request.valid?
+    assert_includes change_request.errors[:description], "can't be blank"
+  end
+
+  test "should belong to tenant" do
+    change_request = change_requests(:one)
+    assert_instance_of Tenant, change_request.tenant
+  end
+
+  test "should belong to user" do
+    change_request = change_requests(:one)
+    assert_instance_of User, change_request.user
+  end
+
+  test "should be scoped to current tenant when multi-tenancy is active" do
+    MultiTenant.with(tenants(:one)) do
+      change_request = ChangeRequest.new(
+        title: "Test Change Request",
+        description: "This is a test change request",
+        user: users(:one)
+      )
+      assert change_request.valid?
+      assert_equal tenants(:one), change_request.tenant
+    end
+  end
 end

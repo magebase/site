@@ -21,15 +21,16 @@
 #  fk_rails_...  (tenant_id => tenants.id)
 #  fk_rails_...  (user_id => users.id)
 #
-class Document < ApplicationRecord
-  multi_tenant :tenant
-  belongs_to :tenant
-  belongs_to :user
+one:
+  name: Test Document 1
+  file_path: /uploads/test1.pdf
+  file_type: application/pdf
+  tenant: one
+  user: one
 
-  validates :name, presence: true
-  validates :file_path, presence: true
-  validates :file_type, presence: true
-
-  # Add file attachment functionality (you may want to use ActiveStorage or CarrierWave)
-  # has_one_attached :file
-end
+two:
+  name: Test Document 2
+  file_path: /uploads/test2.docx
+  file_type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+  tenant: two
+  user: two

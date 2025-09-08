@@ -14,61 +14,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_07_101717) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
-  create_table "admin_users", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_admin_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
-  end
-
-  create_table "ahoy_events", force: :cascade do |t|
-    t.bigint "visit_id"
-    t.bigint "user_id"
-    t.string "name"
-    t.jsonb "properties"
-    t.datetime "time"
-    t.index ["name", "time"], name: "index_ahoy_events_on_name_and_time"
-    t.index ["properties"], name: "index_ahoy_events_on_properties", opclass: :jsonb_path_ops, using: :gin
-    t.index ["user_id"], name: "index_ahoy_events_on_user_id"
-    t.index ["visit_id"], name: "index_ahoy_events_on_visit_id"
-  end
-
-  create_table "ahoy_visits", force: :cascade do |t|
-    t.string "visit_token"
-    t.string "visitor_token"
-    t.bigint "user_id"
-    t.string "ip"
-    t.text "user_agent"
-    t.text "referrer"
-    t.string "referring_domain"
-    t.text "landing_page"
-    t.string "browser"
-    t.string "os"
-    t.string "device_type"
-    t.string "country"
-    t.string "region"
-    t.string "city"
-    t.float "latitude"
-    t.float "longitude"
-    t.string "utm_source"
-    t.string "utm_medium"
-    t.string "utm_term"
-    t.string "utm_content"
-    t.string "utm_campaign"
-    t.string "app_version"
-    t.string "os_version"
-    t.string "platform"
-    t.datetime "started_at"
-    t.index ["user_id"], name: "index_ahoy_visits_on_user_id"
-    t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
-    t.index ["visitor_token", "started_at"], name: "index_ahoy_visits_on_visitor_token_and_started_at"
-  end
-
   create_table "blog_posts", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -205,28 +150,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_07_101717) do
     t.index ["user_id"], name: "index_documents_on_user_id"
   end
 
-  create_table "equipment", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.integer "kva_rating"
-    t.string "category"
-    t.decimal "price_per_day"
-    t.jsonb "features"
-    t.string "image_url"
-    t.boolean "is_available"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "faqs", force: :cascade do |t|
-    t.text "question"
-    t.text "answer"
-    t.integer "position"
-    t.boolean "published"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "features", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -310,11 +233,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_07_101717) do
     t.string "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.decimal "quote_price"
-    t.text "admin_notes"
-    t.datetime "quoted_at"
-    t.datetime "approved_at"
-    t.string "stripe_invoice_id"
     t.string "project_name"
     t.text "project_description"
     t.string "use_case"
@@ -326,12 +244,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_07_101717) do
     t.decimal "deposit_amount", precision: 10, scale: 2
     t.string "aasm_state", default: "draft"
     t.bigint "client_id"
-    t.string "equipment_type"
-    t.string "rental_duration"
-    t.text "delivery_address"
-    t.text "special_requirements"
-    t.datetime "start_hire_date"
-    t.datetime "end_hire_date"
     t.text "inspiration"
     t.jsonb "selected_languages"
     t.jsonb "selected_social_providers"
@@ -393,31 +305,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_07_101717) do
     t.datetime "updated_at", null: false
     t.index ["active"], name: "index_team_members_on_active"
     t.index ["sort_order"], name: "index_team_members_on_sort_order"
-  end
-
-  create_table "templates", force: :cascade do |t|
-    t.string "title", null: false
-    t.string "slug", null: false
-    t.text "description", null: false
-    t.string "category", null: false
-    t.text "features"
-    t.string "preview_image_url", null: false
-    t.string "download_url"
-    t.string "demo_url"
-    t.decimal "price", precision: 10, scale: 2
-    t.boolean "is_free", default: false
-    t.text "excerpt"
-    t.string "meta_title"
-    t.text "meta_description"
-    t.boolean "published", default: false
-    t.datetime "published_at"
-    t.integer "position", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["category"], name: "index_templates_on_category"
-    t.index ["is_free"], name: "index_templates_on_is_free"
-    t.index ["published"], name: "index_templates_on_published"
-    t.index ["slug"], name: "index_templates_on_slug", unique: true
   end
 
   create_table "tenants", force: :cascade do |t|

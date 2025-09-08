@@ -4,14 +4,9 @@
 #
 #  id                        :bigint           not null, primary key
 #  aasm_state                :string           default("draft")
-#  admin_notes               :text
 #  ai_pricing_json           :jsonb
-#  approved_at               :datetime
-#  delivery_address          :text
 #  deposit_amount            :decimal(10, 2)
 #  email                     :string
-#  end_hire_date             :datetime
-#  equipment_type            :string
 #  estimated_cost            :decimal(10, 2)
 #  inspiration               :text
 #  monthly_retainer          :decimal(10, 2)
@@ -21,20 +16,14 @@
 #  project_name              :string
 #  project_plan_json         :jsonb
 #  proposal_token            :string
-#  quote_price               :decimal(, )
-#  quoted_at                 :datetime
-#  rental_duration           :string
 #  selected_features_json    :jsonb
 #  selected_languages        :jsonb
 #  selected_social_providers :jsonb
 #  slug                      :string
-#  special_requirements      :text
-#  start_hire_date           :datetime
 #  use_case                  :string
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  client_id                 :bigint
-#  stripe_invoice_id         :string
 #  tenant_id                 :bigint
 #
 # Indexes
@@ -55,6 +44,7 @@
 class QuoteRequest < ApplicationRecord
   include AASM
   extend FriendlyId
+  multi_tenant :tenant
 
   # Friendly ID configuration for expiring permalinks
   friendly_id :generate_permalink_slug, use: :slugged
