@@ -52,7 +52,7 @@ gem "omniauth-google-oauth2", "~> 1.1"
 gem "ruby_llm", "~> 1.6"
 
 # Multi-tenancy
-gem 'activerecord-multi-tenant', github: 'citusdata/activerecord-multi-tenant', branch: 'master'
+gem "activerecord-multi-tenant", github: "citusdata/activerecord-multi-tenant", branch: "master"
 
 # N+1 query optimization
 gem "goldiloader", "~> 5.2"
