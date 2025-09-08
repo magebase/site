@@ -101,6 +101,7 @@ RUN apt-get update -qq && \
 # Create rails user and set permissions
 RUN groupadd --system --gid 1000 rails && \
     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
+    mkdir -p db log storage tmp && \
     chown -R rails:rails db log storage tmp
 USER 1000:1000
 
