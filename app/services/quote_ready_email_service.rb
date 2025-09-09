@@ -48,7 +48,7 @@ class QuoteReadyEmailService
 
   def self.generate_html_body(quote_request)
     tenant = quote_request.tenant
-    login_url = tenant ? "https://#{tenant.subdomain}.magebase.site/signin" : "https://magebase.site/signin"
+    login_url = tenant ? "https://magebase.site/#{tenant.subdomain}/signin" : "https://magebase.site/signin"
 
     <<~HTML
       <!DOCTYPE html>
@@ -127,7 +127,7 @@ class QuoteReadyEmailService
 
   def self.generate_text_body(quote_request)
     tenant = quote_request.tenant
-    login_url = tenant ? "https://#{tenant.subdomain}.magebase.site/signin" : "https://magebase.site/signin"
+    login_url = tenant ? "https://magebase.site/#{tenant.subdomain}/signin" : "https://magebase.site/signin"
 
     <<~TEXT
       Your Project Quote is Ready!

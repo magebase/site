@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       resources :change_requests, only: [ :index, :new, :create, :show, :update ]
       resources :documents, only: [ :index, :new, :create, :show, :destroy ]
       get "billing", to: "billing#index"
+      post "billing/create_portal_session", to: "billing#create_portal_session"
+      post "billing/create_product_portal_session", to: "billing#create_product_portal_session"
     end
   end
 
@@ -21,7 +23,13 @@ Rails.application.routes.draw do
     post "quotes/estimate", to: "quotes#estimate"
   end
 
-  devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
+  devise_for :users, controllers: {
+    sessions: "users/sessions",
+    omniauth_callbacks: "omniauth_callbacks"
+  }
+
+  # Custom auth routes
+  get "signin", to: "auth#signin"
 
   # Blog routes
   get "blog", to: "blog#index"

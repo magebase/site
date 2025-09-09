@@ -85,11 +85,18 @@ class QuoteRequestsController < ApplicationController
       # Send proposal ready email with public link
       send_proposal_ready_email(@quote_request)
 
-      render inertia: "QuoteRequests/Show", props: {
-        quote_request: @quote_request.as_json(include: :selected_features),
-        success: true,
-        message: "Quote request submitted successfully! Check your email for your proposal link."
-      }
+      # Check if this is an Inertia request (AJAX from React component)
+      if request.headers["X-Inertia"].present?
+        # For Inertia requests, return success response
+        render json: {
+          success: true,
+          message: "Quote request submitted successfully! Check your email for your proposal link.",
+          quote_request: @quote_request.as_json(include: :selected_features)
+        }, status: :created
+      else
+        # For regular form submissions, redirect to show page
+        redirect_to @quote_request, notice: "Quote request submitted successfully! Check your email for your proposal link."
+      end
     else
       @features = Feature.all.order(:category, :name)
       render inertia: "QuoteRequests/New", props: {

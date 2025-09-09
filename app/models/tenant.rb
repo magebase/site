@@ -2,12 +2,13 @@
 #
 # Table name: tenants
 #
-#  id         :bigint           not null, primary key
-#  name       :string
-#  subdomain  :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :bigint           not null
+#  id                 :bigint           not null, primary key
+#  name               :string
+#  stripe_customer_id :string
+#  subdomain          :string
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  user_id            :bigint           not null
 #
 # Indexes
 #

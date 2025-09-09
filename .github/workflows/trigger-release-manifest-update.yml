@@ -1,0 +1,107 @@
+name: Trigger Release Manifest Update
+on:
+  release:
+    types: [published, created, released]
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: 'Repository name (e.g., magebase/site)'
+        required: true
+        default: 'magebase/site'
+        type: string
+      tag_name:
+        description: 'Release tag name'
+        required: true
+        type: string
+      to_environment:
+        description: 'Target environment'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - qa
+          - uat
+          - prod
+      regions:
+        description: 'Target regions (comma-separated)'
+        required: true
+        default: 'fsn1'
+        type: string
+jobs:
+  trigger:
+    runs-on: ubicloud-standard-2-arm
+    steps:
+      - name: Debug Release Event
+        run: |
+          echo "Release published!"
+          echo "Repository: ${{ github.event.inputs.repository || github.repository }}"
+          echo "Tag: ${{ github.event.inputs.tag_name || github.event.release.tag_name }}"
+          echo "Release ID: ${{ github.event.release.id || 'manual-trigger' }}"
+
+      - name: Send Repository Dispatch
+        run: |
+          # Check if the secret exists
+          if [ -z "$TRIGGER_WORKFLOW_TOKEN" ]; then
+            echo "ERROR: TRIGGER_WORKFLOW_TOKEN secret is not configured"
+            echo "Please set up the TRIGGER_WORKFLOW_TOKEN secret in repository settings:"
+            echo "1. Go to Settings > Secrets and variables > Actions"
+            echo "2. Add a new repository secret named TRIGGER_WORKFLOW_TOKEN"
+            echo "3. Set the value to a GitHub Personal Access Token with 'repo' scope"
+            echo "4. Make sure the token has access to the magebase/base-infra repository"
+            exit 1
+          fi
+
+          # Prepare the JSON payload with proper escaping
+          if [ -n "${{ github.event.inputs.regions }}" ]; then
+            # Convert comma-separated string to JSON array
+            REGIONS_JSON=$(echo "${{ github.event.inputs.regions }}" | sed 's/,/","/g' | sed 's/^/["/' | sed 's/$/"]/')
+          else
+            REGIONS_JSON='["fsn1"]'
+          fi
+
+          PAYLOAD=$(cat <<EOF
+          {
+            "event_type": "trigger-workflow",
+            "client_payload": {
+              "repository": "${{ github.event.inputs.repository || github.repository }}",
+              "tag_name": "${{ github.event.inputs.tag_name || github.event.release.tag_name }}",
+              "to_environment": "${{ github.event.inputs.to_environment || 'dev' }}",
+              "regions": $REGIONS_JSON
+            }
+          }
+          EOF
+          )
+
+          echo "Sending dispatch to magebase/base-infra..."
+          echo "Payload: $PAYLOAD"
+
+          # Send the repository dispatch
+          RESPONSE=$(curl -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $TRIGGER_WORKFLOW_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            -H "Content-Type: application/json" \
+            https://api.github.com/repos/magebase/base-infra/dispatches \
+            -d "$PAYLOAD" \
+            --write-out "HTTPSTATUS:%{http_code}" \
+            --silent)
+
+          # Extract the response body and status
+          HTTP_STATUS=$(echo $RESPONSE | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
+          RESPONSE_BODY=$(echo $RESPONSE | sed -e 's/HTTPSTATUS:.*//g')
+
+          echo "HTTP Status: $HTTP_STATUS"
+          echo "Response: $RESPONSE_BODY"
+
+          # Check if the request was successful
+          if [ "$HTTP_STATUS" -eq 204 ]; then
+            echo "✅ Repository dispatch sent successfully!"
+          else
+            echo "❌ Failed to send repository dispatch. HTTP Status: $HTTP_STATUS"
+            echo "Response: $RESPONSE_BODY"
+            exit 1
+          fi
+        env:
+          TRIGGER_WORKFLOW_TOKEN: ${{ secrets.TRIGGER_WORKFLOW_TOKEN }}

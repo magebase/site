@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import * as z from 'zod';
 import { toast } from 'sonner';
 import {
@@ -116,6 +116,17 @@ interface QuoteFormSectionProps {
 
 function QuoteFormSection({ id = 'quote-form' }: QuoteFormSectionProps) {
   const [submitted, setSubmitted] = useState(false);
+  const { flash } = usePage().props as any;
+
+  useEffect(() => {
+    // Check if there's a success flash message from form submission
+    if (
+      flash?.notice &&
+      flash.notice.includes('Quote request submitted successfully')
+    ) {
+      setSubmitted(true);
+    }
+  }, [flash]);
 
   const form = useForm<QuoteFormData>({
     resolver: zodResolver(quoteFormSchema),
