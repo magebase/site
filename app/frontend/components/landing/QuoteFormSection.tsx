@@ -7,7 +7,6 @@ import {
   CheckCircle,
   User,
   Mail,
-  Phone,
   Shield,
   Clock,
   Star,
@@ -21,6 +20,7 @@ import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Textarea } from '../ui/textarea';
 import { Checkbox } from '../ui/checkbox';
+import { PhoneInput } from '../ui/phone-number-input';
 import {
   Select,
   SelectContent,
@@ -33,7 +33,7 @@ import {
 const quoteFormSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Please enter a valid email address'),
-  phone: z.string().min(10, 'Please enter a valid phone number'),
+  phone: z.string().min(1, 'Please enter a valid phone number'),
   companyName: z.string().min(2, 'Company name must be at least 2 characters'),
   useCase: z.string().min(1, 'Please select a project type'),
   specialRequirements: z
@@ -721,13 +721,12 @@ function QuoteFormSection({ id = 'quote-form' }: QuoteFormSectionProps) {
                     Phone number *
                   </Label>
                   <div className="relative group">
-                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-blue-500 transition-colors z-10" />
-                    <Input
-                      type="tel"
+                    <PhoneInput
                       className="pl-10"
-                      placeholder="+61 XXX XXX XXX"
+                      placeholder="Phone number"
                       value={data.phone}
-                      onChange={e => setData('phone', e.target.value)}
+                      onChange={value => setData('phone', value || '')}
+                      defaultCountry="US"
                     />
                   </div>
                   {errors.phone && (
