@@ -116,8 +116,8 @@ USER 1000:1000
 COPY --from=build --chown=rails:rails "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build --chown=rails:rails /rails /rails
 
-# Entrypoint prepares the database.
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+# Ensure docker-entrypoint is executable
+RUN chmod +x /rails/bin/docker-entrypoint
 
 # Start server via Thruster by default, this can be overwritten at runtime
 EXPOSE 80
