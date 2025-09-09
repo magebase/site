@@ -1,3 +1,14 @@
+## [1.2.2](https://github.com/magebase/site/compare/v1.2.1...v1.2.2) (2025-09-09)
+
+
+### Bug Fixes
+
+* convert Knative Service to standard Kubernetes Deployment ([0a396ac](https://github.com/magebase/site/commit/0a396acb884a41d0668bc0438c1501c1c3249cbb))
+* ensure docker-entrypoint is executable in container ([e3503e4](https://github.com/magebase/site/commit/e3503e4f31ad9dbfaae96487201b62be0fa726a6))
+* resolve simple-swizzle version conflict ([ff43796](https://github.com/magebase/site/commit/ff437969d3bb6f0f639ec164df976089ebcf0300))
+* restore ENTRYPOINT and fix docker-entrypoint permissions ([d1b02ff](https://github.com/magebase/site/commit/d1b02ffe732021e49b548120a08dac27cd023969))
+* revert Dockerfile to use npm ci for production builds ([2feda24](https://github.com/magebase/site/commit/2feda243ebd7db68dd5d14a46cdb75b870262201))
+
 ## [1.2.1](https://github.com/magebase/site/compare/v1.2.0...v1.2.1) (2025-09-08)
 
 
