@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/magebase/site/compare/v1.2.2...v1.3.0) (2025-09-09)
+
+
+### Bug Fixes
+
+* change release trigger from 'released' to 'published' ([a160762](https://github.com/magebase/site/commit/a160762e017d6931def9391896f2aaa5bd542641))
+
+
+### Features
+
+* add manual trigger support to release manifest update workflow ([091b605](https://github.com/magebase/site/commit/091b60575052c3931d8c9e9fe9c8183949192986))
+
 ## [1.2.2](https://github.com/magebase/site/compare/v1.2.1...v1.2.2) (2025-09-09)
 
 
