@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: magebase
-          image: ghcr.io/magebase/site:v1.2.1
+          image: ghcr.io/magebase/site:v1.2.2
           ports:
             - containerPort: 3000
               name: http
