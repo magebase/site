@@ -1,7 +1,7 @@
 name: Trigger Release Manifest Update
 on:
   release:
-    types: [published]
+    types: [published, created, released]
 jobs:
   trigger:
     runs-on: ubicloud-standard-2-arm
