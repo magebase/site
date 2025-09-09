@@ -5,14 +5,18 @@ metadata:
   labels:
     name: magebase
 ---
-apiVersion: serving.knative.dev/v1
-kind: Service
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: magebase-app
   namespace: magebase
   labels:
     app: magebase-app
 spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: magebase-app
   template:
     metadata:
       labels:
