@@ -75,9 +75,9 @@ RUN npm ci --production && \
 COPY . .
 
 # Ensure bin files are executable and clean up
-RUN chmod +x bin/* && \
-    bundle install && \
-    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
+RUN bundle install && \
+    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
+    chmod +x bin/*
 
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
@@ -116,8 +116,8 @@ USER 1000:1000
 COPY --from=build --chown=rails:rails "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build --chown=rails:rails /rails /rails
 
-# Ensure docker-entrypoint is executable
-RUN chmod +x /rails/bin/docker-entrypoint
+# Entrypoint prepares the database.
+ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start server via Thruster by default, this can be overwritten at runtime
 EXPOSE 80
