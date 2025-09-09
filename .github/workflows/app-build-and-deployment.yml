@@ -669,6 +669,66 @@ jobs:
           echo "- \`${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.semantic.outputs.new_release_version }}\`" >> $GITHUB_STEP_SUMMARY
           echo "- \`${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest\`" >> $GITHUB_STEP_SUMMARY
 
+      - name: Trigger Release Manifest Update
+        if: steps.semantic.outputs.new_release_published == 'true'
+        run: |
+          echo "🔄 Triggering release manifest update workflow..."
+
+          # Check if the secret exists
+          if [ -z "$TRIGGER_WORKFLOW_TOKEN" ]; then
+            echo "❌ ERROR: TRIGGER_WORKFLOW_TOKEN secret is not configured"
+            echo "Please set up the TRIGGER_WORKFLOW_TOKEN secret in repository settings"
+            exit 1
+          fi
+
+          # Prepare the JSON payload
+          PAYLOAD=$(cat <<EOF
+          {
+            "event_type": "trigger-workflow",
+            "client_payload": {
+              "repository": "${{ github.repository }}",
+              "tag_name": "v${{ steps.semantic.outputs.new_release_version }}",
+              "to_environment": "dev",
+              "regions": ["fsn1"]
+            }
+          }
+          EOF
+          )
+
+          echo "📤 Sending repository dispatch to magebase/base-infra..."
+          echo "Payload: $PAYLOAD"
+
+          # Send the repository dispatch
+          RESPONSE=$(curl -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $TRIGGER_WORKFLOW_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            -H "Content-Type: application/json" \
+            https://api.github.com/repos/magebase/base-infra/dispatches \
+            -d "$PAYLOAD" \
+            --write-out "HTTPSTATUS:%{http_code}" \
+            --silent)
+
+          # Extract the response body and status
+          HTTP_STATUS=$(echo $RESPONSE | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
+          RESPONSE_BODY=$(echo $RESPONSE | sed -e 's/HTTPSTATUS:.*//g')
+
+          echo "📊 HTTP Status: $HTTP_STATUS"
+          echo "📄 Response: $RESPONSE_BODY"
+
+          # Check if the request was successful
+          if [ "$HTTP_STATUS" -eq 204 ]; then
+            echo "✅ Release manifest update workflow triggered successfully!"
+          else
+            echo "❌ Failed to trigger release manifest update workflow"
+            echo "HTTP Status: $HTTP_STATUS"
+            echo "Response: $RESPONSE_BODY"
+            exit 1
+          fi
+        env:
+          TRIGGER_WORKFLOW_TOKEN: ${{ secrets.TRIGGER_WORKFLOW_TOKEN }}
+
   notify:
     name: Deployment Notification
     runs-on: ubicloud-standard-2-arm
