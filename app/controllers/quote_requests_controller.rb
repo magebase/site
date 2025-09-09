@@ -29,10 +29,20 @@ class QuoteRequestsController < ApplicationController
 
   def create
     puts "DEBUG: QuoteRequestsController#create - START"
-    puts "Raw params: #{params[:quote_request].inspect}"
+    puts "All params: #{params.inspect}"
+    puts "Quote request params: #{params[:quote_request].inspect}"
+
+    # Handle both nested and flat parameter structures
+    raw_params = if params[:quote_request].present?
+      params[:quote_request]
+    else
+      params.except(:controller, :action, :format)
+    end
+
+    puts "Using raw params: #{raw_params.inspect}"
 
     # Clean up the parameters mapping
-    cleaned_params = clean_quote_request_params(params[:quote_request])
+    cleaned_params = clean_quote_request_params(raw_params)
     puts "Cleaned params: #{cleaned_params.inspect}"
 
     @quote_request = QuoteRequest.new(cleaned_params)
@@ -47,7 +57,7 @@ class QuoteRequestsController < ApplicationController
       # Create or find client
       client = Client.find_or_create_by!(email: @quote_request.email) do |c|
         c.contact_name = @quote_request.name
-        c.company_name = params[:quote_request][:companyName]
+        c.company_name = raw_params[:companyName]
         c.phone = @quote_request.phone
       end
       @quote_request.update!(client: client)
@@ -153,6 +163,7 @@ class QuoteRequestsController < ApplicationController
     cleaned[:phone] = raw_params[:phone] if raw_params[:phone]
     cleaned[:use_case] = raw_params[:useCase] if raw_params[:useCase]
     cleaned[:project_name] = raw_params[:projectName] if raw_params[:projectName]
+    cleaned[:company_location] = raw_params[:companyLocation] if raw_params[:companyLocation]
     cleaned[:estimated_cost] = raw_params[:estimatedCost] if raw_params[:estimatedCost]
     cleaned[:inspiration] = raw_params[:inspiration] if raw_params[:inspiration]
 
@@ -181,7 +192,6 @@ class QuoteRequestsController < ApplicationController
     metadata = {}
     metadata[:company_name] = raw_params[:companyName] if raw_params[:companyName]
     metadata[:velocity] = raw_params[:velocity] if raw_params[:velocity]
-    metadata[:delivery_address] = raw_params[:deliveryAddress] if raw_params[:deliveryAddress]
     metadata[:redesign_count] = raw_params[:redesignCount] if raw_params[:redesignCount]
     metadata[:customization_level] = raw_params[:customizationLevel] if raw_params[:customizationLevel]
     metadata[:integration_complexity] = raw_params[:integrationComplexity] if raw_params[:integrationComplexity]

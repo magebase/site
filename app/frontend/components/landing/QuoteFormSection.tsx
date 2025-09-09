@@ -55,7 +55,7 @@ const quoteFormSchema = z.object({
   selectedLanguages: z.array(z.string()).optional(),
   selectedSocialProviders: z.array(z.string()).optional(),
   inspiration: z.string().optional(),
-  deliveryAddress: z.string().optional(),
+  companyLocation: z.string().optional(),
 });
 
 type QuoteFormData = z.infer<typeof quoteFormSchema>;
@@ -95,7 +95,7 @@ function QuoteFormSection({ id = 'quote-form' }: QuoteFormSectionProps) {
         'redesignCount',
         'specialRequirements',
         'inspiration',
-        'deliveryAddress',
+        'companyLocation',
       ],
     },
     { id: 5, name: 'Review', fields: [] },
@@ -117,7 +117,7 @@ function QuoteFormSection({ id = 'quote-form' }: QuoteFormSectionProps) {
           typeof data.redesignCount === 'number' && !isNaN(data.redesignCount)
         );
       }
-      if (field === 'inspiration' || field === 'deliveryAddress') {
+      if (field === 'inspiration' || field === 'companyLocation') {
         // These are optional fields
         return true;
       }
@@ -204,7 +204,7 @@ function QuoteFormSection({ id = 'quote-form' }: QuoteFormSectionProps) {
     selectedLanguages: [],
     selectedSocialProviders: [],
     inspiration: '',
-    deliveryAddress: '',
+    companyLocation: '',
     projectName: '',
   });
 
@@ -1200,24 +1200,24 @@ function QuoteFormSection({ id = 'quote-form' }: QuoteFormSectionProps) {
                 )}
               </div>
 
-              {/* Delivery Address */}
+              {/* Company Location */}
               <div>
                 <Label className="block text-sm font-medium text-gray-700">
-                  Delivery Address (Optional)
+                  Company Location (Optional)
                 </Label>
                 <Textarea
                   rows={2}
-                  placeholder="Where should we deliver the project? (Physical address for any deliverables)"
-                  value={data.deliveryAddress || ''}
-                  onChange={e => setData('deliveryAddress', e.target.value)}
+                  placeholder="Where is your company located? (City, State/Country)"
+                  value={data.companyLocation || ''}
+                  onChange={e => setData('companyLocation', e.target.value)}
                 />
                 <p className="text-xs text-gray-500 mt-1">
-                  If you need physical deliverables or have a preferred delivery
-                  location
+                  This helps us understand your timezone and regional
+                  requirements
                 </p>
-                {errors.deliveryAddress && (
+                {errors.companyLocation && (
                   <span className="text-red-600 text-sm">
-                    {errors.deliveryAddress}
+                    {errors.companyLocation}
                   </span>
                 )}
               </div>
