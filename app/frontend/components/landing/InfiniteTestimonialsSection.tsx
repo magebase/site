@@ -159,7 +159,7 @@ export function InfiniteTestimonialsSection() {
               <div className="flex justify-center mt-1">
                 {[...Array(5)].map((_, i) => (
                   <Star
-                    key={i}
+                    key={`rating-star-${i}`}
                     className="w-3 h-3 text-yellow-400 fill-yellow-400"
                   />
                 ))}

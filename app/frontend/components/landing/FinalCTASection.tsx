@@ -192,7 +192,7 @@ export function FinalCTASection({ onQuoteFormClick }: FinalCTASectionProps) {
             >
               {[...Array(5)].map((_, i) => (
                 <div
-                  key={i}
+                  key={`avatar-${i}`}
                   className="w-10 h-10 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full border-2 border-white flex items-center justify-center text-sm font-bold shadow-lg"
                   data-aos="fade-in"
                   data-aos-duration="400"
@@ -220,7 +220,7 @@ export function FinalCTASection({ onQuoteFormClick }: FinalCTASectionProps) {
           >
             {[...Array(5)].map((_, i) => (
               <Star
-                key={i}
+                key={`cta-star-${i}`}
                 className="w-5 h-5 text-yellow-400 fill-yellow-400"
                 data-aos="fade-in"
                 data-aos-duration="400"

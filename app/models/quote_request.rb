@@ -45,7 +45,7 @@
 class QuoteRequest < ApplicationRecord
   include AASM
   extend FriendlyId
-  multi_tenant :tenant
+  # multi_tenant :tenant  # Commented out to remove tenant requirement
 
   # Friendly ID configuration for expiring permalinks
   friendly_id :generate_permalink_slug, use: :slugged
@@ -64,8 +64,15 @@ class QuoteRequest < ApplicationRecord
   validates :project_name, presence: true
   validates :project_description, presence: true, length: { minimum: 10 }
   validates :use_case, presence: true
-  validates :selected_features, presence: true
+  validate :selected_features_present
   validates :proposal_token, uniqueness: true, allow_nil: true
+
+  # Custom validation for selected features
+  def selected_features_present
+    if selected_features_json.blank? || selected_features_data.empty?
+      errors.add(:selected_features, "can't be blank")
+    end
+  end
 
   # Status tracking with AASM
   aasm do
@@ -124,7 +131,12 @@ class QuoteRequest < ApplicationRecord
 
   def selected_features_data
     return [] unless selected_features_json.present?
-    JSON.parse(selected_features_json) rescue []
+
+    if selected_features_json.is_a?(Hash)
+      selected_features_json["features"] || []
+    else
+      JSON.parse(selected_features_json) rescue []
+    end
   end
 
   def ai_pricing_data
@@ -169,8 +181,12 @@ class QuoteRequest < ApplicationRecord
 
   # Generate permalink slug for FriendlyId
   def generate_permalink_slug
-    base_name = project_name.presence || "project"
-    "#{base_name.parameterize}-#{SecureRandom.hex(4)}"
+    company_name = client&.company_name.presence || ai_pricing_data["company_name"].presence || "company"
+    project_name = project_name.presence || "project"
+
+    # Create slug from company name + project name combination
+    base_slug = "#{company_name}-#{project_name}".parameterize
+    "#{base_slug}-#{SecureRandom.hex(4)}"
   end
 
   # Get public proposal URL with FriendlyId slug

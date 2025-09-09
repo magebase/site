@@ -13,4 +13,5 @@
 #  stripe_customer_id :string
 #
 class Client < ApplicationRecord
+  has_many :quote_requests, dependent: :nullify
 end

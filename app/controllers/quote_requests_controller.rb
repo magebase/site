@@ -1,4 +1,7 @@
 class QuoteRequestsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [ :create, :new ]
+  skip_before_action :verify_inertia_csrf_token, only: [ :create, :new ]
+  skip_before_action :verify_authenticity_token, only: [ :create, :new ]
   def index
     @quote_requests = QuoteRequest.includes(:client).order(created_at: :desc)
     render inertia: "QuoteRequests/Index", props: {
@@ -25,85 +28,45 @@ class QuoteRequestsController < ApplicationController
   end
 
   def create
-    # Ensure tenant context is set
-    if MultiTenant.current_tenant.nil? && params[:quote_request][:tenant_id].present?
-      tenant = Tenant.find(params[:quote_request][:tenant_id])
-      MultiTenant.current_tenant = tenant
-    end
+    puts "DEBUG: QuoteRequestsController#create - START"
+    puts "Raw params: #{params[:quote_request].inspect}"
 
-    # Handle client creation/finding with correct parameter names
-    client_params = {
-      client_name: params[:quote_request][:name] || params[:quote_request][:companyName],
-      client_email: params[:quote_request][:email],
-      client_phone: params[:quote_request][:phone]
-    }
+    # Clean up the parameters mapping
+    cleaned_params = clean_quote_request_params(params[:quote_request])
+    puts "Cleaned params: #{cleaned_params.inspect}"
 
-    if client_params[:client_email].present?
-      client = Client.find_or_create_by!(email: client_params[:client_email]) do |c|
-        c.company_name = client_params[:client_name]
-        c.contact_name = client_params[:client_name]
-        c.phone = client_params[:client_phone]
-      end
-    end
-
-    # Create quote request with client association and correct parameter mapping
-    quote_request_data = {
-      project_name: params[:quote_request][:companyName] || params[:quote_request][:name],
-      project_description: params[:quote_request][:specialRequirements],
-      use_case: params[:quote_request][:useCase],
-      estimated_cost: params[:quote_request][:estimatedCost],
-      inspiration: params[:quote_request][:inspiration],
-      selected_languages: params[:quote_request][:selectedLanguages] || [],
-      selected_social_providers: params[:quote_request][:selectedSocialProviders] || [],
-      tenant_id: MultiTenant.current_tenant&.id
-    }
-    quote_request_data[:client_id] = client&.id
-
-    @quote_request = QuoteRequest.new(quote_request_data)
-
-    # Associate selected features BEFORE validation
-    if params[:quote_request][:selectedFeatures].present?
-      feature_names = params[:quote_request][:selectedFeatures]
-      features = Feature.where(name: feature_names)
-      @quote_request.selected_features = features
-    end
+    @quote_request = QuoteRequest.new(cleaned_params)
+    puts "Quote request object created: #{@quote_request.inspect}"
+    puts "Quote request valid? #{@quote_request.valid?}"
+    puts "Quote request errors: #{@quote_request.errors.full_messages}" unless @quote_request.valid?
 
     if @quote_request.save
-      # Generate slug for FriendlyId permalink
-      @quote_request.save! # This will generate the slug
+      puts "Quote request saved successfully!"
+      puts "Quote request ID: #{@quote_request.id}"
 
-      # Trigger AI pricing and project planning
-      PricingService.new(@quote_request).calculate_price
-      ProjectPlanningService.new(@quote_request).generate_plan
-
-      # Create tenant for client if they don't have one
-      create_or_find_client_tenant(client)
-
-      # Send Discord notification for new quote
-      DiscordNotificationJob.perform_later("new_quote", @quote_request.id)
-
-      # Send proposal ready email with public link
-      send_proposal_ready_email(@quote_request)
-
-      # Check if this is an Inertia request (AJAX from React component)
-      if request.headers["X-Inertia"].present?
-        # For Inertia requests, return success response
-        render json: {
-          success: true,
-          message: "Quote request submitted successfully! Check your email for your proposal link.",
-          quote_request: @quote_request.as_json(include: :selected_features)
-        }, status: :created
-      else
-        # For regular form submissions, redirect to show page
-        redirect_to @quote_request, notice: "Quote request submitted successfully! Check your email for your proposal link."
+      # Create or find client
+      client = Client.find_or_create_by!(email: @quote_request.email) do |c|
+        c.contact_name = @quote_request.name
+        c.company_name = params[:quote_request][:companyName]
+        c.phone = @quote_request.phone
       end
+      @quote_request.update!(client: client)
+
+      render inertia: "QuoteRequests/Show", props: {
+        quote_request: @quote_request.as_json(include: :client),
+        success: true,
+        message: "Quote request submitted successfully!"
+      }
     else
+      puts "Quote request save failed!"
+      puts "Errors: #{@quote_request.errors.full_messages}"
+
+      # Return a structured Inertia-style JSON payload so the client (Inertia
+      # useForm) can read the errors and props without rendering a full page.
       @features = Feature.all.order(:category, :name)
-      render inertia: "QuoteRequests/New", props: {
-        quote_request: @quote_request.as_json,
-        features: @features.as_json,
-        errors: @quote_request.errors.full_messages,
-        error_message: @quote_request.errors.full_messages.join(", ")
+
+      redirect_to "/", inertia: {
+            errors: @quote_request.errors
       }
     end
   end
@@ -179,6 +142,57 @@ class QuoteRequestsController < ApplicationController
   end
 
   private
+
+  def clean_quote_request_params(raw_params)
+    # Map frontend parameter names to model attributes
+    cleaned = {}
+
+    # Basic mappings
+    cleaned[:name] = raw_params[:name] if raw_params[:name]
+    cleaned[:email] = raw_params[:email] if raw_params[:email]
+    cleaned[:phone] = raw_params[:phone] if raw_params[:phone]
+    cleaned[:use_case] = raw_params[:useCase] if raw_params[:useCase]
+    cleaned[:project_name] = raw_params[:projectName] if raw_params[:projectName]
+    cleaned[:estimated_cost] = raw_params[:estimatedCost] if raw_params[:estimatedCost]
+    cleaned[:inspiration] = raw_params[:inspiration] if raw_params[:inspiration]
+
+    # Handle special requirements as project description if it's clean
+    if raw_params[:specialRequirements] &&
+       !raw_params[:specialRequirements].include?("Started POST")
+      cleaned[:project_description] = raw_params[:specialRequirements]
+    end
+
+    # Handle selected features
+    if raw_params[:selectedFeatures]
+      cleaned[:selected_features_json] = { features: raw_params[:selectedFeatures] }
+    end
+
+    # Handle languages
+    if raw_params[:selectedLanguages]
+      cleaned[:selected_languages] = raw_params[:selectedLanguages]
+    end
+
+    # Handle social providers
+    if raw_params[:selectedSocialProviders]
+      cleaned[:selected_social_providers] = raw_params[:selectedSocialProviders]
+    end
+
+    # Store additional metadata
+    metadata = {}
+    metadata[:company_name] = raw_params[:companyName] if raw_params[:companyName]
+    metadata[:velocity] = raw_params[:velocity] if raw_params[:velocity]
+    metadata[:delivery_address] = raw_params[:deliveryAddress] if raw_params[:deliveryAddress]
+    metadata[:redesign_count] = raw_params[:redesignCount] if raw_params[:redesignCount]
+    metadata[:customization_level] = raw_params[:customizationLevel] if raw_params[:customizationLevel]
+    metadata[:integration_complexity] = raw_params[:integrationComplexity] if raw_params[:integrationComplexity]
+    metadata[:pricing_model] = raw_params[:pricingModel] if raw_params[:pricingModel]
+
+    if metadata.any?
+      cleaned[:ai_pricing_json] = metadata
+    end
+
+    cleaned
+  end
 
   def create_or_find_client_tenant(client)
     return unless client&.email.present?
@@ -258,22 +272,33 @@ class QuoteRequestsController < ApplicationController
 
   def quote_request_params
     params.require(:quote_request).permit(
+      :name,                    # Client name
+      :email,                   # Client email
+      :phone,                   # Client phone
+      :companyName,             # This might need to be mapped differently
       :project_name,
       :project_description,
       :use_case,
       :estimated_cost,
       :monthly_retainer,
       :deposit_amount,
-      :feature_ids,
-      :client_name,
-      :client_email,
-      :client_phone,
       :inspiration,
+      :specialRequirements,     # This might be project_description
+      :velocity,                # Delivery velocity
+      :deliveryAddress,         # Delivery address
+      :redesignCount,           # Number of redesigns
+      :customizationLevel,      # Level of customization
+      :integrationComplexity,   # Integration complexity
+      :pricingModel,            # Pricing model preference
+      selected_features: [],    # Array of selected features
+      selectedFeatures: [],     # Alternative field name
       selected_features_json: {},
       ai_pricing_json: {},
       project_plan_json: {},
       selected_languages: [],
-      selected_social_providers: []
+      selectedLanguages: [],    # Alternative field name
+      selected_social_providers: [],
+      selectedSocialProviders: [] # Alternative field name
     )
   end
 end

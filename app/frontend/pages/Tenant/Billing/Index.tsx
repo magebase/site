@@ -308,7 +308,9 @@ export default function BillingIndex({
                               </h3>
                               <p className="text-sm text-gray-600 text-left">
                                 {productGroup.products.length} tier
-                                {productGroup.products.length > 1 ? 's' : ''}{' '}
+                                {productGroup.products.length > 1
+                                  ? 's'
+                                  : ''}{' '}
                                 available
                               </p>
                             </div>

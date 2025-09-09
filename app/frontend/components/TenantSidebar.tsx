@@ -84,7 +84,7 @@ export function TenantSidebar({ tenant }: TenantSidebarProps) {
 
       <SidebarFooter>
         <SidebarMenu>
-          <SidebarMenuItem>
+          <SidebarMenuItem key="profile">
             <SidebarMenuButton asChild>
               <Link href="/profile">
                 <User className="h-4 w-4" />
@@ -92,7 +92,7 @@ export function TenantSidebar({ tenant }: TenantSidebarProps) {
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
-          <SidebarMenuItem>
+          <SidebarMenuItem key="sign-out">
             <SidebarMenuButton asChild>
               <Link href="/users/sign_out" method="delete">
                 <LogOut className="h-4 w-4" />
