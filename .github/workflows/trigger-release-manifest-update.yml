@@ -2,6 +2,32 @@ name: Trigger Release Manifest Update
 on:
   release:
     types: [published, created, released]
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: 'Repository name (e.g., magebase/site)'
+        required: true
+        default: 'magebase/site'
+        type: string
+      tag_name:
+        description: 'Release tag name'
+        required: true
+        type: string
+      to_environment:
+        description: 'Target environment'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - qa
+          - uat
+          - prod
+      regions:
+        description: 'Target regions (comma-separated)'
+        required: true
+        default: 'fsn1'
+        type: string
 jobs:
   trigger:
     runs-on: ubicloud-standard-2-arm
@@ -9,9 +35,9 @@ jobs:
       - name: Debug Release Event
         run: |
           echo "Release published!"
-          echo "Repository: ${{ github.repository }}"
-          echo "Tag: ${{ github.event.release.tag_name }}"
-          echo "Release ID: ${{ github.event.release.id }}"
+          echo "Repository: ${{ github.event.inputs.repository || github.repository }}"
+          echo "Tag: ${{ github.event.inputs.tag_name || github.event.release.tag_name }}"
+          echo "Release ID: ${{ github.event.release.id || 'manual-trigger' }}"
 
       - name: Send Repository Dispatch
         run: |
@@ -27,14 +53,21 @@ jobs:
           fi
 
           # Prepare the JSON payload with proper escaping
+          if [ -n "${{ github.event.inputs.regions }}" ]; then
+            # Convert comma-separated string to JSON array
+            REGIONS_JSON=$(echo "${{ github.event.inputs.regions }}" | sed 's/,/","/g' | sed 's/^/["/' | sed 's/$/"]/')
+          else
+            REGIONS_JSON='["fsn1"]'
+          fi
+
           PAYLOAD=$(cat <<EOF
           {
             "event_type": "trigger-workflow",
             "client_payload": {
-              "repository": "${{ github.repository }}",
-              "tag_name": "${{ github.event.release.tag_name }}",
-              "to_environment": "dev",
-              "regions": ["fsn1"]
+              "repository": "${{ github.event.inputs.repository || github.repository }}",
+              "tag_name": "${{ github.event.inputs.tag_name || github.event.release.tag_name }}",
+              "to_environment": "${{ github.event.inputs.to_environment || 'dev' }}",
+              "regions": $REGIONS_JSON
             }
           }
           EOF
