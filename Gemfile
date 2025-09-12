@@ -49,7 +49,7 @@ gem "omniauth", "~> 2.1"
 gem "omniauth-google-oauth2", "~> 1.1"
 
 # AI Integration
-gem "ruby_llm", "~> 1.6"
+gem "ruby_llm", "~> 1.7"
 
 # Multi-tenancy
 gem "activerecord-multi-tenant", github: "citusdata/activerecord-multi-tenant", branch: "master"
