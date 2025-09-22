@@ -235,7 +235,7 @@ GEM
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
     jmespath (1.6.2)
-    json (2.13.2)
+    json (2.14.1)
     jwt (3.1.2)
       base64
     kaminari (1.2.2)
@@ -267,7 +267,7 @@ GEM
       net-imap
       net-pop
       net-smtp
-    marcel (1.0.4)
+    marcel (1.1.0)
     matrix (0.4.3)
     mime-types (3.7.0)
       logger
@@ -458,7 +458,7 @@ GEM
       rubocop-performance (>= 1.24)
       rubocop-rails (>= 2.30)
     ruby-progressbar (1.13.0)
-    ruby_llm (1.6.4)
+    ruby_llm (1.8.1)
       base64
       event_stream_parser (~> 1)
       faraday (>= 1.10.0)
@@ -591,7 +591,7 @@ DEPENDENCIES
   rails (~> 8.0.2, >= 8.0.2.1)
   rails_admin (~> 3.1)
   rubocop-rails-omakase
-  ruby_llm (~> 1.6)
+  ruby_llm (~> 1.8)
   secure_headers (~> 7.1)
   selenium-webdriver
   solid_cable
