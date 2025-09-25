@@ -35,7 +35,7 @@ gem "thruster", require: false
 gem "ahoy_matey", "~> 5.0"
 
 # Authorization
-gem "pundit", "~> 2.3"
+gem "pundit", "~> 2.5"
 
 # Security headers
 gem "secure_headers", "~> 7.1"
