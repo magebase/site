@@ -32,7 +32,7 @@ gem "thruster", require: false
 # gem "image_processing", "~> 1.2"
 
 # Analytics
-gem "ahoy_matey", "~> 5.0"
+gem "ahoy_matey", "~> 5.4"
 
 # Authorization
 gem "pundit", "~> 2.3"
