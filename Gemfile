@@ -114,7 +114,7 @@ gem "friendly_id", "~> 5.5"
 
 
 # Stripe for payment processing
-gem "stripe", "~> 15.5"
+gem "stripe", "~> 17.0"
 
 # Discord notifications
 gem "discordrb", "~> 3.5"
